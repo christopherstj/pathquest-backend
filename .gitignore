@@ -128,3 +128,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# ignoring local files
+coords.json
+peaks.json
+cloud-sql-proxy.x64.exe
+env.txt
+stateData
