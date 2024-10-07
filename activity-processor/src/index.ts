@@ -4,6 +4,9 @@ import mysql from "mysql2/promise";
 import fs from "fs";
 import distanceMetersToDegrees from "./helpers/distanceMetersToDegrees";
 import Peak from "./typeDefs/Peak";
+import compareCoords from "./helpers/compareCoords";
+import getBoundingBox from "./helpers/getBoundingBox";
+import getSummits from "./helpers/getSummits";
 
 const main = async () => {
     const coords: [number, number][] = JSON.parse(
@@ -35,14 +38,7 @@ const main = async () => {
                 maxLong: number;
             },
             [lat, long]
-        ) => {
-            return {
-                minLat: Math.min(acc.minLat, lat - delta.lat),
-                maxLat: Math.max(acc.maxLat, lat + delta.lat),
-                minLong: Math.min(acc.minLong, long - delta.long),
-                maxLong: Math.max(acc.maxLong, long + delta.long),
-            };
-        },
+        ) => getBoundingBox(acc, [lat, long], delta),
         {
             minLat: initialCoords[0] - delta.lat,
             maxLat: initialCoords[0] + delta.lat,
@@ -57,50 +53,12 @@ const main = async () => {
 
     const coordResults = coords.map(([lat, long]) => {
         return (rows as Peak[])
-            .filter((x) => {
-                if (
-                    x.Lat >= lat - delta.lat &&
-                    x.Lat <= lat + delta.lat &&
-                    x.Long >= long - delta.long &&
-                    x.Long <= long + delta.long
-                ) {
-                    return true;
-                }
-            })
+            .filter((x) => compareCoords(x, lat, long, delta))
             .map((x) => x.Id);
     });
 
     const taggedSummits = coordResults.reduce(
-        (prev, curr, currIndex) => {
-            curr.forEach((peakId) => {
-                if (prev[peakId]) {
-                    if (
-                        prev[peakId].reset &&
-                        currIndex > prev[peakId].lastIndex + 300
-                    ) {
-                        prev[peakId] = {
-                            count: prev[peakId].count + 1,
-                            reset: false,
-                            lastIndex: currIndex,
-                        };
-                    } else {
-                        prev[peakId].lastIndex = currIndex;
-                    }
-                } else if (!prev[peakId]) {
-                    prev[peakId] = {
-                        count: 1,
-                        reset: false,
-                        lastIndex: currIndex,
-                    };
-                }
-            });
-            Object.keys(prev).forEach((key) => {
-                if (!curr.find((x) => x === key)) {
-                    prev[key].reset = true;
-                }
-            });
-            return prev;
-        },
+        getSummits,
         {} as {
             [key: string]: {
                 count: number;
