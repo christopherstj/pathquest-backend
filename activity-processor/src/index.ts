@@ -11,7 +11,7 @@ fastify.post<{
     fastify.log.info("Received webhook request");
     fastify.log.info(request.body);
     fastify.log.info(request.query);
-    reply.send({ received: true });
+    reply.code(200).send("EVENT_RECEIVED");
 });
 
 fastify.get<{
