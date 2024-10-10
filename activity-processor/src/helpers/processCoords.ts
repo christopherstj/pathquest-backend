@@ -44,33 +44,36 @@ const processCoords = async (coords: [number, number][]) => {
         `SELECT * FROM Peak WHERE Lat BETWEEN ${boundingBox.minLat} AND ${boundingBox.maxLat} AND \`Long\` BETWEEN ${boundingBox.minLong} AND ${boundingBox.maxLong}`
     );
 
-    const coordResults = coords.map(([lat, long]) => {
+    const coordResults = coords.map(([lat, long], index) => {
         return (rows as Peak[])
             .filter((x) => compareCoords(x, lat, long, delta))
-            .map((x) => x.Id);
+            .map((x) => ({
+                id: x.Id,
+                index,
+            }));
     });
 
     const taggedSummits = coordResults.reduce(
         getSummits,
         {} as {
             [key: string]: {
-                count: number;
                 reset: boolean;
                 lastIndex: number;
+                summits: {
+                    index: number;
+                }[];
             };
         }
     );
 
-    Object.keys(taggedSummits).forEach((key) => {
-        const peak = (rows as Peak[]).find((x) => x.Id === key);
-        if (peak) {
-            console.log(
-                `${peak.Name} has been tagged ${taggedSummits[key].count} time${
-                    taggedSummits[key].count === 1 ? "" : "s"
-                }`
-            );
-        }
-    });
+    return Object.keys(taggedSummits)
+        .map((x) => {
+            return taggedSummits[x].summits.map((y) => ({
+                id: x,
+                index: y.index,
+            }));
+        })
+        .flatMap((x) => x);
 };
 
 export default processCoords;

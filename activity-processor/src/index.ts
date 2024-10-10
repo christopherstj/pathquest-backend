@@ -2,14 +2,29 @@ import { config } from "dotenv";
 config();
 import Fastify from "fastify";
 import StravaEvent from "./typeDefs/StravaEvent";
+import getStravaActivity from "./helpers/getStravaActivity";
 
 const fastify = Fastify({ logger: true });
 
 fastify.post("/webhook", async (request, reply) => {
-    fastify.log.info("Received webhook request");
-    fastify.log.info(request.body);
-    fastify.log.info(request.query);
-    reply.code(200).send("EVENT_RECEIVED");
+    const data: StravaEvent =
+        typeof request.body === "string"
+            ? JSON.parse(request.body)
+            : request.body;
+
+    if (data.aspect_type !== "create") {
+        reply.code(200).send("Ignoring event");
+        return;
+    }
+
+    console.log("Processing activity", data.object_id);
+
+    const summittedPeaks = await getStravaActivity(
+        data.object_id,
+        data.owner_id.toString()
+    );
+
+    reply.code(200).send(summittedPeaks);
 });
 
 fastify.get<{
@@ -19,6 +34,7 @@ fastify.get<{
         "hub.challenge": string;
     };
 }>("/webhook", async (request, reply) => {
+    // One-time call to verify the webhook
     const VERIFY_TOKEN = process.env.STRAVA_VERIFY_TOKEN ?? "";
     // Parses the query params
     const mode = request.query["hub.mode"];

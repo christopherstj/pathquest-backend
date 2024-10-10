@@ -1,38 +1,54 @@
+import Peak from "../typeDefs/Peak";
+
 const getSummits = (
     prev: {
         [key: string]: {
-            count: number;
             reset: boolean;
             lastIndex: number;
+            summits: {
+                index: number;
+            }[];
         };
     },
-    curr: string[],
+    curr: {
+        id: string;
+        index: number;
+    }[],
     currIndex: number
 ) => {
-    curr.forEach((peakId) => {
-        if (prev[peakId]) {
+    curr.forEach((summit) => {
+        if (prev[summit.id]) {
             if (
-                prev[peakId].reset &&
-                currIndex > prev[peakId].lastIndex + 300
+                prev[summit.id].reset &&
+                currIndex > prev[summit.id].lastIndex + 300
             ) {
-                prev[peakId] = {
-                    count: prev[peakId].count + 1,
+                prev[summit.id] = {
+                    summits: [
+                        ...prev[summit.id].summits,
+                        {
+                            index: currIndex,
+                        },
+                    ],
                     reset: false,
                     lastIndex: currIndex,
                 };
             } else {
-                prev[peakId].lastIndex = currIndex;
+                prev[summit.id].lastIndex = currIndex;
             }
-        } else if (!prev[peakId]) {
-            prev[peakId] = {
-                count: 1,
+        } else if (!prev[summit.id]) {
+            prev[summit.id] = {
+                summits: [
+                    {
+                        index: currIndex,
+                    },
+                ],
                 reset: false,
                 lastIndex: currIndex,
             };
         }
     });
     Object.keys(prev).forEach((key) => {
-        if (!curr.find((x) => x === key)) {
+        if (!curr.find((x) => x.id === key)) {
             prev[key].reset = true;
         }
     });
