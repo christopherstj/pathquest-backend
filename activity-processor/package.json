@@ -19,13 +19,14 @@
     },
     "homepage": "https://github.com/christopherstj/pathquest-backend#readme",
     "devDependencies": {
-        "@types/node": "^22.7.4",
         "nodemon": "^3.1.7",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.6.2"
+        "ts-node": "^10.9.2"
     },
     "dependencies": {
+        "@types/node": "^22.7.5",
         "dotenv": "^16.4.5",
-        "mysql2": "^3.11.3"
+        "fastify": "^5.0.0",
+        "mysql2": "^3.11.3",
+        "typescript": "^5.6.3"
     }
 }

@@ -1,0 +1,32 @@
+{
+    "name": "data-backup",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "dev:once": "ts-node src/index.ts",
+        "dev": "nodemon --exec ts-node src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/christopherstj/pathquest-backend.git"
+    },
+    "author": "Christopher St Jean",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/christopherstj/pathquest-backend/issues"
+    },
+    "homepage": "https://github.com/christopherstj/pathquest-backend#readme",
+    "description": "",
+    "devDependencies": {
+        "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2"
+    },
+    "dependencies": {
+        "@types/node": "^22.7.5",
+        "dotenv": "^16.4.5",
+        "fastify": "^5.0.0",
+        "mysql2": "^3.11.3",
+        "typescript": "^5.6.3"
+    }
+}

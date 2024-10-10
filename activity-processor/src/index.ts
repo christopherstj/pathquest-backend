@@ -7,6 +7,17 @@ import Peak from "./typeDefs/Peak";
 import compareCoords from "./helpers/compareCoords";
 import getBoundingBox from "./helpers/getBoundingBox";
 import getSummits from "./helpers/getSummits";
+import Fastify from "fastify";
+
+const fastify = Fastify({ logger: true });
+
+fastify.post<{
+    Body: {
+        activityIds: string[];
+    };
+}>("/process", async (request, reply) => {
+    const activityIds = request.body.activityIds as string[];
+});
 
 const main = async () => {
     const coords: [number, number][] = JSON.parse(
@@ -79,5 +90,3 @@ const main = async () => {
         }
     });
 };
-
-main().catch(console.error);
