@@ -12,7 +12,7 @@ const saveActivitySummits = async (
     const connection = await getCloudSqlConnection();
 
     await connection.query(
-        `INSERT INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
+        `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
         [
             summits.map((x) => [
                 `${activityId}-${x.peakId}-${x.timestamp.toISOString()}`,

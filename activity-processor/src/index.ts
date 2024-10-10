@@ -3,6 +3,7 @@ config();
 import Fastify from "fastify";
 import StravaEvent from "./typeDefs/StravaEvent";
 import getStravaActivity from "./helpers/getStravaActivity";
+import updateStravaDescription from "./helpers/updateStravaDescription";
 
 const fastify = Fastify({ logger: true });
 
@@ -19,12 +20,19 @@ fastify.post("/webhook", async (request, reply) => {
 
     console.log("Processing activity", data.object_id);
 
-    const summittedPeaks = await getStravaActivity(
+    const description = await getStravaActivity(
         data.object_id,
         data.owner_id.toString()
     );
 
-    reply.code(200).send(summittedPeaks);
+    if (description && description.length > 0)
+        await updateStravaDescription(
+            data.owner_id.toString(),
+            data.object_id,
+            description
+        );
+
+    reply.code(200).send(description);
 });
 
 fastify.get<{

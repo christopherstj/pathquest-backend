@@ -5,6 +5,7 @@ import processCoords from "./processCoords";
 import saveActivitySummits from "./saveActivitySummits";
 import StravaActivity from "../typeDefs/StravaActivity";
 import saveActivity from "./saveActivity";
+import getStravaDescription from "./getStravaDescription";
 
 const getStravaActivity = async (id: number, userId: string) => {
     const accessToken = await getStravaAccessToken(userId);
@@ -54,6 +55,10 @@ const getStravaActivity = async (id: number, userId: string) => {
     if (peakDetails.length > 0) {
         await saveActivitySummits(peakDetails, id.toString());
     }
+
+    const description = await getStravaDescription(userId, peakDetails);
+
+    return description;
 };
 
 export default getStravaActivity;

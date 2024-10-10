@@ -15,7 +15,7 @@ const saveActivity = async (
     const startTime = new Date(activity.start_date).toISOString();
 
     await connection.execute(
-        "INSERT INTO Activity (id, userId, startLat, startLong, distance, coords, startTime) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, startTime) VALUES (?, ?, ?, ?, ?, ?, ?)",
         [
             id,
             userId,
