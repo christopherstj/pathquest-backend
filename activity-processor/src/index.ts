@@ -8,9 +8,9 @@ const fastify = Fastify({ logger: true });
 fastify.post<{
     Body: StravaEvent;
 }>("/webhook", async (request, reply) => {
-    request.log.info("Received webhook request");
-    request.log.info(request.body);
-    request.log.info(request.query);
+    fastify.log.info("Received webhook request");
+    fastify.log.info(request.body);
+    fastify.log.info(request.query);
     reply.send({ received: true });
 });
 
