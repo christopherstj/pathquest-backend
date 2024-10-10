@@ -5,9 +5,7 @@ import StravaEvent from "./typeDefs/StravaEvent";
 
 const fastify = Fastify({ logger: true });
 
-fastify.post<{
-    Body: StravaEvent;
-}>("/webhook", async (request, reply) => {
+fastify.post("/webhook", async (request, reply) => {
     fastify.log.info("Received webhook request");
     fastify.log.info(request.body);
     fastify.log.info(request.query);
