@@ -1,11 +1,8 @@
 import { StravaCreds } from "../typeDefs/StravaCreds";
 import StravaTokenResponse from "../typeDefs/StravaTokenResponse";
-import mysql, {
-    FieldPacket,
-    QueryResult,
-    ResultSetHeader,
-} from "mysql2/promise";
+import { ResultSetHeader } from "mysql2/promise";
 import saveStravaCreds from "./saveStravaCreds";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const clientId = process.env.STRAVA_CLIENT_ID ?? "";
 const clientSecret = process.env.STRAVA_CLIENT_SECRET ?? "";
@@ -31,12 +28,7 @@ const getNewToken = async (refreshToken: string, userId: string) => {
 };
 
 const getStravaAccessToken = async (userId: string) => {
-    const connection = await mysql.createConnection({
-        host: "127.0.0.1",
-        user: "local-user",
-        database: "dev-db",
-        password: process.env.MYSQL_PASSWORD ?? "",
-    });
+    const connection = await getCloudSqlConnection();
 
     const [rows] = await connection.execute<(StravaCreds & ResultSetHeader)[]>(
         `SELECT * FROM StravaToken WHERE userId = ${userId} LIMIT 1`

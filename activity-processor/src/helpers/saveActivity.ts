@@ -1,16 +1,11 @@
 import StravaActivity from "../typeDefs/StravaActivity";
-import mysql from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivity = async (
     activity: StravaActivity,
     coordinates: [number, number][]
 ) => {
-    const connection = await mysql.createConnection({
-        host: "127.0.0.1",
-        user: "local-user",
-        database: "dev-db",
-        password: process.env.MYSQL_PASSWORD ?? "",
-    });
+    const connection = await getCloudSqlConnection();
 
     const id = activity.id;
     const userId = activity.athlete.id;

@@ -1,17 +1,12 @@
-import mysql from "mysql2/promise";
 import distanceMetersToDegrees from "./distanceMetersToDegrees";
 import getBoundingBox from "./getBoundingBox";
 import Peak from "../typeDefs/Peak";
 import compareCoords from "./compareCoords";
 import getSummits from "./getSummits";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const processCoords = async (coords: [number, number][]) => {
-    const connection = await mysql.createConnection({
-        host: "127.0.0.1",
-        user: "local-user",
-        database: "dev-db",
-        password: process.env.MYSQL_PASSWORD ?? "",
-    });
+    const connection = await getCloudSqlConnection();
 
     const initialCoords = coords[0];
 
