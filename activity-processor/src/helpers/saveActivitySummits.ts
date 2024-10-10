@@ -1,4 +1,5 @@
 import mysql from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivitySummits = async (
     summits: {
@@ -8,12 +9,7 @@ const saveActivitySummits = async (
     }[],
     activityId: string
 ) => {
-    const connection = await mysql.createConnection({
-        host: "127.0.0.1",
-        user: "local-user",
-        database: "dev-db",
-        password: process.env.MYSQL_PASSWORD ?? "",
-    });
+    const connection = await getCloudSqlConnection();
 
     await connection.query(
         `INSERT INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
