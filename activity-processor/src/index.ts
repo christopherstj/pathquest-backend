@@ -1,92 +1,49 @@
 import { config } from "dotenv";
 config();
-import mysql from "mysql2/promise";
-import fs from "fs";
-import distanceMetersToDegrees from "./helpers/distanceMetersToDegrees";
-import Peak from "./typeDefs/Peak";
-import compareCoords from "./helpers/compareCoords";
-import getBoundingBox from "./helpers/getBoundingBox";
-import getSummits from "./helpers/getSummits";
 import Fastify from "fastify";
+import StravaEvent from "./typeDefs/StravaEvent";
 
 const fastify = Fastify({ logger: true });
 
 fastify.post<{
-    Body: {
-        activityIds: string[];
-    };
-}>("/process", async (request, reply) => {
-    const activityIds = request.body.activityIds as string[];
+    Body: StravaEvent;
+}>("/webhook", async (request, reply) => {
+    request.log.info("Received webhook request");
+    request.log.info(request.body);
+    request.log.info(request.query);
+    reply.send({ received: true });
 });
 
-const main = async () => {
-    const coords: [number, number][] = JSON.parse(
-        fs.readFileSync("./src/coords.json", "utf8")
-    );
-
-    const connection = await mysql.createConnection({
-        host: "127.0.0.1",
-        user: "local-user",
-        database: "dev-db",
-        password: process.env.MYSQL_PASSWORD ?? "",
-    });
-
-    const initialCoords = coords[0];
-
-    const delta = distanceMetersToDegrees(30, initialCoords[0]);
-
-    const boundingBox: {
-        minLat: number;
-        maxLat: number;
-        minLong: number;
-        maxLong: number;
-    } = coords.reduce(
-        (
-            acc: {
-                minLat: number;
-                maxLat: number;
-                minLong: number;
-                maxLong: number;
-            },
-            [lat, long]
-        ) => getBoundingBox(acc, [lat, long], delta),
-        {
-            minLat: initialCoords[0] - delta.lat,
-            maxLat: initialCoords[0] + delta.lat,
-            minLong: initialCoords[1] - delta.long,
-            maxLong: initialCoords[1] + delta.long,
+fastify.get<{
+    Querystring: {
+        "hub.mode": string;
+        "hub.verify_token": string;
+        "hub.challenge": string;
+    };
+}>("/webhook", async (request, reply) => {
+    const VERIFY_TOKEN = process.env.STRAVA_VERIFY_TOKEN ?? "";
+    // Parses the query params
+    const mode = request.query["hub.mode"];
+    const token = request.query["hub.verify_token"];
+    const challenge = request.query["hub.challenge"];
+    // Checks if a token and mode is in the query string of the request
+    if (mode && token) {
+        // Verifies that the mode and token sent are valid
+        if (mode === "subscribe" && token === VERIFY_TOKEN) {
+            // Responds with the challenge token from the request
+            console.log("WEBHOOK_VERIFIED");
+            reply.send({ "hub.challenge": challenge });
+        } else {
+            // Responds with '403 Forbidden' if verify tokens do not match
+            reply.code(403).send();
         }
-    );
+    }
+});
 
-    const [rows] = await connection.execute(
-        `SELECT * FROM Peak WHERE Lat BETWEEN ${boundingBox.minLat} AND ${boundingBox.maxLat} AND \`Long\` BETWEEN ${boundingBox.minLong} AND ${boundingBox.maxLong}`
-    );
-
-    const coordResults = coords.map(([lat, long]) => {
-        return (rows as Peak[])
-            .filter((x) => compareCoords(x, lat, long, delta))
-            .map((x) => x.Id);
-    });
-
-    const taggedSummits = coordResults.reduce(
-        getSummits,
-        {} as {
-            [key: string]: {
-                count: number;
-                reset: boolean;
-                lastIndex: number;
-            };
-        }
-    );
-
-    Object.keys(taggedSummits).forEach((key) => {
-        const peak = (rows as Peak[]).find((x) => x.Id === key);
-        if (peak) {
-            console.log(
-                `${peak.Name} has been tagged ${taggedSummits[key].count} time${
-                    taggedSummits[key].count === 1 ? "" : "s"
-                }`
-            );
-        }
-    });
-};
+fastify.listen({ port: 8080, host: "0.0.0.0" }, function (err, address) {
+    if (err) {
+        fastify.log.error(err);
+        process.exit(1);
+    }
+    fastify.log.info(`server listening on ${address}`);
+});
