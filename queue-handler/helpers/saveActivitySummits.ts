@@ -1,7 +1,8 @@
-import mysql from "mysql2/promise";
+import mysql, { Connection } from "mysql2/promise";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivitySummits = async (
+    connection: Connection,
     summits: {
         peakId: string;
         timestamp: Date;
@@ -9,8 +10,6 @@ const saveActivitySummits = async (
     }[],
     activityId: string
 ) => {
-    const connection = await getCloudSqlConnection();
-
     await connection.query(
         `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
         [

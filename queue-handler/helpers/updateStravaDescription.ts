@@ -1,7 +1,9 @@
+import { Connection } from "mysql2/promise";
 import getStravaAccessToken from "./getStravaAccessToken";
 import setUsageData from "./setUsageData";
 
 const updateStravaDescription = async (
+    connection: Connection,
     userId: string,
     activityId: number,
     description: string
@@ -20,7 +22,7 @@ const updateStravaDescription = async (
         }
     );
 
-    await setUsageData(response.headers);
+    await setUsageData(connection, response.headers);
 
     return response.ok;
 };

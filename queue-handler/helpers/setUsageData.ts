@@ -1,7 +1,8 @@
+import { Connection } from "mysql2/promise";
 import StravaRateLimit from "../typeDefs/StravaRateLimit";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const setUsageData = async (headers: Headers) => {
+const setUsageData = async (connection: Connection, headers: Headers) => {
     const limitHeader = headers.get("X-ReadRateLimit-Limit");
     const usageHeader = headers.get("X-ReadRateLimit-Usage");
 
@@ -11,8 +12,6 @@ const setUsageData = async (headers: Headers) => {
 
     const [shortTermLimit, dailyLimit] = limitHeader.split(",");
     const [shortTermUsage, dailyUsage] = usageHeader.split(",");
-
-    const connection = await getCloudSqlConnection();
 
     await connection.execute(
         `UPDATE StravaRateLimit SET shortTermLimit = ?, dailyLimit = ?, shortTermUsage = ?, dailyUsage = ?`,

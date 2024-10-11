@@ -1,9 +1,10 @@
 import completeMessage from "./completeMessage";
 import getMostRecentMessage from "./getMostRecentMessage";
 import processMessage from "./processMessage";
+import { Connection } from "mysql2/promise";
 
-const retrieveMessage = async () => {
-    const message = await getMostRecentMessage();
+const retrieveMessage = async (connection: Connection) => {
+    const message = await getMostRecentMessage(connection);
 
     if (!message) {
         console.log("No messages to process");
@@ -12,7 +13,7 @@ const retrieveMessage = async () => {
 
     console.log("Processing message", message.id);
 
-    const result = await processMessage(message);
+    const result = await processMessage(connection, message);
 
     if (result.success) {
         console.log("Message processed successfully");

@@ -10,8 +10,13 @@ import StravaActivity from "../typeDefs/StravaActivity";
 import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
+import { Connection } from "mysql2/promise";
 
-const getStravaActivity = async (id: number, userId: string) => {
+const getStravaActivity = async (
+    connection: Connection,
+    id: number,
+    userId: string
+) => {
     const accessToken = await getStravaAccessToken(userId);
 
     if (accessToken === "") {
@@ -27,7 +32,7 @@ const getStravaActivity = async (id: number, userId: string) => {
         }
     );
 
-    await setUsageData(activityRes.headers);
+    await setUsageData(connection, activityRes.headers);
 
     const activity: StravaActivity = await activityRes.json();
 
@@ -40,7 +45,7 @@ const getStravaActivity = async (id: number, userId: string) => {
         }
     );
 
-    await setUsageData(streamResponse.headers);
+    await setUsageData(connection, streamResponse.headers);
 
     const streams: {
         latlng: StravaLatLngStream;
@@ -51,7 +56,7 @@ const getStravaActivity = async (id: number, userId: string) => {
     const coords = streams.latlng;
     const times = streams.time;
 
-    const summittedPeaks = await processCoords(coords.data);
+    const summittedPeaks = await processCoords(connection, coords.data);
 
     const peakDetails = summittedPeaks.map((peak) => {
         const peakId = peak.id;
@@ -62,10 +67,10 @@ const getStravaActivity = async (id: number, userId: string) => {
         return { peakId, timestamp, activityId: id };
     });
 
-    await saveActivity(activity, coords.data);
+    await saveActivity(connection, activity, coords.data);
 
     if (peakDetails.length > 0) {
-        await saveActivitySummits(peakDetails, id.toString());
+        await saveActivitySummits(connection, peakDetails, id.toString());
     }
 
     const description = await getStravaDescription(

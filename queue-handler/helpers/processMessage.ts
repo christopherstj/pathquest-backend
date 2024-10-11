@@ -4,13 +4,15 @@ import getCloudSqlConnection from "./getCloudSqlConnection";
 import StravaEvent from "../typeDefs/StravaEvent";
 import getStravaActivity from "./getStravaActivity";
 import updateStravaDescription from "./updateStravaDescription";
+import { Connection } from "mysql2/promise";
 
-const processMessage = async (message: QueueMessage) => {
+const processMessage = async (
+    connection: Connection,
+    message: QueueMessage
+) => {
     console.log(`Processing message ${message.id}`);
 
     try {
-        const connection = await getCloudSqlConnection();
-
         await connection.execute(
             `UPDATE EventQueue SET started = ? WHERE id = ?`,
             [dayjs().format("YYYY-MM-DD HH:mm:ss"), message.id]
@@ -24,6 +26,7 @@ const processMessage = async (message: QueueMessage) => {
                 : message.jsonData;
 
         const description = await getStravaActivity(
+            connection,
             messageData.object_id,
             messageData.owner_id.toString()
         );
@@ -32,6 +35,7 @@ const processMessage = async (message: QueueMessage) => {
 
         if (isWebhook && description && description.length > 0) {
             updateStravaDescription(
+                connection,
                 messageData.owner_id.toString(),
                 messageData.object_id,
                 description

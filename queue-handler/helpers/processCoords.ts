@@ -4,10 +4,12 @@ import Peak from "../typeDefs/Peak";
 import compareCoords from "./compareCoords";
 import getSummits from "./getSummits";
 import getCloudSqlConnection from "./getCloudSqlConnection";
+import { Connection } from "mysql2/promise";
 
-const processCoords = async (coords: [number, number][]) => {
-    const connection = await getCloudSqlConnection();
-
+const processCoords = async (
+    connection: Connection,
+    coords: [number, number][]
+) => {
     const initialCoords = coords[0];
 
     const delta = distanceMetersToDegrees(30, initialCoords[0]);

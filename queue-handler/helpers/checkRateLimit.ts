@@ -1,10 +1,9 @@
 import { RowDataPacket } from "mysql2";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 import StravaRateLimit from "../typeDefs/StravaRateLimit";
+import { Connection } from "mysql2/promise";
 
-const checkRateLimit = async () => {
-    const connection = await getCloudSqlConnection();
-
+const checkRateLimit = async (connection: Connection) => {
     const [rows] = await connection.query<(StravaRateLimit & RowDataPacket)[]>(`
         SELECT * FROM StravaRateLimit
     `);

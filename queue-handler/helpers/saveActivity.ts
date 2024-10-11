@@ -1,12 +1,12 @@
+import { Connection } from "mysql2/promise";
 import StravaActivity from "../typeDefs/StravaActivity";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivity = async (
+    connection: Connection,
     activity: StravaActivity,
     coordinates: [number, number][]
 ) => {
-    const connection = await getCloudSqlConnection();
-
     const id = activity.id;
     const userId = activity.athlete.id;
     const startLat = activity.start_latlng[0];
