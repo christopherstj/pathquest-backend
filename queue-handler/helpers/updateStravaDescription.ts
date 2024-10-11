@@ -24,6 +24,10 @@ const updateStravaDescription = async (
 
     await setUsageData(connection, response.headers);
 
+    if (!response.ok) {
+        console.error(await response.text());
+    }
+
     return response.ok;
 };
 
