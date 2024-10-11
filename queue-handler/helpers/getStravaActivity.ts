@@ -1,11 +1,15 @@
 import strava from "strava-v3";
 import getStravaAccessToken from "./getStravaAccessToken";
-import { StravaLatLngStream, StravaTimeStream } from "../typeDefs/StravaStream";
+import {
+    StravaLatLngStream,
+    StravaNumberStream,
+} from "../typeDefs/StravaStream";
 import processCoords from "./processCoords";
 import saveActivitySummits from "./saveActivitySummits";
 import StravaActivity from "../typeDefs/StravaActivity";
 import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
+import setUsageData from "./setUsageData";
 
 const getStravaActivity = async (id: number, userId: string) => {
     const accessToken = await getStravaAccessToken(userId);
@@ -23,21 +27,29 @@ const getStravaActivity = async (id: number, userId: string) => {
         }
     );
 
+    await setUsageData(activityRes.headers);
+
     const activity: StravaActivity = await activityRes.json();
 
-    const streams: (StravaLatLngStream | StravaTimeStream)[] =
-        await strava.streams.activity({
-            id,
-            types: "time,latlng",
-            access_token: accessToken,
-        });
+    const streamResponse = await fetch(
+        `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng&key_by_type=true`,
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
 
-    const coords = streams.find(
-        (stream) => stream.type === "latlng"
-    ) as StravaLatLngStream;
-    const times = streams.find(
-        (stream) => stream.type === "time"
-    ) as StravaTimeStream;
+    await setUsageData(streamResponse.headers);
+
+    const streams: {
+        latlng: StravaLatLngStream;
+        time: StravaNumberStream;
+        distance: StravaNumberStream;
+    } = await streamResponse.json();
+
+    const coords = streams.latlng;
+    const times = streams.time;
 
     const summittedPeaks = await processCoords(coords.data);
 
@@ -56,7 +68,11 @@ const getStravaActivity = async (id: number, userId: string) => {
         await saveActivitySummits(peakDetails, id.toString());
     }
 
-    const description = await getStravaDescription(userId, peakDetails);
+    const description = await getStravaDescription(
+        userId,
+        activity.description.split("⛰️ PathQuest")[0] ?? "",
+        peakDetails
+    );
 
     return description;
 };

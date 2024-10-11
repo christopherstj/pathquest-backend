@@ -1,7 +1,7 @@
 {
-    "name": "activity-processor",
+    "name": "queue-handler",
     "version": "1.0.0",
-    "description": "Activity processor for PathQuest",
+    "description": "PathQuest Queue Handler",
     "main": "index.js",
     "scripts": {
         "dev:once": "ts-node src/index.ts",

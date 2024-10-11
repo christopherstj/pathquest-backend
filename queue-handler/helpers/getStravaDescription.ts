@@ -3,6 +3,7 @@ import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const getStravaDescription = async (
     userId: string,
+    previousDescription: string,
     summits: {
         peakId: string;
         timestamp: Date;
@@ -86,7 +87,7 @@ const getStravaDescription = async (
                 mountain.lifetimeSummits > 1 ? "s" : ""
             })\n`
         );
-    }, "⛰️ PathQuest\nMountains summited:\n");
+    }, `${previousDescription ? `${previousDescription}\n\n` : ""}⛰️ PathQuest\nMountains summited:\n`);
 
     return stravaDesc;
 };

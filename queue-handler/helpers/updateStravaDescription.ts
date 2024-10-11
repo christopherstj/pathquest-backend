@@ -1,4 +1,5 @@
 import getStravaAccessToken from "./getStravaAccessToken";
+import setUsageData from "./setUsageData";
 
 const updateStravaDescription = async (
     userId: string,
@@ -18,6 +19,8 @@ const updateStravaDescription = async (
             },
         }
     );
+
+    await setUsageData(response.headers);
 
     return response.ok;
 };

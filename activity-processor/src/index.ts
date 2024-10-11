@@ -2,8 +2,9 @@ import { config } from "dotenv";
 config();
 import Fastify from "fastify";
 import StravaEvent from "./typeDefs/StravaEvent";
-import getStravaActivity from "./helpers/getStravaActivity";
-import updateStravaDescription from "./helpers/updateStravaDescription";
+import QueueMessage from "./typeDefs/QueueMessage";
+import dayjs from "dayjs";
+import addEventToQueue from "./helpers/addEventToQueue";
 
 const fastify = Fastify({ logger: true });
 
@@ -20,19 +21,16 @@ fastify.post("/webhook", async (request, reply) => {
 
     console.log("Processing activity", data.object_id);
 
-    const description = await getStravaActivity(
-        data.object_id,
-        data.owner_id.toString()
-    );
+    const message: QueueMessage = {
+        action: "create",
+        created: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        jsonData: JSON.stringify(data),
+        isWebhook: true,
+    };
 
-    if (description && description.length > 0)
-        await updateStravaDescription(
-            data.owner_id.toString(),
-            data.object_id,
-            description
-        );
+    await addEventToQueue(message);
 
-    reply.code(200).send(description);
+    reply.code(200).send("Event added to queue");
 });
 
 fastify.get<{
