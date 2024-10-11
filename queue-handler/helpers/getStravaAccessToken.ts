@@ -22,8 +22,6 @@ const getNewToken = async (refreshToken: string, userId: string) => {
 
     const data: StravaTokenResponse = await response.json();
 
-    console.log(data);
-
     await saveStravaCreds({
         accessToken: data.access_token,
         refreshToken: data.refresh_token,

@@ -1,0 +1,35 @@
+{
+    "name": "rate-limit-reset",
+    "version": "1.0.0",
+    "description": "Resetting strava rate limits",
+    "main": "index.js",
+    "scripts": {
+        "dev:once": "ts-node index.ts",
+        "dev": "nodemon --exec ts-node index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "start": "node dist/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/christopherstj/pathquest-backend.git"
+    },
+    "author": "Christopher St Jean",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/christopherstj/pathquest-backend/issues"
+    },
+    "homepage": "https://github.com/christopherstj/pathquest-backend#readme",
+    "devDependencies": {
+        "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2"
+    },
+    "dependencies": {
+        "@google-cloud/cloud-sql-connector": "^1.4.0",
+        "@types/node": "^22.7.5",
+        "dotenv": "^16.4.5",
+        "fastify": "^5.0.0",
+        "mysql2": "^3.11.3",
+        "typescript": "^5.6.3"
+    }
+}
