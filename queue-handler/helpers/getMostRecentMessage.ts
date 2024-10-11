@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 
 const getMostRecentMessage = async (
     connection: Connection,
-    callback: (message: QueueMessage) => Promise<void>
+    callback: (message: QueueMessage) => void
 ) => {
     const [rows] = await connection.query<(QueueMessage & RowDataPacket)[]>(
         `

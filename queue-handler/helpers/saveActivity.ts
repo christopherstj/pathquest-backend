@@ -19,10 +19,10 @@ const saveActivity = async (
         [
             id,
             userId,
-            startLat,
-            startLong,
-            distance,
-            JSON.stringify(coordinates),
+            startLat ?? null,
+            startLong ?? null,
+            distance ?? null,
+            coordinates ? JSON.stringify(coordinates) : null,
             startTime.slice(0, 19).replace("T", " "),
         ]
     );
