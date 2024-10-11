@@ -1,7 +1,9 @@
 import { RowDataPacket } from "mysql2";
 import getCloudSqlConnection from "./getCloudSqlConnection";
+import { Connection } from "mysql2/promise";
 
 const getStravaDescription = async (
+    connection: Connection,
     userId: string,
     previousDescription: string,
     summits: {
@@ -14,13 +16,14 @@ const getStravaDescription = async (
         return;
     }
 
-    const connection = await getCloudSqlConnection();
-
     const [userRows] = await connection.query<
         ({ updateDescription: boolean } & RowDataPacket)[]
-    >("SELECT updateDescription FROM `User` WHERE id = ? LIMIT 1", [userId]);
+    >(
+        "SELECT updateDescription = 1 updateDescription FROM `User` WHERE id = ? LIMIT 1",
+        [userId]
+    );
 
-    const updateDescription = userRows[0].updateDescription;
+    const updateDescription = Boolean(userRows[0].updateDescription);
 
     if (!updateDescription) {
         return;

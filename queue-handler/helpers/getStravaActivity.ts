@@ -74,8 +74,9 @@ const getStravaActivity = async (
     }
 
     const description = await getStravaDescription(
+        connection,
         userId,
-        activity.description.split("⛰️ PathQuest")[0] ?? "",
+        activity.description.split("⛰️ PathQuest")[0].trimEnd() ?? "",
         peakDetails
     );
 
