@@ -9,6 +9,8 @@ import addEventToQueue from "./helpers/addEventToQueue";
 const fastify = Fastify({ logger: true });
 
 fastify.post("/webhook", async (request, reply) => {
+    console.log(request.headers);
+
     const data: StravaEvent =
         typeof request.body === "string"
             ? JSON.parse(request.body)
