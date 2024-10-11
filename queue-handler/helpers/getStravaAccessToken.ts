@@ -15,7 +15,14 @@ const getNewToken = async (refreshToken: string, userId: string) => {
         }
     );
 
+    if (!response.ok) {
+        console.error("Failed to get new token", await response.text());
+        return null;
+    }
+
     const data: StravaTokenResponse = await response.json();
+
+    console.log(data);
 
     await saveStravaCreds({
         accessToken: data.access_token,
