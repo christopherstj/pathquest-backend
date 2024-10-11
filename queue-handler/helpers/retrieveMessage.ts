@@ -1,16 +1,13 @@
+import QueueMessage from "../typeDefs/QueueMessage";
 import completeMessage from "./completeMessage";
 import getMostRecentMessage from "./getMostRecentMessage";
 import processMessage from "./processMessage";
 import { Connection } from "mysql2/promise";
 
-const retrieveMessage = async (connection: Connection) => {
-    const message = await getMostRecentMessage(connection);
-
-    if (!message) {
-        console.log("No messages to process");
-        return false;
-    }
-
+const retrieveMessage = async (
+    connection: Connection,
+    message: QueueMessage
+) => {
     console.log("Processing message", message.id);
 
     const result = await processMessage(connection, message);

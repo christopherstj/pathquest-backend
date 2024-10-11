@@ -48,39 +48,41 @@ const getStravaActivity = async (
     await setUsageData(connection, streamResponse.headers);
 
     const streams: {
-        latlng: StravaLatLngStream;
-        time: StravaNumberStream;
+        latlng?: StravaLatLngStream;
+        time?: StravaNumberStream;
         distance: StravaNumberStream;
     } = await streamResponse.json();
 
     const coords = streams.latlng;
     const times = streams.time;
 
-    const summittedPeaks = await processCoords(connection, coords.data);
+    if (coords && times) {
+        const summittedPeaks = await processCoords(connection, coords.data);
 
-    const peakDetails = summittedPeaks.map((peak) => {
-        const peakId = peak.id;
-        const timestamp = new Date(
-            new Date(activity.start_date).getTime() +
-                times.data[peak.index] * 1000
+        const peakDetails = summittedPeaks.map((peak) => {
+            const peakId = peak.id;
+            const timestamp = new Date(
+                new Date(activity.start_date).getTime() +
+                    times.data[peak.index] * 1000
+            );
+            return { peakId, timestamp, activityId: id };
+        });
+
+        await saveActivity(connection, activity, coords.data);
+
+        if (peakDetails.length > 0) {
+            await saveActivitySummits(connection, peakDetails, id.toString());
+        }
+
+        const description = await getStravaDescription(
+            connection,
+            userId,
+            activity.description?.split("⛰️ PathQuest")[0].trimEnd() ?? "",
+            peakDetails
         );
-        return { peakId, timestamp, activityId: id };
-    });
 
-    await saveActivity(connection, activity, coords.data);
-
-    if (peakDetails.length > 0) {
-        await saveActivitySummits(connection, peakDetails, id.toString());
+        return description;
     }
-
-    const description = await getStravaDescription(
-        connection,
-        userId,
-        activity.description.split("⛰️ PathQuest")[0].trimEnd() ?? "",
-        peakDetails
-    );
-
-    return description;
 };
 
 export default getStravaActivity;

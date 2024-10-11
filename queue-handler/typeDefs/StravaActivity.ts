@@ -55,7 +55,7 @@ export default interface StravaActivity {
     has_kudoed: boolean;
     workout_type: number;
     suffer_score: number | null;
-    description: string;
+    description: string | null;
     calories: number;
     segment_efforts: {
         id: number;

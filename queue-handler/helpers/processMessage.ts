@@ -13,11 +13,6 @@ const processMessage = async (
     console.log(`Processing message ${message.id}`);
 
     try {
-        await connection.execute(
-            `UPDATE EventQueue SET started = ? WHERE id = ?`,
-            [dayjs().format("YYYY-MM-DD HH:mm:ss"), message.id]
-        );
-
         if (!message.jsonData) return { success: false, error: "No JSON data" };
 
         const messageData: StravaEvent =
@@ -49,7 +44,10 @@ const processMessage = async (
         return { success: true };
     } catch (err) {
         console.error(err);
-        return { success: false, error: err as string };
+        return {
+            success: false,
+            error: `Error processing ${message.id}, check container logs`,
+        };
     }
 };
 
