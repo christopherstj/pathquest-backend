@@ -36,7 +36,7 @@ const processMessage = async (
         if (isWebhook && description && description.length > 0) {
             console.log("Updating activity description");
 
-            const success = updateStravaDescription(
+            const success = await updateStravaDescription(
                 connection,
                 messageData.owner_id.toString(),
                 messageData.object_id,
