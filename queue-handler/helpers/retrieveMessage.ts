@@ -1,6 +1,5 @@
 import QueueMessage from "../typeDefs/QueueMessage";
 import completeMessage from "./completeMessage";
-import getMostRecentMessage from "./getMostRecentMessage";
 import processMessage from "./processMessage";
 import { Connection } from "mysql2/promise";
 

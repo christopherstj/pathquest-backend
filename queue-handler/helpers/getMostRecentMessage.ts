@@ -10,7 +10,7 @@ const getMostRecentMessage = async (
     const [rows] = await connection.query<(QueueMessage & RowDataPacket)[]>(
         `
         SELECT id, \`action\`, created, started, completed, jsonData, isWebhook = 1 isWebhook FROM EventQueue
-        WHERE started IS NULL AND completed IS NULL AND attmpts < 5
+        WHERE started IS NULL AND completed IS NULL AND attempts < 5
         ORDER BY isWebhook DESC, created ASC
         LIMIT 1
     `
