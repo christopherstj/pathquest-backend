@@ -33,15 +33,17 @@ const processMessage = async (
 
         const isWebhook = message.isWebhook;
 
-        console.log(isWebhook, description);
-
         if (isWebhook && description && description.length > 0) {
-            updateStravaDescription(
+            console.log("Updating activity description");
+
+            const success = updateStravaDescription(
                 connection,
                 messageData.owner_id.toString(),
                 messageData.object_id,
                 description
             );
+
+            console.log(success);
         }
 
         return { success: true };
