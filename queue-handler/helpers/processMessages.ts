@@ -31,7 +31,7 @@ const processMessages = async () => {
         const queue = async.queue(async (message: QueueMessage, callback) => {
             const success = await retrieveMessage(connection, message);
             callback();
-        }, 10);
+        }, 20);
 
         for (let i = 0; i < messagesToProcess; i++) {
             await getMostRecentMessage(connection, (message) => {
