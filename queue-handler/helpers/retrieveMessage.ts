@@ -7,7 +7,7 @@ const retrieveMessage = async () => {
 
     if (!message) {
         console.log("No messages to process");
-        return;
+        return false;
     }
 
     console.log("Processing message", message.id);
@@ -21,6 +21,8 @@ const retrieveMessage = async () => {
     }
 
     await completeMessage(message.id, result.error);
+
+    return true;
 };
 
 export default retrieveMessage;

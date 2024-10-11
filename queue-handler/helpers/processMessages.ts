@@ -7,7 +7,14 @@ const processMessages = async () => {
 
     await resetShortTermUsage();
 
-    while (await checkRateLimit()) {
-        await retrieveMessage();
+    let moreMessages = true;
+    while ((await checkRateLimit()) && moreMessages) {
+        moreMessages = await retrieveMessage();
     }
+
+    console.log(
+        moreMessages ? "Rate limit reached" : "No more messages to process"
+    );
 };
+
+export default processMessages;

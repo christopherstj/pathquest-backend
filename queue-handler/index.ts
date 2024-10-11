@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 config();
-import processMessages from "./helpers/retrieveMessage";
+import processMessages from "./helpers/processMessages";
 import Fastify from "fastify";
 
 const fastify = Fastify({ logger: true });
