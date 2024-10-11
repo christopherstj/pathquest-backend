@@ -1,9 +1,7 @@
+import { Connection } from "mysql2/promise";
 import { StravaCreds } from "../typeDefs/StravaCreds";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const saveStravaCreds = async (creds: StravaCreds) => {
-    const connection = await getCloudSqlConnection();
-
+const saveStravaCreds = async (connection: Connection, creds: StravaCreds) => {
     const { userId, accessToken, refreshToken, accessTokenExpiresAt } = creds;
 
     await connection.execute(

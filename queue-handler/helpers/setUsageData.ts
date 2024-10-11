@@ -1,6 +1,4 @@
 import { Connection } from "mysql2/promise";
-import StravaRateLimit from "../typeDefs/StravaRateLimit";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const setUsageData = async (connection: Connection, headers: Headers) => {
     const limitHeader = headers.get("X-ReadRateLimit-Limit");

@@ -1,6 +1,5 @@
 import { Connection } from "mysql2/promise";
 import StravaActivity from "../typeDefs/StravaActivity";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivity = async (
     connection: Connection,

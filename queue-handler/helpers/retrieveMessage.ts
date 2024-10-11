@@ -18,7 +18,7 @@ const retrieveMessage = async (
         console.error("Error processing message", result.error);
     }
 
-    await completeMessage(message.id, result.error);
+    await completeMessage(connection, message.id, result.error);
 
     return true;
 };

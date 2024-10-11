@@ -1,5 +1,4 @@
 import { RowDataPacket } from "mysql2";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 import { Connection } from "mysql2/promise";
 
 const getStravaDescription = async (

@@ -1,5 +1,4 @@
 import mysql, { Connection } from "mysql2/promise";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivitySummits = async (
     connection: Connection,

@@ -1,6 +1,4 @@
 import { RowDataPacket } from "mysql2";
-import getCloudSqlConnection from "./getCloudSqlConnection";
-import QueueMessage from "../typeDefs/QueueMessage";
 import { Connection } from "mysql2/promise";
 
 const getNumberOfMessages = async (connection: Connection): Promise<number> => {

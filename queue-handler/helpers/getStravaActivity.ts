@@ -17,7 +17,7 @@ const getStravaActivity = async (
     id: number,
     userId: string
 ) => {
-    const accessToken = await getStravaAccessToken(userId);
+    const accessToken = await getStravaAccessToken(connection, userId);
 
     if (accessToken === "") {
         throw new Error("Strava access token not found");

@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import QueueMessage from "../typeDefs/QueueMessage";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 import StravaEvent from "../typeDefs/StravaEvent";
 import getStravaActivity from "./getStravaActivity";
 import updateStravaDescription from "./updateStravaDescription";

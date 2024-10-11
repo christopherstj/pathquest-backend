@@ -3,7 +3,6 @@ import getBoundingBox from "./getBoundingBox";
 import Peak from "../typeDefs/Peak";
 import compareCoords from "./compareCoords";
 import getSummits from "./getSummits";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 import { Connection } from "mysql2/promise";
 
 const processCoords = async (

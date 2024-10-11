@@ -1,5 +1,4 @@
 import { RowDataPacket } from "mysql2";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 import QueueMessage from "../typeDefs/QueueMessage";
 import { Connection } from "mysql2/promise";
 import dayjs from "dayjs";
@@ -11,7 +10,7 @@ const getMostRecentMessage = async (
     const [rows] = await connection.query<(QueueMessage & RowDataPacket)[]>(
         `
         SELECT id, \`action\`, created, started, completed, jsonData, isWebhook = 1 isWebhook FROM EventQueue
-        WHERE started IS NULL AND completed IS NULL
+        WHERE started IS NULL AND completed IS NULL AND attmpts < 5
         ORDER BY isWebhook DESC, created ASC
         LIMIT 1
     `
@@ -22,10 +21,10 @@ const getMostRecentMessage = async (
 
     const message = rows[0];
 
-    await connection.execute(`UPDATE EventQueue SET started = ? WHERE id = ?`, [
-        dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        message.id,
-    ]);
+    await connection.execute(
+        `UPDATE EventQueue SET started = ?, attempts = attempts + 1 WHERE id = ?`,
+        [dayjs().format("YYYY-MM-DD HH:mm:ss"), message.id]
+    );
 
     callback(message);
 };
