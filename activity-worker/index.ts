@@ -1,6 +1,8 @@
 import { config } from "dotenv";
 config();
 import Fastify from "fastify";
+import retrieveMessage from "./helpers/retrieveMessage";
+import QueueMessage from "./typeDefs/QueueMessage";
 
 const fastify = Fastify({ logger: true });
 
@@ -30,7 +32,9 @@ fastify.post<{
         ? Buffer.from(pubSubMessage.data, "base64").toString().trim()
         : "World";
 
-    console.log(data);
+    const message: QueueMessage = JSON.parse(data);
+
+    retrieveMessage(message);
 
     reply.code(200).send();
 });
