@@ -1,8 +1,8 @@
 import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
-import { createCache } from "cache-manager";
+import { Cacheable } from "cacheable";
 import mysql, { Connection } from "mysql2/promise";
 
-const cache = createCache();
+const cache = new Cacheable();
 
 const connector = new Connector();
 
