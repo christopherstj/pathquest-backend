@@ -10,7 +10,7 @@ const updateStravaDescription = async (
 ) => {
     const token = await getStravaAccessToken(connection, userId);
 
-    const response = await fetch(
+    const responseRaw = await fetch(
         `https://www.strava.com/api/v3/activities/${activityId}?description=${encodeURIComponent(
             description
         )}`,
@@ -21,6 +21,8 @@ const updateStravaDescription = async (
             },
         }
     );
+
+    const response = responseRaw.clone();
 
     await setUsageData(connection, response.headers);
 

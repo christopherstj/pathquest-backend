@@ -23,7 +23,7 @@ const getStravaActivity = async (
         throw new Error("Strava access token not found");
     }
 
-    const activityRes = await fetch(
+    const activityResRaw = await fetch(
         `https://www.strava.com/api/v3/activities/${id}?include_all_efforts=false`,
         {
             headers: {
@@ -32,11 +32,13 @@ const getStravaActivity = async (
         }
     );
 
+    const activityRes = activityResRaw.clone();
+
     await setUsageData(connection, activityRes.headers);
 
     const activity: StravaActivity = await activityRes.json();
 
-    const streamResponse = await fetch(
+    const streamResponseRaw = await fetch(
         `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng&key_by_type=true`,
         {
             headers: {
@@ -44,6 +46,8 @@ const getStravaActivity = async (
             },
         }
     );
+
+    const streamResponse = streamResponseRaw.clone();
 
     await setUsageData(connection, streamResponse.headers);
 
