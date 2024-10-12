@@ -2,15 +2,18 @@ import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
 import { Cacheable } from "cacheable";
 import mysql, { Connection } from "mysql2/promise";
 import memoize from "memoizee";
-
-const cache = new Cacheable();
+import storage from "node-persist";
 
 const connector = new Connector();
 
 const getCloudSqlConnection = async () => {
-    const cachedConnection = await cache.get<Connection>("cloudSqlConnection");
+    await storage.init();
+    const cachedConnection: Connection = await storage.getItem(
+        "cloudSqlConnection"
+    );
 
     if (cachedConnection) {
+        console.log("Using cached connection");
         return cachedConnection;
     } else {
         const clientOpts = await connector.getOptions({
@@ -25,10 +28,10 @@ const getCloudSqlConnection = async () => {
             database: "dev-db",
         });
 
-        cache.set("cloudSqlConnection", connection);
+        storage.setItem("cloudSqlConnection", connection);
 
         return connection;
     }
 };
 
-export default memoize(getCloudSqlConnection);
+export default getCloudSqlConnection;

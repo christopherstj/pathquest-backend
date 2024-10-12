@@ -135,3 +135,5 @@ peaks.json
 cloud-sql-proxy.x64.exe
 env.txt
 stateData
+
+.node-persist

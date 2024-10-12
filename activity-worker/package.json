@@ -28,6 +28,7 @@
         "@types/async": "^3.2.24",
         "@types/memoizee": "^0.4.11",
         "@types/node": "^22.7.5",
+        "@types/node-persist": "^3.1.8",
         "async": "^3.2.6",
         "cache-manager": "^6.1.0",
         "cacheable": "^1.8.0",
@@ -36,6 +37,7 @@
         "fastify": "^5.0.0",
         "memoizee": "^0.4.17",
         "mysql2": "^3.11.3",
+        "node-persist": "^4.0.3",
         "strava-v3": "^2.2.1",
         "typescript": "^5.6.3"
     }
