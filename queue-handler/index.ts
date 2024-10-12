@@ -2,6 +2,9 @@ import { config } from "dotenv";
 config();
 import processMessages from "./helpers/processMessages";
 import Fastify from "fastify";
+import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
+
+getCloudSqlConnection();
 
 const fastify = Fastify({ logger: true });
 

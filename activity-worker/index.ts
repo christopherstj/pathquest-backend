@@ -5,6 +5,8 @@ import retrieveMessage from "./helpers/retrieveMessage";
 import QueueMessage from "./typeDefs/QueueMessage";
 import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
 
+getCloudSqlConnection();
+
 const fastify = Fastify({ logger: true });
 
 fastify.post<{
