@@ -24,6 +24,8 @@ const getCloudSqlConnection = async () => {
             database: "dev-db",
         });
 
+        cache.set("cloudSqlConnection", connection);
+
         return connection;
     }
 };
