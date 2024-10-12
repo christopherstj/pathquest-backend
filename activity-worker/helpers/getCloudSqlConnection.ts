@@ -6,28 +6,13 @@ const connector = new Connector();
 
 const getCloudSqlConnection = async () => {
     console.log("Getting cloud SQL connection");
-    await storage.init();
-    const cachedConnection: PoolConnection = await storage.getItem(
-        "cloudSqlConnection"
-    );
 
-    if (cachedConnection) {
-        console.log("Using cached connection");
-        return cachedConnection;
-    } else {
-        console.log("Creating new connection");
-        const clientOpts = await connector.getOptions({
-            instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME ?? "",
-            ipType: IpAddressTypes.PUBLIC,
-        });
-
-        console.log("Retrieved client options");
-
+    if (process.env.NODE_ENV === "production") {
         const pool = await mysql.createPool({
-            ...clientOpts,
             user: "local-user",
             password: process.env.MYSQL_PASSWORD,
             database: "dev-db",
+            socketPath: "/cloudsql/" + process.env.INSTANCE_CONNECTION_NAME,
         });
 
         console.log("Created pool");
@@ -36,10 +21,25 @@ const getCloudSqlConnection = async () => {
 
         console.log("Created connection");
 
-        if (process.env.NODE_ENV === "production")
-            storage.setItem("cloudSqlConnection", connection);
+        return connection;
+    } else {
+        const clientOpts = await connector.getOptions({
+            instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME ?? "",
+            ipType: IpAddressTypes.PUBLIC,
+        });
 
-        console.log("Stored connection");
+        const pool = await mysql.createPool({
+            user: "local-user",
+            password: process.env.MYSQL_PASSWORD,
+            database: "dev-db",
+            ...clientOpts,
+        });
+
+        console.log("Created pool");
+
+        const connection = await pool.getConnection();
+
+        console.log("Created connection");
 
         return connection;
     }

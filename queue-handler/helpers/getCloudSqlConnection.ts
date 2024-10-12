@@ -1,21 +1,10 @@
 import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
 import mysql, { Connection, PoolConnection } from "mysql2/promise";
-import storage from "node-persist";
 
 const connector = new Connector();
 
 const getCloudSqlConnection = async () => {
     console.log("Getting cloud SQL connection");
-    // await storage.init();
-    // const cachedConnection: PoolConnection = await storage.getItem(
-    //     "cloudSqlConnection"
-    // );
-
-    // if (cachedConnection) {
-    //     console.log("Using cached connection");
-    //     return cachedConnection;
-    // } else {
-    console.log("Retrieved client options");
 
     if (process.env.NODE_ENV === "production") {
         const pool = await mysql.createPool({
@@ -30,10 +19,6 @@ const getCloudSqlConnection = async () => {
         const connection = await pool.getConnection();
 
         console.log("Created connection");
-
-        // storage.setItem("cloudSqlConnection", connection);
-
-        // console.log("Stored connection");
 
         return connection;
     } else {
@@ -57,7 +42,6 @@ const getCloudSqlConnection = async () => {
 
         return connection;
     }
-    // }
 };
 
 export default getCloudSqlConnection;
