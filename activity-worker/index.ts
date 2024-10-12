@@ -3,9 +3,9 @@ config();
 import Fastify from "fastify";
 import retrieveMessage from "./helpers/retrieveMessage";
 import QueueMessage from "./typeDefs/QueueMessage";
-import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
+import { Agent, setGlobalDispatcher } from "undici";
 
-getCloudSqlConnection();
+setGlobalDispatcher(new Agent({ connect: { timeout: 60_000 } }));
 
 const fastify = Fastify({ logger: true });
 

@@ -4,8 +4,6 @@ import processMessages from "./helpers/processMessages";
 import Fastify from "fastify";
 import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
 
-getCloudSqlConnection();
-
 const fastify = Fastify({ logger: true });
 
 fastify.post("/", async (request, reply) => {
