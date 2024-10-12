@@ -6,7 +6,7 @@ const connector = new Connector();
 
 const getCloudSqlConnection = async () => {
     console.log("Getting cloud SQL connection");
-    await storage.init();
+    // await storage.init();
     const cachedConnection: PoolConnection = await storage.getItem(
         "cloudSqlConnection"
     );
@@ -31,9 +31,9 @@ const getCloudSqlConnection = async () => {
 
             console.log("Created connection");
 
-            storage.setItem("cloudSqlConnection", connection);
+            // storage.setItem("cloudSqlConnection", connection);
 
-            console.log("Stored connection");
+            // console.log("Stored connection");
 
             return connection;
         } else {
