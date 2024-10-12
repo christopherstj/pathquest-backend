@@ -1,8 +1,10 @@
 import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
 import { Cacheable } from "cacheable";
 import mysql, { Connection } from "mysql2/promise";
+import { Keyv } from "cacheable";
+import memoize from "memoizee";
 
-const cache = new Cacheable();
+const cache = new Cacheable({ secondary: new Keyv() });
 
 const connector = new Connector();
 
@@ -30,4 +32,4 @@ const getCloudSqlConnection = async () => {
     }
 };
 
-export default getCloudSqlConnection;
+export default memoize(getCloudSqlConnection);
