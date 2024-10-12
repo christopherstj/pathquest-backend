@@ -34,6 +34,8 @@ fastify.post<{
 
     const message: QueueMessage = JSON.parse(data);
 
+    console.log(`Processing ${message.id}`);
+
     retrieveMessage(message);
 
     reply.code(200).send();
