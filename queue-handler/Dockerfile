@@ -15,10 +15,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-ENV INSTANCE_CONNECTION_NAME=pathquest:us-central1:mysql-db-instance-531de1f
-
-RUN npm run cache-sql
-
 # Expose the port your app listens on
 EXPOSE 8080
 

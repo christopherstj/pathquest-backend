@@ -15,33 +15,49 @@ const getCloudSqlConnection = async () => {
         console.log("Using cached connection");
         return cachedConnection;
     } else {
-        console.log("Creating new connection");
-        const clientOpts = await connector.getOptions({
-            instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME ?? "",
-            ipType: IpAddressTypes.PUBLIC,
-        });
-
         console.log("Retrieved client options");
 
-        const pool = await mysql.createPool({
-            ...clientOpts,
-            user: "local-user",
-            password: process.env.MYSQL_PASSWORD,
-            database: "dev-db",
-        });
+        if (process.env.NODE_ENV === "production") {
+            const pool = await mysql.createPool({
+                user: "local-user",
+                password: process.env.MYSQL_PASSWORD,
+                database: "dev-db",
+                socketPath: "/cloudsql/" + process.env.INSTANCE_CONNECTION_NAME,
+            });
 
-        console.log("Created pool");
+            console.log("Created pool");
 
-        const connection = await pool.getConnection();
+            const connection = await pool.getConnection();
 
-        console.log("Created connection");
+            console.log("Created connection");
 
-        if (process.env.NODE_ENV === "production")
             storage.setItem("cloudSqlConnection", connection);
 
-        console.log("Stored connection");
+            console.log("Stored connection");
 
-        return connection;
+            return connection;
+        } else {
+            const clientOpts = await connector.getOptions({
+                instanceConnectionName:
+                    process.env.INSTANCE_CONNECTION_NAME ?? "",
+                ipType: IpAddressTypes.PUBLIC,
+            });
+
+            const pool = await mysql.createPool({
+                user: "local-user",
+                password: process.env.MYSQL_PASSWORD,
+                database: "dev-db",
+                ...clientOpts,
+            });
+
+            console.log("Created pool");
+
+            const connection = await pool.getConnection();
+
+            console.log("Created connection");
+
+            return connection;
+        }
     }
 };
 
