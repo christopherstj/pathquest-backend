@@ -9,13 +9,6 @@ const getCloudSqlConnection = async () => {
         ipType: IpAddressTypes.PUBLIC,
     });
 
-    console.log({
-        ...clientOpts,
-        user: "local-user",
-        password: process.env.MYSQL_PASSWORD,
-        database: "dev-db",
-    });
-
     const connection = await mysql.createConnection({
         ...clientOpts,
         user: "local-user",
