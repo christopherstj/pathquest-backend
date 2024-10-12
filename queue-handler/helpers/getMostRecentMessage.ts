@@ -21,10 +21,10 @@ const getMostRecentMessage = async (
 
     const message = rows[0];
 
-    // await connection.execute(
-    //     `UPDATE EventQueue SET started = ?, attempts = attempts + 1 WHERE id = ?`,
-    //     [dayjs().format("YYYY-MM-DD HH:mm:ss"), message.id]
-    // );
+    await connection.execute(
+        `UPDATE EventQueue SET started = ?, attempts = attempts + 1 WHERE id = ?`,
+        [dayjs().format("YYYY-MM-DD HH:mm:ss"), message.id]
+    );
 
     callback(message);
 };
