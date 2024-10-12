@@ -4,7 +4,7 @@ import mysql, { Connection } from "mysql2/promise";
 import { Keyv } from "cacheable";
 import memoize from "memoizee";
 
-const cache = new Cacheable({ secondary: new Keyv() });
+const cache = new Cacheable();
 
 const connector = new Connector();
 
@@ -32,4 +32,4 @@ const getCloudSqlConnection = async () => {
     }
 };
 
-export default memoize(getCloudSqlConnection);
+export default getCloudSqlConnection;
