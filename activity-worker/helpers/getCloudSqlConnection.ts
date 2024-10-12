@@ -1,7 +1,5 @@
 import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
-import { Cacheable } from "cacheable";
 import mysql, { Connection } from "mysql2/promise";
-import memoize from "memoizee";
 import storage from "node-persist";
 
 const connector = new Connector();
