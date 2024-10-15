@@ -1,11 +1,4 @@
-import async from "async";
-import checkRateLimit from "./checkRateLimit";
 import getCloudSqlConnection from "./getCloudSqlConnection";
-import getMostRecentMessage from "./getMostRecentMessage";
-import getNumberOfMessages from "./getNumberOfMessages";
-import resetShortTermUsage from "./resetShortTermUsage";
-import retrieveMessage from "./retrieveMessage";
-import QueueMessage from "../typeDefs/QueueMessage";
 import getMessagesToProcess from "./getMessagestoProcess";
 import { PubSub } from "@google-cloud/pubsub";
 import completeMessage from "./completeMessage";
