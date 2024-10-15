@@ -24,6 +24,7 @@ fastify.post("/webhook", async (request, reply) => {
     console.log("Processing activity", data.object_id);
 
     const message: QueueMessage = {
+        userId: data.owner_id.toString(),
         action: "create",
         created: dayjs().format("YYYY-MM-DD HH:mm:ss"),
         jsonData: JSON.stringify(data),
@@ -32,7 +33,7 @@ fastify.post("/webhook", async (request, reply) => {
 
     await addEventToQueue(message);
 
-    reply.code(200).send("Event added to queue");
+    reply.code(200).send();
 });
 
 fastify.get<{
