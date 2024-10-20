@@ -16,6 +16,8 @@ fastify.post("/webhook", async (request, reply) => {
             ? JSON.parse(request.body)
             : request.body;
 
+    console.log(data);
+
     if (data.aspect_type !== "create") {
         reply.code(200).send("Ignoring event");
         return;
@@ -30,6 +32,8 @@ fastify.post("/webhook", async (request, reply) => {
         jsonData: JSON.stringify(data),
         isWebhook: true,
     };
+
+    console.log(message);
 
     await addEventToQueue(message);
 
