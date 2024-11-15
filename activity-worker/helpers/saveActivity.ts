@@ -14,7 +14,7 @@ const saveActivity = async (
     const startTime = new Date(activity.start_date).toISOString();
 
     await connection.execute(
-        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, startTime, sport, `name`, timezone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             id,
             userId,
@@ -26,6 +26,7 @@ const saveActivity = async (
             activity.type,
             activity.name,
             activity.timezone ?? null,
+            activity.total_elevation_gain ?? null,
         ]
     );
 };
