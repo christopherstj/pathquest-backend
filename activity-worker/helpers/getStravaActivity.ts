@@ -85,6 +85,8 @@ const getStravaActivity = async (
             peakDetails
         );
 
+        console.log(description);
+
         return description;
     }
 };

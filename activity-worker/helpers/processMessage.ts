@@ -4,6 +4,7 @@ import StravaEvent from "../typeDefs/StravaEvent";
 import getStravaActivity from "./getStravaActivity";
 import updateStravaDescription from "./updateStravaDescription";
 import { Connection } from "mysql2/promise";
+import getShouldUpdateDescription from "./getShouldUpdateDescription";
 
 const processMessage = async (
     connection: Connection,
@@ -27,7 +28,16 @@ const processMessage = async (
 
         const isWebhook = message.isWebhook;
 
-        if (isWebhook && description && description.length > 0) {
+        const updateDescription = await getShouldUpdateDescription(
+            messageData.owner_id.toString()
+        );
+
+        if (
+            isWebhook &&
+            description &&
+            description.length > 0 &&
+            updateDescription
+        ) {
             console.log("Updating activity description");
 
             const success = await updateStravaDescription(

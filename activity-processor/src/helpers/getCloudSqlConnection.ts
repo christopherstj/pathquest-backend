@@ -7,16 +7,13 @@ const getCloudSqlConnection = async () => {
     console.log("Getting cloud SQL connection");
 
     if (process.env.NODE_ENV === "production") {
-        const pool = await mysql.createPool({
+        const connection = await mysql.createConnection({
             user: "local-user",
             password: process.env.MYSQL_PASSWORD,
             database: "dev-db",
             socketPath: "/cloudsql/" + process.env.INSTANCE_CONNECTION_NAME,
+            timezone: "+00:00",
         });
-
-        console.log("Created pool");
-
-        const connection = await pool.getConnection();
 
         console.log("Created connection");
 
@@ -27,16 +24,15 @@ const getCloudSqlConnection = async () => {
             ipType: IpAddressTypes.PUBLIC,
         });
 
-        const pool = await mysql.createPool({
+        const connection = await mysql.createConnection({
             user: "local-user",
             password: process.env.MYSQL_PASSWORD,
             database: "dev-db",
+            connectTimeout: 20000,
+            idleTimeout: 600000,
+            timezone: "+00:00",
             ...clientOpts,
         });
-
-        console.log("Created pool");
-
-        const connection = await pool.getConnection();
 
         console.log("Created connection");
 

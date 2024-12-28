@@ -31,8 +31,6 @@ const loadOsmData = async () => {
         ];
     };
 
-    await connection.query("TRUNCATE TABLE Peak");
-
     await connection.query(
         "INSERT INTO Peak (Id, `Name`, Lat, `Long`, Altitude, State, Country) VALUES ?",
         [peaks.map(mapFunc)]
@@ -40,3 +38,5 @@ const loadOsmData = async () => {
 
     console.log(`Inserted ${peaks.length} peaks into database`);
 };
+
+export default loadOsmData;
