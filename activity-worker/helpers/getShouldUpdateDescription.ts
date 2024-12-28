@@ -19,9 +19,7 @@ const getShouldUpdateDescription = async (userId: string) => {
 
     const updateDescription = Boolean(userRows[0].updateDescription);
 
-    return false;
-
-    // return updateDescription;
+    return updateDescription;
 };
 
 export default getShouldUpdateDescription;
