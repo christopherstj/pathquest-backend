@@ -11,7 +11,7 @@ const processCoords = async (
 ) => {
     const initialCoords = coords[0];
 
-    const delta = distanceMetersToDegrees(20, initialCoords[0]);
+    const delta = distanceMetersToDegrees(25, initialCoords[0]);
 
     const boundingBox: {
         minLat: number;

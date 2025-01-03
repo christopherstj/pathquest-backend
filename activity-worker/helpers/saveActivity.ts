@@ -4,7 +4,8 @@ import StravaActivity from "../typeDefs/StravaActivity";
 const saveActivity = async (
     connection: Connection,
     activity: StravaActivity,
-    coordinates: [number, number][]
+    coordinates: [number, number][],
+    altitude?: number[]
 ) => {
     const id = activity.id;
     const userId = activity.athlete.id;
@@ -14,7 +15,7 @@ const saveActivity = async (
     const startTime = new Date(activity.start_date).toISOString();
 
     await connection.execute(
-        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, vertProfile, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             id,
             userId,
@@ -22,6 +23,7 @@ const saveActivity = async (
             startLong ?? null,
             distance ?? null,
             coordinates ? JSON.stringify(coordinates) : null,
+            altitude ? JSON.stringify(altitude) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,

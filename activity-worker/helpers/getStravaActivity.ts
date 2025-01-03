@@ -39,7 +39,7 @@ const getStravaActivity = async (
     const activity: StravaActivity = await activityRes.json();
 
     const streamResponseRaw = await fetch(
-        `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng&key_by_type=true`,
+        `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng,altitude&key_by_type=true`,
         {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -54,11 +54,13 @@ const getStravaActivity = async (
     const streams: {
         latlng?: StravaLatLngStream;
         time?: StravaNumberStream;
-        distance: StravaNumberStream;
+        altitude?: StravaNumberStream;
+        // distance: StravaNumberStream;
     } = await streamResponse.json();
 
     const coords = streams.latlng;
     const times = streams.time;
+    const altitude = streams.altitude;
 
     if (coords && times) {
         const summittedPeaks = await processCoords(connection, coords.data);
@@ -72,7 +74,7 @@ const getStravaActivity = async (
             return { peakId, timestamp, activityId: id };
         });
 
-        await saveActivity(connection, activity, coords.data);
+        await saveActivity(connection, activity, coords.data, altitude?.data);
 
         if (peakDetails.length > 0) {
             await saveActivitySummits(connection, peakDetails, id.toString());
