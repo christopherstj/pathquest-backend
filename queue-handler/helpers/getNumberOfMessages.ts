@@ -1,7 +1,8 @@
 import { RowDataPacket } from "mysql2";
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 
-const getNumberOfMessages = async (connection: Connection): Promise<number> => {
+const getNumberOfMessages = async (pool: Pool): Promise<number> => {
+    const connection = await pool.getConnection();
     const [rows] = await connection.query<
         ({ count: number } & RowDataPacket)[]
     >(`
@@ -9,6 +10,8 @@ const getNumberOfMessages = async (connection: Connection): Promise<number> => {
         WHERE started IS NULL AND completed IS NULL
         ORDER BY isWebhook DESC, created ASC
     `);
+
+    connection.release();
 
     return rows[0].count;
 };

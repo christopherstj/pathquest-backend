@@ -1,12 +1,13 @@
 import { RowDataPacket } from "mysql2";
 import QueueMessage from "../typeDefs/QueueMessage";
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 import dayjs from "dayjs";
 
 const getMostRecentMessage = async (
-    connection: Connection,
+    pool: Pool,
     callback: (message: QueueMessage) => void
 ) => {
+    const connection = await pool.getConnection();
     const [rows] = await connection.query<(QueueMessage & RowDataPacket)[]>(
         `
         SELECT id, \`action\`, created, started, completed, jsonData, isWebhook = 1 isWebhook FROM EventQueue
@@ -25,6 +26,8 @@ const getMostRecentMessage = async (
         `UPDATE EventQueue SET started = ?, attempts = attempts + 1 WHERE id = ?`,
         [dayjs().format("YYYY-MM-DD HH:mm:ss"), message.id]
     );
+
+    connection.release();
 
     callback(message);
 };

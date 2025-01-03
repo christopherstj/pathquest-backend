@@ -8,9 +8,9 @@ const topicName = process.env.PUBSUB_TOPIC ?? "";
 const pubSubClient = new PubSub();
 
 const processMessages = async () => {
-    const connection = await getCloudSqlConnection();
+    const pool = await getCloudSqlConnection();
 
-    const messages = await getMessagesToProcess(connection);
+    const messages = await getMessagesToProcess(pool);
 
     messages.forEach(async (message) => {
         const data = JSON.stringify(message);
@@ -25,16 +25,10 @@ const processMessages = async () => {
             console.error(
                 `Received error while publishing: ${(error as Error).message}`
             );
-            await completeMessage(
-                connection,
-                message.id,
-                (error as Error).message
-            );
+            await completeMessage(pool, message.id, (error as Error).message);
             process.exitCode = 1;
         }
     });
-
-    await connection.end();
 };
 
 export default processMessages;

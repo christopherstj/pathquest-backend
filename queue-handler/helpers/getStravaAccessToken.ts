@@ -1,13 +1,13 @@
 import { StravaCreds } from "../typeDefs/StravaCreds";
 import StravaTokenResponse from "../typeDefs/StravaTokenResponse";
-import { Connection, ResultSetHeader } from "mysql2/promise";
+import { Connection, Pool, ResultSetHeader } from "mysql2/promise";
 import saveStravaCreds from "./saveStravaCreds";
 
 const clientId = process.env.STRAVA_CLIENT_ID ?? "";
 const clientSecret = process.env.STRAVA_CLIENT_SECRET ?? "";
 
 const getNewToken = async (
-    connection: Connection,
+    pool: Pool,
     refreshToken: string,
     userId: string
 ) => {
@@ -25,7 +25,7 @@ const getNewToken = async (
 
     const data: StravaTokenResponse = await response.json();
 
-    await saveStravaCreds(connection, {
+    await saveStravaCreds(pool, {
         accessToken: data.access_token,
         refreshToken: data.refresh_token,
         accessTokenExpiresAt: data.expires_at,
@@ -35,10 +35,13 @@ const getNewToken = async (
     return data.access_token;
 };
 
-const getStravaAccessToken = async (connection: Connection, userId: string) => {
+const getStravaAccessToken = async (pool: Pool, userId: string) => {
+    const connection = await pool.getConnection();
     const [rows] = await connection.execute<(StravaCreds & ResultSetHeader)[]>(
         `SELECT * FROM StravaToken WHERE userId = ${userId} LIMIT 1`
     );
+
+    connection.release();
 
     const creds = rows[0];
 
@@ -47,12 +50,12 @@ const getStravaAccessToken = async (connection: Connection, userId: string) => {
     if (!refreshToken || refreshToken === "") {
         return null;
     } else if (!accessToken || accessToken === "") {
-        return await getNewToken(connection, refreshToken, userId);
+        return await getNewToken(pool, refreshToken, userId);
     } else if (
         accessTokenExpiresAt &&
         accessTokenExpiresAt * 1000 < new Date().getTime()
     ) {
-        return await getNewToken(connection, refreshToken, userId);
+        return await getNewToken(pool, refreshToken, userId);
     } else {
         return accessToken;
     }
