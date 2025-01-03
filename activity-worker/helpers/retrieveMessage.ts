@@ -6,13 +6,13 @@ import processMessage from "./processMessage";
 import setMessageStarted from "./setMessageStarted";
 
 const retrieveMessage = async (message: QueueMessage) => {
-    const connection = await getCloudSqlConnection();
+    const pool = await getCloudSqlConnection();
 
     console.log("Processing message", message.id);
 
-    await setMessageStarted(connection, message.id);
+    await setMessageStarted(pool, message.id);
 
-    const result = await processMessage(connection, message);
+    const result = await processMessage(pool, message);
 
     if (result.success) {
         console.log("Message processed successfully");
@@ -28,9 +28,7 @@ const retrieveMessage = async (message: QueueMessage) => {
         );
     }
 
-    await completeMessage(connection, message.id, result.error);
-
-    await connection.end();
+    await completeMessage(pool, message.id, result.error);
 
     return true;
 };

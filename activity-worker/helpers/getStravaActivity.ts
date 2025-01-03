@@ -9,14 +9,10 @@ import StravaActivity from "../typeDefs/StravaActivity";
 import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 
-const getStravaActivity = async (
-    connection: Connection,
-    id: number,
-    userId: string
-) => {
-    const accessToken = await getStravaAccessToken(connection, userId);
+const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
+    const accessToken = await getStravaAccessToken(pool, userId);
 
     if (accessToken === "") {
         throw new Error("Strava access token not found");
@@ -33,7 +29,7 @@ const getStravaActivity = async (
 
     const activityRes = activityResRaw.clone();
 
-    await setUsageData(connection, activityRes.headers);
+    await setUsageData(pool, activityRes.headers);
 
     const activity: StravaActivity = await activityRes.json();
 
@@ -48,7 +44,7 @@ const getStravaActivity = async (
 
     const streamResponse = streamResponseRaw.clone();
 
-    await setUsageData(connection, streamResponse.headers);
+    await setUsageData(pool, streamResponse.headers);
 
     const streams: {
         latlng?: StravaLatLngStream;
@@ -62,7 +58,7 @@ const getStravaActivity = async (
     const altitude = streams.altitude;
 
     if (coords && times) {
-        const summittedPeaks = await processCoords(connection, coords.data);
+        const summittedPeaks = await processCoords(pool, coords.data);
 
         console.log(summittedPeaks);
 
@@ -75,14 +71,14 @@ const getStravaActivity = async (
             return { peakId, timestamp, activityId: id };
         });
 
-        await saveActivity(connection, activity, coords.data, altitude?.data);
+        await saveActivity(pool, activity, coords.data, altitude?.data);
 
         if (peakDetails.length > 0) {
-            await saveActivitySummits(connection, peakDetails, id.toString());
+            await saveActivitySummits(pool, peakDetails, id.toString());
         }
 
         const description = await getStravaDescription(
-            connection,
+            pool,
             userId,
             activity.description?.split("⛰️ PathQuest")[0].trimEnd() ?? "",
             peakDetails

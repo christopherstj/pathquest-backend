@@ -1,7 +1,7 @@
-import mysql, { Connection } from "mysql2/promise";
+import mysql, { Connection, Pool } from "mysql2/promise";
 
 const saveActivitySummits = async (
-    connection: Connection,
+    pool: Pool,
     summits: {
         peakId: string;
         timestamp: Date;
@@ -9,6 +9,7 @@ const saveActivitySummits = async (
     }[],
     activityId: string
 ) => {
+    const connection = await pool.getConnection();
     await connection.query(
         `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
         [
@@ -20,6 +21,7 @@ const saveActivitySummits = async (
             ]),
         ]
     );
+    connection.release();
 };
 
 export default saveActivitySummits;

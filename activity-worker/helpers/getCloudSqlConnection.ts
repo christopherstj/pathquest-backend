@@ -1,14 +1,20 @@
 import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
-import mysql, { Connection, PoolConnection } from "mysql2/promise";
+import mysql, { Connection, Pool, PoolConnection } from "mysql2/promise";
 import storage from "node-persist";
 
 const connector = new Connector();
 
+var globalPool: Pool | undefined = undefined;
+
 const getCloudSqlConnection = async () => {
     console.log("Getting cloud SQL connection");
 
+    if (globalPool) {
+        return globalPool;
+    }
+
     if (process.env.NODE_ENV === "production") {
-        const connection = await mysql.createConnection({
+        const pool = mysql.createPool({
             user: "local-user",
             password: process.env.MYSQL_PASSWORD,
             database: "dev-db",
@@ -17,16 +23,18 @@ const getCloudSqlConnection = async () => {
             charset: "utf8mb4",
         });
 
+        globalPool = pool;
+
         console.log("Created connection");
 
-        return connection;
+        return pool;
     } else {
         const clientOpts = await connector.getOptions({
             instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME ?? "",
             ipType: IpAddressTypes.PUBLIC,
         });
 
-        const connection = await mysql.createConnection({
+        const pool = await mysql.createPool({
             user: "local-user",
             password: process.env.MYSQL_PASSWORD,
             database: "dev-db",
@@ -37,9 +45,11 @@ const getCloudSqlConnection = async () => {
             ...clientOpts,
         });
 
-        console.log("Created connection");
+        globalPool = pool;
 
-        return connection;
+        console.log("Created pool");
+
+        return pool;
     }
 };
 

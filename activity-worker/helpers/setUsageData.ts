@@ -1,6 +1,6 @@
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 
-const setUsageData = async (connection: Connection, headers: Headers) => {
+const setUsageData = async (connection: Pool, headers: Headers) => {
     const limitHeader = headers.get("X-ReadRateLimit-Limit");
     const usageHeader = headers.get("X-ReadRateLimit-Usage");
 

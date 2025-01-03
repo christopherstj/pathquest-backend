@@ -1,8 +1,8 @@
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 import StravaActivity from "../typeDefs/StravaActivity";
 
 const saveActivity = async (
-    connection: Connection,
+    pool: Pool,
     activity: StravaActivity,
     coordinates: [number, number][],
     altitude?: number[]
@@ -13,6 +13,8 @@ const saveActivity = async (
     const startLong = activity.start_latlng[1];
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
+
+    const connection = await pool.getConnection();
 
     await connection.execute(
         "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, vertProfile, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -31,6 +33,8 @@ const saveActivity = async (
             activity.total_elevation_gain ?? null,
         ]
     );
+
+    connection.release();
 };
 
 export default saveActivity;

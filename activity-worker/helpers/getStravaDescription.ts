@@ -1,8 +1,8 @@
 import { RowDataPacket } from "mysql2";
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 
 const getStravaDescription = async (
-    connection: Connection,
+    pool: Pool,
     userId: string,
     previousDescription: string,
     summits: {
@@ -14,6 +14,8 @@ const getStravaDescription = async (
     if (summits.length === 0) {
         return;
     }
+
+    const connection = await pool.getConnection();
 
     const [userRows] = await connection.query<
         ({ updateDescription: boolean } & RowDataPacket)[]
@@ -76,6 +78,8 @@ const getStravaDescription = async (
             lifetimeSummits: rows.length,
         };
     });
+
+    connection.release();
 
     const data = await Promise.all(promises);
 

@@ -1,9 +1,8 @@
-import { RowDataPacket } from "mysql2/promise";
+import { Pool, RowDataPacket } from "mysql2/promise";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const getShouldUpdateDescription = async (userId: string) => {
-    const connection = await getCloudSqlConnection();
-
+const getShouldUpdateDescription = async (pool: Pool, userId: string) => {
+    const connection = await pool.getConnection();
     const [userRows] = await connection.query<
         ({ updateDescription: boolean } & RowDataPacket)[]
     >(
@@ -11,7 +10,7 @@ const getShouldUpdateDescription = async (userId: string) => {
         [userId]
     );
 
-    await connection.end();
+    connection.release();
 
     if (userRows.length === 0) {
         return false;

@@ -1,11 +1,12 @@
 import dayjs from "dayjs";
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 
 const completeMessage = async (
-    connection: Connection,
+    pool: Pool,
     messageId: number,
     error?: string
 ) => {
+    const connection = await pool.getConnection();
     if (!error) {
         await connection.execute(
             `UPDATE EventQueue SET completed = ? WHERE id = ?`,
@@ -17,6 +18,7 @@ const completeMessage = async (
             [error, messageId]
         );
     }
+    connection.release();
 };
 
 export default completeMessage;

@@ -1,14 +1,14 @@
-import { Connection } from "mysql2/promise";
+import { Connection, Pool } from "mysql2/promise";
 import getStravaAccessToken from "./getStravaAccessToken";
 import setUsageData from "./setUsageData";
 
 const updateStravaDescription = async (
-    connection: Connection,
+    pool: Pool,
     userId: string,
     activityId: number,
     description: string
 ) => {
-    const token = await getStravaAccessToken(connection, userId);
+    const token = await getStravaAccessToken(pool, userId);
 
     const responseRaw = await fetch(
         `https://www.strava.com/api/v3/activities/${activityId}?description=${encodeURIComponent(
@@ -24,7 +24,7 @@ const updateStravaDescription = async (
 
     const response = responseRaw.clone();
 
-    await setUsageData(connection, response.headers);
+    await setUsageData(pool, response.headers);
 
     if (!response.ok) {
         console.error(await response.text());
