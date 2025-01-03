@@ -15,20 +15,27 @@ const saveActivity = async (
     const startTime = new Date(activity.start_date).toISOString();
 
     await connection.execute(
-        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, vertProfile, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             id,
             userId,
             startLat ?? null,
             startLong ?? null,
             distance ?? null,
-            coordinates ? JSON.stringify(coordinates) : null,
-            altitude ? JSON.stringify(altitude) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,
             activity.timezone ?? null,
             activity.total_elevation_gain ?? null,
+        ]
+    );
+
+    await connection.execute(
+        "UPDATE Activity SET coords = ?, vertProfile = ? WHERE id = ?",
+        [
+            coordinates ? JSON.stringify(coordinates) : null,
+            altitude ? JSON.stringify(altitude) : null,
+            id,
         ]
     );
 };
