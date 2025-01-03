@@ -14,6 +14,7 @@ const getCloudSqlConnection = async () => {
             database: "dev-db",
             socketPath: "/cloudsql/" + process.env.INSTANCE_CONNECTION_NAME,
             timezone: "+00:00",
+            charset: "utf8mb4",
         });
 
         console.log("Created connection");
@@ -32,6 +33,7 @@ const getCloudSqlConnection = async () => {
             connectTimeout: 20000,
             idleTimeout: 600000,
             timezone: "+00:00",
+            charset: "utf8mb4",
             ...clientOpts,
         });
 
