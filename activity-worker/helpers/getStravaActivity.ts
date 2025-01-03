@@ -65,6 +65,8 @@ const getStravaActivity = async (
     if (coords && times) {
         const summittedPeaks = await processCoords(connection, coords.data);
 
+        console.log(summittedPeaks);
+
         const peakDetails = summittedPeaks.map((peak) => {
             const peakId = peak.id;
             const timestamp = new Date(
@@ -86,8 +88,6 @@ const getStravaActivity = async (
             activity.description?.split("⛰️ PathQuest")[0].trimEnd() ?? "",
             peakDetails
         );
-
-        console.log(description);
 
         return description;
     }
