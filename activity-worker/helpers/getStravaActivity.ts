@@ -1,4 +1,3 @@
-import strava from "strava-v3";
 import getStravaAccessToken from "./getStravaAccessToken";
 import {
     StravaLatLngStream,
