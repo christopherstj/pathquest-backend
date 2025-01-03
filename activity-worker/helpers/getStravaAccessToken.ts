@@ -47,13 +47,13 @@ const getStravaAccessToken = async (connection: Connection, userId: string) => {
     if (!refreshToken || refreshToken === "") {
         return null;
     } else if (!accessToken || accessToken === "") {
-        console.log("no access token");
+        console.log(`no access token for user ${userId}`);
         return await getNewToken(connection, refreshToken, userId);
     } else if (
         accessTokenExpiresAt &&
         accessTokenExpiresAt * 1000 < new Date().getTime()
     ) {
-        console.log("token expired");
+        console.log(`token expired for user ${userId}`);
         return await getNewToken(connection, refreshToken, userId);
     } else {
         return accessToken;
