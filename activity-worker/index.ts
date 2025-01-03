@@ -4,6 +4,9 @@ import Fastify from "fastify";
 import retrieveMessage from "./helpers/retrieveMessage";
 import QueueMessage from "./typeDefs/QueueMessage";
 import { Agent, setGlobalDispatcher } from "undici";
+import getStravaActivity from "./helpers/getStravaActivity";
+import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
+import getShouldUpdateDescription from "./helpers/getShouldUpdateDescription";
 
 setGlobalDispatcher(new Agent({ connect: { timeout: 60_000 } }));
 
@@ -40,6 +43,27 @@ fastify.post<{
     console.log(`Processing ${message.id}`);
 
     retrieveMessage(message);
+
+    reply.code(200).send();
+});
+
+fastify.post<{
+    Body: {
+        ownerId: string;
+        objectId: number;
+    };
+}>("/test", async (request, reply) => {
+    const { ownerId, objectId } = request.body;
+
+    const connection = await getCloudSqlConnection();
+
+    const description = await getStravaActivity(
+        connection,
+        objectId,
+        ownerId.toString()
+    );
+
+    console.log(description);
 
     reply.code(200).send();
 });

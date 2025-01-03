@@ -21,6 +21,8 @@ const retrieveMessage = async (message: QueueMessage) => {
 
     await completeMessage(connection, message.id, result.error);
 
+    await connection.end();
+
     return true;
 };
 
