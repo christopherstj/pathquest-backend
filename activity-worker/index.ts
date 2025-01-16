@@ -9,7 +9,6 @@ import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
 
 setGlobalDispatcher(
     new Agent({
-        connections: 100,
         connect: { timeout: 60_000 },
     })
 );
