@@ -27,6 +27,17 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
         }
     );
 
+    if (!activityResRaw.ok) {
+        if (activityResRaw.status === 404) {
+            console.log(`Activity ${id} not found`);
+            return;
+        } else {
+            throw new Error(
+                `Error fetching activity ${id}: ${activityResRaw.statusText}`
+            );
+        }
+    }
+
     const activityRes = activityResRaw.clone();
 
     await setUsageData(pool, activityRes.headers);
@@ -41,6 +52,12 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             },
         }
     );
+
+    if (!streamResponseRaw.ok) {
+        throw new Error(
+            `Error fetching activity streams for ${id}: ${streamResponseRaw.statusText}`
+        );
+    }
 
     const streamResponse = streamResponseRaw.clone();
 
