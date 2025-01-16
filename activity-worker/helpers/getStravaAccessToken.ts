@@ -36,12 +36,9 @@ const getNewToken = async (
 };
 
 const getStravaAccessToken = async (pool: Pool, userId: string) => {
-    const connection = await pool.getConnection();
-    const [rows] = await connection.execute<(StravaCreds & ResultSetHeader)[]>(
+    const [rows] = await pool.execute<(StravaCreds & ResultSetHeader)[]>(
         `SELECT * FROM StravaToken WHERE userId = ${userId} LIMIT 1`
     );
-
-    connection.release();
 
     const creds = rows[0];
 

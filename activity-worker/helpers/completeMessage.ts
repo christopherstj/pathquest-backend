@@ -6,19 +6,17 @@ const completeMessage = async (
     messageId: number,
     error?: string
 ) => {
-    const connection = await pool.getConnection();
     if (!error) {
-        await connection.execute(
-            `UPDATE EventQueue SET completed = ? WHERE id = ?`,
-            [dayjs().format("YYYY-MM-DD HH:mm:ss"), messageId]
-        );
+        await pool.execute(`UPDATE EventQueue SET completed = ? WHERE id = ?`, [
+            dayjs().format("YYYY-MM-DD HH:mm:ss"),
+            messageId,
+        ]);
     } else {
-        await connection.execute(
+        await pool.execute(
             `UPDATE EventQueue SET started = NULL, completed = NULL, error = ? WHERE id = ?`,
             [error, messageId]
         );
     }
-    connection.release();
 };
 
 export default completeMessage;

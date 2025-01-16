@@ -1,9 +1,7 @@
 import { Connection, Pool } from "mysql2/promise";
 
 const resetShortTermUsage = async (pool: Pool) => {
-    const connection = await pool.getConnection();
-    await connection.execute(`UPDATE StravaRateLimit SET shortTermUsage = 0`);
-    connection.release();
+    await pool.execute(`UPDATE StravaRateLimit SET shortTermUsage = 0`);
 };
 
 export default resetShortTermUsage;

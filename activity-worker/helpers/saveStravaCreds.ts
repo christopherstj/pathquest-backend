@@ -4,8 +4,7 @@ import { StravaCreds } from "../typeDefs/StravaCreds";
 const saveStravaCreds = async (pool: Pool, creds: StravaCreds) => {
     const { userId, accessToken, refreshToken, accessTokenExpiresAt } = creds;
 
-    const connection = await pool.getConnection();
-    await connection.execute(
+    await pool.execute(
         "INSERT INTO StravaToken (userId, accessToken, refreshToken, accessTokenExpiresAt) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE accessToken = ?, refreshToken = ?, accessTokenExpiresAt = ?",
         [
             userId,
@@ -17,7 +16,6 @@ const saveStravaCreds = async (pool: Pool, creds: StravaCreds) => {
             accessTokenExpiresAt,
         ]
     );
-    connection.release();
 };
 
 export default saveStravaCreds;

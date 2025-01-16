@@ -33,13 +33,9 @@ const processCoords = async (pool: Pool, coords: [number, number][]) => {
         }
     );
 
-    const connection = await pool.getConnection();
-
-    const [rows] = await connection.execute(
+    const [rows] = await pool.query(
         `SELECT * FROM Peak WHERE Lat BETWEEN ${boundingBox.minLat} AND ${boundingBox.maxLat} AND \`Long\` BETWEEN ${boundingBox.minLong} AND ${boundingBox.maxLong}`
     );
-
-    connection.release();
 
     const coordResults = coords.map(([lat, long], index) => {
         return (rows as Peak[])

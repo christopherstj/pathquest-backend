@@ -20,13 +20,9 @@ const checkRateLimit = async (pool: Pool, checkStrava: boolean) => {
         await setUsageData(pool, accountRes.headers);
     }
 
-    const connection = await pool.getConnection();
-
-    const [rows] = await connection.query<(StravaRateLimit & RowDataPacket)[]>(`
+    const [rows] = await pool.query<(StravaRateLimit & RowDataPacket)[]>(`
         SELECT * FROM StravaRateLimit
     `);
-
-    connection.release();
 
     if (rows.length === 0) {
         return 0;

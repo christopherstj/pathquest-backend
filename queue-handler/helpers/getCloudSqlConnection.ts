@@ -33,10 +33,8 @@ const getCloudSqlConnection = async () => {
                     err.code === "ECONNREFUSED"
                 ) {
                     console.log("Reconnecting to MySQL");
-                    setTimeout(() => {
-                        connection.destroy();
-                        pool.getConnection();
-                    }, 30_000);
+                    connection.destroy();
+                    pool.getConnection();
                 } else {
                     throw err;
                 }

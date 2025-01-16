@@ -9,8 +9,7 @@ const saveActivitySummits = async (
     }[],
     activityId: string
 ) => {
-    const connection = await pool.getConnection();
-    await connection.query(
+    await pool.query(
         `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
         [
             summits.map((x) => [
@@ -21,7 +20,6 @@ const saveActivitySummits = async (
             ]),
         ]
     );
-    connection.release();
 };
 
 export default saveActivitySummits;

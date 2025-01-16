@@ -11,9 +11,7 @@ const setUsageData = async (pool: Pool, headers: Headers) => {
     const [shortTermLimit, dailyLimit] = limitHeader.split(",");
     const [shortTermUsage, dailyUsage] = usageHeader.split(",");
 
-    const connection = await pool.getConnection();
-
-    await connection.execute(
+    await pool.execute(
         `UPDATE StravaRateLimit SET shortTermLimit = ?, dailyLimit = ?, shortTermUsage = ?, dailyUsage = ?`,
         [shortTermLimit, dailyLimit, shortTermUsage, dailyUsage]
     );
