@@ -6,9 +6,13 @@ import QueueMessage from "./typeDefs/QueueMessage";
 import { Agent, setGlobalDispatcher } from "undici";
 import getStravaActivity from "./helpers/getStravaActivity";
 import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
-import getShouldUpdateDescription from "./helpers/getShouldUpdateDescription";
 
-setGlobalDispatcher(new Agent({ connect: { timeout: 60_000 } }));
+setGlobalDispatcher(
+    new Agent({
+        connections: 50,
+        connect: { timeout: 60_000 },
+    })
+);
 
 const fastify = Fastify({ logger: true });
 
