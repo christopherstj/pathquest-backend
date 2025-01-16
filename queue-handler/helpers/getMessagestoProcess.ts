@@ -7,8 +7,6 @@ import getMostRecentMessage from "./getMostRecentMessage";
 import QueueMessage from "../typeDefs/QueueMessage";
 
 const getMessagesToProcess = async (pool: Pool) => {
-    await resetShortTermUsage(pool);
-
     const allowedProcessing = await checkRateLimit(pool, false);
 
     console.log(`Allowed processing: ${allowedProcessing}`);
