@@ -15,7 +15,7 @@ const getMessagesToProcess = async (pool: Pool) => {
 
     const numberOfMessages = await getNumberOfMessages(pool);
 
-    const messagesToProcess = Math.min(allowedProcessing, numberOfMessages);
+    const messagesToProcess = Math.min(10, allowedProcessing, numberOfMessages);
 
     if (messagesToProcess === 0) {
         console.log("No messages to process");
