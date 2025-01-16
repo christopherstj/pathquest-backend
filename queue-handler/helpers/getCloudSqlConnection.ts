@@ -21,6 +21,8 @@ const getCloudSqlConnection = async () => {
             socketPath: "/cloudsql/" + process.env.INSTANCE_CONNECTION_NAME,
             timezone: "+00:00",
             charset: "utf8mb4",
+            waitForConnections: true,
+            connectTimeout: 20_000,
         });
 
         globalPool = pool;
