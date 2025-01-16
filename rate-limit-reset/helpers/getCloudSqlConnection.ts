@@ -24,6 +24,18 @@ const getCloudSqlConnection = async () => {
             connectTimeout: 20_000,
         });
 
+        pool.on("connection", (connection) => {
+            connection.on("error", (err) => {
+                console.error("MySQL connection error", err);
+                if (err.code === "PROTOCOL_CONNECTION_LOST") {
+                    connection.destroy();
+                    pool.getConnection();
+                } else {
+                    throw err;
+                }
+            });
+        });
+
         globalPool = pool;
 
         console.log("Created connection");
