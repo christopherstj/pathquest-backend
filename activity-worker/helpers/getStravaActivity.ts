@@ -54,6 +54,10 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
     );
 
     if (!streamResponseRaw.ok) {
+        if (streamResponseRaw.status === 404) {
+            console.log(`Activity streams for ${id} not found`);
+            return;
+        }
         throw new Error(
             `Error fetching activity streams for ${id}: ${streamResponseRaw.statusText}`
         );

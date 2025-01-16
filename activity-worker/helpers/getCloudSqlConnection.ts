@@ -1,6 +1,5 @@
 import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
 import mysql, { Connection, Pool, PoolConnection } from "mysql2/promise";
-import storage from "node-persist";
 
 const connector = new Connector();
 
