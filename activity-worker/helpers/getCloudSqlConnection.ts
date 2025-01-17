@@ -24,6 +24,22 @@ const getCloudSqlConnection = async () => {
             connectTimeout: 20_000,
         });
 
+        pool.on("connection", (connection) => {
+            connection.on("error", (err) => {
+                console.error("MySQL connection error", err);
+                if (
+                    err.code === "PROTOCOL_CONNECTION_LOST" ||
+                    err.code === "ECONNREFUSED"
+                ) {
+                    console.log("Reconnecting to MySQL");
+                    connection.destroy();
+                    pool.getConnection();
+                } else {
+                    throw err;
+                }
+            });
+        });
+
         globalPool = pool;
 
         console.log("Created connection");
@@ -39,8 +55,8 @@ const getCloudSqlConnection = async () => {
             user: "local-user",
             password: process.env.MYSQL_PASSWORD,
             database: "dev-db",
-            connectTimeout: 20000,
-            idleTimeout: 600000,
+            connectTimeout: 20_000,
+            idleTimeout: 600_000,
             timezone: "+00:00",
             charset: "utf8mb4",
             ...clientOpts,
