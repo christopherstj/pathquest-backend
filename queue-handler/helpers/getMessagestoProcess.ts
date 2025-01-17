@@ -15,16 +15,18 @@ const getMessagesToProcess = async (pool: Pool) => {
 
     const messagesToProcess = Math.min(30, allowedProcessing, numberOfMessages);
 
+    if (messagesToProcess > 100) {
+        throw new Error("Too many messages to process");
+    }
+
     if (messagesToProcess === 0) {
         console.log("No messages to process");
         return [];
     } else {
         const messages: QueueMessage[] = [];
-        for (let i = 0; i < messagesToProcess; i++) {
-            await getMostRecentMessage(pool, (message) => {
-                messages.push(message);
-            });
-        }
+        await getMostRecentMessage(pool, messagesToProcess, (messageList) => {
+            messages.push(...messageList);
+        });
 
         return messages;
     }
