@@ -2,17 +2,28 @@ import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 import completeMessage from "./completeMessage";
 import getCloudSqlConnection from "./getCloudSqlConnection";
-import processMessage from "./processMessage";
+import processDeleteMessage from "./processDeleteMessage";
+import processCreateMessage from "./processMessage";
 import setMessageStarted from "./setMessageStarted";
 
 const retrieveMessage = async (message: QueueMessage) => {
     const pool = await getCloudSqlConnection();
 
-    console.log("Processing message", message.id);
-
     await setMessageStarted(pool, message.id);
 
-    const result = await processMessage(pool, message);
+    switch (message.action) {
+        case "create":
+            await processCreateMessage(pool, message);
+            break;
+        case "update":
+            console.log("Update message received but not implemented");
+            break;
+        case "delete":
+            await processDeleteMessage(pool, message);
+            break;
+    }
+
+    const result = await processCreateMessage(pool, message);
 
     if (result.success) {
         console.log("Message processed successfully");
