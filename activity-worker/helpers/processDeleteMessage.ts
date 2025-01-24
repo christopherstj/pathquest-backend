@@ -3,7 +3,11 @@ import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 
 const processDeleteMessage = async (pool: Pool, message: QueueMessage) => {
-    const event = JSON.parse(message.jsonData) as StravaEvent;
+    const event = (
+        typeof message.jsonData === "string"
+            ? JSON.parse(message.jsonData)
+            : message.jsonData
+    ) as StravaEvent;
 
     const id = event.object_id;
 
