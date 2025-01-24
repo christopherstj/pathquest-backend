@@ -9,8 +9,6 @@ import addEventToQueue from "./helpers/addEventToQueue";
 const fastify = Fastify({ logger: true });
 
 fastify.post("/webhook", async (request, reply) => {
-    console.log(request.headers);
-
     const data: StravaEvent =
         typeof request.body === "string"
             ? JSON.parse(request.body)
@@ -18,22 +16,13 @@ fastify.post("/webhook", async (request, reply) => {
 
     console.log(data);
 
-    if (data.aspect_type !== "create") {
-        reply.code(200).send("Ignoring event");
-        return;
-    }
-
-    console.log("Processing activity", data.object_id);
-
     const message: QueueMessage = {
         userId: data.owner_id.toString(),
-        action: "create",
+        action: data.aspect_type,
         created: dayjs().format("YYYY-MM-DD HH:mm:ss"),
         jsonData: JSON.stringify(data),
         isWebhook: true,
     };
-
-    console.log(message);
 
     await addEventToQueue(message);
 
