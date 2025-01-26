@@ -1,9 +1,11 @@
+import { Pool } from "mysql2/promise";
 import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 import completeMessage from "./completeMessage";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 import processDeleteMessage from "./processDeleteMessage";
 import processCreateMessage from "./processMessage";
+import processUpdateMessage from "./processUpdateMessage";
 import setMessageStarted from "./setMessageStarted";
 
 const retrieveMessage = async (message: QueueMessage) => {
@@ -11,19 +13,21 @@ const retrieveMessage = async (message: QueueMessage) => {
 
     await setMessageStarted(pool, message.id);
 
-    switch (message.action) {
-        case "create":
-            await processCreateMessage(pool, message);
-            break;
-        case "update":
-            console.log("Update message received but not implemented");
-            break;
-        case "delete":
-            await processDeleteMessage(pool, message);
-            break;
-    }
-
-    const result = await processCreateMessage(pool, message);
+    const result = await (async (pool: Pool, message: QueueMessage) => {
+        switch (message.action) {
+            case "create":
+                const result1 = await processCreateMessage(pool, message);
+                return result1;
+            case "update":
+                const result2 = await processUpdateMessage(pool, message);
+                return result2;
+            case "delete":
+                const result3 = await processDeleteMessage(pool, message);
+                return result3;
+            default:
+                return { success: false, error: "Invalid action" };
+        }
+    })(pool, message);
 
     if (result.success) {
         console.log("Message processed successfully");

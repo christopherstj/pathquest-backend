@@ -53,7 +53,7 @@ const processMessage = async (pool: Pool, message: QueueMessage) => {
         console.error(err);
         return {
             success: false,
-            error: `Error processing ${message.id}, check container logs`,
+            error: `Error processing ${message.id}: ${(err as Error).message}`,
         };
     }
 };
