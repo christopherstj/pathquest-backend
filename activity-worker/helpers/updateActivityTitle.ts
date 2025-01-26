@@ -19,10 +19,10 @@ const updateActivityTitle = async (
     const shouldUpdateTitle = rows.length > 0 && !rows[0].titleManuallyUpdated;
 
     if (shouldUpdateTitle) {
-        await connection.execute(`UPDATE Activity SET title = ? WHERE id = ?`, [
-            newTitle,
-            id.toString(),
-        ]);
+        await connection.execute(
+            `UPDATE Activity SET \`name\` = ? WHERE id = ?`,
+            [newTitle, id.toString()]
+        );
     }
 
     connection.release();
