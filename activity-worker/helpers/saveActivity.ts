@@ -5,7 +5,8 @@ const saveActivity = async (
     pool: Pool,
     activity: StravaActivity,
     coordinates: [number, number][],
-    altitude?: number[]
+    altitude?: number[],
+    distanceStream?: number[]
 ) => {
     const id = activity.id;
     const userId = activity.athlete.id;
@@ -15,7 +16,23 @@ const saveActivity = async (
     const startTime = new Date(activity.start_date).toISOString();
 
     await pool.execute(
-        "INSERT IGNORE INTO Activity (id, userId, startLat, startLong, distance, coords, vertProfile, startTime, sport, `name`, timezone, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        `INSERT INTO Activity 
+        (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, startTime, sport, \`name\`, timezone, gain) 
+        VALUES 
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+        startLat = ?,
+        startLong = ?,
+        distance = ?,
+        coords = ?,
+        vertProfile = ?,
+        distanceStream = ?,
+        startTime = ?,
+        sport = ?,
+        \`name\` = ?,
+        timezone = ?,
+        gain = ?;
+        `,
         [
             id,
             userId,
@@ -24,6 +41,18 @@ const saveActivity = async (
             distance ?? null,
             coordinates ? JSON.stringify(coordinates) : null,
             altitude ? JSON.stringify(altitude) : null,
+            distanceStream ? JSON.stringify(distanceStream) : null,
+            startTime.slice(0, 19).replace("T", " "),
+            activity.type,
+            activity.name,
+            activity.timezone ?? null,
+            activity.total_elevation_gain ?? null,
+            startLat ?? null,
+            startLong ?? null,
+            distance ?? null,
+            coordinates ? JSON.stringify(coordinates) : null,
+            altitude ? JSON.stringify(altitude) : null,
+            distanceStream ? JSON.stringify(distanceStream) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,

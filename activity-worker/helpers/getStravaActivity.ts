@@ -45,7 +45,7 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
     const activity: StravaActivity = await activityRes.json();
 
     const streamResponseRaw = await fetch(
-        `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng,altitude&key_by_type=true`,
+        `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng,altitude,distance&key_by_type=true`,
         {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -71,17 +71,16 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
         latlng?: StravaLatLngStream;
         time?: StravaNumberStream;
         altitude?: StravaNumberStream;
-        // distance: StravaNumberStream;
+        distance?: StravaNumberStream;
     } = await streamResponse.json();
 
     const coords = streams.latlng;
     const times = streams.time;
     const altitude = streams.altitude;
+    const distance = streams.distance;
 
     if (coords && times) {
         const summittedPeaks = await processCoords(pool, coords.data);
-
-        console.log(summittedPeaks);
 
         const peakDetails = summittedPeaks.map((peak) => {
             const peakId = peak.id;
@@ -92,7 +91,13 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             return { peakId, timestamp, activityId: id };
         });
 
-        await saveActivity(pool, activity, coords.data, altitude?.data);
+        await saveActivity(
+            pool,
+            activity,
+            coords.data,
+            altitude?.data,
+            distance?.data
+        );
 
         if (peakDetails.length > 0) {
             await saveActivitySummits(pool, peakDetails, id.toString());

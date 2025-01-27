@@ -1,5 +1,3 @@
-import StravaEvent from "./StravaEvent";
-
 export default interface QueueMessage {
     userId: string;
     action: string;
