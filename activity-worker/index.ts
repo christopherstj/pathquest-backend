@@ -43,7 +43,11 @@ fastify.post<{
 
     const message: QueueMessage = JSON.parse(data);
 
-    console.log(`Processing ${message.id}`);
+    console.log(
+        message.id
+            ? `Processing ${message.id}`
+            : `Processing message for activity ${message.jsonData.object_id}`
+    );
 
     retrieveMessage(message);
 

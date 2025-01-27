@@ -7,8 +7,6 @@ import { Connection, Pool } from "mysql2/promise";
 import getShouldUpdateDescription from "./getShouldUpdateDescription";
 
 const processMessage = async (pool: Pool, message: QueueMessage) => {
-    console.log(`Processing message ${message.id}`);
-
     try {
         if (!message.jsonData) return { success: false, error: "No JSON data" };
 
