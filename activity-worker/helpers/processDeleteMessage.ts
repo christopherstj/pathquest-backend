@@ -2,7 +2,11 @@ import { Pool } from "mysql2/promise";
 import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 
-const processDeleteMessage = async (pool: Pool, message: QueueMessage) => {
+const processDeleteMessage = async (
+    pool: Pool,
+    message: QueueMessage,
+    deleteManualPeaks: boolean
+) => {
     try {
         const event = (
             typeof message.jsonData === "string"
@@ -13,6 +17,13 @@ const processDeleteMessage = async (pool: Pool, message: QueueMessage) => {
         const id = event.object_id;
 
         await pool.execute(`DELETE FROM Activity WHERE id = ?`, [id]);
+
+        if (deleteManualPeaks) {
+            await pool.execute(
+                `DELETE FROM UserPeakManual WHERE activityId = ?`,
+                [id]
+            );
+        }
 
         return { success: true };
     } catch (err) {

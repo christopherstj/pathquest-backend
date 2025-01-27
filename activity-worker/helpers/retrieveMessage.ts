@@ -16,7 +16,11 @@ const retrieveMessage = async (message: QueueMessage) => {
     const result = await (async (pool: Pool, message: QueueMessage) => {
         switch (message.action) {
             case "create":
-                const clearResult = await processDeleteMessage(pool, message);
+                const clearResult = await processDeleteMessage(
+                    pool,
+                    message,
+                    false
+                );
                 if (!clearResult.success) {
                     return clearResult;
                 }
@@ -26,7 +30,11 @@ const retrieveMessage = async (message: QueueMessage) => {
                 const updateResult = await processUpdateMessage(pool, message);
                 return updateResult;
             case "delete":
-                const deleteResult = await processDeleteMessage(pool, message);
+                const deleteResult = await processDeleteMessage(
+                    pool,
+                    message,
+                    true
+                );
                 return deleteResult;
             default:
                 return { success: false, error: "Invalid action" };
