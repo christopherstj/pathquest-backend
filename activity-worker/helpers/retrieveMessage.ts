@@ -11,7 +11,7 @@ import setMessageStarted from "./setMessageStarted";
 const retrieveMessage = async (message: QueueMessage) => {
     const pool = await getCloudSqlConnection();
 
-    await setMessageStarted(pool, message.id);
+    if (message.id) await setMessageStarted(pool, message.id);
 
     const result = await (async (pool: Pool, message: QueueMessage) => {
         switch (message.action) {
@@ -47,7 +47,7 @@ const retrieveMessage = async (message: QueueMessage) => {
         );
     }
 
-    await completeMessage(pool, message.id, result.error);
+    if (message.id) await completeMessage(pool, message.id, result.error);
 
     return true;
 };

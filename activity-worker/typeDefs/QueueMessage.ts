@@ -1,5 +1,5 @@
 export default interface QueueMessage {
-    id: number;
+    id?: number;
     action: string;
     created: string;
     started?: string;
