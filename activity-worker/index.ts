@@ -6,6 +6,7 @@ import QueueMessage from "./typeDefs/QueueMessage";
 import { Agent, setGlobalDispatcher } from "undici";
 import getStravaActivity from "./helpers/getStravaActivity";
 import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
+import StravaEvent from "./typeDefs/StravaEvent";
 
 setGlobalDispatcher(
     new Agent({
@@ -43,10 +44,12 @@ fastify.post<{
 
     const message: QueueMessage = JSON.parse(data);
 
+    const messageData: StravaEvent = JSON.parse(message.jsonData);
+
     console.log(
         message.id
             ? `Processing ${message.id}`
-            : `Processing message for activity ${message.jsonData.object_id}`
+            : `Processing message for activity ${messageData.object_id}`
     );
 
     retrieveMessage(message);

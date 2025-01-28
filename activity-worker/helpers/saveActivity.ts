@@ -16,8 +16,6 @@ const saveActivity = async (
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
 
-    console.log(coordinates[0], times[0], altitude?.[0], distanceStream?.[0]);
-
     await pool.execute(
         `INSERT INTO Activity 
         (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, timeStream, startTime, sport, \`name\`, timezone, gain) 
@@ -35,7 +33,8 @@ const saveActivity = async (
         sport = ?,
         \`name\` = ?,
         timezone = ?,
-        gain = ?;
+        gain = ?,
+        pendingReprocess = 0;
         `,
         [
             id,
