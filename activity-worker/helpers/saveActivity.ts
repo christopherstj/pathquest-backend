@@ -19,17 +19,13 @@ const saveActivity = async (
     const connection = await pool.getConnection();
     await connection.execute(
         `INSERT INTO Activity 
-        (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, timeStream, startTime, sport, \`name\`, timezone, gain) 
+        (id, userId, startLat, startLong, distance, startTime, sport, \`name\`, timezone, gain) 
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
         startLat = ?,
         startLong = ?,
         distance = ?,
-        coords = ?,
-        vertProfile = ?,
-        distanceStream = ?,
-        timeStream = ?,
         startTime = ?,
         sport = ?,
         \`name\` = ?,
@@ -43,10 +39,10 @@ const saveActivity = async (
             startLat ?? null,
             startLong ?? null,
             distance ?? null,
-            coordinates ? JSON.stringify(coordinates) : null,
-            altitude ? JSON.stringify(altitude) : null,
-            distanceStream ? JSON.stringify(distanceStream) : null,
-            times ? JSON.stringify(times) : null,
+            // coordinates ? JSON.stringify(coordinates) : null,
+            // altitude ? JSON.stringify(altitude) : null,
+            // distanceStream ? JSON.stringify(distanceStream) : null,
+            // times ? JSON.stringify(times) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,
@@ -55,10 +51,10 @@ const saveActivity = async (
             startLat ?? null,
             startLong ?? null,
             distance ?? null,
-            coordinates ? JSON.stringify(coordinates) : null,
-            altitude ? JSON.stringify(altitude) : null,
-            distanceStream ? JSON.stringify(distanceStream) : null,
-            times ? JSON.stringify(times) : null,
+            // coordinates ? JSON.stringify(coordinates) : null,
+            // altitude ? JSON.stringify(altitude) : null,
+            // distanceStream ? JSON.stringify(distanceStream) : null,
+            // times ? JSON.stringify(times) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,
@@ -66,6 +62,32 @@ const saveActivity = async (
             activity.total_elevation_gain ?? null,
         ]
     );
+
+    if (coordinates) {
+        await connection.execute(
+            `UPDATE Activity SET coords = ? WHERE id = ?`,
+            [id, JSON.stringify(coordinates)]
+        );
+    }
+    if (altitude) {
+        await connection.execute(
+            `UPDATE Activity SET vertProfile = ? WHERE id = ?`,
+            [id, JSON.stringify(altitude)]
+        );
+    }
+    if (distanceStream) {
+        await connection.execute(
+            `UPDATE Activity SET distanceStream = ? WHERE id = ?`,
+            [id, JSON.stringify(distanceStream)]
+        );
+    }
+    if (times) {
+        await connection.execute(
+            `UPDATE Activity SET timeStream = ? WHERE id = ?`,
+            [id, JSON.stringify(times)]
+        );
+    }
+
     connection.release();
 };
 
