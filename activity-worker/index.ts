@@ -44,7 +44,10 @@ fastify.post<{
 
     const message: QueueMessage = JSON.parse(data);
 
-    const messageData: StravaEvent = JSON.parse(message.jsonData);
+    const messageData: StravaEvent =
+        typeof message.jsonData === "string"
+            ? JSON.parse(message.jsonData)
+            : message.jsonData;
 
     console.log(
         message.id
