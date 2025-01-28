@@ -64,24 +64,28 @@ const saveActivity = async (
     );
 
     if (coordinates) {
+        console.log("saving coords");
         await connection.execute(
             `UPDATE Activity SET coords = ? WHERE id = ?`,
             [id, JSON.stringify(coordinates)]
         );
     }
     if (altitude) {
+        console.log("saving altitude");
         await connection.execute(
             `UPDATE Activity SET vertProfile = ? WHERE id = ?`,
             [id, JSON.stringify(altitude)]
         );
     }
     if (distanceStream) {
+        console.log("saving distance");
         await connection.execute(
             `UPDATE Activity SET distanceStream = ? WHERE id = ?`,
             [id, JSON.stringify(distanceStream)]
         );
     }
     if (times) {
+        console.log("saving times");
         await connection.execute(
             `UPDATE Activity SET timeStream = ? WHERE id = ?`,
             [id, JSON.stringify(times)]
