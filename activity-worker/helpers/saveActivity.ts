@@ -16,8 +16,8 @@ const saveActivity = async (
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
 
-    const connection = await pool.getConnection();
-    await connection.execute(
+    const connection1 = await pool.getConnection();
+    await connection1.execute(
         `INSERT INTO Activity 
         (id, userId, startLat, startLong, distance, startTime, sport, \`name\`, timezone, gain) 
         VALUES 
@@ -63,36 +63,44 @@ const saveActivity = async (
         ]
     );
 
+    connection1.release();
+
     if (coordinates) {
         console.log("saving coords");
+        const connection = await pool.getConnection();
         await connection.execute(
             `UPDATE Activity SET coords = ? WHERE id = ?`,
             [JSON.stringify(coordinates), id]
         );
+        connection.release();
     }
     if (altitude) {
         console.log("saving altitude");
+        const connection = await pool.getConnection();
         await connection.execute(
             `UPDATE Activity SET vertProfile = ? WHERE id = ?`,
             [JSON.stringify(altitude), id]
         );
+        connection.release();
     }
     if (distanceStream) {
         console.log("saving distance");
+        const connection = await pool.getConnection();
         await connection.execute(
             `UPDATE Activity SET distanceStream = ? WHERE id = ?`,
             [JSON.stringify(distanceStream), id]
         );
+        connection.release();
     }
     if (times) {
         console.log("saving times");
+        const connection = await pool.getConnection();
         await connection.execute(
             `UPDATE Activity SET timeStream = ? WHERE id = ?`,
             [JSON.stringify(times), id]
         );
+        connection.release();
     }
-
-    connection.release();
 };
 
 export default saveActivity;
