@@ -16,7 +16,8 @@ const saveActivity = async (
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
 
-    await pool.execute(
+    const connection = await pool.getConnection();
+    await connection.execute(
         `INSERT INTO Activity 
         (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, timeStream, startTime, sport, \`name\`, timezone, gain) 
         VALUES 
@@ -65,6 +66,7 @@ const saveActivity = async (
             activity.total_elevation_gain ?? null,
         ]
     );
+    connection.release();
 };
 
 export default saveActivity;

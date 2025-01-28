@@ -28,10 +28,12 @@ const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
         }
 
         if ("type" in event.updates && typeof event.updates.type === "string") {
-            await pool.execute(`UPDATE Activity SET sport = ? WHERE id = ?`, [
-                event.updates.type,
-                id,
-            ]);
+            const connection = await pool.getConnection();
+            await connection.execute(
+                `UPDATE Activity SET sport = ? WHERE id = ?`,
+                [event.updates.type, id]
+            );
+            connection.release();
         }
         return { success: true };
     } catch (err) {

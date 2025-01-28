@@ -6,13 +6,16 @@ const deleteActivity = async (
     activityId: string,
     deleteManualPeaks: boolean
 ) => {
-    await pool.execute(`DELETE FROM Activity WHERE id = ?`, [activityId]);
+    const connection = await pool.getConnection();
+    await connection.execute(`DELETE FROM Activity WHERE id = ?`, [activityId]);
 
     if (deleteManualPeaks) {
-        await pool.execute(`DELETE FROM UserPeakManual WHERE activityId = ?`, [
-            activityId,
-        ]);
+        await connection.execute(
+            `DELETE FROM UserPeakManual WHERE activityId = ?`,
+            [activityId]
+        );
     }
+    connection.release();
 };
 
 export default deleteActivity;
