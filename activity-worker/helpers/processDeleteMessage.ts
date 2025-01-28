@@ -1,6 +1,7 @@
 import { Pool } from "mysql2/promise";
 import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
+import deleteActivity from "./deleteActivity";
 
 const processDeleteMessage = async (
     pool: Pool,
@@ -16,14 +17,7 @@ const processDeleteMessage = async (
 
         const id = event.object_id;
 
-        await pool.execute(`DELETE FROM Activity WHERE id = ?`, [id]);
-
-        if (deleteManualPeaks) {
-            await pool.execute(
-                `DELETE FROM UserPeakManual WHERE activityId = ?`,
-                [id]
-            );
-        }
+        await deleteActivity(pool, id.toString(), deleteManualPeaks);
 
         return { success: true };
     } catch (err) {

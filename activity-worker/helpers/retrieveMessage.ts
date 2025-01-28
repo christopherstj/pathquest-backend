@@ -16,14 +16,6 @@ const retrieveMessage = async (message: QueueMessage) => {
     const result = await (async (pool: Pool, message: QueueMessage) => {
         switch (message.action) {
             case "create":
-                const clearResult = await processDeleteMessage(
-                    pool,
-                    message,
-                    false
-                );
-                if (!clearResult.success) {
-                    return clearResult;
-                }
                 const createResult = await processCreateMessage(pool, message);
                 return createResult;
             case "update":

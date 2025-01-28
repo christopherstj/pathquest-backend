@@ -10,6 +10,7 @@ import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
 import { Connection, Pool } from "mysql2/promise";
+import deleteActivity from "./deleteActivity";
 
 const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
     const accessToken = await getStravaAccessToken(pool, userId);
@@ -90,6 +91,8 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             );
             return { peakId, timestamp, activityId: id };
         });
+
+        await deleteActivity(pool, id.toString(), false);
 
         await saveActivity(
             pool,
