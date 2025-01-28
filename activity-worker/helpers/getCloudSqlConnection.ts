@@ -25,6 +25,16 @@ const getCloudSqlConnection = async () => {
             idleTimeout: 600_000,
         });
 
+        pool.on("connection", (connection: PoolConnection) => {
+            connection.on("error", (err) => {
+                console.error("Connection error", err);
+                if (err.code === "PROTOCOL_CONNECTION_LOST") {
+                    console.log("Reconnecting");
+                    getCloudSqlConnection();
+                }
+            });
+        });
+
         globalPool = pool;
 
         console.log("Created connection");
