@@ -18,6 +18,7 @@ const completeMessage = async (
             [error, messageId]
         );
     }
+    connection.release();
 };
 
 export default completeMessage;
