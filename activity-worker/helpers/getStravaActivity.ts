@@ -95,6 +95,7 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             pool,
             activity,
             coords.data,
+            times.data,
             altitude?.data,
             distance?.data
         );

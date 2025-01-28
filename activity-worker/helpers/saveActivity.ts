@@ -5,6 +5,7 @@ const saveActivity = async (
     pool: Pool,
     activity: StravaActivity,
     coordinates: [number, number][],
+    times: number[],
     altitude?: number[],
     distanceStream?: number[]
 ) => {
@@ -15,11 +16,13 @@ const saveActivity = async (
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
 
+    console.log(coordinates[0], times[0], altitude?.[0], distanceStream?.[0]);
+
     await pool.execute(
         `INSERT INTO Activity 
-        (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, startTime, sport, \`name\`, timezone, gain) 
+        (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, timeStream, startTime, sport, \`name\`, timezone, gain) 
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
         startLat = ?,
         startLong = ?,
@@ -27,6 +30,7 @@ const saveActivity = async (
         coords = ?,
         vertProfile = ?,
         distanceStream = ?,
+        timeStream = ?,
         startTime = ?,
         sport = ?,
         \`name\` = ?,
@@ -42,6 +46,7 @@ const saveActivity = async (
             coordinates ? JSON.stringify(coordinates) : null,
             altitude ? JSON.stringify(altitude) : null,
             distanceStream ? JSON.stringify(distanceStream) : null,
+            times ? JSON.stringify(times) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,
@@ -53,6 +58,7 @@ const saveActivity = async (
             coordinates ? JSON.stringify(coordinates) : null,
             altitude ? JSON.stringify(altitude) : null,
             distanceStream ? JSON.stringify(distanceStream) : null,
+            times ? JSON.stringify(times) : null,
             startTime.slice(0, 19).replace("T", " "),
             activity.type,
             activity.name,
