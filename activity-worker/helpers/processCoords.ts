@@ -8,7 +8,9 @@ import { Connection, Pool } from "mysql2/promise";
 const processCoords = async (pool: Pool, coords: [number, number][]) => {
     const initialCoords = coords[0];
 
-    const delta = distanceMetersToDegrees(30, initialCoords[0]);
+    const delta = distanceMetersToDegrees(40, initialCoords[0]);
+
+    console.log(`Delta: ${JSON.stringify(delta)}`);
 
     const boundingBox: {
         minLat: number;
