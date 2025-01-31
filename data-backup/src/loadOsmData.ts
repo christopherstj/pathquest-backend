@@ -14,9 +14,7 @@ const loadOsmData = async () => {
         fs.readFileSync("./src/summits.json", "utf8")
     ).elements;
 
-    const peaks = rawData.filter(
-        (peak) => peak.tags.name && peak.lat && peak.lon && peak.id
-    );
+    const peaks = rawData.filter((peak) => peak.lat && peak.lon && peak.id);
 
     const mapFunc = (peak: OSMPeak) => {
         const elevation = peak.tags.ele ? parseFloat(peak.tags.ele) : null;
@@ -31,10 +29,14 @@ const loadOsmData = async () => {
         ];
     };
 
-    await connection.query(
-        "INSERT INTO Peak (Id, `Name`, Lat, `Long`, Altitude, State, Country) VALUES ?",
-        [peaks.map(mapFunc)]
-    );
+    const data = peaks.map(mapFunc);
+
+    console.log(data.length);
+
+    // await connection.query(
+    //     "INSERT INTO Peak (Id, `Name`, Lat, `Long`, Altitude, State, Country) VALUES ?",
+    //     [peaks.map(mapFunc)]
+    // );
 
     console.log(`Inserted ${peaks.length} peaks into database`);
 };
