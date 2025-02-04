@@ -13,7 +13,7 @@ const getMostRecentMessage = async (
         `
         SELECT id, \`action\`, created, started, completed, jsonData, isWebhook = 1 isWebhook FROM EventQueue
         WHERE (started IS NULL OR started < date_sub(CURRENT_TIMESTAMP(), INTERVAL 15 MINUTE)) AND completed IS NULL AND attempts < 5
-        ORDER BY isWebhook DESC, created ASC
+        ORDER BY priority ASC, created ASC
         LIMIT ?
     `,
         [limit]

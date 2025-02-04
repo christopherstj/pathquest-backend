@@ -6,4 +6,5 @@ export default interface QueueMessage {
     completed?: string;
     jsonData?: string;
     isWebhook: boolean;
+    priority: number;
 }

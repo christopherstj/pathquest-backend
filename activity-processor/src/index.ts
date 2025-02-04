@@ -14,14 +14,13 @@ fastify.post("/webhook", async (request, reply) => {
             ? JSON.parse(request.body)
             : request.body;
 
-    console.log(data);
-
     const message: QueueMessage = {
         userId: data.owner_id.toString(),
         action: data.aspect_type,
         created: dayjs().format("YYYY-MM-DD HH:mm:ss"),
         jsonData: JSON.stringify(data),
         isWebhook: true,
+        priority: 1,
     };
 
     await addEventToQueue(message);
