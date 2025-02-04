@@ -33,10 +33,11 @@ const loadOsmData = async () => {
 
     console.log(data.length);
 
-    // await connection.query(
-    //     "INSERT INTO Peak (Id, `Name`, Lat, `Long`, Altitude, State, Country) VALUES ?",
-    //     [peaks.map(mapFunc)]
-    // );
+    await connection.query(
+        `INSERT INTO Peak (Id, \`Name\`, Lat, \`Long\`, Altitude, State, Country) VALUES ?
+        ON DUPLICATE KEY UPDATE `,
+        [peaks.map(mapFunc)]
+    );
 
     console.log(`Inserted ${peaks.length} peaks into database`);
 };

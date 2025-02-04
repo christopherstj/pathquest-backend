@@ -13,6 +13,8 @@ const retrieveMessage = async (message: QueueMessage) => {
 
     if (message.id) await setMessageStarted(pool, message.id);
 
+    console.log("Processing message", message);
+
     const result = await (async (pool: Pool, message: QueueMessage) => {
         switch (message.action) {
             case "create":

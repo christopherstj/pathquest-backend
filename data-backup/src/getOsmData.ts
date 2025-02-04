@@ -12,7 +12,6 @@ const getOsmData = async () => {
     // Continental US:
     // node["natural"="volcano"](24.396308, -125.0, 49.384358, -66.93457);
     // node["natural"="peak"](24.396308, -125.0, 49.384358, -66.93457);
-    // node["natural"="hill"](24.396308, -125.0, 49.384358, -66.93457);
 
     const query = `
         [out:json];

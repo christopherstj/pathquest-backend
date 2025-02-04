@@ -10,8 +10,6 @@ const processCoords = async (pool: Pool, coords: [number, number][]) => {
 
     const delta = distanceMetersToDegrees(40, initialCoords[0]);
 
-    console.log(`Delta: ${JSON.stringify(delta)}`);
-
     const boundingBox: {
         minLat: number;
         maxLat: number;
