@@ -34,8 +34,9 @@ const checkRateLimit = async (pool: Pool, checkStrava: boolean) => {
     const rateLimit = rows[0];
 
     const shortTermAllowance =
-        (rateLimit.shortTermLimit - rateLimit.shortTermUsage) / 3;
-    const dailyAllowance = (rateLimit.dailyLimit - rateLimit.dailyUsage) / 3;
+        (rateLimit.shortTermLimit - rateLimit.shortTermUsage - 3) / 3;
+    const dailyAllowance =
+        (rateLimit.dailyLimit - rateLimit.dailyUsage - 10) / 3;
 
     const allowance = Math.floor(Math.min(shortTermAllowance, dailyAllowance));
 
