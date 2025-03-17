@@ -10,6 +10,7 @@ const getCloudSqlConnection = async () => {
     console.log("Getting cloud SQL connection");
 
     if (globalPool) {
+        console.log("Using existing connection");
         return globalPool;
     }
 
