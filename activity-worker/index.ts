@@ -5,7 +5,7 @@ import retrieveMessage from "./helpers/retrieveMessage";
 import QueueMessage from "./typeDefs/QueueMessage";
 import { Agent, setGlobalDispatcher } from "undici";
 import getStravaActivity from "./helpers/getStravaActivity";
-import getCloudSqlConnection from "./helpers/getCloudSqlConnection";
+import db from "./helpers/getCloudSqlConnection";
 import StravaEvent from "./typeDefs/StravaEvent";
 
 setGlobalDispatcher(
@@ -68,10 +68,8 @@ fastify.post<{
 }>("/test", async (request, reply) => {
     const { ownerId, objectId } = request.body;
 
-    const connection = await getCloudSqlConnection();
-
     const description = await getStravaActivity(
-        connection,
+        db,
         objectId,
         ownerId.toString()
     );

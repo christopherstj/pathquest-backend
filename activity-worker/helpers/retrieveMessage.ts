@@ -1,31 +1,28 @@
-import { Pool } from "mysql2/promise";
 import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 import completeMessage from "./completeMessage";
-import getCloudSqlConnection from "./getCloudSqlConnection";
+import db from "./getCloudSqlConnection";
 import processDeleteMessage from "./processDeleteMessage";
 import processCreateMessage from "./processMessage";
 import processUpdateMessage from "./processUpdateMessage";
 import setMessageStarted from "./setMessageStarted";
 
 const retrieveMessage = async (message: QueueMessage) => {
-    const pool = await getCloudSqlConnection();
-
-    if (message.id) await setMessageStarted(pool, message.id);
+    if (message.id) await setMessageStarted(db, message.id);
 
     console.log("Processing message", message);
 
-    const result = await (async (pool: Pool, message: QueueMessage) => {
+    const result = await (async (message: QueueMessage) => {
         switch (message.action) {
             case "create":
-                const createResult = await processCreateMessage(pool, message);
+                const createResult = await processCreateMessage(db, message);
                 return createResult;
             case "update":
-                const updateResult = await processUpdateMessage(pool, message);
+                const updateResult = await processUpdateMessage(db, message);
                 return updateResult;
             case "delete":
                 const deleteResult = await processDeleteMessage(
-                    pool,
+                    db,
                     message,
                     true
                 );
@@ -33,7 +30,7 @@ const retrieveMessage = async (message: QueueMessage) => {
             default:
                 return { success: false, error: "Invalid action" };
         }
-    })(pool, message);
+    })(message);
 
     if (result.success) {
         console.log("Message processed successfully");
@@ -49,7 +46,7 @@ const retrieveMessage = async (message: QueueMessage) => {
         );
     }
 
-    if (message.id) await completeMessage(pool, message.id, result.error);
+    if (message.id) await completeMessage(db, message.id, result.error);
 
     return true;
 };

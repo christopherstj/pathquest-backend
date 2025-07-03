@@ -15,14 +15,12 @@ const getStravaDescription = async (
         return;
     }
 
-    const connection = await pool.getConnection();
-    const [userRows] = await connection.query<
+    const [userRows] = await pool.query<
         ({ updateDescription: boolean } & RowDataPacket)[]
     >(
         "SELECT updateDescription = 1 updateDescription FROM `User` WHERE id = ? LIMIT 1",
         [userId]
     );
-    connection.release();
 
     const updateDescription = Boolean(userRows[0].updateDescription);
 
@@ -56,8 +54,7 @@ const getStravaDescription = async (
     );
 
     const promises = mountainsSummited.map(async (summit) => {
-        const peakConnection = await pool.getConnection();
-        const [rows] = await connection.query<
+        const [rows] = await pool.query<
             ({
                 timestamp: string;
                 Name: string;
@@ -71,7 +68,6 @@ const getStravaDescription = async (
                 WHERE ap.peakId = ${summit.id}
                 AND u.id = ${userId}
         `);
-        peakConnection.release();
         return {
             id: summit,
             name: rows[0].Name,
