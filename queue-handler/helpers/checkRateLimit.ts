@@ -1,12 +1,12 @@
 import { RowDataPacket } from "mysql2";
 import StravaRateLimit from "../typeDefs/StravaRateLimit";
-import { Connection, Pool } from "mysql2/promise";
 import getStravaAccessToken from "./getStravaAccessToken";
 import setUsageData from "./setUsageData";
+import pool from "./getCloudSqlConnection";
 
-const checkRateLimit = async (pool: Pool, checkStrava: boolean) => {
+const checkRateLimit = async (checkStrava: boolean) => {
     if (checkStrava) {
-        const accessToken = await getStravaAccessToken(pool, "22686051");
+        const accessToken = await getStravaAccessToken("22686051");
 
         const accountRes = await fetch(
             `https://www.strava.com/api/v3/athlete`,
@@ -17,15 +17,12 @@ const checkRateLimit = async (pool: Pool, checkStrava: boolean) => {
             }
         );
 
-        await setUsageData(pool, accountRes.headers);
+        await setUsageData(accountRes.headers);
     }
 
-    const connection = await pool.getConnection();
-    const [rows] = await connection.query<(StravaRateLimit & RowDataPacket)[]>(`
+    const [rows] = await pool.query<(StravaRateLimit & RowDataPacket)[]>(`
         SELECT * FROM StravaRateLimit
     `);
-
-    connection.release();
 
     if (rows.length === 0) {
         return 0;

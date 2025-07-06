@@ -1,17 +1,14 @@
-import { Connection, Pool } from "mysql2/promise";
-import getCloudSqlConnection from "./getCloudSqlConnection";
-import resetShortTermUsage from "./resetShortTermUsage";
 import checkRateLimit from "./checkRateLimit";
 import getNumberOfMessages from "./getNumberOfMessages";
 import getMostRecentMessage from "./getMostRecentMessage";
 import QueueMessage from "../typeDefs/QueueMessage";
 
-const getMessagesToProcess = async (pool: Pool) => {
-    const allowedProcessing = await checkRateLimit(pool, false);
+const getMessagesToProcess = async () => {
+    const allowedProcessing = await checkRateLimit(false);
 
     console.log(`Allowed processing: ${allowedProcessing}`);
 
-    const numberOfMessages = await getNumberOfMessages(pool);
+    const numberOfMessages = await getNumberOfMessages();
 
     const messagesToProcess = Math.min(30, allowedProcessing, numberOfMessages);
 
@@ -24,7 +21,7 @@ const getMessagesToProcess = async (pool: Pool) => {
         return [];
     } else {
         const messages: QueueMessage[] = [];
-        await getMostRecentMessage(pool, messagesToProcess, (messageList) => {
+        await getMostRecentMessage(messagesToProcess, (messageList) => {
             messages.push(...messageList);
         });
 

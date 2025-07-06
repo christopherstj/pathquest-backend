@@ -1,11 +1,10 @@
-import { Connection, Pool } from "mysql2/promise";
 import { StravaCreds } from "../typeDefs/StravaCreds";
+import pool from "./getCloudSqlConnection";
 
-const saveStravaCreds = async (pool: Pool, creds: StravaCreds) => {
+const saveStravaCreds = async (creds: StravaCreds) => {
     const { userId, accessToken, refreshToken, accessTokenExpiresAt } = creds;
 
-    const connection = await pool.getConnection();
-    await connection.execute(
+    await pool.query(
         "INSERT INTO StravaToken (userId, accessToken, refreshToken, accessTokenExpiresAt) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE accessToken = ?, refreshToken = ?, accessTokenExpiresAt = ?",
         [
             userId,
@@ -17,7 +16,6 @@ const saveStravaCreds = async (pool: Pool, creds: StravaCreds) => {
             accessTokenExpiresAt,
         ]
     );
-    connection.release();
 };
 
 export default saveStravaCreds;
