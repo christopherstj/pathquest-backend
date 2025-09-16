@@ -89,7 +89,7 @@ const getStravaDescription = async (
                 mountain.lifetimeSummits > 1 ? "s" : ""
             })\n`
         );
-    }, `${previousDescription ? `${previousDescription}\n\n` : ""}⛰️ PathQuest\nMountains summited:\n`);
+    }, `${previousDescription ? `${previousDescription}\n\n` : ""}⛰️ PathQuest.app\nMountains summited:\n`);
 
     return stravaDesc;
 };

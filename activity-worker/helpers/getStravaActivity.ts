@@ -110,7 +110,7 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
         const description = await getStravaDescription(
             pool,
             userId,
-            activity.description?.split("⛰️ PathQuest")[0].trimEnd() ?? "",
+            activity.description?.split("⛰️ PathQuest.app")[0].trimEnd() ?? "",
             peakDetails
         );
 
