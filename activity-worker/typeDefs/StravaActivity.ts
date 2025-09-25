@@ -34,7 +34,7 @@ export default interface StravaActivity {
     trainer: boolean;
     commute: boolean;
     manual: boolean;
-    private: boolean;
+    private: boolean | "false" | "true";
     flagged: boolean;
     gear_id: string;
     from_accepted_tag: boolean;

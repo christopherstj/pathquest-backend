@@ -103,7 +103,8 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             distance?.data
         );
 
-        const isPublic = Boolean(activity.private) === false;
+        const isPublic =
+            activity.private === false || activity.private === "false";
 
         if (peakDetails.length > 0) {
             await saveActivitySummits(

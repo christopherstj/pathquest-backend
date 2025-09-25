@@ -8,7 +8,7 @@ export default interface StravaEvent {
     updates?: {
         title?: string;
         type?: string;
-        private?: boolean;
+        private?: boolean | "false" | "true";
         authorized?: boolean;
     };
 }

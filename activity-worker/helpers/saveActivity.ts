@@ -15,7 +15,7 @@ const saveActivity = async (
     const startLong = activity.start_latlng[1];
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
-    const isPublic = Boolean(activity.private) === false;
+    const isPublic = activity.private === false || activity.private === "false";
 
     await pool.execute(
         `INSERT INTO Activity 
