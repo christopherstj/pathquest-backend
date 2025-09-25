@@ -39,6 +39,7 @@ const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
             const isPublic =
                 event.updates.private === false ||
                 event.updates.private === "false";
+            console.log("Updating activity visibility to", isPublic);
             await updateActivityVisibility(pool, id, isPublic);
         }
 
