@@ -5,9 +5,7 @@ const updateActivityTitle = async (
     id: number,
     newTitle: string
 ) => {
-    const connection = await pool.getConnection();
-
-    const [rows] = await connection.execute<
+    const [rows] = await pool.execute<
         (RowDataPacket & { titleManuallyUpdated: boolean })[]
     >(
         `
@@ -19,13 +17,11 @@ const updateActivityTitle = async (
     const shouldUpdateTitle = rows.length > 0 && !rows[0].titleManuallyUpdated;
 
     if (shouldUpdateTitle) {
-        await connection.execute(
-            `UPDATE Activity SET \`name\` = ? WHERE id = ?`,
-            [newTitle, id.toString()]
-        );
+        await pool.execute(`UPDATE Activity SET \`name\` = ? WHERE id = ?`, [
+            newTitle,
+            id.toString(),
+        ]);
     }
-
-    connection.release();
 };
 
 export default updateActivityTitle;

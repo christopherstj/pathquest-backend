@@ -14,13 +14,16 @@ const getOsmData = async () => {
     // node["natural"="peak"](24.396308, -125.0, 49.384358, -66.93457);
 
     const query = `
-        [out:json];
+        [out:json][timeout:900];
         (
-            node["natural"="hill"](24.396308, -125.0, 49.384358, -66.93457);
+            node["natural"="volcano"](0, 0, 45, 90);
+            node["natural"="peak"](0, 0, 45, 90);
         );
         out;
     `;
     const queryString = `data=${encodeURIComponent(query)}`;
+
+    console.log("Fetching OSM data...");
 
     const response = await fetch("https://overpass-api.de/api/interpreter", {
         method: "POST",
@@ -29,7 +32,7 @@ const getOsmData = async () => {
 
     const data = await response.text();
 
-    fs.writeFileSync("./src/summits.json", data);
+    fs.writeFileSync("./src/summits1.json", data);
 };
 
 export default getOsmData;

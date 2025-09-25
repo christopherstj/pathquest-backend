@@ -15,13 +15,13 @@ const saveActivity = async (
     const startLong = activity.start_latlng[1];
     const distance = activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
+    const isPublic = activity.private === false;
 
-    const connection1 = await pool.getConnection();
-    await connection1.execute(
+    await pool.execute(
         `INSERT INTO Activity 
-        (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, timeStream, startTime, sport, \`name\`, timezone, gain) 
+        (id, userId, startLat, startLong, distance, coords, vertProfile, distanceStream, timeStream, startTime, sport, \`name\`, timezone, gain, isPublic, activityJson) 
         VALUES 
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
         startLat = ?,
         startLong = ?,
@@ -35,6 +35,8 @@ const saveActivity = async (
         \`name\` = ?,
         timezone = ?,
         gain = ?,
+        isPublic = ?,
+        activityJson = ?,
         pendingReprocess = 0;
         `,
         [
@@ -52,6 +54,8 @@ const saveActivity = async (
             activity.name,
             activity.timezone ?? null,
             activity.total_elevation_gain ?? null,
+            isPublic,
+            JSON.stringify(activity),
             startLat ?? null,
             startLong ?? null,
             distance ?? null,
@@ -64,47 +68,10 @@ const saveActivity = async (
             activity.name,
             activity.timezone ?? null,
             activity.total_elevation_gain ?? null,
+            isPublic,
+            JSON.stringify(activity),
         ]
     );
-
-    connection1.release();
-
-    // if (coordinates) {
-    //     console.log("saving coords");
-    //     const connection = await pool.getConnection();
-    //     await connection.execute(
-    //         `UPDATE Activity SET coords = ? WHERE id = ?`,
-    //         [JSON.stringify(coordinates), id]
-    //     );
-    //     connection.release();
-    // }
-    // if (altitude) {
-    //     console.log("saving altitude");
-    //     const connection = await pool.getConnection();
-    //     await connection.execute(
-    //         `UPDATE Activity SET vertProfile = ? WHERE id = ?`,
-    //         [JSON.stringify(altitude), id]
-    //     );
-    //     connection.release();
-    // }
-    // if (distanceStream) {
-    //     console.log("saving distance");
-    //     const connection = await pool.getConnection();
-    //     await connection.execute(
-    //         `UPDATE Activity SET distanceStream = ? WHERE id = ?`,
-    //         [JSON.stringify(distanceStream), id]
-    //     );
-    //     connection.release();
-    // }
-    // if (times) {
-    //     console.log("saving times");
-    //     const connection = await pool.getConnection();
-    //     await connection.execute(
-    //         `UPDATE Activity SET timeStream = ? WHERE id = ?`,
-    //         [JSON.stringify(times), id]
-    //     );
-    //     connection.release();
-    // }
 };
 
 export default saveActivity;

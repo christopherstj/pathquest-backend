@@ -8,8 +8,8 @@ import loadOsmData from "./loadOsmData";
 const main = async () => {
     // await getPeakElevations();
     // await geocodePeaks();
-    // await getOsmData();
-    await loadOsmData();
+    await getOsmData();
+    // await loadOsmData();
 };
 
 main().catch((error) => {

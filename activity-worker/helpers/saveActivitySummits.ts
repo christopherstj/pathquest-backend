@@ -7,21 +7,21 @@ const saveActivitySummits = async (
         timestamp: Date;
         activityId: number;
     }[],
-    activityId: string
+    activityId: string,
+    isPublic: boolean
 ) => {
-    const connection = await pool.getConnection();
-    await connection.query(
-        `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp) VALUES ?`,
+    await pool.query(
+        `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp, isPublic) VALUES ?`,
         [
             summits.map((x) => [
                 `${activityId}-${x.peakId}-${x.timestamp.toISOString()}`,
                 activityId,
                 x?.peakId,
                 x.timestamp.toISOString().slice(0, 19).replace("T", " "),
+                isPublic,
             ]),
         ]
     );
-    connection.release();
 };
 
 export default saveActivitySummits;

@@ -103,8 +103,15 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             distance?.data
         );
 
+        const isPublic = activity.private === false;
+
         if (peakDetails.length > 0) {
-            await saveActivitySummits(pool, peakDetails, id.toString());
+            await saveActivitySummits(
+                pool,
+                peakDetails,
+                id.toString(),
+                isPublic
+            );
         }
 
         const description = await getStravaDescription(

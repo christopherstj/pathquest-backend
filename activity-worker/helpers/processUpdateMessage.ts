@@ -2,6 +2,7 @@ import { Pool } from "mysql2/promise";
 import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 import updateActivityTitle from "./updateActivityTitle";
+import updateActivityVisibility from "./updateActivityVisibility";
 
 const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
     try {
@@ -28,13 +29,19 @@ const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
         }
 
         if ("type" in event.updates && typeof event.updates.type === "string") {
-            const connection = await pool.getConnection();
-            await connection.execute(
-                `UPDATE Activity SET sport = ? WHERE id = ?`,
-                [event.updates.type, id]
-            );
-            connection.release();
+            await pool.execute(`UPDATE Activity SET sport = ? WHERE id = ?`, [
+                event.updates.type,
+                id,
+            ]);
         }
+
+        if (
+            "private" in event.updates &&
+            typeof event.updates.private === "boolean"
+        ) {
+            await updateActivityVisibility(pool, id, !event.updates.private);
+        }
+
         return { success: true };
     } catch (err) {
         console.error(err);
