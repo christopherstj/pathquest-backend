@@ -1,10 +1,10 @@
 export default interface Peak {
-    Id: string;
-    Name: string;
-    Lat: number;
-    Long: number;
-    Altitude?: number;
-    City?: string;
-    State?: string;
-    Country?: string;
+    id: string;
+    name: string;
+    lng: number;
+    lat: number;
+    elevation?: number;
+    city?: string;
+    state?: string;
+    country?: string;
 }

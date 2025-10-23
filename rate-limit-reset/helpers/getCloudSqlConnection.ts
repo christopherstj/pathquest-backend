@@ -1,69 +1,51 @@
-import { Connector, IpAddressTypes } from "@google-cloud/cloud-sql-connector";
-import mysql, { Connection, Pool, PoolConnection } from "mysql2/promise";
+import { Pool } from "pg";
 
-const connector = new Connector();
+let globalPool: Pool | undefined = undefined;
 
-var globalPool: Pool | undefined = undefined;
+const getCloudSqlConnection = async (): Promise<Pool> => {
+    if (globalPool) return globalPool;
 
-const getCloudSqlConnection = async () => {
-    console.log("Getting cloud SQL connection");
+    const user = process.env.PG_USER ?? "local-user";
+    const password =
+        process.env.PG_PASSWORD ?? process.env.MYSQL_PASSWORD ?? "";
+    const database = process.env.PG_DATABASE ?? "operations";
 
-    if (globalPool) {
-        return globalPool;
-    }
-
+    // Use Unix domain socket path in production when deployed to Cloud Run / GCE
     if (process.env.NODE_ENV === "production") {
-        const pool = mysql.createPool({
-            user: "local-user",
-            password: process.env.MYSQL_PASSWORD,
-            database: "dev-db",
-            socketPath: "/cloudsql/" + process.env.INSTANCE_CONNECTION_NAME,
-            timezone: "+00:00",
-            charset: "utf8mb4",
-            waitForConnections: true,
-            connectTimeout: 20_000,
+        const socketPath =
+            "/cloudsql/" + (process.env.INSTANCE_CONNECTION_NAME ?? "");
+
+        const pool = new Pool({
+            user,
+            password,
+            database,
+            host: socketPath,
+            port: 5432,
+            max: 10,
         });
 
-        pool.on("connection", (connection) => {
-            connection.on("error", (err) => {
-                console.error("MySQL connection error", err);
-                if (err.code === "PROTOCOL_CONNECTION_LOST") {
-                    connection.destroy();
-                    pool.getConnection();
-                } else {
-                    throw err;
-                }
-            });
-        });
+        // quick smoke-test
+        await pool.query("SELECT 1");
 
         globalPool = pool;
-
-        console.log("Created connection");
-
-        return pool;
-    } else {
-        const clientOpts = await connector.getOptions({
-            instanceConnectionName: process.env.INSTANCE_CONNECTION_NAME ?? "",
-            ipType: IpAddressTypes.PUBLIC,
-        });
-
-        const pool = await mysql.createPool({
-            user: "local-user",
-            password: process.env.MYSQL_PASSWORD,
-            database: "dev-db",
-            connectTimeout: 20000,
-            idleTimeout: 600000,
-            timezone: "+00:00",
-            charset: "utf8mb4",
-            ...clientOpts,
-        });
-
-        globalPool = pool;
-
-        console.log("Created pool");
-
         return pool;
     }
+
+    // Local/dev: connect to local Postgres (or Cloud SQL Proxy listening on 127.0.0.1)
+    const pool = new Pool({
+        user,
+        password,
+        database,
+        host: process.env.PG_HOST ?? "127.0.0.1",
+        port: parseInt(process.env.PG_PORT ?? "5432", 10),
+        max: 5,
+    });
+
+    // quick smoke-test
+    await pool.query("SELECT 1");
+
+    globalPool = pool;
+    return pool;
 };
 
 export default getCloudSqlConnection;

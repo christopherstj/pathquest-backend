@@ -1,10 +1,11 @@
-import { RowDataPacket } from "mysql2";
 import StravaRateLimit from "../typeDefs/StravaRateLimit";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 import getStravaAccessToken from "./getStravaAccessToken";
 import setUsageData from "./setUsageData";
-import pool from "./getCloudSqlConnection";
 
 const checkRateLimit = async (checkStrava: boolean) => {
+    const pool = await getCloudSqlConnection();
+
     if (checkStrava) {
         const accessToken = await getStravaAccessToken("22686051");
 
@@ -20,8 +21,8 @@ const checkRateLimit = async (checkStrava: boolean) => {
         await setUsageData(accountRes.headers);
     }
 
-    const [rows] = await pool.query<(StravaRateLimit & RowDataPacket)[]>(`
-        SELECT * FROM StravaRateLimit
+    const { rows } = await pool.query<StravaRateLimit>(`
+        SELECT * FROM strava_rate_limit
     `);
 
     if (rows.length === 0) {
@@ -31,9 +32,9 @@ const checkRateLimit = async (checkStrava: boolean) => {
     const rateLimit = rows[0];
 
     const shortTermAllowance =
-        (rateLimit.shortTermLimit - rateLimit.shortTermUsage - 3) / 3;
+        (rateLimit.short_term_limit - rateLimit.short_term_usage - 3) / 3;
     const dailyAllowance =
-        (rateLimit.dailyLimit - rateLimit.dailyUsage - 10) / 3;
+        (rateLimit.daily_limit - rateLimit.daily_usage - 10) / 3;
 
     const allowance = Math.floor(Math.min(shortTermAllowance, dailyAllowance));
 

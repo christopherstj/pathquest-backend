@@ -1,18 +1,17 @@
-import { Pool, RowDataPacket } from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const getShouldUpdateDescription = async (pool: Pool, userId: string) => {
-    const [userRows] = await pool.query<
-        ({ updateDescription: boolean } & RowDataPacket)[]
-    >(
-        "SELECT updateDescription = 1 updateDescription FROM `User` WHERE id = ? LIMIT 1",
-        [userId]
-    );
+const getShouldUpdateDescription = async (userId: string) => {
+    const pool = await getCloudSqlConnection();
+
+    const { rows: userRows } = await pool.query<{
+        update_description: boolean;
+    }>("SELECT update_description FROM users WHERE id = $1 LIMIT 1", [userId]);
 
     if (userRows.length === 0) {
         return false;
     }
 
-    const updateDescription = Boolean(userRows[0].updateDescription);
+    const updateDescription = Boolean(userRows[0].update_description);
 
     return updateDescription;
 };

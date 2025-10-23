@@ -1,7 +1,6 @@
-import mysql, { Connection, Pool } from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const saveActivitySummits = async (
-    pool: Pool,
     summits: {
         peakId: string;
         timestamp: Date;
@@ -10,18 +9,36 @@ const saveActivitySummits = async (
     activityId: string,
     isPublic: boolean
 ) => {
-    await pool.query(
-        `INSERT IGNORE INTO ActivityPeak (id, activityId, peakId, timestamp, isPublic) VALUES ?`,
-        [
-            summits.map((x) => [
-                `${activityId}-${x.peakId}-${x.timestamp.toISOString()}`,
-                activityId,
-                x?.peakId,
-                x.timestamp.toISOString().slice(0, 19).replace("T", " "),
-                isPublic,
-            ]),
-        ]
-    );
+    const pool = await getCloudSqlConnection();
+
+    if (!summits || summits.length === 0) return;
+
+    const placeholders: string[] = [];
+    const values: any[] = [];
+
+    summits.forEach((x, i) => {
+        const base = i * 5;
+        placeholders.push(
+            `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${
+                base + 5
+            })`
+        );
+        values.push(
+            `${activityId}-${x.peakId}-${x.timestamp.toISOString()}`,
+            activityId,
+            x?.peakId,
+            x.timestamp.toISOString().slice(0, 19).replace("T", " "),
+            isPublic ? 1 : 0
+        );
+    });
+
+    const sql = `
+        INSERT INTO activities_peaks (id, activity_id, peak_id, timestamp, is_public)
+        VALUES ${placeholders.join(", ")}
+        ON CONFLICT (id) DO NOTHING
+    `;
+
+    await pool.query(sql, values);
 };
 
 export default saveActivitySummits;

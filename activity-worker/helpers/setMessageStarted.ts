@@ -1,8 +1,9 @@
 import dayjs from "dayjs";
-import { Connection, Pool } from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const setMessageStarted = async (pool: Pool, messageId: number) => {
-    await pool.execute(`UPDATE EventQueue SET started = ? WHERE id = ?`, [
+const setMessageStarted = async (messageId: number) => {
+    const pool = await getCloudSqlConnection();
+    await pool.query(`UPDATE event_queue SET started = $1 WHERE id = $2`, [
         dayjs().format("YYYY-MM-DD HH:mm:ss"),
         messageId,
     ]);

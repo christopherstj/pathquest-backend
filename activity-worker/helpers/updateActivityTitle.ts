@@ -1,23 +1,20 @@
-import { Pool, RowDataPacket } from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const updateActivityTitle = async (
-    pool: Pool,
-    id: number,
-    newTitle: string
-) => {
-    const [rows] = await pool.execute<
-        (RowDataPacket & { titleManuallyUpdated: boolean })[]
-    >(
+const updateActivityTitle = async (id: number, newTitle: string) => {
+    const pool = await getCloudSqlConnection();
+
+    const { rows } = await pool.query<{ title_manually_updated: boolean }>(
         `
-        SELECT titleManuallyUpdated = 1 titleManuallyUpdated FROM Activity WHERE id = ? LIMIT 1
+        SELECT title_manually_updated FROM Activity WHERE id = ? LIMIT 1
     `,
         [id.toString()]
     );
 
-    const shouldUpdateTitle = rows.length > 0 && !rows[0].titleManuallyUpdated;
+    const shouldUpdateTitle =
+        rows.length > 0 && !rows[0].title_manually_updated;
 
     if (shouldUpdateTitle) {
-        await pool.execute(`UPDATE Activity SET \`name\` = ? WHERE id = ?`, [
+        await pool.query(`UPDATE activities SET title = $1 WHERE id = $2`, [
             newTitle,
             id.toString(),
         ]);

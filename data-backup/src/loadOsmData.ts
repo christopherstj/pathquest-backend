@@ -35,7 +35,7 @@ const loadOsmData = async () => {
 
     await connection.query(
         `INSERT INTO Peak (Id, \`Name\`, Lat, \`Long\`, Altitude, State, Country) VALUES ?
-        ON DUPLICATE KEY UPDATE `,
+        ON DUPLICATE KEY UPDATE \`Name\`=VALUES(\`Name\`), Lat=VALUES(Lat), \`Long\`=VALUES(\`Long\`), Altitude=VALUES(Altitude)`,
         [peaks.map(mapFunc)]
     );
 

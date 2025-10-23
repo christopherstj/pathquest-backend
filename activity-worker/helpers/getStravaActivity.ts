@@ -9,11 +9,13 @@ import StravaActivity from "../typeDefs/StravaActivity";
 import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
-import { Connection, Pool } from "mysql2/promise";
 import deleteActivity from "./deleteActivity";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
-const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
-    const accessToken = await getStravaAccessToken(pool, userId);
+const getStravaActivity = async (id: number, userId: string) => {
+    const pool = await getCloudSqlConnection();
+
+    const accessToken = await getStravaAccessToken(userId);
 
     if (accessToken === "") {
         throw new Error("Strava access token not found");
@@ -41,7 +43,7 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
 
     const activityRes = activityResRaw.clone();
 
-    await setUsageData(pool, activityRes.headers);
+    await setUsageData(activityRes.headers);
 
     const activity: StravaActivity = await activityRes.json();
 
@@ -66,7 +68,7 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
 
     const streamResponse = streamResponseRaw.clone();
 
-    await setUsageData(pool, streamResponse.headers);
+    await setUsageData(streamResponse.headers);
 
     const streams: {
         latlng?: StravaLatLngStream;
@@ -75,13 +77,17 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
         distance?: StravaNumberStream;
     } = await streamResponse.json();
 
-    const coords = streams.latlng;
+    const coords_raw = streams.latlng;
     const times = streams.time;
     const altitude = streams.altitude;
     const distance = streams.distance;
 
-    if (coords && times) {
-        const summittedPeaks = await processCoords(pool, coords.data);
+    if (coords_raw && times) {
+        const coords = coords_raw.data.map(
+            (point) => [point[1], point[0]] as [number, number]
+        );
+
+        const summittedPeaks = await processCoords(coords);
 
         const peakDetails = summittedPeaks.map((peak) => {
             const peakId = peak.id;
@@ -92,12 +98,11 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             return { peakId, timestamp, activityId: id };
         });
 
-        await deleteActivity(pool, id.toString(), false);
+        await deleteActivity(id.toString(), false);
 
         await saveActivity(
-            pool,
             activity,
-            coords.data,
+            coords,
             times.data,
             altitude?.data,
             distance?.data
@@ -107,16 +112,10 @@ const getStravaActivity = async (pool: Pool, id: number, userId: string) => {
             activity.private === false || activity.private === "false";
 
         if (peakDetails.length > 0) {
-            await saveActivitySummits(
-                pool,
-                peakDetails,
-                id.toString(),
-                isPublic
-            );
+            await saveActivitySummits(peakDetails, id.toString(), isPublic);
         }
 
         const description = await getStravaDescription(
-            pool,
             userId,
             activity.description?.split("⛰️ PathQuest.app")[0].trimEnd() ?? "",
             peakDetails

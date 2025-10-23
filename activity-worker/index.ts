@@ -45,9 +45,9 @@ fastify.post<{
     const message: QueueMessage = JSON.parse(data);
 
     const messageData: StravaEvent =
-        typeof message.jsonData === "string"
-            ? JSON.parse(message.jsonData)
-            : message.jsonData;
+        typeof message.json_data === "string"
+            ? JSON.parse(message.json_data)
+            : message.json_data;
 
     console.log(
         message.id
@@ -68,11 +68,7 @@ fastify.post<{
 }>("/test", async (request, reply) => {
     const { ownerId, objectId } = request.body;
 
-    const description = await getStravaActivity(
-        db,
-        objectId,
-        ownerId.toString()
-    );
+    const description = await getStravaActivity(objectId, ownerId.toString());
 
     console.log(description);
 

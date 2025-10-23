@@ -2,10 +2,10 @@ import QueueMessage from "../typeDefs/QueueMessage";
 import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const addEventToQueue = async (message: QueueMessage) => {
-    const connection = await getCloudSqlConnection();
+    const pool = await getCloudSqlConnection();
 
-    await connection.execute(
-        `INSERT INTO EventQueue (\`action\`, created, jsonData, isWebhook, userId, priority) VALUES (?, ?, ?, ?, ?, ?)`,
+    await pool.query(
+        `INSERT INTO event_queue (action, created, json_data, is_webhook, user_id, priority) VALUES ($1, $2, $3, $4, $5, $6)`,
         [
             message.action,
             message.created,

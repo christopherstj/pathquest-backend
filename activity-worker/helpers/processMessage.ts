@@ -3,28 +3,26 @@ import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
 import getStravaActivity from "./getStravaActivity";
 import updateStravaDescription from "./updateStravaDescription";
-import { Connection, Pool } from "mysql2/promise";
 import getShouldUpdateDescription from "./getShouldUpdateDescription";
 
-const processMessage = async (pool: Pool, message: QueueMessage) => {
+const processMessage = async (message: QueueMessage) => {
     try {
-        if (!message.jsonData) return { success: false, error: "No JSON data" };
+        if (!message.json_data)
+            return { success: false, error: "No JSON data" };
 
         const messageData: StravaEvent =
-            typeof message.jsonData === "string"
-                ? JSON.parse(message.jsonData)
-                : message.jsonData;
+            typeof message.json_data === "string"
+                ? JSON.parse(message.json_data)
+                : message.json_data;
 
         const description = await getStravaActivity(
-            pool,
             messageData.object_id,
             messageData.owner_id.toString()
         );
 
-        const isWebhook = message.isWebhook;
+        const isWebhook = message.is_webhook;
 
         const updateDescription = await getShouldUpdateDescription(
-            pool,
             messageData.owner_id.toString()
         );
 
@@ -37,7 +35,6 @@ const processMessage = async (pool: Pool, message: QueueMessage) => {
             console.log("Updating activity description");
 
             const success = await updateStravaDescription(
-                pool,
                 messageData.owner_id.toString(),
                 messageData.object_id,
                 description

@@ -1,15 +1,17 @@
-import { Pool } from "mysql2/promise";
 import QueueMessage from "../typeDefs/QueueMessage";
 import StravaEvent from "../typeDefs/StravaEvent";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 import updateActivityTitle from "./updateActivityTitle";
 import updateActivityVisibility from "./updateActivityVisibility";
 
-const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
+const processUpdateMessage = async (message: QueueMessage) => {
+    const pool = await getCloudSqlConnection();
+
     try {
         const event = (
-            typeof message.jsonData === "string"
-                ? JSON.parse(message.jsonData)
-                : message.jsonData
+            typeof message.json_data === "string"
+                ? JSON.parse(message.json_data)
+                : message.json_data
         ) as StravaEvent;
 
         const id = event.object_id;
@@ -25,11 +27,11 @@ const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
             "title" in event.updates &&
             typeof event.updates.title === "string"
         ) {
-            await updateActivityTitle(pool, id, event.updates.title);
+            await updateActivityTitle(id, event.updates.title);
         }
 
         if ("type" in event.updates && typeof event.updates.type === "string") {
-            await pool.execute(`UPDATE Activity SET sport = ? WHERE id = ?`, [
+            await pool.query(`UPDATE Activity SET sport = $1 WHERE id = $2`, [
                 event.updates.type,
                 id,
             ]);
@@ -40,7 +42,7 @@ const processUpdateMessage = async (pool: Pool, message: QueueMessage) => {
                 event.updates.private === false ||
                 event.updates.private === "false";
             console.log("Updating activity visibility to", isPublic);
-            await updateActivityVisibility(pool, id, isPublic);
+            await updateActivityVisibility(id, isPublic);
         }
 
         return { success: true };

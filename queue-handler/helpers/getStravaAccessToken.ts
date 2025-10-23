@@ -1,8 +1,7 @@
 import { StravaCreds } from "../typeDefs/StravaCreds";
 import StravaTokenResponse from "../typeDefs/StravaTokenResponse";
-import { ResultSetHeader } from "mysql2/promise";
 import saveStravaCreds from "./saveStravaCreds";
-import pool from "./getCloudSqlConnection";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const clientId = process.env.STRAVA_CLIENT_ID ?? "";
 const clientSecret = process.env.STRAVA_CLIENT_SECRET ?? "";
@@ -23,35 +22,39 @@ const getNewToken = async (refreshToken: string, userId: string) => {
     const data: StravaTokenResponse = await response.json();
 
     await saveStravaCreds({
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token,
-        accessTokenExpiresAt: data.expires_at,
-        userId,
+        access_token: data.access_token,
+        refresh_token: data.refresh_token,
+        access_token_expires_at: data.expires_at,
+        user_id: userId,
     });
 
     return data.access_token;
 };
 
 const getStravaAccessToken = async (userId: string) => {
-    const [rows] = await pool.query<(StravaCreds & ResultSetHeader)[]>(
-        `SELECT * FROM StravaToken WHERE userId = ${userId} LIMIT 1`
+    const pool = await getCloudSqlConnection();
+
+    const { rows } = await pool.query<StravaCreds>(
+        `SELECT * FROM strava_tokens WHERE user_id = ${userId} LIMIT 1`
     );
 
     const creds = rows[0];
 
-    const { accessToken, refreshToken, accessTokenExpiresAt } = creds;
+    const { access_token, refresh_token, access_token_expires_at } = creds;
 
-    if (!refreshToken || refreshToken === "") {
+    if (!refresh_token || refresh_token === "") {
         return null;
-    } else if (!accessToken || accessToken === "") {
-        return await getNewToken(refreshToken, userId);
+    } else if (!access_token || access_token === "") {
+        console.log(`no access token for user ${userId}`);
+        return await getNewToken(refresh_token, userId);
     } else if (
-        accessTokenExpiresAt &&
-        accessTokenExpiresAt * 1000 < new Date().getTime()
+        access_token_expires_at &&
+        access_token_expires_at * 1000 < new Date().getTime()
     ) {
-        return await getNewToken(refreshToken, userId);
+        console.log(`token expired for user ${userId}`);
+        return await getNewToken(refresh_token, userId);
     } else {
-        return accessToken;
+        return access_token;
     }
 };
 

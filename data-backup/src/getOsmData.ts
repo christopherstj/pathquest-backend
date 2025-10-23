@@ -16,8 +16,8 @@ const getOsmData = async () => {
     const query = `
         [out:json][timeout:900];
         (
-            node["natural"="volcano"](0, 0, 45, 90);
-            node["natural"="peak"](0, 0, 45, 90);
+            node["natural"="volcano"](0, 0, 45, 45);
+            node["natural"="peak"](0, 0, 45, 45);
         );
         out;
     `;

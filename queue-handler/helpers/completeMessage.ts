@@ -1,15 +1,16 @@
 import dayjs from "dayjs";
-import pool from "./getCloudSqlConnection";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const completeMessage = async (messageId: number, error?: string) => {
+    const pool = await getCloudSqlConnection();
     if (!error) {
-        await pool.execute(`UPDATE EventQueue SET completed = ? WHERE id = ?`, [
-            dayjs().format("YYYY-MM-DD HH:mm:ss"),
-            messageId,
-        ]);
+        await pool.query(
+            `UPDATE event_queue SET completed = $1 WHERE id = $2`,
+            [dayjs().format("YYYY-MM-DD HH:mm:ss"), messageId]
+        );
     } else {
-        await pool.execute(
-            `UPDATE EventQueue SET started = NULL, completed = NULL, error = ? WHERE id = ?`,
+        await pool.query(
+            `UPDATE event_queue SET started = NULL, completed = NULL, error = $1 WHERE id = $2`,
             [error, messageId]
         );
     }

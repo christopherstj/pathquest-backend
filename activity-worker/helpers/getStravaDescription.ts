@@ -1,8 +1,6 @@
-import { RowDataPacket } from "mysql2";
-import { Connection, Pool } from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const getStravaDescription = async (
-    pool: Pool,
     userId: string,
     previousDescription: string,
     summits: {
@@ -15,14 +13,13 @@ const getStravaDescription = async (
         return;
     }
 
-    const [userRows] = await pool.query<
-        ({ updateDescription: boolean } & RowDataPacket)[]
-    >(
-        "SELECT updateDescription = 1 updateDescription FROM `User` WHERE id = ? LIMIT 1",
-        [userId]
-    );
+    const pool = await getCloudSqlConnection();
 
-    const updateDescription = Boolean(userRows[0].updateDescription);
+    const { rows: userRows } = await pool.query<{
+        update_description: boolean;
+    }>("SELECT update_description FROM users WHERE id = ? LIMIT 1", [userId]);
+
+    const updateDescription = Boolean(userRows[0].update_description);
 
     if (!updateDescription) {
         return;
@@ -54,24 +51,22 @@ const getStravaDescription = async (
     );
 
     const promises = mountainsSummited.map(async (summit) => {
-        const [rows] = await pool.query<
-            ({
-                timestamp: string;
-                Name: string;
-                Altitude: number;
-            } & RowDataPacket)[]
-        >(`
-            SELECT ap.\`timestamp\`, p.\`Name\`, p.Altitude FROM ActivityPeak ap 
-                LEFT JOIN Peak p ON ap.peakId = p.Id
-                LEFT JOIN Activity a ON ap.activityId = a.id
-                LEFT JOIN \`User\` u ON a.userId = u.id
-                WHERE ap.peakId = ${summit.id}
+        const { rows } = await pool.query<{
+            timestamp: string;
+            name: string;
+            elevation: number;
+        }>(`
+            SELECT ap.timestamp, p.name, p.elevation FROM activities_peaks ap
+                LEFT JOIN peaks p ON ap.peak_id = p.id
+                LEFT JOIN activities a ON ap.activity_id = a.id
+                LEFT JOIN users u ON a.user_id = u.id
+                WHERE ap.peak_id = ${summit.id}
                 AND u.id = ${userId}
         `);
         return {
             id: summit,
-            name: rows[0].Name,
-            altitude: rows[0].Altitude,
+            name: rows[0].name,
+            elevation: rows[0].elevation,
             activitySummits: summit.activitySummits,
             lifetimeSummits: rows.length,
         };

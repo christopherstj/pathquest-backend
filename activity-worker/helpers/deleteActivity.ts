@@ -1,16 +1,18 @@
-import { Pool } from "mysql2/promise";
+import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const deleteActivity = async (
-    pool: Pool,
     activityId: string,
     deleteManualPeaks: boolean
 ) => {
-    await pool.execute(`DELETE FROM Activity WHERE id = ?`, [activityId]);
+    const pool = await getCloudSqlConnection();
+
+    await pool.query(`DELETE FROM activities WHERE id = $1`, [activityId]);
 
     if (deleteManualPeaks) {
-        await pool.execute(`DELETE FROM UserPeakManual WHERE activityId = ?`, [
-            activityId,
-        ]);
+        await pool.query(
+            `DELETE FROM user_peak_manual WHERE activity_id = $1`,
+            [activityId]
+        );
     }
 };
 

@@ -1,6 +1,6 @@
 export default interface StravaRateLimit {
-    shortTermLimit: number;
-    dailyLimit: number;
-    shortTermUsage: number;
-    dailyUsage: number;
+    short_term_limit: number;
+    daily_limit: number;
+    short_term_usage: number;
+    daily_usage: number;
 }
