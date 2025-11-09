@@ -1,7 +1,6 @@
 import getMessagesToProcess from "./getMessagestoProcess";
 import { PubSub } from "@google-cloud/pubsub";
 import completeMessage from "./completeMessage";
-// import grpc from "@grpc/grpc-js";
 
 const topicName = process.env.PUBSUB_TOPIC ?? "";
 

@@ -7,10 +7,10 @@ const compareCoords = (
     delta: { lat: number; long: number }
 ) => {
     if (
-        peak.Lat >= lat - delta.lat &&
-        peak.Lat <= lat + delta.lat &&
-        peak.Long >= long - delta.long &&
-        peak.Long <= long + delta.long
+        peak.lat >= lat - delta.lat &&
+        peak.lat <= lat + delta.lat &&
+        peak.lng >= long - delta.long &&
+        peak.lng <= long + delta.long
     ) {
         return true;
     }

@@ -14,7 +14,10 @@ const saveActivity = async (
     const userId = activity.athlete.id;
     const startLat = activity.start_latlng[0];
     const startLong = activity.start_latlng[1];
-    const distance = activity.distance;
+    const distance =
+        typeof activity.distance === "string"
+            ? parseFloat(activity.distance)
+            : activity.distance;
     const startTime = new Date(activity.start_date).toISOString();
     const isPublic = activity.private === false || activity.private === "false";
 

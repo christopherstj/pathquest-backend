@@ -8,7 +8,7 @@ export default interface StravaActivity {
         resource_state: number;
     };
     name: string;
-    distance: number;
+    distance: number | string;
     moving_time: number;
     elapsed_time: number;
     total_elevation_gain: number;

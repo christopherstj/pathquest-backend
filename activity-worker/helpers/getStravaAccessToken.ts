@@ -35,7 +35,7 @@ const getStravaAccessToken = async (userId: string) => {
     const pool = await getCloudSqlConnection();
 
     const { rows } = await pool.query<StravaCreds>(
-        `SELECT * FROM strava_tokens WHERE user_id = ${userId} LIMIT 1`
+        `SELECT * FROM strava_tokens WHERE user_id = '${userId}' LIMIT 1`
     );
 
     const creds = rows[0];

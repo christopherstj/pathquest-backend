@@ -10,11 +10,8 @@ import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
 import deleteActivity from "./deleteActivity";
-import getCloudSqlConnection from "./getCloudSqlConnection";
 
 const getStravaActivity = async (id: number, userId: string) => {
-    const pool = await getCloudSqlConnection();
-
     const accessToken = await getStravaAccessToken(userId);
 
     if (accessToken === "") {

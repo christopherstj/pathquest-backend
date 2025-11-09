@@ -5,14 +5,14 @@ const getBoundingBox = (
         minLong: number;
         maxLong: number;
     },
-    [lat, long]: [number, number],
+    [lng, lat]: [number, number],
     delta: { lat: number; long: number }
 ) => {
     return {
         minLat: Math.min(acc.minLat, lat - delta.lat),
         maxLat: Math.max(acc.maxLat, lat + delta.lat),
-        minLong: Math.min(acc.minLong, long - delta.long),
-        maxLong: Math.max(acc.maxLong, long + delta.long),
+        minLong: Math.min(acc.minLong, lng - delta.long),
+        maxLong: Math.max(acc.maxLong, lng + delta.long),
     };
 };
 

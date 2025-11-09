@@ -7,12 +7,21 @@ const getSummits = (
             lastIndex: number;
             summits: {
                 index: number;
+                points: {
+                    lat: number;
+                    lng: number;
+                    distanceToPeak: number;
+                    index: number;
+                }[];
             }[];
         };
     },
     curr: {
         id: string;
         index: number;
+        distanceToPeak: number;
+        lat: number;
+        lng: number;
     }[],
     currIndex: number
 ) => {
@@ -26,7 +35,8 @@ const getSummits = (
                     summits: [
                         ...prev[summit.id].summits,
                         {
-                            index: currIndex,
+                            index: prev[summit.id].summits.length,
+                            points: [summit],
                         },
                     ],
                     reset: false,
@@ -34,12 +44,16 @@ const getSummits = (
                 };
             } else {
                 prev[summit.id].lastIndex = currIndex;
+                prev[summit.id].summits[
+                    prev[summit.id].summits.length - 1
+                ].points.push(summit);
             }
         } else if (!prev[summit.id]) {
             prev[summit.id] = {
                 summits: [
                     {
-                        index: currIndex,
+                        index: 0,
+                        points: [summit],
                     },
                 ],
                 reset: false,

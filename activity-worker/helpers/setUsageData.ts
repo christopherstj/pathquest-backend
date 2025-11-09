@@ -14,7 +14,7 @@ const setUsageData = async (headers: Headers) => {
     const [shortTermUsage, dailyUsage] = usageHeader.split(",");
 
     await pool.query(
-        `UPDATE strava_rate_limits SET shortTermLimit = $1, dailyLimit = $2, shortTermUsage = $3, dailyUsage = $4 WHERE id = 1`,
+        `UPDATE strava_rate_limits SET short_term_limit = $1, daily_limit = $2, short_term_usage = $3, daily_usage = $4 WHERE id = 1`,
         [shortTermLimit, dailyLimit, shortTermUsage, dailyUsage]
     );
 };

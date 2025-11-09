@@ -17,7 +17,7 @@ const getStravaDescription = async (
 
     const { rows: userRows } = await pool.query<{
         update_description: boolean;
-    }>("SELECT update_description FROM users WHERE id = ? LIMIT 1", [userId]);
+    }>("SELECT update_description FROM users WHERE id = $1", [userId]);
 
     const updateDescription = Boolean(userRows[0].update_description);
 
@@ -55,14 +55,17 @@ const getStravaDescription = async (
             timestamp: string;
             name: string;
             elevation: number;
-        }>(`
+        }>(
+            `
             SELECT ap.timestamp, p.name, p.elevation FROM activities_peaks ap
                 LEFT JOIN peaks p ON ap.peak_id = p.id
                 LEFT JOIN activities a ON ap.activity_id = a.id
                 LEFT JOIN users u ON a.user_id = u.id
-                WHERE ap.peak_id = ${summit.id}
-                AND u.id = ${userId}
-        `);
+                WHERE ap.peak_id = $1
+                AND u.id = $2
+        `,
+            [summit.id, userId]
+        );
         return {
             id: summit,
             name: rows[0].name,

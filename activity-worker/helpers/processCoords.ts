@@ -25,8 +25,8 @@ const processCoords = async (coords: [number, number][]) => {
                 minLong: number;
                 maxLong: number;
             },
-            [lat, long]
-        ) => getBoundingBox(acc, [lat, long], delta),
+            [lng, lat]
+        ) => getBoundingBox(acc, [lng, lat], delta),
         {
             minLat: initialCoords[1] - delta.lat,
             maxLat: initialCoords[1] + delta.lat,
@@ -36,19 +36,44 @@ const processCoords = async (coords: [number, number][]) => {
     );
 
     const { rows } = await pool.query<Peak>(
-        `SELECT * FROM peaks WHERE ST_Within(
-            location_coords,
-            ST_MakeEnvelope(${boundingBox.minLong}, ${boundingBox.minLat}, ${boundingBox.maxLong}, ${boundingBox.maxLat}, 4326)
-        ) = true`
+        `SELECT 
+            id, 
+            name, 
+            elevation, 
+            state, 
+            country,
+            ST_Y(location_coords::geometry) as lat,
+            ST_X(location_coords::geometry) as lng,
+            location_coords
+        FROM peaks 
+        WHERE ST_Within(
+            location_coords::geometry,
+            ST_MakeEnvelope($1, $2, $3, $4, 4326)
+        )`,
+        [
+            boundingBox.minLong,
+            boundingBox.minLat,
+            boundingBox.maxLong,
+            boundingBox.maxLat,
+        ]
     );
 
-    const coordResults = coords.map(([lat, long], index) => {
+    const coordResults = coords.map(([lng, lat], index) => {
         return (rows as Peak[])
-            .filter((x) => compareCoords(x, lat, long, delta))
-            .map((x) => ({
-                id: x.id,
-                index,
-            }));
+            .filter((x) => compareCoords(x, lat, lng, delta))
+            .map((x) => {
+                const distanceToPeak = Math.sqrt(
+                    Math.pow((x.lat - lat) * 111320, 2) +
+                        Math.pow((x.lng - lng) * 111320, 2)
+                );
+                return {
+                    id: x.id,
+                    index,
+                    lat,
+                    lng,
+                    distanceToPeak,
+                };
+            });
     });
 
     const taggedSummits = coordResults.reduce(
@@ -59,17 +84,39 @@ const processCoords = async (coords: [number, number][]) => {
                 lastIndex: number;
                 summits: {
                     index: number;
+                    points: {
+                        lat: number;
+                        lng: number;
+                        distanceToPeak: number;
+                        index: number;
+                    }[];
                 }[];
             };
         }
     );
 
+    // console.log(JSON.stringify(taggedSummits, null, 2));
+
     return Object.keys(taggedSummits)
         .map((x) => {
-            return taggedSummits[x].summits.map((y) => ({
-                id: x,
-                index: y.index,
-            }));
+            return taggedSummits[x].summits.map((y) => {
+                const closestIndex = y.points.reduce(
+                    (closestIndex, point, index, arr) => {
+                        if (
+                            point.distanceToPeak <=
+                            arr[closestIndex].distanceToPeak
+                        ) {
+                            return index;
+                        }
+                        return closestIndex;
+                    },
+                    0
+                );
+                return {
+                    id: x,
+                    index: y.points[closestIndex].index,
+                };
+            });
         })
         .flatMap((x) => x);
 };
