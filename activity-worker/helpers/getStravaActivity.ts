@@ -10,6 +10,7 @@ import saveActivity from "./saveActivity";
 import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
 import deleteActivity from "./deleteActivity";
+import getHistoricalWeatherByCoords from "./getHistoricalWeatherByCoords";
 
 const getStravaActivity = async (id: number, userId: string) => {
     const accessToken = await getStravaAccessToken(userId);
@@ -86,14 +87,21 @@ const getStravaActivity = async (id: number, userId: string) => {
 
         const summittedPeaks = await processCoords(coords);
 
-        const peakDetails = summittedPeaks.map((peak) => {
+        const peakDetailsPromises = summittedPeaks.map(async (peak) => {
             const peakId = peak.id;
             const timestamp = new Date(
                 new Date(activity.start_date).getTime() +
                     times.data[peak.index] * 1000
             );
-            return { peakId, timestamp, activityId: id };
+            const weather = await getHistoricalWeatherByCoords(
+                timestamp,
+                { lat: peak.lat, lon: peak.lng },
+                peak.elevation ?? 0
+            );
+            return { peakId, timestamp, activityId: id, weather };
         });
+
+        const peakDetails = await Promise.all(peakDetailsPromises);
 
         await deleteActivity(id.toString(), false);
 

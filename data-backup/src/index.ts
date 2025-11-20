@@ -12,8 +12,8 @@ const main = async () => {
     // await geocodePeaks();
     // await getOsmData();
     // await loadOsmData();
-    // await mysqlToPsql();
-    await test();
+    await mysqlToPsql();
+    // await test();
 };
 
 main().catch((error) => {

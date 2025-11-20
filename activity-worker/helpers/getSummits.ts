@@ -5,6 +5,9 @@ const getSummits = (
         [key: string]: {
             reset: boolean;
             lastIndex: number;
+            lat: number;
+            lng: number;
+            elevation?: number;
             summits: {
                 index: number;
                 points: {
@@ -22,6 +25,7 @@ const getSummits = (
         distanceToPeak: number;
         lat: number;
         lng: number;
+        elevation?: number;
     }[],
     currIndex: number
 ) => {
@@ -32,6 +36,7 @@ const getSummits = (
                 currIndex > prev[summit.id].lastIndex + 300
             ) {
                 prev[summit.id] = {
+                    ...prev[summit.id],
                     summits: [
                         ...prev[summit.id].summits,
                         {
@@ -50,6 +55,9 @@ const getSummits = (
             }
         } else if (!prev[summit.id]) {
             prev[summit.id] = {
+                lat: summit.lat,
+                lng: summit.lng,
+                elevation: summit.elevation,
                 summits: [
                     {
                         index: 0,

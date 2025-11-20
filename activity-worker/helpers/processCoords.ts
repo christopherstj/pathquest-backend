@@ -71,6 +71,7 @@ const processCoords = async (coords: [number, number][]) => {
                     index,
                     lat,
                     lng,
+                    elevation: x.elevation,
                     distanceToPeak,
                 };
             });
@@ -82,6 +83,9 @@ const processCoords = async (coords: [number, number][]) => {
             [key: string]: {
                 reset: boolean;
                 lastIndex: number;
+                lat: number;
+                lng: number;
+                elevation?: number;
                 summits: {
                     index: number;
                     points: {
@@ -114,6 +118,9 @@ const processCoords = async (coords: [number, number][]) => {
                 );
                 return {
                     id: x,
+                    lat: y.points[closestIndex].lat,
+                    lng: y.points[closestIndex].lng,
+                    elevation: taggedSummits[x].elevation,
                     index: y.points[closestIndex].index,
                 };
             });

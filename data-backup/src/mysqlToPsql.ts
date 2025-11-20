@@ -4,7 +4,7 @@ import { Client } from "pg";
 import Peak from "../typeDefs/Peak";
 
 const CHUNK_SIZE = 4000;
-const START_ROW = 19000;
+const START_ROW = 0;
 
 const processChunk = async (mysqlPool: Pool, pgClient: Client, i: number) => {
     const offset = i * CHUNK_SIZE + START_ROW;
@@ -12,30 +12,17 @@ const processChunk = async (mysqlPool: Pool, pgClient: Client, i: number) => {
 
     console.log(`Processing chunk ${i + 1}`);
 
-    const [rows] = await mysqlPool.query<any[]>(
-        "SELECT * FROM Peak LIMIT ? OFFSET ?",
-        [limit, offset]
-    );
+    const [rows] = await mysqlPool.query<any[]>("SELECT * FROM PeakChallenge");
 
     console.log(`Fetched ${rows.length} rows from MySQL`);
 
     for (const row of rows) {
         const res = await pgClient.query(
             `
-            INSERT INTO peaks_old (Altitude, Country, County, Id, Lat, Lng, Name, State, Type)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            INSERT INTO peaks_challenges (peak_id, challenge_id)
+            VALUES ($1, $2)
         `,
-            [
-                row.Altitude,
-                row.Country,
-                row.County,
-                row.Id,
-                row.Lat,
-                row.Long,
-                row.Name,
-                row.State,
-                row.Type,
-            ]
+            [row.PeakId, row.ChallengeId]
         );
     }
 };
@@ -62,25 +49,42 @@ const mysqlToPsql = async () => {
 
     await pgClient.connect();
 
-    const result = await pgClient.query<Peak>(``);
+    // const [rows] = await mysqlPool.query<any[]>("SELECT * FROM Challenge");
 
-    console.log("Connected to Postgres");
+    // console.log(`Fetched ${rows.length} rows from MySQL`);
 
-    const [rows] = await mysqlPool.query<
-        ({
-            numPeaks: number;
-        } & RowDataPacket)[]
-    >("SELECT COUNT(*) AS numPeaks FROM Peak");
+    // for (const row of rows) {
+    //     const res = await pgClient.query(
+    //         `
+    //         INSERT INTO challenges (id, name, region, location_coords, description)
+    //         VALUES ($1, $2, $3, ST_SetSRID(ST_MakePoint($4, $5), 4326)::geography, $6)
+    //     `,
+    //         [
+    //             row.id,
+    //             row.name,
+    //             row.region,
+    //             row.centerLong,
+    //             row.centerLat,
+    //             row.description,
+    //         ]
+    //     );
+    // }
 
-    const numPeaks = rows[0].numPeaks - START_ROW;
+    const [rows2] = await mysqlPool.query<any[]>("SELECT * FROM PeakChallenge");
 
-    console.log(`Migrating ${numPeaks} peaks`);
+    console.log(`Fetched ${rows2.length} rows from MySQL`);
 
-    const chunks = Math.ceil(numPeaks / CHUNK_SIZE);
-
-    for (let i = 0; i < chunks; i++) {
-        await processChunk(mysqlPool, pgClient, i);
+    for (const row of rows2) {
+        const res = await pgClient.query(
+            `
+            INSERT INTO peaks_challenges (peak_id, challenge_id)
+            VALUES ($1, $2)
+        `,
+            [row.peakId, row.challengeId]
+        );
     }
+
+    console.log("Data transfer complete.");
 
     await mysqlPool.end();
     await pgClient.end();
