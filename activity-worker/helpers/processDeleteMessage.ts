@@ -4,15 +4,10 @@ import deleteActivity from "./deleteActivity";
 
 const processDeleteMessage = async (
     message: QueueMessage,
+    event: StravaEvent,
     deleteManualPeaks: boolean
 ) => {
     try {
-        const event = (
-            typeof message.json_data === "string"
-                ? JSON.parse(message.json_data)
-                : message.json_data
-        ) as StravaEvent;
-
         const id = event.object_id;
 
         await deleteActivity(id.toString(), deleteManualPeaks);

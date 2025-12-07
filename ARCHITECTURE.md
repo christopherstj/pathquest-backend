@@ -91,14 +91,10 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 
 **Routes**:
 - `POST /` - Receives Pub/Sub messages
-  - Validates Pub/Sub message format
+  - Validates Pub/Sub message format and base64 payload shape
   - Parses base64-encoded message data
   - Calls `retrieveMessage()` to process
   - Returns 200 immediately (async processing)
-- `POST /test` - **UNUSED** - Test endpoint for fetching Strava activity descriptions
-  - Takes `ownerId` and `objectId`
-  - Fetches activity description from Strava
-  - Logs result
 
 **Helpers**:
 - `retrieveMessage` - Main message processor
@@ -108,6 +104,7 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
     - `delete` → `processDeleteMessage` (handles activity deletions)
   - Marks message as started via `setMessageStarted`
   - Marks message as completed via `completeMessage`
+  - Parses and validates event payload once and propagates structured errors to queue completion
 - `processMessage` - Processes new activity creation
   - Fetches activity from Strava via `getStravaActivity`
   - Optionally updates Strava description if webhook and user has description updates enabled
@@ -137,10 +134,10 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 - `updateStravaDescription` - Updates activity description on Strava
 - `getShouldUpdateDescription` - Checks if user has description updates enabled
 - `getStravaAccessToken` - Gets OAuth token for Strava API
+- `getHistoricalWeatherByCoords` - Fetches archived weather data for summit enrichment
 - `deleteActivity` - Removes activity and associated data
 - `updateActivityTitle` - Updates activity title in database
 - `updateActivityVisibility` - Updates activity visibility in database
-- `getHistoricalWeatherByCoords` - Fetches weather data for coordinates (may be unused)
 - `compareCoords` - Compares coordinate arrays
 - `distanceMetersToDegrees` - Converts distance in meters to degrees
 - `getBoundingBox` - Calculates bounding box for coordinate set
@@ -228,6 +225,10 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 - **Activity Worker** tracks usage after each Strava API call
 - **Rate Limit Reset** worker resets counters on schedule
 
+### Automated Tests (activity-worker)
+- `npm test` / `npm run test:unit` executes Vitest unit tests
+- Coverage includes message routing (`retrieveMessage`) and summit detection (`detectSummits`)
+
 ## Database Tables Used
 
 ### `event_queue`
@@ -249,6 +250,53 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 ### `strava_creds`
 - Stores OAuth tokens for Strava API access
 - Fields: `user_id`, `access_token`, `refresh_token`, `expires_at`
+
+## Database Schema (PostgreSQL `operations`)
+
+Tables (excluding legacy `_old` tables and `spatial_ref_sys`):
+
+- `activities` — user Strava activities  
+  - `id` (varchar, PK), `user_id` (varchar), `start_coords` (geography), `distance` (numeric), `coords` (geography), `start_time` (timestamp), `sport` (varchar), `title` (text), `timezone` (varchar), `gain` (numeric), `vert_profile` (json), `title_manually_updated` (boolean), `distance_stream` (json), `time_stream` (json), `pending_reprocess` (boolean), `is_public` (boolean), `activity_json` (json)
+
+- `activities_peaks` — summits detected per activity  
+  - `id` (varchar, PK), `timestamp` (timestamp), `activity_id` (varchar), `peak_id` (varchar), `notes` (varchar), `is_public` (boolean), `temperature` (numeric), `precipitation` (numeric), `cloud_cover` (numeric), `wind_speed` (numeric), `wind_direction` (numeric), `weather_code` (int), `tags` (text[]), `humidity` (numeric)
+
+- `challenges` — challenge definitions  
+  - `id` (int, PK), `name` (varchar), `region` (varchar), `location_coords` (geography), `description` (text)
+
+- `event_queue` — processing queue for webhook events  
+  - `id` (int, PK), `action` (varchar), `created` (timestamp), `started` (timestamp), `completed` (timestamp), `json_data` (json), `is_webhook` (boolean), `error` (varchar), `attempts` (int), `user_id` (varchar), `priority` (int)
+
+- `peaks` — peak catalog  
+  - `id` (varchar, PK), `name` (varchar), `location_coords` (geography), `elevation` (numeric), `county` (varchar), `state` (varchar), `country` (varchar), `type` (varchar), `osm_object` (json)
+
+- `peaks_challenges` — peak-to-challenge mapping  
+  - `peak_id` (varchar), `challenge_id` (int)
+
+- `strava_rate_limits` — cached Strava rate usage  
+  - `id` (int, PK), `short_term_limit` (int), `daily_limit` (int), `short_term_usage` (int), `daily_usage` (int)
+
+- `strava_tokens` — Strava OAuth tokens  
+  - `user_id` (varchar, PK), `refresh_token` (varchar), `access_token` (varchar), `access_token_expires_at` (int)
+
+- `user_challenge_favorite` — user favorites for challenges  
+  - `user_id` (varchar), `challenge_id` (int), `is_public` (boolean)
+
+- `user_interest` — waitlist/interest capture  
+  - `email` (varchar), `date_registered` (timestamp)
+
+- `user_peak_favorite` — user favorites for peaks  
+  - `user_id` (varchar), `peak_id` (varchar)
+
+- `user_peak_manual` — manual summit entries  
+  - `id` (varchar, PK), `user_id` (varchar), `peak_id` (varchar), `notes` (text), `activity_id` (varchar), `is_public` (boolean), `timestamp` (timestamp), `timezone` (varchar), `temperature` (numeric), `precipitation` (numeric), `cloud_cover` (numeric), `wind_speed` (numeric), `wind_direction` (numeric), `weather_code` (int), `tags` (text[]), `humidity` (numeric)
+
+- `users` — user profiles  
+  - `id` (varchar, PK), `name` (text), `email` (varchar), `pic` (text), `update_description` (boolean), `city` (varchar), `state` (varchar), `country` (varchar), `location_coords` (geography), `units` (varchar), `is_subscribed` (boolean), `is_lifetime_free` (boolean), `stripe_user_id` (varchar), `historical_data_processed` (boolean), `is_public` (boolean), `created_at` (timestamp)
+
+Notes:
+- Geography/geometry columns show as `USER-DEFINED` in `information_schema` (PostGIS).
+- Legacy tables present: `activities_old`, `peaks_old`, `users_old` (not in active use).
 
 ## Environment Variables
 

@@ -85,7 +85,7 @@ const getStravaActivity = async (id: number, userId: string) => {
             (point) => [point[1], point[0]] as [number, number]
         );
 
-        const summittedPeaks = await processCoords(coords);
+        const summittedPeaks = await processCoords(coords, times.data);
 
         const peakDetailsPromises = summittedPeaks.map(async (peak) => {
             const peakId = peak.id;

@@ -1,11 +1,9 @@
 import { config } from "dotenv";
 config();
 import Fastify from "fastify";
+import { Agent, setGlobalDispatcher } from "undici";
 import retrieveMessage from "./helpers/retrieveMessage";
 import QueueMessage from "./typeDefs/QueueMessage";
-import { Agent, setGlobalDispatcher } from "undici";
-import getStravaActivity from "./helpers/getStravaActivity";
-import db from "./helpers/getCloudSqlConnection";
 import StravaEvent from "./typeDefs/StravaEvent";
 
 setGlobalDispatcher(
@@ -14,64 +12,74 @@ setGlobalDispatcher(
     })
 );
 
+type PubSubBody = {
+    message?: {
+        data?: string;
+    };
+};
+
 const fastify = Fastify({ logger: true });
 
+const parsePubSubMessage = (body: PubSubBody) => {
+    if (!body?.message) {
+        return { error: "Invalid Pub/Sub message format" };
+    }
+
+    if (!body.message.data) {
+        return { error: "No Pub/Sub data provided" };
+    }
+
+    try {
+        const decoded = Buffer.from(body.message.data, "base64").toString().trim();
+        const message: QueueMessage = JSON.parse(decoded);
+
+        if (!message.action || !message.json_data) {
+            return { error: "Missing required message fields" };
+        }
+
+        return { message };
+    } catch (err) {
+        return { error: `Failed to decode Pub/Sub data: ${(err as Error).message}` };
+    }
+};
+
 fastify.post<{
-    Body: {
-        message: {
-            data: any;
-        };
-    };
-}>("/", (request, reply) => {
+    Body: PubSubBody;
+}>("/", async (request, reply) => {
     if (!request.body) {
-        const msg = "no Pub/Sub message received";
-        console.error(`error: ${msg}`);
-        reply.code(400).send(`Bad Request: ${msg}`);
-        return;
-    }
-    if (!request.body.message) {
-        const msg = "invalid Pub/Sub message format";
-        console.error(`error: ${msg}`);
-        reply.code(400).send(`Bad Request: ${msg}`);
+        reply.code(400).send("Bad Request: no Pub/Sub message received");
         return;
     }
 
-    const pubSubMessage = request.body.message;
-
-    const data = pubSubMessage.data
-        ? Buffer.from(pubSubMessage.data, "base64").toString().trim()
-        : "World";
-
-    const message: QueueMessage = JSON.parse(data);
+    const { message, error } = parsePubSubMessage(request.body);
+    if (error || !message) {
+        request.log.error({ error }, "pubsub message rejected");
+        reply.code(400).send(`Bad Request: ${error}`);
+        return;
+    }
 
     const messageData: StravaEvent =
         typeof message.json_data === "string"
             ? JSON.parse(message.json_data)
             : message.json_data;
 
-    console.log(
-        message.id
-            ? `Processing ${message.id}`
-            : `Processing message for activity ${messageData.object_id}`
+    request.log.info(
+        {
+            id: message.id,
+            action: message.action,
+            objectId: messageData?.object_id,
+        },
+        "pubsub message accepted"
     );
 
-    retrieveMessage(message);
-
-    reply.code(200).send();
-});
-
-// UNUSED - Test endpoint, likely not used in production
-fastify.post<{
-    Body: {
-        ownerId: string;
-        objectId: number;
-    };
-}>("/test", async (request, reply) => {
-    const { ownerId, objectId } = request.body;
-
-    const description = await getStravaActivity(objectId, ownerId.toString());
-
-    console.log(description);
+    try {
+        await retrieveMessage(message);
+    } catch (err) {
+        request.log.error(
+            { err, id: message.id, action: message.action },
+            "failed to process message"
+        );
+    }
 
     reply.code(200).send();
 });

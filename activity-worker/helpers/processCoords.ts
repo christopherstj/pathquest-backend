@@ -1,16 +1,31 @@
 import distanceMetersToDegrees from "./distanceMetersToDegrees";
 import getBoundingBox from "./getBoundingBox";
 import Peak from "../typeDefs/Peak";
-import compareCoords from "./compareCoords";
-import getSummits from "./getSummits";
 import getCloudSqlConnection from "./getCloudSqlConnection";
+import detectSummits from "./detectSummits";
+import {
+    ENTER_DISTANCE_METERS,
+    MAX_CANDIDATE_PEAKS,
+    SEARCH_RADIUS_METERS,
+} from "./summitConfig";
+import haversineDistanceMeters from "./haversineDistanceMeters";
 
-const processCoords = async (coords: [number, number][]) => {
+const processCoords = async (
+    coords: [number, number][],
+    times?: number[]
+) => {
     const pool = await getCloudSqlConnection();
+
+    if (!coords || coords.length === 0) {
+        return [];
+    }
 
     const initialCoords = coords[0];
 
-    const delta = distanceMetersToDegrees(40, initialCoords[0]);
+    const searchDelta = distanceMetersToDegrees(
+        SEARCH_RADIUS_METERS,
+        initialCoords[0]
+    );
 
     const boundingBox: {
         minLat: number;
@@ -26,12 +41,12 @@ const processCoords = async (coords: [number, number][]) => {
                 maxLong: number;
             },
             [lng, lat]
-        ) => getBoundingBox(acc, [lng, lat], delta),
+        ) => getBoundingBox(acc, [lng, lat], searchDelta),
         {
-            minLat: initialCoords[1] - delta.lat,
-            maxLat: initialCoords[1] + delta.lat,
-            minLong: initialCoords[0] - delta.long,
-            maxLong: initialCoords[0] + delta.long,
+            minLat: initialCoords[1] - searchDelta.lat,
+            maxLat: initialCoords[1] + searchDelta.lat,
+            minLong: initialCoords[0] - searchDelta.long,
+            maxLong: initialCoords[0] + searchDelta.long,
         }
     );
 
@@ -58,74 +73,55 @@ const processCoords = async (coords: [number, number][]) => {
         ]
     );
 
-    const coordResults = coords.map(([lng, lat], index) => {
-        return (rows as Peak[])
-            .filter((x) => compareCoords(x, lat, lng, delta))
-            .map((x) => {
-                const distanceToPeak = Math.sqrt(
-                    Math.pow((x.lat - lat) * 111320, 2) +
-                        Math.pow((x.lng - lng) * 111320, 2)
-                );
-                return {
-                    id: x.id,
-                    index,
-                    lat,
-                    lng,
-                    elevation: x.elevation,
-                    distanceToPeak,
-                };
-            });
+    const candidatePeaks = rows.slice(0, MAX_CANDIDATE_PEAKS);
+
+    const points = coords.map(([lng, lat], index) => {
+        const time = times?.[index] ?? index;
+        return { lat, lng, index, time };
     });
 
-    const taggedSummits = coordResults.reduce(
-        getSummits,
-        {} as {
-            [key: string]: {
-                reset: boolean;
-                lastIndex: number;
-                lat: number;
-                lng: number;
-                elevation?: number;
-                summits: {
-                    index: number;
-                    points: {
-                        lat: number;
-                        lng: number;
-                        distanceToPeak: number;
-                        index: number;
-                    }[];
-                }[];
-            };
-        }
+    // Quick prefilter: remove peaks that are not near any point in bounding terms
+    const bufferDelta = distanceMetersToDegrees(
+        ENTER_DISTANCE_METERS,
+        initialCoords[0]
+    );
+    const latBuffer = bufferDelta.lat;
+    const lngBuffer = bufferDelta.long || searchDelta.long;
+
+    const peaksNearTrack = candidatePeaks.filter((peak) =>
+        points.some(
+            (pt) =>
+                Math.abs(peak.lat - pt.lat) <= latBuffer * 2 &&
+                Math.abs(peak.lng - pt.lng) <= lngBuffer * 2
+        )
     );
 
-    // console.log(JSON.stringify(taggedSummits, null, 2));
-
-    return Object.keys(taggedSummits)
-        .map((x) => {
-            return taggedSummits[x].summits.map((y) => {
-                const closestIndex = y.points.reduce(
-                    (closestIndex, point, index, arr) => {
-                        if (
-                            point.distanceToPeak <=
-                            arr[closestIndex].distanceToPeak
-                        ) {
-                            return index;
-                        }
-                        return closestIndex;
-                    },
-                    0
+    let filteredPeaks = peaksNearTrack;
+    if (filteredPeaks.length > MAX_CANDIDATE_PEAKS) {
+        const ranked = filteredPeaks
+            .map((peak) => {
+                const minDist = Math.min(
+                    ...points.map((pt) =>
+                        haversineDistanceMeters(pt.lat, pt.lng, peak.lat, peak.lng)
+                    )
                 );
-                return {
-                    id: x,
-                    lat: y.points[closestIndex].lat,
-                    lng: y.points[closestIndex].lng,
-                    elevation: taggedSummits[x].elevation,
-                    index: y.points[closestIndex].index,
-                };
-            });
-        })
-        .flatMap((x) => x);
+                return { peak, minDist };
+            })
+            .sort((a, b) => a.minDist - b.minDist)
+            .slice(0, MAX_CANDIDATE_PEAKS)
+            .map((x) => x.peak);
+        filteredPeaks = ranked;
+    }
+
+    const summits = detectSummits(points, filteredPeaks);
+
+    if (process.env.SUMMIT_DEBUG === "true") {
+        console.log(
+            `[summits] points=${points.length} candidates=${filteredPeaks.length} detections=${summits.length}`
+        );
+    }
+
+    return summits;
 };
 
 export default processCoords;

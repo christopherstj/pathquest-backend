@@ -6,44 +6,88 @@ import processCreateMessage from "./processMessage";
 import processUpdateMessage from "./processUpdateMessage";
 import setMessageStarted from "./setMessageStarted";
 
-const retrieveMessage = async (message: QueueMessage) => {
-    if (message.id) await setMessageStarted(message.id);
+type ProcessResult = { success: boolean; error?: string };
 
-    console.log("Processing message", message);
+const parseStravaEvent = (
+    message: QueueMessage
+): { event?: StravaEvent; error?: string } => {
+    if (!message.json_data) {
+        return { error: "Missing json_data in message" };
+    }
 
-    const result = await (async (message: QueueMessage) => {
-        switch (message.action) {
-            case "create":
-                const createResult = await processCreateMessage(message);
-                return createResult;
-            case "update":
-                const updateResult = await processUpdateMessage(message);
-                return updateResult;
-            case "delete":
-                const deleteResult = await processDeleteMessage(message, true);
-                return deleteResult;
-            default:
-                return { success: false, error: "Invalid action" };
-        }
-    })(message);
-
-    if (result.success) {
-        console.log("Message processed successfully");
-    } else {
-        const messageData: StravaEvent =
+    try {
+        const event: StravaEvent =
             typeof message.json_data === "string"
                 ? JSON.parse(message.json_data)
                 : message.json_data;
 
+        if (!event?.object_id || !event?.owner_id) {
+            return { error: "Event missing required fields" };
+        }
+
+        return { event };
+    } catch (err) {
+        return {
+            error: `Failed to parse json_data: ${(err as Error).message}`,
+        };
+    }
+};
+
+const logContext = (message: QueueMessage) => ({
+    id: message.id,
+    action: message.action,
+});
+
+const retrieveMessage = async (message: QueueMessage) => {
+    const { event, error } = parseStravaEvent(message);
+    if (error || !event) {
+        console.error(logContext(message), error);
+        if (message.id) {
+            await completeMessage(message.id, error);
+        }
+        return false;
+    }
+
+    if (message.id) {
+        await setMessageStarted(message.id);
+    }
+
+    let result: ProcessResult;
+    try {
+        switch (message.action) {
+            case "create":
+                result = await processCreateMessage(message, event);
+                break;
+            case "update":
+                result = await processUpdateMessage(message, event);
+                break;
+            case "delete":
+                result = await processDeleteMessage(message, event, true);
+                break;
+            default:
+                result = { success: false, error: "Invalid action" };
+        }
+    } catch (err) {
+        result = {
+            success: false,
+            error: `Unexpected error: ${(err as Error).message}`,
+        };
+    }
+
+    if (result.success) {
+        console.log(logContext(message), "message processed successfully");
+    } else {
         console.error(
-            "Error processing message for activity" + messageData.object_id,
+            { ...logContext(message), objectId: event.object_id },
             result.error
         );
     }
 
-    if (message.id) await completeMessage(message.id, result.error);
+    if (message.id) {
+        await completeMessage(message.id, result.error);
+    }
 
-    return true;
+    return result.success;
 };
 
 export default retrieveMessage;

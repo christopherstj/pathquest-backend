@@ -4,16 +4,13 @@ import getCloudSqlConnection from "./getCloudSqlConnection";
 import updateActivityTitle from "./updateActivityTitle";
 import updateActivityVisibility from "./updateActivityVisibility";
 
-const processUpdateMessage = async (message: QueueMessage) => {
+const processUpdateMessage = async (
+    message: QueueMessage,
+    event: StravaEvent
+) => {
     const pool = await getCloudSqlConnection();
 
     try {
-        const event = (
-            typeof message.json_data === "string"
-                ? JSON.parse(message.json_data)
-                : message.json_data
-        ) as StravaEvent;
-
         const id = event.object_id;
 
         if (!event.updates) {
