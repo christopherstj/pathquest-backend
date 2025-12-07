@@ -60,6 +60,7 @@ fastify.post<{
     reply.code(200).send();
 });
 
+// UNUSED - Test endpoint, likely not used in production
 fastify.post<{
     Body: {
         ownerId: string;
