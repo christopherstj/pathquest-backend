@@ -106,9 +106,15 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
   - Marks message as completed via `completeMessage`
   - Parses and validates event payload once and propagates structured errors to queue completion
 - `processMessage` - Processes new activity creation
-  - Fetches activity from Strava via `getStravaActivity`
-  - Optionally updates Strava description if webhook and user has description updates enabled
-  - **Note**: This appears to be a stub - actual activity processing logic may be elsewhere
+  - Fetches activity from Strava via `getStravaActivity` (which handles full processing)
+  - `getStravaActivity` performs complete activity processing:
+    - Fetches activity data and streams from Strava API
+    - Processes coordinates via `processCoords` to detect peak summits
+    - Saves activity to database via `saveActivity`
+    - Saves detected summits via `saveActivitySummits`
+    - Fetches historical weather data for summits
+    - Generates and optionally updates Strava description
+  - Returns description string if webhook and user has description updates enabled
 - `processUpdateMessage` - Handles activity updates
   - Updates activity title if changed
   - Updates activity sport type if changed
@@ -124,11 +130,29 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
     - Public/private status
 - `saveActivitySummits` - Saves detected peak summits
   - Inserts into `activities_peaks` table
-- `getSummits` - Core algorithm for detecting peak summits from coordinate data
-  - Takes coordinate stream and peak locations
+- `detectSummits` - Core algorithm for detecting peak summits from coordinate data
+  - Takes coordinate stream (points with lat/lng/time) and peak locations
   - Detects when activity path comes within threshold distance of peak
+  - Uses haversine distance calculations for accurate detection
   - Handles multiple summits of same peak (resets after moving away)
+  - Returns summit candidates with minimum distance points
+- `getSummits` - Helper function for aggregating summit data
+  - Used internally for tracking multiple summit instances
+  - Manages reset logic for repeated peak visits
 - `processCoords` - Processes coordinate data for summit detection
+  - Queries database for peaks within bounding box of activity
+  - Filters candidate peaks using distance calculations
+  - Calls `detectSummits` to find actual summits
+  - Returns detected summit candidates
+- `haversineDistanceMeters` - Calculates distance between two lat/lng points using haversine formula
+- `summitConfig` - Configuration constants for summit detection
+  - `ENTER_DISTANCE_METERS` - Distance threshold for entering summit zone
+  - `EXIT_DISTANCE_METERS` - Distance threshold for exiting summit zone
+  - `MIN_DWELL_SECONDS` - Minimum time spent near peak
+  - `MIN_POINTS` - Minimum coordinate points required
+  - `RESET_GAP_SECONDS` - Time gap before resetting summit detection
+  - `SEARCH_RADIUS_METERS` - Radius for initial peak search
+  - `MAX_CANDIDATE_PEAKS` - Maximum peaks to consider per activity
 - `getStravaActivity` - Fetches activity data from Strava API
 - `getStravaDescription` - Gets current activity description from Strava
 - `updateStravaDescription` - Updates activity description on Strava
@@ -228,6 +252,7 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 ### Automated Tests (activity-worker)
 - `npm test` / `npm run test:unit` executes Vitest unit tests
 - Coverage includes message routing (`retrieveMessage`) and summit detection (`detectSummits`)
+- Test files: `tests/retrieveMessage.test.ts`, `tests/detectSummits.test.ts`
 
 ## Database Tables Used
 
@@ -247,9 +272,9 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 - Tracks Strava API rate limit usage
 - Fields: `short_term_limit`, `short_term_usage`, `daily_limit`, `daily_usage`
 
-### `strava_creds`
+### `strava_tokens`
 - Stores OAuth tokens for Strava API access
-- Fields: `user_id`, `access_token`, `refresh_token`, `expires_at`
+- Fields: `user_id`, `access_token`, `refresh_token`, `access_token_expires_at`
 
 ## Database Schema (PostgreSQL `operations`)
 
@@ -312,12 +337,29 @@ Notes:
 
 ## Notes
 
-### Unused Code
-- **Activity Worker** `/test` endpoint - Test endpoint, likely not used in production
-- `getHistoricalWeatherByCoords` - May be unused or planned feature
-
 ### Processing Logic
-The actual activity processing (fetching streams, detecting summits) appears to be handled by `processMessage`, but the implementation may delegate to other services or the logic may be incomplete. The `getSummits` helper contains the core summit detection algorithm.
+Activity processing is fully implemented in `getStravaActivity`:
+1. Fetches activity and stream data from Strava API
+2. Processes coordinates via `processCoords` which:
+   - Queries database for nearby peaks
+   - Filters candidates using bounding box and distance calculations
+   - Calls `detectSummits` to detect actual summits using haversine distance
+3. Fetches historical weather data for each detected summit
+4. Saves activity and summit data to database
+5. Generates description with summit information
+
+The `detectSummits` helper contains the core summit detection algorithm, using configurable thresholds from `summitConfig`.
+
+### Historical Weather
+- `getHistoricalWeatherByCoords` - Fetches archived weather data for summit enrichment
+  - Called during activity processing for each detected summit
+  - Used to populate weather fields in `activities_peaks` table (temperature, precipitation, cloud cover, wind speed/direction, weather code, humidity)
+
+### Database Table Name Consistency
+The codebase consistently uses `strava_rate_limits` (plural) to match the database schema. This includes usage in:
+- `activity-worker` helpers
+- `queue-handler` helpers
+- `rate-limit-reset` helpers
 
 ### Error Handling
 - Messages that fail processing are marked with error status

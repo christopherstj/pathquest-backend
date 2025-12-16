@@ -16,11 +16,18 @@ const saveActivitySummits = async (
         };
     }[],
     activityId: string,
-    isPublic: boolean
+    isPublic: boolean,
+    utcOffsetSeconds: number = 0
 ) => {
     const pool = await getCloudSqlConnection();
 
     if (!summits || summits.length === 0) return;
+
+    // Calculate timezone offset string (e.g., "-08:00" or "+05:30")
+    const utcOffsetHours = Math.floor(Math.abs(utcOffsetSeconds) / 3600);
+    const utcOffsetMinutes = Math.floor((Math.abs(utcOffsetSeconds) % 3600) / 60);
+    const offsetSign = utcOffsetSeconds >= 0 ? "+" : "-";
+    const timezoneOffset = `${offsetSign}${utcOffsetHours.toString().padStart(2, "0")}:${utcOffsetMinutes.toString().padStart(2, "0")}`;
 
     const placeholders: string[] = [];
     const values: any[] = [];
@@ -34,11 +41,26 @@ const saveActivitySummits = async (
                 base + 10
             }, $${base + 11}, $${base + 12})`
         );
+        // Convert UTC timestamp to local time and construct ISO string with timezone offset
+        // x.timestamp is a UTC Date object. To get local time representation:
+        // local_time = UTC_time + offset (offset is negative for timezones behind UTC)
+        const localTimeMs = x.timestamp.getTime() + utcOffsetSeconds * 1000;
+        const localDate = new Date(localTimeMs);
+        // Format as YYYY-MM-DD HH:MM:SS using UTC methods since we've already adjusted the time
+        const year = localDate.getUTCFullYear();
+        const month = String(localDate.getUTCMonth() + 1).padStart(2, "0");
+        const day = String(localDate.getUTCDate()).padStart(2, "0");
+        const hours = String(localDate.getUTCHours()).padStart(2, "0");
+        const minutes = String(localDate.getUTCMinutes()).padStart(2, "0");
+        const seconds = String(localDate.getUTCSeconds()).padStart(2, "0");
+        const localTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        const timestampWithTz = `${localTimeString}${timezoneOffset}`;
+        
         values.push(
             `${activityId}-${x.peakId}-${x.timestamp.toISOString()}`,
             activityId,
             x?.peakId,
-            x.timestamp.toISOString().slice(0, 19).replace("T", " "),
+            timestampWithTz,
             isPublic ? 1 : 0,
             x.weather.temperature,
             x.weather.precipitation,

@@ -22,7 +22,7 @@ const checkRateLimit = async (checkStrava: boolean) => {
     }
 
     const { rows } = await pool.query<StravaRateLimit>(`
-        SELECT * FROM strava_rate_limit
+        SELECT * FROM strava_rate_limits
     `);
 
     if (rows.length === 0) {

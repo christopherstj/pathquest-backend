@@ -117,7 +117,7 @@ const getStravaActivity = async (id: number, userId: string) => {
             activity.private === false || activity.private === "false";
 
         if (peakDetails.length > 0) {
-            await saveActivitySummits(peakDetails, id.toString(), isPublic);
+            await saveActivitySummits(peakDetails, id.toString(), isPublic, activity.utc_offset || 0);
         }
 
         const description = await getStravaDescription(

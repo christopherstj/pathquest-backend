@@ -18,14 +18,37 @@ const saveActivity = async (
         typeof activity.distance === "string"
             ? parseFloat(activity.distance)
             : activity.distance;
-    const startTime = new Date(activity.start_date).toISOString();
+    
+    // Extract timezone name from Strava timezone string (e.g., "(GMT-08:00) America/Los_Angeles" -> "America/Los_Angeles")
+    // If timezone is not available, default to UTC
+    let timezoneName = "UTC";
+    if (activity.timezone) {
+        const match = activity.timezone.match(/\)\s*(.+)$/);
+        if (match && match[1]) {
+            timezoneName = match[1].trim();
+        }
+    }
+    
+    // Convert UTC start_date to timezone-aware timestamp string
+    // Use start_date_local and construct ISO string with timezone offset from utc_offset
+    const startTimeLocal = activity.start_date_local || activity.start_date;
+    const utcOffsetSeconds = activity.utc_offset || 0;
+    const utcOffsetHours = Math.floor(Math.abs(utcOffsetSeconds) / 3600);
+    const utcOffsetMinutes = Math.floor((Math.abs(utcOffsetSeconds) % 3600) / 60);
+    const offsetSign = utcOffsetSeconds >= 0 ? "+" : "-";
+    const timezoneOffset = `${offsetSign}${utcOffsetHours.toString().padStart(2, "0")}:${utcOffsetMinutes.toString().padStart(2, "0")}`;
+    
+    // Construct ISO 8601 timestamp string with timezone offset
+    // PostgreSQL TIMESTAMPTZ will parse this correctly
+    const startTimeWithTz = `${startTimeLocal.slice(0, 19)}${timezoneOffset}`;
+    
     const isPublic = activity.private === false || activity.private === "false";
 
     await pool.query(
         `INSERT INTO activities
         (id, user_id, start_coords, distance, coords, vert_profile, distance_stream, time_stream, start_time, sport, title, timezone, gain, is_public, activity_json) 
         VALUES 
-        ($1, $2, ST_SetSRID(ST_MakePoint($3, $4), 4326)::geography, $5, ST_GeomFromText($6, 4326)::geography, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+        ($1, $2, ST_SetSRID(ST_MakePoint($3, $4), 4326)::geography, $5, ST_GeomFromText($6, 4326)::geography, $7, $8, $9, $10::timestamptz, $11, $12, $13, $14, $15, $16)
         ON CONFLICT (id) DO UPDATE SET
         start_coords = EXCLUDED.start_coords,
         distance = EXCLUDED.distance,
@@ -55,7 +78,7 @@ const saveActivity = async (
             altitude ? JSON.stringify(altitude) : null,
             distanceStream ? JSON.stringify(distanceStream) : null,
             times ? JSON.stringify(times) : null,
-            startTime.slice(0, 19).replace("T", " "),
+            startTimeWithTz,
             activity.type,
             activity.name,
             activity.timezone ?? null,
