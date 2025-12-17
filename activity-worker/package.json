@@ -5,8 +5,6 @@
     "scripts": {
         "dev:once": "ts-node index.ts",
         "dev": "nodemon --exec ts-node index.ts",
-        "test": "vitest run",
-        "test:unit": "vitest run",
         "test:summits": "ts-node scripts/test-detect-summits.ts",
         "dry-run:summits": "ts-node scripts/dry-run-summits.ts",
         "bench:summits": "ts-node scripts/benchmark-detect-summits.ts",
@@ -45,7 +43,6 @@
         "node-persist": "^4.0.3",
         "pg": "^8.16.3",
         "typescript": "^5.6.3",
-        "undici": "^6.20.0",
-        "vitest": "^1.6.0"
+        "undici": "^6.20.0"
     }
 }
