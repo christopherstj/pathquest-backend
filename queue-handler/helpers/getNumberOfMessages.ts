@@ -6,7 +6,6 @@ const getNumberOfMessages = async (): Promise<number> => {
     const { rows } = await pool.query<{ count: number }>(`
         SELECT COUNT(id) count FROM event_queue
         WHERE started IS NULL AND completed IS NULL
-        ORDER BY is_webhook DESC, created ASC
     `);
 
     return rows[0].count;
