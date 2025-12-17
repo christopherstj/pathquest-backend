@@ -10,10 +10,11 @@ const getCloudSqlConnection = async (): Promise<Pool> => {
         process.env.PG_PASSWORD ?? process.env.MYSQL_PASSWORD ?? "";
     const database = process.env.PG_DATABASE ?? "operations";
 
-    // Use Unix domain socket path in production when deployed to Cloud Run / GCE
-    if (process.env.NODE_ENV === "production") {
-        const socketPath =
-            "/cloudsql/" + (process.env.INSTANCE_CONNECTION_NAME ?? "");
+    // Use Unix domain socket path when INSTANCE_CONNECTION_NAME is set (Cloud Run / GCE)
+    // This is more reliable than checking NODE_ENV, which may not be set in Cloud Run
+    const instanceConnectionName = process.env.INSTANCE_CONNECTION_NAME;
+    if (instanceConnectionName) {
+        const socketPath = "/cloudsql/" + instanceConnectionName;
 
         const pool = new Pool({
             user,

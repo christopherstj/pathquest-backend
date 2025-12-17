@@ -1,21 +1,32 @@
-# Use a multi-stage build to keep the final image small
-FROM node:lts-alpine as builder
+# Build stage
+FROM node:lts-alpine AS builder
 
-# Set environment variables
-ENV NODE_ENV=production
-
-# Create app directory
 WORKDIR /app
 
-# Install app dependencies
+# Install dependencies (including devDependencies for build)
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
-# Bundle app source
+# Copy source and build
 COPY . .
 RUN npm run build
 
-# Expose the port your app listens on
+# Verify build output exists
+RUN ls -la dist/ && test -f dist/index.js
+
+# Production stage
+FROM node:lts-alpine
+
+WORKDIR /app
+
+# Only install production dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copy built files from builder
+COPY --from=builder /app/dist ./dist
+
+# Expose the port
 EXPOSE 8080
 
 # Start the app
