@@ -207,9 +207,9 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
   - Sets `short_term_usage` to 0
 
 **Helpers**:
-- `resetRateLimit` - Resets both short-term and daily usage
-- `resetShortTermUsage` - Resets only short-term usage
-- `getCloudSqlConnection` - Database connection
+- `resetRateLimit(pool)` - Resets both short-term and daily usage (accepts Pool parameter)
+- `resetShortTermUsage(pool)` - Resets only short-term usage (accepts Pool parameter)
+- `getCloudSqlConnection` - Returns PostgreSQL connection pool (uses `pg` library)
 
 **Flow**:
 1. Scheduled job calls endpoint (likely daily for `/`, more frequently for `/short-term`)
