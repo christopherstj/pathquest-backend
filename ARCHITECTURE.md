@@ -153,7 +153,8 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
   - `RESET_GAP_SECONDS` - Time gap before resetting summit detection
   - `SEARCH_RADIUS_METERS` - Radius for initial peak search
   - `MAX_CANDIDATE_PEAKS` - Maximum peaks to consider per activity
-- `getStravaActivity` - Fetches activity data from Strava API
+- `getStravaActivity` - Fetches activity data from Strava API and processes for summit detection
+  - Filters out non-human-powered activities (see Excluded Sport Types below)
 - `getStravaDescription` - Gets current activity description from Strava
 - `updateStravaDescription` - Updates activity description on Strava
 - `getShouldUpdateDescription` - Checks if user has description updates enabled
@@ -339,8 +340,10 @@ Notes:
 
 ### Processing Logic
 Activity processing is fully implemented in `getStravaActivity`:
-1. Fetches activity and stream data from Strava API
-2. Processes coordinates via `processCoords` which:
+1. Fetches activity metadata from Strava API
+2. Checks if activity sport type is human-powered (skips excluded types)
+3. Fetches activity stream data from Strava API
+4. Processes coordinates via `processCoords` which:
    - Queries database for nearby peaks
    - Filters candidates using bounding box and distance calculations
    - Calls `detectSummits` to detect actual summits using haversine distance
@@ -349,6 +352,20 @@ Activity processing is fully implemented in `getStravaActivity`:
 5. Generates description with summit information
 
 The `detectSummits` helper contains the core summit detection algorithm, using configurable thresholds from `summitConfig`.
+
+### Excluded Sport Types
+Activities with the following `sport_type` values are skipped (not processed for summit detection):
+- `AlpineSki` - Lift-assisted downhill skiing
+- `Snowboard` - Lift-assisted downhill
+- `Sail` - Wind-powered
+- `Windsurf` - Wind-powered
+- `Kitesurf` - Wind-powered
+- `VirtualRide` - Indoor/simulated (no real summits)
+- `VirtualRun` - Indoor/simulated (no real summits)
+- `Golf` - Not relevant to peak bagging
+- `Velomobile` - Often aerodynamically assisted
+
+Human-powered activities like `BackcountrySki`, `NordicSki`, `Hike`, `Run`, `Ride`, `EBikeRide`, `EMountainBikeRide`, etc. are processed normally.
 
 ### Historical Weather
 - `getHistoricalWeatherByCoords` - Fetches archived weather data for summit enrichment

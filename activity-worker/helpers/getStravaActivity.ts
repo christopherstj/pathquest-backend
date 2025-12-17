@@ -45,6 +45,24 @@ const getStravaActivity = async (id: number, userId: string) => {
 
     const activity: StravaActivity = await activityRes.json();
 
+    // Blocklist of activity types that are not human-powered
+    const EXCLUDED_SPORT_TYPES = [
+        'AlpineSki',      // Lift-assisted downhill skiing
+        'Snowboard',      // Lift-assisted downhill
+        'Sail',           // Wind-powered
+        'Windsurf',       // Wind-powered
+        'Kitesurf',       // Wind-powered
+        'VirtualRide',    // Indoor/simulated - no real summits
+        'VirtualRun',     // Indoor/simulated - no real summits
+        'Golf',           // Not relevant to peak bagging
+        'Velomobile',     // Often aerodynamically assisted
+    ];
+
+    if (EXCLUDED_SPORT_TYPES.includes(activity.sport_type)) {
+        console.log(`Skipping activity ${id}: sport_type ${activity.sport_type} is excluded`);
+        return;
+    }
+
     const streamResponseRaw = await fetch(
         `https://www.strava.com/api/v3/activities/${id}/streams?keys=time,latlng,altitude,distance&key_by_type=true`,
         {
