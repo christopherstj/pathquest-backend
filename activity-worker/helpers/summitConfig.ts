@@ -15,8 +15,8 @@ export const ELEVATION_PENALTY_RATE = 150; // meters - full penalty range beyond
 export const CONFIDENCE_THRESHOLDS = {
     HIGH: 0.70,      // Auto-accept: very confident
     MEDIUM: 0.55,    // Auto-accept: balanced threshold
-    LOW: 0.45,       // Needs confirmation: edge case
-    REJECT: 0.45,    // Below this: don't log at all
+    LOW: 0.55,       // Needs confirmation: edge case (raised from 0.45)
+    REJECT: 0.55,    // Below this: don't log at all (raised from 0.45)
 };
 
 // Mode-specific configuration based on data availability
@@ -34,10 +34,11 @@ export interface SummitModeConfig {
 
 export const SUMMIT_CONFIG: Record<SummitMode, SummitModeConfig> = {
     // Mode A: Full data (GPS altitude + peak elevation)
+    // Stricter threshold since we have elevation data to be more precise
     A: {
         enterDistance: 80,
         exitDistance: 120,
-        threshold: 0.55,
+        threshold: 0.65,  // Increased from 0.55 to reduce false positives
         useElevationMatch: true,
         useApproachPattern: true,
         minDwellSeconds: 30,

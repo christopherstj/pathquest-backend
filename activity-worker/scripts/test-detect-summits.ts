@@ -1,7 +1,12 @@
+import { config } from "dotenv";
+config();
+
 import detectSummits from "../helpers/detectSummits";
 import { Point } from "../helpers/detectSummits";
 import Peak from "../typeDefs/Peak";
 import { CONFIDENCE_THRESHOLDS, SUMMIT_CONFIG } from "../helpers/summitConfig";
+import processCoords from "../helpers/processCoords";
+import getCloudSqlConnection from "../helpers/getCloudSqlConnection";
 
 const assert = (condition: boolean, message: string) => {
     if (!condition) {
@@ -302,6 +307,75 @@ const testModeD_VeryCloseApproach = () => {
     }
 };
 
+// ==================== REAL ACTIVITY TEST ====================
+
+const testMountWhitneyActivity = async () => {
+    // Test activity 15336809938 - should only detect Mount Whitney (944865772)
+    const activityId = "15336809938";
+    const mountWhitneyId = "944865772";
+    
+    const pool = await getCloudSqlConnection();
+    
+    try {
+        const { rows } = await pool.query(`
+            SELECT 
+                ST_AsGeoJSON(coords::geometry) as coords,
+                time_stream,
+                vert_profile
+            FROM activities
+            WHERE id = $1
+        `, [activityId]);
+
+        if (rows.length === 0) {
+            console.log(`  Mount Whitney activity test: Skipped - activity ${activityId} not found in database`);
+            return;
+        }
+
+        const activity = rows[0];
+        const geo = JSON.parse(activity.coords);
+        const coords = geo.coordinates as [number, number][];
+        const times = Array.isArray(activity.time_stream) ? activity.time_stream : undefined;
+        const altitudes = Array.isArray(activity.vert_profile) ? activity.vert_profile : undefined;
+
+        const summits = await processCoords(coords, times, altitudes);
+
+        // Should detect Mount Whitney with high confidence
+        const whitneySummit = summits.find(s => s.id === mountWhitneyId);
+        assert(whitneySummit !== undefined, `Mount Whitney (${mountWhitneyId}) should be detected`);
+        assert(whitneySummit!.confidenceScore >= 0.70, `Mount Whitney should have high confidence (>=0.70), got ${whitneySummit!.confidenceScore.toFixed(3)}`);
+        assert(!whitneySummit!.needsConfirmation, "Mount Whitney should not need confirmation");
+
+        // Should have exactly 1 auto-accepted summit (Whitney)
+        const autoAccepted = summits.filter(s => !s.needsConfirmation);
+        assert(autoAccepted.length === 1, `Should have exactly 1 auto-accepted summit (got ${autoAccepted.length})`);
+        assert(autoAccepted[0].id === mountWhitneyId, "Only Mount Whitney should be auto-accepted");
+
+        // Other summits should need confirmation (if any) - max 1 additional summit flagged
+        const needsConfirmation = summits.filter(s => s.needsConfirmation);
+        assert(needsConfirmation.length <= 1, `Should have at most 1 summit needing confirmation (got ${needsConfirmation.length})`);
+        
+        // All summits needing confirmation should have confidence between 0.55 and 0.65
+        needsConfirmation.forEach(s => {
+            assert(s.confidenceScore >= 0.55, `Summit needing confirmation should have confidence >= 0.55, got ${s.confidenceScore.toFixed(3)}`);
+            assert(s.confidenceScore < 0.65, `Summit needing confirmation should have confidence < 0.65, got ${s.confidenceScore.toFixed(3)}`);
+        });
+
+        console.log(`  Mount Whitney activity: ${summits.length} summit(s) detected`);
+        console.log(`    - Auto-accepted: Mount Whitney (confidence: ${whitneySummit!.confidenceScore.toFixed(3)})`);
+        if (needsConfirmation.length > 0) {
+            console.log(`    - Needs confirmation: ${needsConfirmation.length} summit(s)`);
+            needsConfirmation.forEach(s => {
+                console.log(`      * Peak ${s.id} (confidence: ${s.confidenceScore.toFixed(3)})`);
+            });
+        }
+    } catch (error) {
+        console.error(`  Mount Whitney activity test failed:`, error);
+        throw error;
+    } finally {
+        await pool.end();
+    }
+};
+
 // ==================== CONFIG VERIFICATION ====================
 
 const testConfigValues = () => {
@@ -313,6 +387,7 @@ const testConfigValues = () => {
     
     assert(SUMMIT_CONFIG.A.useElevationMatch === true, "Mode A should use elevation match");
     assert(SUMMIT_CONFIG.A.useApproachPattern === true, "Mode A should use approach pattern");
+    assert(SUMMIT_CONFIG.A.threshold === 0.65, "Mode A threshold should be 0.65 (stricter)");
     assert(SUMMIT_CONFIG.B.useElevationMatch === false, "Mode B should not use elevation match");
     assert(SUMMIT_CONFIG.B.useApproachPattern === true, "Mode B should use approach pattern");
     assert(SUMMIT_CONFIG.C.useElevationMatch === false, "Mode C should not use elevation match");
@@ -323,7 +398,7 @@ const testConfigValues = () => {
 
 // ==================== RUN ALL TESTS ====================
 
-const run = () => {
+const run = async () => {
     console.log("\n=== Basic Functionality Tests ===");
     testSingleSummit();
     testMultiPassSamePeak();
@@ -345,10 +420,16 @@ const run = () => {
     console.log("\n=== Mode D (No Elevation Data) Tests ===");
     testModeD_VeryCloseApproach();
     
+    console.log("\n=== Real Activity Test ===");
+    await testMountWhitneyActivity();
+    
     console.log("\n=== Config Verification ===");
     testConfigValues();
     
     console.log("\n✅ All detectSummits tests passed.\n");
 };
 
-run();
+run().catch((err) => {
+    console.error("Test failed:", err);
+    process.exit(1);
+});
