@@ -8,6 +8,7 @@
         "test:summits": "ts-node scripts/test-detect-summits.ts",
         "dry-run:summits": "ts-node scripts/dry-run-summits.ts",
         "bench:summits": "ts-node scripts/benchmark-detect-summits.ts",
+        "reprocess:activities": "ts-node scripts/reprocessActivities.ts",
         "build": "tsc",
         "start": "node dist/index.js"
     },

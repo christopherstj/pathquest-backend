@@ -103,7 +103,7 @@ const getStravaActivity = async (id: number, userId: string) => {
             (point) => [point[1], point[0]] as [number, number]
         );
 
-        const summittedPeaks = await processCoords(coords, times.data);
+        const summittedPeaks = await processCoords(coords, times.data, altitude?.data);
 
         const peakDetailsPromises = summittedPeaks.map(async (peak) => {
             const peakId = peak.id;
@@ -116,7 +116,14 @@ const getStravaActivity = async (id: number, userId: string) => {
                 { lat: peak.lat, lon: peak.lng },
                 peak.elevation ?? 0
             );
-            return { peakId, timestamp, activityId: id, weather };
+            return {
+                peakId,
+                timestamp,
+                activityId: id,
+                weather,
+                confidenceScore: peak.confidenceScore,
+                needsConfirmation: peak.needsConfirmation,
+            };
         });
 
         const peakDetails = await Promise.all(peakDetailsPromises);

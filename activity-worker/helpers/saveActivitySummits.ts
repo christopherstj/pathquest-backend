@@ -14,6 +14,8 @@ const saveActivitySummits = async (
             windDirection: number;
             humidity: number;
         };
+        confidenceScore: number;
+        needsConfirmation: boolean;
     }[],
     activityId: string,
     isPublic: boolean,
@@ -33,13 +35,13 @@ const saveActivitySummits = async (
     const values: any[] = [];
 
     summits.forEach((x, i) => {
-        const base = i * 12;
+        const base = i * 14; // Now 14 fields per summit
         placeholders.push(
             `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${
                 base + 5
             }, $${base + 6}, $${base + 7}, $${base + 8}, $${base + 9}, $${
                 base + 10
-            }, $${base + 11}, $${base + 12})`
+            }, $${base + 11}, $${base + 12}, $${base + 13}, $${base + 14})`
         );
         // Convert UTC timestamp to local time and construct ISO string with timezone offset
         // x.timestamp is a UTC Date object. To get local time representation:
@@ -68,12 +70,15 @@ const saveActivitySummits = async (
             x.weather.cloudCover,
             x.weather.windSpeed,
             x.weather.windDirection,
-            x.weather.humidity
+            x.weather.humidity,
+            // New fields for confidence scoring
+            Math.round(x.confidenceScore * 100) / 100, // Round to 2 decimal places
+            x.needsConfirmation
         );
     });
 
     const sql = `
-        INSERT INTO activities_peaks (id, activity_id, peak_id, timestamp, is_public, temperature, precipitation, weather_code, cloud_cover, wind_speed, wind_direction, humidity)
+        INSERT INTO activities_peaks (id, activity_id, peak_id, timestamp, is_public, temperature, precipitation, weather_code, cloud_cover, wind_speed, wind_direction, humidity, confidence_score, needs_confirmation)
         VALUES ${placeholders.join(", ")}
         ON CONFLICT (id) DO NOTHING
     `;

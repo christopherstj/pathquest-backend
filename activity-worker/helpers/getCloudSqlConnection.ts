@@ -6,9 +6,16 @@ const getCloudSqlConnection = async (): Promise<Pool> => {
     if (globalPool) return globalPool;
 
     const user = process.env.PG_USER ?? "local-user";
-    const password =
-        process.env.PG_PASSWORD ?? process.env.MYSQL_PASSWORD ?? "";
+    const password: string =
+        String(process.env.PG_PASSWORD ?? process.env.MYSQL_PASSWORD ?? "");
     const database = process.env.PG_DATABASE ?? "operations";
+
+    // Ensure password is set (empty string is valid for some setups, but warn if both env vars are missing)
+    if (!process.env.PG_PASSWORD && !process.env.MYSQL_PASSWORD) {
+        console.warn(
+            "Warning: Neither PG_PASSWORD nor MYSQL_PASSWORD is set. Using empty string."
+        );
+    }
 
     // Use Unix domain socket path when INSTANCE_CONNECTION_NAME is set (Cloud Run / GCE)
     // This is more reliable than checking NODE_ENV, which may not be set in Cloud Run
@@ -33,6 +40,7 @@ const getCloudSqlConnection = async (): Promise<Pool> => {
     }
 
     // Local/dev: connect to local Postgres (or Cloud SQL Proxy listening on 127.0.0.1)
+    // Default to 127.0.0.1 if no INSTANCE_CONNECTION_NAME is set
     const pool = new Pool({
         user,
         password,

@@ -131,28 +131,39 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 - `saveActivitySummits` - Saves detected peak summits
   - Inserts into `activities_peaks` table
 - `detectSummits` - Core algorithm for detecting peak summits from coordinate data
-  - Takes coordinate stream (points with lat/lng/time) and peak locations
-  - Detects when activity path comes within threshold distance of peak
+  - Takes coordinate stream (points with lat/lng/time/altitude) and peak locations
+  - Uses multi-factor confidence scoring system (not just distance threshold)
+  - Returns summit candidates with confidence scores and needs_confirmation flags
+  - Confidence factors: distance, elevation match, approach pattern, dwell time
+  - Supports 4 detection modes based on data availability:
+    - Mode A: Full data (GPS altitude + peak elevation) - all 4 factors
+    - Mode B: GPS altitude only - distance, approach pattern, dwell
+    - Mode C: Peak elevation only - stricter distance + dwell
+    - Mode D: No elevation data - strictest distance + dwell requirements
   - Uses haversine distance calculations for accurate detection
   - Handles multiple summits of same peak (resets after moving away)
-  - Returns summit candidates with minimum distance points
 - `getSummits` - Helper function for aggregating summit data
   - Used internally for tracking multiple summit instances
   - Manages reset logic for repeated peak visits
 - `processCoords` - Processes coordinate data for summit detection
   - Queries database for peaks within bounding box of activity
   - Filters candidate peaks using distance calculations
-  - Calls `detectSummits` to find actual summits
-  - Returns detected summit candidates
+  - Passes altitude data to `detectSummits` for confidence scoring
+  - Returns detected summit candidates with confidence scores
 - `haversineDistanceMeters` - Calculates distance between two lat/lng points using haversine formula
 - `summitConfig` - Configuration constants for summit detection
-  - `ENTER_DISTANCE_METERS` - Distance threshold for entering summit zone
-  - `EXIT_DISTANCE_METERS` - Distance threshold for exiting summit zone
+  - `SUMMIT_CONFIG` - Mode-specific configuration (A/B/C/D) with enterDistance, exitDistance, threshold, and feature flags
+  - `CONFIDENCE_THRESHOLDS` - Thresholds for auto-accept (0.55), needs confirmation (0.45), and reject
+  - `ELEVATION_TOLERANCE` - Allowance for GPS elevation error (75m)
+  - `ELEVATION_PENALTY_RATE` - Rate of confidence decay for elevation mismatch
+  - `ENTER_DISTANCE_METERS` - Legacy distance threshold (mode-specific in SUMMIT_CONFIG)
+  - `EXIT_DISTANCE_METERS` - Legacy exit distance (mode-specific in SUMMIT_CONFIG)
   - `MIN_DWELL_SECONDS` - Minimum time spent near peak
   - `MIN_POINTS` - Minimum coordinate points required
   - `RESET_GAP_SECONDS` - Time gap before resetting summit detection
   - `SEARCH_RADIUS_METERS` - Radius for initial peak search
   - `MAX_CANDIDATE_PEAKS` - Maximum peaks to consider per activity
+  - `getSummitMode()` - Helper to determine detection mode from data availability
 - `getStravaActivity` - Fetches activity data from Strava API and processes for summit detection
   - Filters out non-human-powered activities (see Excluded Sport Types below)
 - `getStravaDescription` - Gets current activity description from Strava
@@ -267,7 +278,7 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 
 ### `activities_peaks`
 - Junction table linking activities to summitted peaks
-- Fields: `id`, `activity_id`, `peak_id`, `timestamp`, `notes`, `is_public`
+- Fields: `id`, `activity_id`, `peak_id`, `timestamp`, `notes`, `is_public`, `confidence_score`, `needs_confirmation`, plus weather fields
 
 ### `strava_rate_limits`
 - Tracks Strava API rate limit usage
@@ -285,7 +296,7 @@ Tables (excluding legacy `_old` tables and `spatial_ref_sys`):
   - `id` (varchar, PK), `user_id` (varchar), `start_coords` (geography), `distance` (numeric), `coords` (geography), `start_time` (timestamp), `sport` (varchar), `title` (text), `timezone` (varchar), `gain` (numeric), `vert_profile` (json), `title_manually_updated` (boolean), `distance_stream` (json), `time_stream` (json), `pending_reprocess` (boolean), `is_public` (boolean), `activity_json` (json)
 
 - `activities_peaks` — summits detected per activity  
-  - `id` (varchar, PK), `timestamp` (timestamp), `activity_id` (varchar), `peak_id` (varchar), `notes` (varchar), `is_public` (boolean), `temperature` (numeric), `precipitation` (numeric), `cloud_cover` (numeric), `wind_speed` (numeric), `wind_direction` (numeric), `weather_code` (int), `tags` (text[]), `humidity` (numeric)
+  - `id` (varchar, PK), `timestamp` (timestamp), `activity_id` (varchar), `peak_id` (varchar), `notes` (varchar), `is_public` (boolean), `temperature` (numeric), `precipitation` (numeric), `cloud_cover` (numeric), `wind_speed` (numeric), `wind_direction` (numeric), `weather_code` (int), `tags` (text[]), `humidity` (numeric), `confidence_score` (numeric 0.0-1.0), `needs_confirmation` (boolean)
 
 - `challenges` — challenge definitions  
   - `id` (int, PK), `name` (varchar), `region` (varchar), `location_coords` (geography), `description` (text)

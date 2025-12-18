@@ -12,7 +12,8 @@ import haversineDistanceMeters from "./haversineDistanceMeters";
 
 const processCoords = async (
     coords: [number, number][],
-    times?: number[]
+    times?: number[],
+    altitudes?: number[]
 ) => {
     const pool = await getCloudSqlConnection();
 
@@ -77,7 +78,8 @@ const processCoords = async (
 
     const points = coords.map(([lng, lat], index) => {
         const time = times?.[index] ?? index;
-        return { lat, lng, index, time };
+        const altitude = altitudes?.[index];
+        return { lat, lng, index, time, altitude };
     });
 
     // Quick prefilter: remove peaks that are not near any point in bounding terms
