@@ -4,9 +4,7 @@ const updateActivityTitle = async (id: number, newTitle: string) => {
     const pool = await getCloudSqlConnection();
 
     const { rows } = await pool.query<{ title_manually_updated: boolean }>(
-        `
-        SELECT title_manually_updated FROM Activity WHERE id = ? LIMIT 1
-    `,
+        `SELECT title_manually_updated FROM activities WHERE id = $1 LIMIT 1`,
         [id.toString()]
     );
 
