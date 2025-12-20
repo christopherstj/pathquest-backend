@@ -55,14 +55,19 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
   - Publishes messages to Pub/Sub topic (batched, max 10 messages per batch, 60s timeout)
   - Marks messages as completed on success
   - Handles errors by marking messages with error status
-- `getMessagesToProcess` - Determines how many messages to process
-  - Checks rate limits via `checkRateLimit`
-  - Gets message count via `getNumberOfMessages`
-  - Limits to min(30, allowedProcessing, numberOfMessages)
-  - Retrieves messages via `getMostRecentMessage`
-- `getMostRecentMessage` - Retrieves oldest unprocessed messages from queue
+- `getMessagesToProcess` - Determines how many messages to process with webhook priority
+  - Counts pending webhook messages separately
+  - Always processes ALL pending webhooks immediately (burst mode for real-time experience)
+  - Applies sustainable rate only to historical (non-webhook) messages
+  - Combines webhook count + sustainable historical count for total
+  - Cap of 50 messages per run for safety
+- `getMostRecentMessage` - Retrieves oldest unprocessed messages from queue (ordered by priority ASC)
 - `getNumberOfMessages` - Counts pending messages in queue
-- `checkRateLimit` - Checks if Strava API rate limits allow processing
+- `checkRateLimit` - Calculates sustainable rate limit allowance
+  - Distributes daily API budget evenly across remaining hours until midnight UTC reset
+  - Reserves 10% of daily budget for webhook bursts
+  - Respects short-term (15-minute) limits
+  - Returns activities-per-run (not requests) accounting for 2 requests per activity
 - `completeMessage` - Marks message as completed or sets error
 - `getCloudSqlConnection` - Database connection
 - `getStravaAccessToken` - Gets Strava OAuth token (for rate limit checking)
