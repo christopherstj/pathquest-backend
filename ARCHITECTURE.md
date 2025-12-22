@@ -404,3 +404,65 @@ The codebase consistently uses `strava_rate_limits` (plural) to match the databa
 - Pub/Sub provides message distribution across multiple worker instances
 - Database connection pooling handles concurrent connections
 
+---
+
+## Data Backup / Import Tools (`data-backup/`)
+
+### Challenge Import Pipeline
+
+Tools for importing peak challenges from external sources (e.g., Peakbagger.com) and matching them to existing OSM peaks in the database.
+
+**Entry Point**: `src/index.ts` → `importChallenge.ts`
+
+**Scripts**:
+- `scrapePeakbaggerList.ts` - Scrapes peak lists from Peakbagger.com
+  - Fetches list page to get peak names and IDs
+  - Fetches individual peak pages to get coordinates
+  - Caches results to JSON file for reuse
+- `matchPeaksToOsm.ts` - Matches external peaks to OSM database
+  - Uses PostGIS `ST_DWithin` for proximity matching (500m radius)
+  - Scores candidates by: name similarity (50%), distance (30%), elevation (20%)
+  - Confidence levels: high (< 100m + 70% name), medium (< 300m + 40% name), low
+- `insertChallenge.ts` - Inserts challenges and peak associations
+  - Supports dry-run mode (default)
+  - Exports review JSON for manual verification
+  - Imports reviewed JSON with manual edits
+
+**Type Definitions** (`typeDefs/ChallengeImport.ts`):
+- `ExternalPeak` - Peak data from external source
+- `ChallengeDefinition` - Challenge metadata
+- `MatchResult` - OSM match result with confidence
+- `PEAKBAGGER_LISTS` - Predefined Peakbagger list configurations
+
+**Usage**:
+```bash
+# Show help and list existing challenges
+npm run dev:once
+
+# Scrape from Peakbagger (dry run)
+PEAKBAGGER_LIST_ID=5120 npm run dev:once
+
+# Insert for real
+DRY_RUN=false PEAKBAGGER_LIST_ID=5120 npm run dev:once
+
+# Import from reviewed JSON
+DRY_RUN=false REVIEW_FILE=review-5120.json npm run dev:once
+```
+
+**Environment Variables**:
+- `PEAKBAGGER_LIST_ID` - Peakbagger list ID to scrape
+- `PEAKS_JSON_FILE` - Path to JSON file with peak data
+- `REVIEW_FILE` - Path to reviewed match results
+- `DRY_RUN` - Set to "false" to actually insert (default: true)
+- `INCLUDE_LOW_CONFIDENCE` - Set to "true" to include low confidence matches
+- `CHALLENGE_ID`, `CHALLENGE_NAME`, `CHALLENGE_REGION`, `CHALLENGE_DESCRIPTION` - Override challenge metadata
+
+**Predefined Peakbagger Lists**:
+- `5120` - Adirondack 46ers
+- `5061` - Colorado Ranked 13ers
+- `5071` - Colorado Soft 13ers
+- `5012` - Washington Bulger List
+- `5001` - Cascade Volcanoes
+- `6031` - Catskill 35
+- And more (see `PEAKBAGGER_LISTS` in typeDefs)
+

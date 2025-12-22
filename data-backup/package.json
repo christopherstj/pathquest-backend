@@ -24,8 +24,10 @@
     },
     "dependencies": {
         "@googlemaps/google-maps-services-js": "^3.4.0",
+        "@types/cheerio": "^0.22.35",
         "@types/node": "^22.7.5",
         "@types/pg": "^8.15.5",
+        "cheerio": "^1.1.2",
         "dotenv": "^16.4.5",
         "fastify": "^5.0.0",
         "mysql2": "^3.11.3",
