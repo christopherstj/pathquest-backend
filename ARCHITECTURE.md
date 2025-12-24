@@ -171,7 +171,14 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
   - `getSummitMode()` - Helper to determine detection mode from data availability
 - `getStravaActivity` - Fetches activity data from Strava API and processes for summit detection
   - Filters out non-human-powered activities (see Excluded Sport Types below)
-- `getStravaDescription` - Gets current activity description from Strava
+- `getStravaDescription` - Builds the PathQuest Strava activity description (summits + lightweight celebrations)
+  - Adds peak elevation (feet) when available: `Peak Name (5,344 ft)`
+  - Adds a celebration for first-time summits of a peak: `Peak Name (5,344 ft) - first summit! 🎉`
+  - Adds a personal record callout when the activity beats the user's previous highest peak: `⭐ New highest peak!`
+  - Adds a location unlock callout for first peak in a new state/country: `🏳️ First peak in Colorado!`
+  - Adds per-peak challenge progress lines when the summit represents new progress (first-time summit of that peak): `🗻 completed/total Challenge Name`
+  - Adds a completion celebration when a challenge becomes complete: `🏆 Challenge Name COMPLETE!`
+  - Includes internal monthly streak calculation logic (ported from profile stats) but does not currently render streak text in the Strava description output
 - `updateStravaDescription` - Updates activity description on Strava
 - `getShouldUpdateDescription` - Checks if user has description updates enabled
 - `getStravaAccessToken` - Gets OAuth token for Strava API
