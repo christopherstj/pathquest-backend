@@ -65,7 +65,7 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
 - `getNumberOfMessages` - Counts pending messages in queue
 - `checkRateLimit` - Calculates sustainable rate limit allowance
   - Distributes daily API budget evenly across remaining hours until midnight UTC reset
-  - Reserves 10% of daily budget for webhook bursts
+  - Reserves 2% of daily budget for webhook bursts (~60 requests for ~15 athletes)
   - Respects short-term (15-minute) limits
   - Returns activities-per-run (not requests) accounting for 2 requests per activity
 - `completeMessage` - Marks message as completed or sets error

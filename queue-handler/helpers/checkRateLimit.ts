@@ -7,7 +7,9 @@ import setUsageData from "./setUsageData";
 const RUNS_PER_HOUR = 12; // Every 5 minutes
 
 // Reserve this percentage of daily budget for webhook bursts
-const WEBHOOK_RESERVE_PERCENT = 0.1;
+// With ~15 athletes × 2 activities/day × 2 requests = ~60 requests/day for webhooks
+// 2% of 3000 = 60 requests, which is plenty of buffer
+const WEBHOOK_RESERVE_PERCENT = 0.02;
 
 /**
  * Calculate hours remaining until Strava rate limit resets (midnight UTC)
@@ -83,8 +85,8 @@ const checkRateLimit = async (checkStrava: boolean) => {
     const sustainableActivitiesPerRun = sustainableRequestsPerRun / 2;
 
     // Also respect short-term limit (per 15-minute window)
-    // Leave buffer of 10 requests for safety
-    const shortTermActivities = Math.floor((shortTermRemaining - 10) / 2);
+    // Small buffer of 2 requests for safety (this rarely limits since daily rate is the bottleneck)
+    const shortTermActivities = Math.floor((shortTermRemaining - 2) / 2);
 
     // Take the minimum of sustainable rate and short-term allowance
     const allowance = Math.min(
