@@ -473,3 +473,61 @@ DRY_RUN=false REVIEW_FILE=review-5120.json npm run dev:once
 - `6031` - Catskill 35
 - And more (see `PEAKBAGGER_LISTS` in typeDefs)
 
+---
+
+### Peak Data Enrichment (Geocoding + Elevation)
+
+The `data-backup/` package also contains one-off enrichment scripts that improve the `peaks` catalog quality.
+
+#### PostGIS-based Geocoding (Recommended)
+
+Instead of API-based reverse geocoding (slow and quota-limited), PathQuest can geocode peaks by loading administrative boundary polygons into PostGIS and running spatial joins.
+
+**Scripts**:
+- `src/importAdminBoundaries.ts` — Downloads and imports admin boundary shapefiles into PostGIS tables:
+  - `admin_countries` (Natural Earth admin-0 countries)
+  - `admin_states` (Natural Earth admin-1 states/provinces)
+  - `admin_us_counties` (US Census counties)
+- `src/enrichGeocodingPostGIS.ts` — Batches `UPDATE ... FROM ... ST_Contains(...)` to populate `peaks.country`, `peaks.state`, and `peaks.county` with observable progress.
+
+**Batch Controls** (env vars):
+- `GEOCODING_POSTGIS_BATCH_SIZE` (default `50000`) — number of peaks updated per batch
+- `GEOCODING_POSTGIS_MAX_BATCHES` (optional) — stop after N batches (useful for testing)
+- `GEOCODING_POSTGIS_PRINT_EVERY` (default `1`) — print progress every N batches
+
+**Notes**:
+- Each batch is a separate SQL statement, so progress commits incrementally and can be monitored.
+- Queries use a bounding-box prefilter (`&&`) plus `ST_Contains` to ensure GiST index usage.
+
+---
+
+#### Public Lands Enrichment (US PAD-US)
+
+PathQuest can tag US peaks with public land / protected area metadata by importing **PAD-US** polygons into PostGIS and running a point-in-polygon join.
+
+**Scripts**:
+- `pathquest-backend/data-backup/src/importPublicLands.ts`
+  - Supports **PAD-US FileGDB** (`.gdb`, optionally inside a `.zip`) via **GDAL** (`ogrinfo`, `ogr2ogr`)
+  - Also supports a **Shapefile fallback** (Node.js `shapefile` parser) when GDB tooling is unavailable
+  - Imports polygons into `public_lands` with `geom` stored as **GEOMETRY** and a **GiST** index for fast joins
+- `pathquest-backend/data-backup/src/enrichPeaksWithPublicLands.ts`
+  - Batches updates to populate:
+    - `peaks.protected_area_name`
+    - `peaks.protected_area_type`
+    - `peaks.land_manager`
+  - Uses `ST_Contains(public_lands.geom, peaks.location_geom)` (geometry + GiST) for performance
+
+**Data placement**:
+- Put PAD-US assets in: `pathquest-backend/data-backup/geodata/padus/`
+  - Example: `PADUS4_1Geodatabase.zip` (script extracts and finds `.gdb`)
+
+**GDB Requirements**:
+- GDAL must be available on PATH for the shell running `npm run dev:once`
+  - `ogrinfo` and `ogr2ogr` must be callable
+
+**Import tuning (optional env vars)**:
+- `PADUS_GDB_LAYER`: override which GDB layer to import (e.g. `PADUS4_1Fee`)
+- `PADUS_OGR_WHERE`: OGR WHERE clause to filter rows at import time (reduces size)
+- `PADUS_OGR_SELECT`: comma-separated list of columns to import (reduces width)
+- `PADUS_OGR_GT`: transaction group size for `ogr2ogr` (default `65536`)
+

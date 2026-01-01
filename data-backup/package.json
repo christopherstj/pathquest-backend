@@ -19,6 +19,8 @@
     "homepage": "https://github.com/christopherstj/pathquest-backend#readme",
     "description": "",
     "devDependencies": {
+        "@types/adm-zip": "^0.5.7",
+        "@types/shapefile": "^0.6.4",
         "nodemon": "^3.1.7",
         "ts-node": "^10.9.2"
     },
@@ -27,11 +29,13 @@
         "@types/cheerio": "^0.22.35",
         "@types/node": "^22.7.5",
         "@types/pg": "^8.15.5",
+        "adm-zip": "^0.5.16",
         "cheerio": "^1.1.2",
         "dotenv": "^16.4.5",
         "fastify": "^5.0.0",
         "mysql2": "^3.11.3",
         "pg": "^8.16.3",
+        "shapefile": "^0.6.6",
         "typescript": "^5.6.3"
     }
 }
