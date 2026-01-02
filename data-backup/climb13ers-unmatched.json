@@ -1,0 +1,2297 @@
+[
+  {
+    "name": "Stewart Peak",
+    "lat": 38.024625,
+    "lng": -106.84126388888889,
+    "elevation": 3153.156,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/stewart-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/stewart-peak"
+  },
+  {
+    "name": "\"Thunder Pyramid\"",
+    "lat": 39.05673611111111,
+    "lng": -106.95448888888889,
+    "elevation": 3200.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13932--thunder-pyramid",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13932--thunder-pyramid"
+  },
+  {
+    "name": "\"Drift Peak\"",
+    "lat": 39.39929444444444,
+    "lng": -106.13855555555556,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13900-drift-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13900-drift-peak"
+  },
+  {
+    "name": "\"Phoenix Peak\"",
+    "lat": 37.917275,
+    "lng": -106.84042777777778,
+    "elevation": 3048,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13895--phoenix-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13895--phoenix-peak"
+  },
+  {
+    "name": "Frasco Benchmark",
+    "lat": 39.12535,
+    "lng": -106.49147777777777,
+    "elevation": 3070.86,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/frasco-benchmark",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/frasco-benchmark"
+  },
+  {
+    "name": "Holy Cross Ridge",
+    "lat": 39.45894722222223,
+    "lng": -106.48644722222222,
+    "elevation": 3144.012,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/holy-cross-ridge",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/holy-cross-ridge"
+  },
+  {
+    "name": "UN 13838",
+    "lat": 37.94693611111111,
+    "lng": -107.39835555555557,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13832",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13832"
+  },
+  {
+    "name": "\"Huerfano Peak\"",
+    "lat": 37.60038333333333,
+    "lng": -105.44774722222222,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13828--huerfano-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13828--huerfano-peak"
+  },
+  {
+    "name": "\"Lackawanna Peak\"",
+    "lat": 39.093722222222226,
+    "lng": -106.51215555555555,
+    "elevation": 3383.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13823--lackawanna-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13823--lackawanna-peak"
+  },
+  {
+    "name": "UN 13820",
+    "lat": 37.954569444444445,
+    "lng": -107.3783111111111,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13811",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13811"
+  },
+  {
+    "name": "Niagara Peak",
+    "lat": 57.88927777777778,
+    "lng": -107.53358055555556,
+    "elevation": 3560.0640000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/niagara-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/niagara-peak"
+  },
+  {
+    "name": "\"Castleabra\"",
+    "lat": 39.007216666666665,
+    "lng": -106.87652777777777,
+    "elevation": 3893.82,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13803--castleabra",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13803--castleabra"
+  },
+  {
+    "name": "UN 13,801",
+    "lat": 37.90824722222222,
+    "lng": -107.48079722222222,
+    "elevation": 3390.9,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13795",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13795"
+  },
+  {
+    "name": "Potosi Peak",
+    "lat": 37.990030555555556,
+    "lng": -107.83260555555555,
+    "elevation": 2670.0480000000002,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/potosi-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/potosi-peak"
+  },
+  {
+    "name": "Animas Mountain",
+    "lat": 37.63350277777778,
+    "lng": -107.69281666666667,
+    "elevation": 3543.3,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/animas-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/animas-mountain"
+  },
+  {
+    "name": "UN 13786",
+    "lat": 39.448055555555555,
+    "lng": -106.4897888888889,
+    "elevation": 3144.012,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13768",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13768"
+  },
+  {
+    "name": "\"Magdalene Mountain\"",
+    "lat": 38.90703055555555,
+    "lng": -106.3675611111111,
+    "elevation": 3029.712,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13762--silver-king-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13762--silver-king-peak"
+  },
+  {
+    "name": "West Trinity",
+    "lat": 37.68626944444444,
+    "lng": -107.58816944444445,
+    "elevation": 3584.4480000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/west-trinity",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/west-trinity"
+  },
+  {
+    "name": "Sayres Benchmark",
+    "lat": 39.00921944444445,
+    "lng": -106.49788611111111,
+    "elevation": 3968.496,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/sayres-benchmark",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/sayres-benchmark"
+  },
+  {
+    "name": "\"Animas Forks Mountain\"",
+    "lat": 37.94376944444444,
+    "lng": -107.55525277777778,
+    "elevation": 3962.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13722--b--animas-forks-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13722--b--animas-forks-mountain"
+  },
+  {
+    "name": "T 0",
+    "lat": 37.992536111111114,
+    "lng": -107.84902222222222,
+    "elevation": 3383.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/t-0",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/t-0"
+  },
+  {
+    "name": "UN 13738",
+    "lat": 39.140547222222224,
+    "lng": -106.52420833333333,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13736",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13736"
+  },
+  {
+    "name": "\"Lightening Pyramid\"",
+    "lat": 39.05673611111111,
+    "lng": -106.95448888888889,
+    "elevation": 3200.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13722--a--lightening-pyramid",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13722--a--lightening-pyramid"
+  },
+  {
+    "name": "UN 13712",
+    "lat": 38.63178333333333,
+    "lng": -106.238975,
+    "elevation": 3313.1760000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13712",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13712"
+  },
+  {
+    "name": "UN13,708",
+    "lat": 37.94996944444444,
+    "lng": -107.5514361111111,
+    "elevation": 3962.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13708",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13708"
+  },
+  {
+    "name": "UN 13702",
+    "lat": 37.954013888888895,
+    "lng": -107.54000555555555,
+    "elevation": 3962.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13688",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13688"
+  },
+  {
+    "name": "\"Every Mountain\"",
+    "lat": 37.978575,
+    "lng": -107.42616111111111,
+    "elevation": 3406.1400000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13691--every-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13691--every-mountain"
+  },
+  {
+    "name": "\"Cooper Creek Peak\"",
+    "lat": 37.96458611111112,
+    "lng": -107.41781944444445,
+    "elevation": 3406.1400000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13688--cooper-creek-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13688--cooper-creek-peak"
+  },
+  {
+    "name": "UN 13684",
+    "lat": 38.12028333333333,
+    "lng": -107.45759166666667,
+    "elevation": 3773.424,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13681",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13681"
+  },
+  {
+    "name": "\"Quarter Peak\"",
+    "lat": 37.88095277777778,
+    "lng": -107.45806944444445,
+    "elevation": 4169.968800000001,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13674--quarter-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13674--quarter-peak"
+  },
+  {
+    "name": "Mount Mamma",
+    "lat": 38.66937222222222,
+    "lng": -106.27293055555556,
+    "elevation": 4159.3008,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/mount-mamma",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/mount-mamma"
+  },
+  {
+    "name": "\"Northwest Pole\"",
+    "lat": 37.814613888888886,
+    "lng": -107.44615833333334,
+    "elevation": 4163.568,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13660--b--northwest-pole",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13660--b--northwest-pole"
+  },
+  {
+    "name": "UN 13656",
+    "lat": 37.593963888888894,
+    "lng": -105.49762222222222,
+    "elevation": 4161.7392,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13660--un13660--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13660--un13660--a"
+  },
+  {
+    "name": "\"Len Shoemaker Peak\"",
+    "lat": 39.04725277777778,
+    "lng": -106.95894166666668,
+    "elevation": 4158.0816,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13631--un13631--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13631--un13631--b"
+  },
+  {
+    "name": "Bard Peak",
+    "lat": 39.702444444444446,
+    "lng": -105.85430555555556,
+    "elevation": 3500.628,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/bard-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/bard-peak"
+  },
+  {
+    "name": "\"Anderson Peak\"",
+    "lat": 39.01221388888889,
+    "lng": -106.62995555555555,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13631--a--anderson-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13631--a--anderson-peak"
+  },
+  {
+    "name": "\"Electric Pass Peak\"",
+    "lat": 39.04753888888889,
+    "lng": -106.85311388888888,
+    "elevation": 3634.7400000000002,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13635--electric-pass-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13635--electric-pass-peak"
+  },
+  {
+    "name": "UN 13627",
+    "lat": 38.75355833333333,
+    "lng": -106.26772222222222,
+    "elevation": 3956.304,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13626",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13626"
+  },
+  {
+    "name": "North Star Mountain",
+    "lat": 39.37671111111111,
+    "lng": -106.12113333333333,
+    "elevation": 4102.608,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/north-star-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/north-star-mountain"
+  },
+  {
+    "name": "West Apostle",
+    "lat": 38.914274999999996,
+    "lng": -106.44810833333334,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/west-apostle",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/west-apostle"
+  },
+  {
+    "name": "UN 13587",
+    "lat": 37.837830555555556,
+    "lng": -107.41782500000001,
+    "elevation": 762,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13581",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13581"
+  },
+  {
+    "name": "Gibbs Peak",
+    "lat": 38.163758333333334,
+    "lng": -105.66633333333334,
+    "elevation": 3901.44,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/gibbs-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/gibbs-peak"
+  },
+  {
+    "name": "UN 13577",
+    "lat": 37.600825,
+    "lng": -105.49325555555555,
+    "elevation": 3596.6400000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13577",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13577"
+  },
+  {
+    "name": "Fluted Peak",
+    "lat": 38.03868611111111,
+    "lng": -105.58618333333332,
+    "elevation": 3860.2920000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/fluted-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/fluted-peak"
+  },
+  {
+    "name": "UN 13575",
+    "lat": 37.85680833333333,
+    "lng": -108.00158611111111,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13540--un-13540-a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13540--un-13540-a"
+  },
+  {
+    "name": "UN 13573",
+    "lat": 37.83785277777778,
+    "lng": -107.41792222222223,
+    "elevation": 762,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13580--un-13580-a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13580--un-13580-a"
+  },
+  {
+    "name": "\"Gudy Peak\"",
+    "lat": 37.97537777777778,
+    "lng": -107.46131666666668,
+    "elevation": 3395.472,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13566--gudy-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13566--gudy-peak"
+  },
+  {
+    "name": "UN 13569",
+    "lat": 37.14011388888889,
+    "lng": -105.17554444444445,
+    "elevation": 3419.856,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13565",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13565"
+  },
+  {
+    "name": "UN 13559",
+    "lat": 38.99433888888889,
+    "lng": -106.87800833333333,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13550",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13550"
+  },
+  {
+    "name": "UN 13557",
+    "lat": 37.61304444444445,
+    "lng": -105.45566944444445,
+    "elevation": 3377.184,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13557-huerfano",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13557-huerfano"
+  },
+  {
+    "name": "UN 13556 \"Independence Peak\"",
+    "lat": 39.144108333333335,
+    "lng": -106.55903055555555,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13556",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13556"
+  },
+  {
+    "name": "UN 13552",
+    "lat": 39.01476666666667,
+    "lng": -106.87663333333333,
+    "elevation": 4130.649600000001,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13537",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13537"
+  },
+  {
+    "name": "UN 13552",
+    "lat": 38.00333611111111,
+    "lng": -105.61895555555554,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13546",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13546"
+  },
+  {
+    "name": "UN 13549",
+    "lat": 37.91799722222222,
+    "lng": -107.5324611111111,
+    "elevation": 3980.688,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13535",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13535"
+  },
+  {
+    "name": "V 3",
+    "lat": 37.828694444444444,
+    "lng": -107.8128611111111,
+    "elevation": 3566.1600000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/v-3",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/v-3"
+  },
+  {
+    "name": "UN 13544",
+    "lat": 37.96183333333334,
+    "lng": -107.49558333333333,
+    "elevation": 929.6400000000001,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13540---un-13540-b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13540---un-13540-b"
+  },
+  {
+    "name": "\"K 49\"",
+    "lat": 39.152125,
+    "lng": -106.50082222222223,
+    "elevation": 3797.808,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13535--k-49",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13535--k-49"
+  },
+  {
+    "name": "UN 13543",
+    "lat": 37.99167222222222,
+    "lng": -105.59185555555555,
+    "elevation": 3756.6600000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13541",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13541"
+  },
+  {
+    "name": "UN 13543",
+    "lat": 38.000619444444446,
+    "lng": -105.60024722222222,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13580--un-13580-b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13580--un-13580-b"
+  },
+  {
+    "name": "\"Cataract Peak\"",
+    "lat": 37.8674,
+    "lng": -107.42601111111112,
+    "elevation": 762,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13524--cataract-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13524--cataract-peak"
+  },
+  {
+    "name": "UN 13541",
+    "lat": 39.125058333333335,
+    "lng": -106.55912222222221,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13500",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13500"
+  },
+  {
+    "name": "V 4",
+    "lat": 37.820863888888894,
+    "lng": -107.81180277777777,
+    "elevation": 2985.516,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/v-4",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/v-4"
+  },
+  {
+    "name": "Silver Peak",
+    "lat": 38.12918055555556,
+    "lng": -105.66993611111111,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13513--silver-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13513--silver-peak"
+  },
+  {
+    "name": "UN 13513",
+    "lat": 38.92807777777777,
+    "lng": -106.42153611111111,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13517",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13517"
+  },
+  {
+    "name": "\"Petroleum Peak\"",
+    "lat": 39.02446666666667,
+    "lng": -106.64895555555556,
+    "elevation": 4118.457600000001,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13505--petroleum-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13505--petroleum-peak"
+  },
+  {
+    "name": "UN 13509",
+    "lat": 37.917674999999996,
+    "lng": -107.73774166666666,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13509--un-13509",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13509--un-13509"
+  },
+  {
+    "name": "UN 13505",
+    "lat": 37.96613333333334,
+    "lng": -107.07080555555555,
+    "elevation": 4116.3240000000005,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13510",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13510"
+  },
+  {
+    "name": "\"Peak of the Clouds\"",
+    "lat": 38.11736666666667,
+    "lng": -105.65756666666667,
+    "elevation": 4122.1152,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13524--peak-of-the-clouds",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13524--peak-of-the-clouds"
+  },
+  {
+    "name": "\"Cotton King Peak\"",
+    "lat": 38.1211,
+    "lng": -105.68548333333334,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13490",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13490"
+  },
+  {
+    "name": "UN 13486",
+    "lat": 38.93419722222222,
+    "lng": -106.42464722222223,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13486",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13486"
+  },
+  {
+    "name": "T 10",
+    "lat": 37.89776111111111,
+    "lng": -107.74908611111111,
+    "elevation": 3566.1600000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/t-10",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/t-10"
+  },
+  {
+    "name": "V 10",
+    "lat": 37.76291388888889,
+    "lng": -107.87043888888888,
+    "elevation": 3261.36,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/v-10",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/v-10"
+  },
+  {
+    "name": "San Joaquin Ridge",
+    "lat": 37.87698611111111,
+    "lng": -107.80836944444444,
+    "elevation": 3489.96,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/san-juaquin-ridge",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/san-juaquin-ridge"
+  },
+  {
+    "name": "\"Alamosito",
+    "lat": 37.084425,
+    "lng": -105.20856666666667,
+    "elevation": 3419.856,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13466--alamosito",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13466--alamosito"
+  },
+  {
+    "name": "UN 13471",
+    "lat": 38.95952777777778,
+    "lng": -106.42805833333334,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13462--un-13462-a--gm",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13462--un-13462-a--gm"
+  },
+  {
+    "name": "Ute Ridge",
+    "lat": 37.711083333333335,
+    "lng": -107.45762222222223,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/ute-ridge",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/ute-ridge"
+  },
+  {
+    "name": "\"Campbell Creek Peak\"",
+    "lat": 37.90673888888889,
+    "lng": -107.46291944444445,
+    "elevation": 3390.9,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13454--campbell-creek-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13454--campbell-creek-peak"
+  },
+  {
+    "name": "\"Pear Peak\"",
+    "lat": 38.91067777777778,
+    "lng": -106.40199722222223,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13462--pear-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13462--pear-peak"
+  },
+  {
+    "name": "UN 13457",
+    "lat": 39.00555833333333,
+    "lng": -106.59434444444445,
+    "elevation": 4102.608,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13460",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13460"
+  },
+  {
+    "name": "Sleeping Sexton",
+    "lat": 39.08385833333334,
+    "lng": -106.99154722222222,
+    "elevation": 3383.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/sleeping-sexton",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/sleeping-sexton"
+  },
+  {
+    "name": "S 6",
+    "lat": 38.007275,
+    "lng": -107.84632222222221,
+    "elevation": 3310.7376000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/s-6",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/s-6"
+  },
+  {
+    "name": "\"Tundra Top\"",
+    "lat": 37.85936111111111,
+    "lng": -107.42396666666667,
+    "elevation": 762,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13450--tundra-top",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13450--tundra-top"
+  },
+  {
+    "name": "UN 13443",
+    "lat": 39.476619444444445,
+    "lng": -106.53751111111112,
+    "elevation": 3108.96,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13433",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13433"
+  },
+  {
+    "name": "\"Mountaineer Peak\"",
+    "lat": 37.77184722222222,
+    "lng": -107.60793055555555,
+    "elevation": 3557.016,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13434--mountaineer-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13434--mountaineer-peak"
+  },
+  {
+    "name": "UN 13440",
+    "lat": 39.02825555555555,
+    "lng": -106.50968888888889,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13460-2",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13460-2"
+  },
+  {
+    "name": "T 5",
+    "lat": 37.960947222222224,
+    "lng": -107.76366944444445,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/t-5",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/t-5"
+  },
+  {
+    "name": "\"Mascot Peak\"",
+    "lat": 38.833397222222224,
+    "lng": -106.3075361111111,
+    "elevation": 3718.5600000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13435--mascot-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13435--mascot-peak"
+  },
+  {
+    "name": "\"Sundog\"",
+    "lat": 37.931936111111106,
+    "lng": -107.43845,
+    "elevation": 4053.84,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13432--sundog",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13432--sundog"
+  },
+  {
+    "name": "\"Siberia Peak\"",
+    "lat": 39.12455555555555,
+    "lng": -107.087175,
+    "elevation": 3291.84,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13420--siberia-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13420--siberia-peak"
+  },
+  {
+    "name": "\"Mount Soso\"",
+    "lat": 37.59623888888889,
+    "lng": -107.4863888888889,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13417--mount-soso",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13417--mount-soso"
+  },
+  {
+    "name": "\"Heisshorn\"",
+    "lat": 38.078375,
+    "lng": -107.51116944444445,
+    "elevation": 2651.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13411--heisshorn",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13411--heisshorn"
+  },
+  {
+    "name": "White Benchmark",
+    "lat": 38.973463888888894,
+    "lng": -106.92776388888889,
+    "elevation": 3383.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/white-benchmark",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/white-benchmark"
+  },
+  {
+    "name": "UN 13408",
+    "lat": 37.95690833333334,
+    "lng": -106.84812777777778,
+    "elevation": 3657.6000000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13402",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13402"
+  },
+  {
+    "name": "\"Triangle Peak\"",
+    "lat": 38.991886111111114,
+    "lng": -106.90940277777779,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13380--triangle-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13380--triangle-peak"
+  },
+  {
+    "name": "UN 13403",
+    "lat": 37.955022222222226,
+    "lng": -107.51524166666667,
+    "elevation": 929.6400000000001,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13427",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13427"
+  },
+  {
+    "name": "UN 13403",
+    "lat": 37.91187222222222,
+    "lng": -105.5425861111111,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13401",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13401"
+  },
+  {
+    "name": "UN 13392",
+    "lat": 37.89613611111111,
+    "lng": -105.55529444444444,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13384",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13384"
+  },
+  {
+    "name": "Prize Benchmark",
+    "lat": 38.99545833333333,
+    "lng": -106.6111,
+    "elevation": 3828.288,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/prize-benchmark",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/prize-benchmark"
+  },
+  {
+    "name": "Williams Mountain",
+    "lat": 39.18058611111111,
+    "lng": -106.610125,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/williams-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/williams-mountain"
+  },
+  {
+    "name": "UN 13385",
+    "lat": 38.936747222222216,
+    "lng": -106.288625,
+    "elevation": 2555.748,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13374",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13374"
+  },
+  {
+    "name": "UN 13382",
+    "lat": 38.07165277777778,
+    "lng": -107.51483333333333,
+    "elevation": 2651.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13377",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13377"
+  },
+  {
+    "name": "Geissler Mountain East",
+    "lat": 39.14875,
+    "lng": -106.57309444444444,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/geissler-mountain-east",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/geissler-mountain-east"
+  },
+  {
+    "name": "T 7",
+    "lat": 37.93416388888888,
+    "lng": -107.72319444444445,
+    "elevation": 4071.8232000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/t-7",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/t-7"
+  },
+  {
+    "name": "\"Finnegan Peak\"",
+    "lat": 39.497483333333335,
+    "lng": -106.59296944444444,
+    "elevation": 3416.808,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13346--finnegan-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13346--finnegan-peak"
+  },
+  {
+    "name": "UN 13351",
+    "lat": 37.701825,
+    "lng": -107.48044722222222,
+    "elevation": 4066.6416000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13342",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13342"
+  },
+  {
+    "name": "\"Tincup Peak\"",
+    "lat": 38.71825833333334,
+    "lng": -106.42282222222222,
+    "elevation": 3355.848,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13345--tincup-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13345--tincup-peak"
+  },
+  {
+    "name": "UN 13350 Uncompahgre Pk",
+    "lat": 38.098483333333334,
+    "lng": -107.49587777777778,
+    "elevation": 2651.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13340---un-13340-b--gm",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13340---un-13340-b--gm"
+  },
+  {
+    "name": "UN 13350 Maroon Bells",
+    "lat": 39.12282777777778,
+    "lng": -106.97391388888889,
+    "elevation": 3383.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13336",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13336"
+  },
+  {
+    "name": "UN 13350 Emerald Lake",
+    "lat": 37.581133333333334,
+    "lng": -107.48177777777778,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13340--un-13340-a--gm",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13340--un-13340-a--gm"
+  },
+  {
+    "name": "\"Lake Fork Peak\"",
+    "lat": 38.99845555555556,
+    "lng": -106.554075,
+    "elevation": 3360.42,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13322--lake-fork-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13322--lake-fork-peak"
+  },
+  {
+    "name": "UN 13332",
+    "lat": 38.73777777777778,
+    "lng": -106.30545833333333,
+    "elevation": 4059.0216,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13317",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13317"
+  },
+  {
+    "name": "\"Booby Prize\"",
+    "lat": 38.991169444444445,
+    "lng": -106.59537222222222,
+    "elevation": 3828.288,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13312--booby-prizeun-13312-c",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13312--booby-prizeun-13312-c"
+  },
+  {
+    "name": "UN 13323",
+    "lat": 37.58556111111111,
+    "lng": -107.48786944444444,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13310",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13310"
+  },
+  {
+    "name": "Williams Benchmark",
+    "lat": 39.167516666666664,
+    "lng": -106.63246388888888,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/william-benchmark--william-mtn-south-a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/william-benchmark--william-mtn-south-a"
+  },
+  {
+    "name": "V 2",
+    "lat": 37.82180833333334,
+    "lng": -107.79400555555556,
+    "elevation": 4056.5832,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/v-2",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/v-2"
+  },
+  {
+    "name": "\"El Punto\"",
+    "lat": 38.089908333333334,
+    "lng": -107.49966388888889,
+    "elevation": 2651.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300--el-puntoun13300-f",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300--el-puntoun13300-f"
+  },
+  {
+    "name": "UN 13318",
+    "lat": 37.702708333333334,
+    "lng": -107.49426944444444,
+    "elevation": 4056.2784,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13308",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13308"
+  },
+  {
+    "name": "\"C.T.Peak\"",
+    "lat": 37.96660555555556,
+    "lng": -107.47031944444444,
+    "elevation": 4057.4976,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13312--ct-peakun-13312-a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13312--ct-peakun-13312-a"
+  },
+  {
+    "name": "\"Oyster Peak\"",
+    "lat": 38.985675,
+    "lng": -106.84401666666666,
+    "elevation": 3893.82,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13312--oyster-peakun-13312-b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13312--oyster-peakun-13312-b"
+  },
+  {
+    "name": "T 8",
+    "lat": 37.941111111111105,
+    "lng": -107.71566111111112,
+    "elevation": 3803.904,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/t-8",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/t-8"
+  },
+  {
+    "name": "\"East Storm\"",
+    "lat": 37.86057777777778,
+    "lng": -107.63896944444446,
+    "elevation": 3980.688,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13325--east-storm",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13325--east-storm"
+  },
+  {
+    "name": "UN 13313",
+    "lat": 38.05690555555555,
+    "lng": -107.52204166666667,
+    "elevation": 4053.84,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300--un-13300-c",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300--un-13300-c"
+  },
+  {
+    "name": "Tellurium Peak",
+    "lat": 39.04436388888889,
+    "lng": -106.65547222222223,
+    "elevation": 3486.9120000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300--tellurium-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300--tellurium-peak"
+  },
+  {
+    "name": "\"Baldy no es Cinco\"",
+    "lat": 37.95720555555556,
+    "lng": -107.11450833333333,
+    "elevation": 3718.5600000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13313--baldy-no-es-cinco",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13313--baldy-no-es-cinco"
+  },
+  {
+    "name": "UN 13308",
+    "lat": 37.95330555555556,
+    "lng": -106.94289166666667,
+    "elevation": 4049.268,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300"
+  },
+  {
+    "name": "Peak G",
+    "lat": 39.731294444444444,
+    "lng": -106.3204611111111,
+    "elevation": 4035.552,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13260--c--peak-g",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13260--c--peak-g"
+  },
+  {
+    "name": "UN 13305",
+    "lat": 38.939677777777774,
+    "lng": -106.56039444444444,
+    "elevation": 3360.42,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13295",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13295"
+  },
+  {
+    "name": "UN 13302",
+    "lat": 37.784299999999995,
+    "lng": -107.83278055555556,
+    "elevation": 3793.2360000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300-2",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300-2"
+  },
+  {
+    "name": "UN 13291",
+    "lat": 39.11564444444445,
+    "lng": -106.53790833333333,
+    "elevation": 3772.8144,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300--un-13300-b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300--un-13300-b"
+  },
+  {
+    "name": "\"Fools Pyramid\"",
+    "lat": 37.68768333333333,
+    "lng": -107.3748111111111,
+    "elevation": 2843.784,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13278",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13278"
+  },
+  {
+    "name": "\"P 2\"",
+    "lat": 37.626016666666665,
+    "lng": -107.51359722222222,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13302--p-2",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13302--p-2"
+  },
+  {
+    "name": "\"Tabor Peak\"",
+    "lat": 39.060275,
+    "lng": -106.66066944444445,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13282--tabor-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13282--tabor-peak"
+  },
+  {
+    "name": "\"P 3\"",
+    "lat": 37.62541111111111,
+    "lng": -107.50302222222223,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13300--p-3un13300-d",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13300--p-3un13300-d"
+  },
+  {
+    "name": "\"Wayah Peak\"",
+    "lat": 39.205222222222226,
+    "lng": -106.52920277777778,
+    "elevation": 4048.9632,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13284--wayah-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13284--wayah-peak"
+  },
+  {
+    "name": "UN13274",
+    "lat": 37.696461111111105,
+    "lng": -107.36891666666666,
+    "elevation": 2843.784,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13261",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13261"
+  },
+  {
+    "name": "S 8",
+    "lat": 38.01456944444445,
+    "lng": -107.8910388888889,
+    "elevation": 4039.2096,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/s-8",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/s-8"
+  },
+  {
+    "name": "The Heisspitz",
+    "lat": 37.16381388888889,
+    "lng": -107.62182499999999,
+    "elevation": 3279.648,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/the-heisspitz",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/the-heisspitz"
+  },
+  {
+    "name": "\"Middle Point\"",
+    "lat": 37.83048333333333,
+    "lng": -107.79278611111111,
+    "elevation": 2985.516,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13300--middle-point",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13300--middle-point"
+  },
+  {
+    "name": "\"Golden Tops\"",
+    "lat": 39.005072222222225,
+    "lng": -106.96626666666667,
+    "elevation": 2959.608,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13260--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13260--b"
+  },
+  {
+    "name": "\"Sheep Rock Mountain\"",
+    "lat": 38.95414166666667,
+    "lng": -106.49733333333333,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13255--sheep-rock-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13255--sheep-rock-mountain"
+  },
+  {
+    "name": "UN 13258",
+    "lat": 38.929716666666664,
+    "lng": -106.49071388888889,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13253",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13253"
+  },
+  {
+    "name": "UN 13256",
+    "lat": 37.87481388888889,
+    "lng": -107.33644722222222,
+    "elevation": 762,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13260--d",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13260--d"
+  },
+  {
+    "name": "S 4",
+    "lat": 38.00711388888889,
+    "lng": -107.83182777777778,
+    "elevation": 4040.4288,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/s-4",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/s-4"
+  },
+  {
+    "name": "UN 13255",
+    "lat": 39.13844722222222,
+    "lng": -106.96786111111112,
+    "elevation": 2560.32,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13244",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13244"
+  },
+  {
+    "name": "UN 13253",
+    "lat": 39.46431944444445,
+    "lng": -106.46239166666668,
+    "elevation": 3144.012,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13248",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13248"
+  },
+  {
+    "name": "UN 13251",
+    "lat": 38.93674166666666,
+    "lng": -106.50438055555556,
+    "elevation": 3316.224,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13235",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13235"
+  },
+  {
+    "name": "\"Fortress Peak\"",
+    "lat": 38.097680555555556,
+    "lng": -107.53026944444444,
+    "elevation": 2651.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/u-3--fortress-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/u-3--fortress-peak"
+  },
+  {
+    "name": "V 9",
+    "lat": 37.77408611111111,
+    "lng": -107.84093888888889,
+    "elevation": 4032.5040000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/v-9",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/v-9"
+  },
+  {
+    "name": "\"Cassi Peak\"",
+    "lat": 39.00792777777778,
+    "lng": -106.96092222222222,
+    "elevation": 2959.608,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13232--b--cassi-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13232--b--cassi-peak"
+  },
+  {
+    "name": "\"Weminuche Peak\"",
+    "lat": 37.61048888888889,
+    "lng": -107.4601,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13220--a--weminuche-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13220--a--weminuche-peak"
+  },
+  {
+    "name": "Peak Q/\"Prisoner Peak\"",
+    "lat": 39.71874444444445,
+    "lng": -106.28802222222222,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13230--b--peak-q",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13230--b--peak-q"
+  },
+  {
+    "name": "UN 13239",
+    "lat": 38.98618611111111,
+    "lng": -106.50759444444445,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13232--un13232--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13232--un13232--a"
+  },
+  {
+    "name": "\"Peak L\"",
+    "lat": 39.742644444444444,
+    "lng": -106.27885277777777,
+    "elevation": 3962.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13213--peak-l",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13213--peak-l"
+  },
+  {
+    "name": "UN 13232",
+    "lat": 37.675291666666666,
+    "lng": -107.49847222222222,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13230",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13230"
+  },
+  {
+    "name": "UN 13229",
+    "lat": 37.618375,
+    "lng": -107.49273055555555,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13222--un13222--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13222--un13222--b"
+  },
+  {
+    "name": "Peak C",
+    "lat": 39.731294444444444,
+    "lng": -106.3204611111111,
+    "elevation": 2827.02,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13220--b--peak-c",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13220--b--peak-c"
+  },
+  {
+    "name": "Peak Z / 'Gorgeous Peak'",
+    "lat": 39.71403888888889,
+    "lng": -106.24988055555556,
+    "elevation": 3621.0240000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13245--peak-z",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13245--peak-z"
+  },
+  {
+    "name": "UN 13226",
+    "lat": 37.146255555555555,
+    "lng": -105.18413611111112,
+    "elevation": 3419.856,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13229",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13229"
+  },
+  {
+    "name": "\"Hassell Peak\"",
+    "lat": 39.74358888888889,
+    "lng": -105.88306388888888,
+    "elevation": 4027.9320000000002,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13215--hassell-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13215--hassell-peak"
+  },
+  {
+    "name": "UN 13223",
+    "lat": 39.041533333333334,
+    "lng": -106.96408055555555,
+    "elevation": 4030.3704000000002,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13180--un13180--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13180--un13180--a"
+  },
+  {
+    "name": "\"Ellingwood Ridge\"",
+    "lat": 39.04850277777778,
+    "lng": -106.46694166666667,
+    "elevation": 4025.1888000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/ellingwood-ridge--un13222",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/ellingwood-ridge--un13222"
+  },
+  {
+    "name": "UN 13221",
+    "lat": 39.21475,
+    "lng": -106.52823333333333,
+    "elevation": 2621.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13212",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13212"
+  },
+  {
+    "name": "UN 13220",
+    "lat": 39.161541666666665,
+    "lng": -106.55151388888889,
+    "elevation": 3772.8144,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13202",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13202"
+  },
+  {
+    "name": "UN 13220",
+    "lat": 38.10593333333333,
+    "lng": -107.49029166666666,
+    "elevation": 2651.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13222--un13222--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13222--un13222--a"
+  },
+  {
+    "name": "Homestake Peak",
+    "lat": 39.36756111111111,
+    "lng": -106.38925555555556,
+    "elevation": 3095.244,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/homestake-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/homestake-peak"
+  },
+  {
+    "name": "UN 13215",
+    "lat": 38.07445277777778,
+    "lng": -107.524775,
+    "elevation": 3535.6800000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13206",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13206"
+  },
+  {
+    "name": "UN 13214",
+    "lat": 39.00215277777778,
+    "lng": -106.91009444444445,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13216",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13216"
+  },
+  {
+    "name": "Gladstone Ridge",
+    "lat": 38.78236944444444,
+    "lng": -106.34819444444445,
+    "elevation": 3413.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/gladstone-ridge",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/gladstone-ridge"
+  },
+  {
+    "name": "UN 13207",
+    "lat": 38.03861111111111,
+    "lng": -107.52468611111111,
+    "elevation": 3572.2560000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13201",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13201"
+  },
+  {
+    "name": "\"Mountain Boy Peak\"",
+    "lat": 39.079486111111116,
+    "lng": -106.57721944444444,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13198--mountain-boy-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13198--mountain-boy-peak"
+  },
+  {
+    "name": "UN 13204",
+    "lat": 39.17381666666667,
+    "lng": -106.61545,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13203--williams-mtn-south--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13203--williams-mtn-south--b"
+  },
+  {
+    "name": "UN 13179",
+    "lat": 37.84691666666667,
+    "lng": -107.47513611111111,
+    "elevation": 3240.0240000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13164",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13164"
+  },
+  {
+    "name": "UN 13179",
+    "lat": 37.956338888888894,
+    "lng": -106.93740833333334,
+    "elevation": 3749.04,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13180",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13180"
+  },
+  {
+    "name": "\"Fancy Peak\"",
+    "lat": 39.418258333333334,
+    "lng": -106.505,
+    "elevation": 2817.876,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13192--fancy-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13192--fancy-peak"
+  },
+  {
+    "name": "UN 13173",
+    "lat": 38.989669444444445,
+    "lng": -106.89288611111112,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13162--un13162--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13162--un13162--b"
+  },
+  {
+    "name": "\"Stony Pass Peak\"",
+    "lat": 37.79065833333333,
+    "lng": -107.55282777777778,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13165--stony-pass-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13165--stony-pass-peak"
+  },
+  {
+    "name": "UN 13171",
+    "lat": 37.65900833333333,
+    "lng": -107.48925277777778,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13169",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13169"
+  },
+  {
+    "name": "UN 13170",
+    "lat": 37.996344444444446,
+    "lng": -107.39582777777778,
+    "elevation": 4017.264,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13180--un13180--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13180--un13180--b"
+  },
+  {
+    "name": "S 9",
+    "lat": 38.025238888888886,
+    "lng": -107.89111111111112,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/s-9",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/s-9"
+  },
+  {
+    "name": "UN 13168",
+    "lat": 37.95377222222223,
+    "lng": -107.07939722222221,
+    "elevation": 3718.5600000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13162--un13162--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13162--un13162--a"
+  },
+  {
+    "name": "UN 13166",
+    "lat": 37.96776944444445,
+    "lng": -106.92035277777778,
+    "elevation": 3749.04,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13155",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13155"
+  },
+  {
+    "name": "V 5",
+    "lat": 37.826008333333334,
+    "lng": -107.76996944444444,
+    "elevation": 2985.516,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/v-5",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/v-5"
+  },
+  {
+    "name": "UN 13164",
+    "lat": 37.62191111111111,
+    "lng": -107.06346944444444,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13121--un13121--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13121--un13121--a"
+  },
+  {
+    "name": "UN 13159",
+    "lat": 38.013019444444446,
+    "lng": -105.61481666666666,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13153--un13153--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13153--un13153--b"
+  },
+  {
+    "name": "\"Window Peak\"",
+    "lat": 37.665166666666664,
+    "lng": -107.39467222222223,
+    "elevation": 2843.784,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13157--window-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13157--window-peak"
+  },
+  {
+    "name": "UN 13155",
+    "lat": 38.05415277777777,
+    "lng": -107.43814722222223,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13158",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13158"
+  },
+  {
+    "name": "UN 13150",
+    "lat": 38.60450277777778,
+    "lng": -106.33763888888889,
+    "elevation": 4008.1200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13147",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13147"
+  },
+  {
+    "name": "\"West Truro\"",
+    "lat": 39.04434166666667,
+    "lng": -106.63981944444446,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13140--c--west-truro",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13140--c--west-truro"
+  },
+  {
+    "name": "\"Medano Peak\"",
+    "lat": 37.86141111111111,
+    "lng": -105.49246944444444,
+    "elevation": 3413.76,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13153--a--medano-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13153--a--medano-peak"
+  },
+  {
+    "name": "UN 13145",
+    "lat": 37.86177222222222,
+    "lng": -107.7570361111111,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13159",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13159"
+  },
+  {
+    "name": "UN 13145",
+    "lat": 38.95991111111111,
+    "lng": -106.52853611111111,
+    "elevation": 3291.84,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13140--un13140--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13140--un13140--b"
+  },
+  {
+    "name": "\"Jackass Point\"",
+    "lat": 37.905658333333335,
+    "lng": -107.78917777777778,
+    "elevation": 3715.512,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13145--jackass-point",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13145--jackass-point"
+  },
+  {
+    "name": "UN 13144",
+    "lat": 39.03115833333333,
+    "lng": -106.9676638888889,
+    "elevation": 4002.0240000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13140--un13130",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13140--un13130"
+  },
+  {
+    "name": "UN 13140",
+    "lat": 37.993072222222224,
+    "lng": -107.59729999999999,
+    "elevation": 3273.552,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13132",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13132"
+  },
+  {
+    "name": "UN 13139",
+    "lat": 39.191563888888886,
+    "lng": -106.60606388888888,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13108--williams-mtn-north",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13108--williams-mtn-north"
+  },
+  {
+    "name": "Hayden Mountain, North",
+    "lat": 37.967619444444445,
+    "lng": -107.6892,
+    "elevation": 4002.3288000000002,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/hayden-mountain-north",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/hayden-mountain-north"
+  },
+  {
+    "name": "Pika Peak",
+    "lat": 39.46864722222222,
+    "lng": -106.59183888888889,
+    "elevation": 2877.3120000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/pika-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/pika-peak"
+  },
+  {
+    "name": "UN 13130",
+    "lat": 38.116883333333334,
+    "lng": -105.70658333333334,
+    "elevation": 3648.456,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13122",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13122"
+  },
+  {
+    "name": "UN 13128",
+    "lat": 38.21447777777778,
+    "lng": -105.74487777777777,
+    "elevation": 3505.2000000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13123--un13123--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13123--un13123--b"
+  },
+  {
+    "name": "UN 13121",
+    "lat": 37.68744444444444,
+    "lng": -107.50288611111111,
+    "elevation": 3688.0800000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13110",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13110"
+  },
+  {
+    "name": "\"Baldy Lejos\"",
+    "lat": 37.99395277777778,
+    "lng": -107.00036944444444,
+    "elevation": 3962.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13100--e--baldy-lejos",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13100--e--baldy-lejos"
+  },
+  {
+    "name": "UN 13117",
+    "lat": 37.75868888888889,
+    "lng": -107.61818333333332,
+    "elevation": 3557.016,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13109",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13109"
+  },
+  {
+    "name": "Cow Benchmark",
+    "lat": 38.01973611111111,
+    "lng": -107.62087777777776,
+    "elevation": 3273.552,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/cow-benchmark",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/cow-benchmark"
+  },
+  {
+    "name": "UN 13115",
+    "lat": 37.968383333333335,
+    "lng": -106.98868611111111,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13111",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13111"
+  },
+  {
+    "name": "Hancock Peak",
+    "lat": 38.61717222222222,
+    "lng": -106.36692777777778,
+    "elevation": 3993.4896000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13111--hancock-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13111--hancock-peak"
+  },
+  {
+    "name": "UN 13110",
+    "lat": 38.07156666666667,
+    "lng": -107.41943055555556,
+    "elevation": 3773.424,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13106",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13106"
+  },
+  {
+    "name": "Peak N",
+    "lat": 39.75912777777778,
+    "lng": -106.27363888888888,
+    "elevation": 3310.128,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13121--b--peak-n",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13121--b--peak-n"
+  },
+  {
+    "name": "UN 13108",
+    "lat": 38.07271388888889,
+    "lng": -107.388475,
+    "elevation": 3773.424,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13091",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13091"
+  },
+  {
+    "name": "\"Corbett Ridge\"",
+    "lat": 38.026916666666665,
+    "lng": -107.73381944444445,
+    "elevation": 2874.264,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13100--c--corbett-ridge",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13100--c--corbett-ridge"
+  },
+  {
+    "name": "\"Peak Twenty Two\"",
+    "lat": 37.55169444444444,
+    "lng": -107.55709722222223,
+    "elevation": 3718.5600000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13105--peak-twenty-two",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13105--peak-twenty-two"
+  },
+  {
+    "name": "UN 13102",
+    "lat": 38.14572777777778,
+    "lng": -107.46735,
+    "elevation": 2910.84,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13100--un13100--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13100--un13100--a"
+  },
+  {
+    "name": "UN 13102",
+    "lat": 39.075783333333334,
+    "lng": -106.61259722222222,
+    "elevation": 3078.48,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13090",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13090"
+  },
+  {
+    "name": "\"Tomboy Peak\"",
+    "lat": 37.947291666666665,
+    "lng": -107.751775,
+    "elevation": 3993.1848,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13095--tomboy-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13095--tomboy-peak"
+  },
+  {
+    "name": "Peak X",
+    "lat": 39.705308333333335,
+    "lng": -106.26045277777777,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13085--b--peak-x",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13085--b--peak-x"
+  },
+  {
+    "name": "UN 13094",
+    "lat": 37.99252222222222,
+    "lng": -107.53405,
+    "elevation": 3273.552,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13093",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13093"
+  },
+  {
+    "name": "UN 13093",
+    "lat": 38.73941111111111,
+    "lng": -106.332075,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13078",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13078"
+  },
+  {
+    "name": "\"Ribbed Peak\"",
+    "lat": 39.43250555555555,
+    "lng": -106.56271111111111,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13085--a--ribbed-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13085--a--ribbed-peak"
+  },
+  {
+    "name": "\"Huerfanito\"",
+    "lat": 37.58462777777778,
+    "lng": -105.46430000000001,
+    "elevation": 3992.88,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13081--huerfanito",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13081--huerfanito"
+  },
+  {
+    "name": "UN 13082",
+    "lat": 38.63301388888889,
+    "lng": -106.33314722222222,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13070",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13070"
+  },
+  {
+    "name": "\"West Tellurium\"",
+    "lat": 39.04558055555555,
+    "lng": -106.6736638888889,
+    "elevation": 3486.9120000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13074--west-tellurium",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13074--west-tellurium"
+  },
+  {
+    "name": "UN 13078",
+    "lat": 37.90465555555556,
+    "lng": -107.59296666666665,
+    "elevation": 3273.552,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13075",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13075"
+  },
+  {
+    "name": "UN 13076",
+    "lat": 37.83018888888889,
+    "lng": -107.52972777777778,
+    "elevation": 2980.944,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13069",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13069"
+  },
+  {
+    "name": "Kendall #2 Benchmark",
+    "lat": 37.793905555555554,
+    "lng": -107.64204722222223,
+    "elevation": 3736.8480000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/kendall-benchmark-2",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/kendall-benchmark-2"
+  },
+  {
+    "name": "UN 13071",
+    "lat": 39.44056666666666,
+    "lng": -106.57794444444444,
+    "elevation": 0,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13100--un13100-b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13100--un13100-b"
+  },
+  {
+    "name": "UN 13067",
+    "lat": 39.149519444444444,
+    "lng": -107.051875,
+    "elevation": 3980.688,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13060--un13060--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13060--un13060--a"
+  },
+  {
+    "name": "\"Mas Alto Peak\"",
+    "lat": 38.094750000000005,
+    "lng": -105.68941944444445,
+    "elevation": 3648.456,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13062--un13062--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13062--un13062--b"
+  },
+  {
+    "name": "\"Chalk Rock Mountain\"",
+    "lat": 38.779225,
+    "lng": -106.413725,
+    "elevation": 3979.164,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13055--chalk-rock-mountain",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13055--chalk-rock-mountain"
+  },
+  {
+    "name": "\"Fravert Peak\"",
+    "lat": 39.09331944444445,
+    "lng": -107.03019166666667,
+    "elevation": 3572.2560000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13062--un13062--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13062--un13062--a"
+  },
+  {
+    "name": "\"N 2\"",
+    "lat": 37.69894166666666,
+    "lng": -107.69236944444445,
+    "elevation": 3976.4208000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13046--n-2",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13046--n-2"
+  },
+  {
+    "name": "\"Alto Peak\"",
+    "lat": 38.08908888888889,
+    "lng": -105.68942222222222,
+    "elevation": 3648.456,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13060--un13060--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13060--un13060--b"
+  },
+  {
+    "name": "\"West Partner Peak\"",
+    "lat": 39.626983333333335,
+    "lng": -106.27398055555555,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13041--a--west-partner-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13041--a--west-partner-peak"
+  },
+  {
+    "name": "\"Pyramid Mountain\"",
+    "lat": 38.06028055555555,
+    "lng": -105.65894444444444,
+    "elevation": 3648.456,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13054",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13054"
+  },
+  {
+    "name": "UN 13048",
+    "lat": 39.096919444444445,
+    "lng": -106.99480277777778,
+    "elevation": 3383.28,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13039",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13039"
+  },
+  {
+    "name": "\"Dead Man Peak\"",
+    "lat": 37.907355555555554,
+    "lng": -105.55909166666666,
+    "elevation": 3474.7200000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13050--a--dead-man-peak",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13050--a--dead-man-peak"
+  },
+  {
+    "name": "UN 13048",
+    "lat": 38.106005555555555,
+    "lng": -107.42988333333334,
+    "elevation": 3773.424,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13051",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13051"
+  },
+  {
+    "name": "\"V 7\"",
+    "lat": 37.78176388888889,
+    "lng": -107.75010277777778,
+    "elevation": 3261.36,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13047--v-7",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13047--v-7"
+  },
+  {
+    "name": "UN 13039",
+    "lat": 39.14823611111111,
+    "lng": -106.64195833333333,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13033--williams-mtn-south-c",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13033--williams-mtn-south-c"
+  },
+  {
+    "name": "UN 13038",
+    "lat": 38.713375000000006,
+    "lng": -106.39649722222222,
+    "elevation": 3294.8880000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13050--un13050--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13050--un13050--b"
+  },
+  {
+    "name": "UN 13033",
+    "lat": 39.18505833333333,
+    "lng": -106.55855,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13026",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13026"
+  },
+  {
+    "name": "\"Menos Alto Peak\"",
+    "lat": 38.08101666666667,
+    "lng": -105.68084166666667,
+    "elevation": 3648.456,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13028",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13028"
+  },
+  {
+    "name": "UN 13030",
+    "lat": 37.94613333333333,
+    "lng": -107.00891666666666,
+    "elevation": 3810,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13034",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13034"
+  },
+  {
+    "name": "\"The Unicorn\"",
+    "lat": 37.36665555555556,
+    "lng": -106.69921666666667,
+    "elevation": 3963.0096000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13020--c--the-unicorn",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13020--c--the-unicorn"
+  },
+  {
+    "name": "UN 13028",
+    "lat": 37.94167777777778,
+    "lng": -105.57066944444443,
+    "elevation": 3352.8,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13020--un13020--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13020--un13020--b"
+  },
+  {
+    "name": "UN 13026",
+    "lat": 37.968297222222226,
+    "lng": -106.86572222222222,
+    "elevation": 3657.6000000000004,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13015",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13015"
+  },
+  {
+    "name": "UN 13022",
+    "lat": 37.65175555555555,
+    "lng": -107.39475833333334,
+    "elevation": 2843.784,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13017",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13017"
+  },
+  {
+    "name": "UN 13015",
+    "lat": 38.12439166666667,
+    "lng": -107.41476666666668,
+    "elevation": 3773.424,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13016",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13016"
+  },
+  {
+    "name": "UN 13015",
+    "lat": 39.118202777777775,
+    "lng": -106.98116388888889,
+    "elevation": 3966.972,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13020--un13020--a",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13020--un13020--a"
+  },
+  {
+    "name": "UN 13014",
+    "lat": 39.21241666666667,
+    "lng": -106.56781388888888,
+    "elevation": 3608.8320000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13014--mt-champion",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13014--mt-champion"
+  },
+  {
+    "name": "UN 13006",
+    "lat": 39.16376666666667,
+    "lng": -106.56772222222222,
+    "elevation": 3964.2288000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13001",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13001"
+  },
+  {
+    "name": "Overlook Point",
+    "lat": 37.511425,
+    "lng": -107.68068611111111,
+    "elevation": 3017.52,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/overlook-point",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/overlook-point"
+  },
+  {
+    "name": "UN 13005",
+    "lat": 37.98291388888889,
+    "lng": -106.99933333333334,
+    "elevation": 3962.4,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13020",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13020"
+  },
+  {
+    "name": "UN 13003",
+    "lat": 37.84968888888889,
+    "lng": -107.49466944444444,
+    "elevation": 3959.3520000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13003--cuba-gulch",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13003--cuba-gulch"
+  },
+  {
+    "name": "UN 13002",
+    "lat": 39.399452777777775,
+    "lng": -106.5467861111111,
+    "elevation": 3955.3896,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13002--carter-creek",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13002--carter-creek"
+  },
+  {
+    "name": "\"Peak R\"",
+    "lat": 39.72115277777778,
+    "lng": -106.27726388888888,
+    "elevation": 3960.876,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-r--slate-creek",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-r--slate-creek"
+  },
+  {
+    "name": "UN 12992",
+    "lat": 37.60622777777778,
+    "lng": -107.24544444444444,
+    "elevation": 3965.4480000000003,
+    "externalSource": "climb13ers",
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13010--un13010--b",
+    "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13010--un13010--b"
+  }
+]

@@ -7,6 +7,11 @@ import loadOsmData from "./loadOsmData";
 import mysqlToPsql from "./mysqlToPsql";
 import importChallenge from "./importChallenge";
 import test from "./test";
+import importPeakbaggerPeaks from "./importPeakbaggerPeaks";
+import importClimb13ersPeaks from "./importClimb13ersPeaks";
+import import14ersPeaks from "./import14ersPeaks";
+import export14ersRankedExternalIds from "./export14ersRankedExternalIds";
+import create14ersChallenges from "./create14ersChallenges";
 // API-based enrichment (slow, uses external APIs)
 import enrichGeocoding from "./enrichGeocoding";
 import enrichElevationUS from "./enrichElevationUS";
@@ -17,8 +22,52 @@ import enrichGeocodingPostGIS from "./enrichGeocodingPostGIS";
 import importPublicLands from "./importPublicLands";
 import enrichPeaksWithPublicLands from "./enrichPeaksWithPublicLands";
 import fixInvalidGeometries from "./fixInvalidGeometries";
+import snapPeaksToHighest3dep from "./snapPeaksToHighest3dep";
 
 const main = async () => {
+    const task = process.env.TASK;
+    if (task) {
+        switch (task) {
+            case "enrich-peaks-public-lands":
+                await enrichPeaksWithPublicLands();
+                return;
+            case "import-peakbagger-peaks":
+                await importPeakbaggerPeaks();
+                return;
+            case "import-climb13ers-peaks":
+                await importClimb13ersPeaks();
+                return;
+            case "import-14ers-peaks":
+                await import14ersPeaks();
+                return;
+            case "export-14ers-ranked":
+                await export14ersRankedExternalIds();
+                return;
+            case "create-14ers-challenges":
+                await create14ersChallenges();
+                return;
+            case "snap-peaks-3dep":
+                await snapPeaksToHighest3dep();
+                return;
+            case "post-snap-enrichment":
+                await enrichGeocodingPostGIS();
+                await enrichPeaksWithPublicLands();
+                return;
+            default:
+                console.log(`Unknown TASK: ${task}`);
+                console.log(`Known TASK values:`);
+                console.log(`  - enrich-peaks-public-lands`);
+                console.log(`  - import-peakbagger-peaks`);
+                console.log(`  - import-climb13ers-peaks`);
+                console.log(`  - import-14ers-peaks`);
+                console.log(`  - export-14ers-ranked`);
+                console.log(`  - create-14ers-challenges`);
+                console.log(`  - snap-peaks-3dep`);
+                console.log(`  - post-snap-enrichment`);
+                return;
+        }
+    }
+
     // === DATA IMPORT TOOLS (Legacy) ===
     // await getPeakElevations();
     // await geocodePeaks();
@@ -49,7 +98,7 @@ const main = async () => {
     // await fixInvalidGeometries();
     //
     // Step 4: Tag peaks with public land info
-    await enrichPeaksWithPublicLands();
+    // await enrichPeaksWithPublicLands();
 
     // ============================================================
     // === API-BASED ENRICHMENT (SLOW - USE FOR EDGE CASES) ===
@@ -80,7 +129,7 @@ const main = async () => {
     //   INCLUDE_LOW_CONFIDENCE=true - Include low confidence matches
     //
     // Example usage:
-    //   PEAKBAGGER_LIST_ID=5061 npm run dev:once
+    //   PEAKBAGGER_LIST_ID=21364 npm run dev:once
     //   DRY_RUN=false REVIEW_FILE=review-5061.json npm run dev:once
     // await importChallenge();
 };

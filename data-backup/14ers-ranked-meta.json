@@ -1,0 +1,5249 @@
+[
+  {
+    "externalId": "https://www.14ers.com/peaks/10692/13er-grizzly-peak-a",
+    "fourteenersPeakId": "10692",
+    "name": "Grizzly Peak",
+    "coRank": 54,
+    "thirteenRank": 1,
+    "elevationFeet": 13997,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10276/13er-stewart-peak",
+    "fourteenersPeakId": "10276",
+    "name": "Stewart Peak",
+    "coRank": 55,
+    "thirteenRank": 2,
+    "elevationFeet": 13988,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10607/13er-columbia-point",
+    "fourteenersPeakId": "10607",
+    "name": "Columbia Point",
+    "coRank": 56,
+    "thirteenRank": 3,
+    "elevationFeet": 13986,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10693/13er-mount-ouray",
+    "fourteenersPeakId": "10693",
+    "name": "Ouray, Mt",
+    "coRank": 57,
+    "thirteenRank": 4,
+    "elevationFeet": 13979,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10277/13er-pigeon-peak",
+    "fourteenersPeakId": "10277",
+    "name": "Pigeon Peak",
+    "coRank": 58,
+    "thirteenRank": 5,
+    "elevationFeet": 13977,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10838/13er-pacific-peak",
+    "fourteenersPeakId": "10838",
+    "name": "Pacific Peak",
+    "coRank": 59,
+    "thirteenRank": 6,
+    "elevationFeet": 13965,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10694/13er-ice-mountain",
+    "fourteenersPeakId": "10694",
+    "name": "Ice Mtn",
+    "coRank": 60,
+    "thirteenRank": 7,
+    "elevationFeet": 13960,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10084/13er-cathedral-peak-a",
+    "fourteenersPeakId": "10084",
+    "name": "Cathedral Peak",
+    "coRank": 61,
+    "thirteenRank": 8,
+    "elevationFeet": 13952,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10085/13er-thunder-pyramid",
+    "fourteenersPeakId": "10085",
+    "name": "Thunder Pyramid",
+    "coRank": 62,
+    "thirteenRank": 9,
+    "elevationFeet": 13944,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10837/13er-fletcher-mountain",
+    "fourteenersPeakId": "10837",
+    "name": "Fletcher Mtn",
+    "coRank": 63,
+    "thirteenRank": 10,
+    "elevationFeet": 13943,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10695/13er-french-mountain",
+    "fourteenersPeakId": "10695",
+    "name": "French Mtn",
+    "coRank": 64,
+    "thirteenRank": 11,
+    "elevationFeet": 13942,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10696/13er-mount-hope-a",
+    "fourteenersPeakId": "10696",
+    "name": "Hope, Mt",
+    "coRank": 65,
+    "thirteenRank": 12,
+    "elevationFeet": 13939,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10610/13er-mount-adams-a",
+    "fourteenersPeakId": "10610",
+    "name": "Adams, Mt",
+    "coRank": 66,
+    "thirteenRank": 13,
+    "elevationFeet": 13937,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10278/13er-gladstone-peak",
+    "fourteenersPeakId": "10278",
+    "name": "Gladstone Peak",
+    "coRank": 67,
+    "thirteenRank": 14,
+    "elevationFeet": 13923,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10251/13er-horseshoe-mountain",
+    "fourteenersPeakId": "10251",
+    "name": "Horseshoe Mtn A",
+    "coRank": 68,
+    "thirteenRank": 15,
+    "elevationFeet": 13918,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10698/13er-emerald-peak",
+    "fourteenersPeakId": "10698",
+    "name": "Emerald Peak",
+    "coRank": 69,
+    "thirteenRank": 16,
+    "elevationFeet": 13916,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10136/13er-mount-meeker",
+    "fourteenersPeakId": "10136",
+    "name": "Meeker, Mt",
+    "coRank": 70,
+    "thirteenRank": 17,
+    "elevationFeet": 13916,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10611/13er-red-mountain-a",
+    "fourteenersPeakId": "10611",
+    "name": "Red Mtn",
+    "coRank": 71,
+    "thirteenRank": 18,
+    "elevationFeet": 13911,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10280/13er-vermilion-peak",
+    "fourteenersPeakId": "10280",
+    "name": "Vermilion Peak",
+    "coRank": 72,
+    "thirteenRank": 19,
+    "elevationFeet": 13909,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10697/13er-casco-peak",
+    "fourteenersPeakId": "10697",
+    "name": "Casco Peak",
+    "coRank": 73,
+    "thirteenRank": 20,
+    "elevationFeet": 13905,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10279/13er-phoenix-peak",
+    "fourteenersPeakId": "10279",
+    "name": "Phoenix Peak",
+    "coRank": 74,
+    "thirteenRank": 21,
+    "elevationFeet": 13904,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10700/13er-cronin-peak",
+    "fourteenersPeakId": "10700",
+    "name": "Cronin Peak",
+    "coRank": 75,
+    "thirteenRank": 22,
+    "elevationFeet": 13872,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10252/13er-mount-buckskin",
+    "fourteenersPeakId": "10252",
+    "name": "Buckskin, Mt",
+    "coRank": 76,
+    "thirteenRank": 23,
+    "elevationFeet": 13871,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10701/13er-north-apostle",
+    "fourteenersPeakId": "10701",
+    "name": "North Apostle",
+    "coRank": 77,
+    "thirteenRank": 24,
+    "elevationFeet": 13869,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10281/13er-vestal-peak",
+    "fourteenersPeakId": "10281",
+    "name": "Vestal Peak",
+    "coRank": 78,
+    "thirteenRank": 25,
+    "elevationFeet": 13867,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10282/13er-jones-mountain-a",
+    "fourteenersPeakId": "10282",
+    "name": "Jones Mtn",
+    "coRank": 79,
+    "thirteenRank": 26,
+    "elevationFeet": 13867,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10283/13er-half-peak",
+    "fourteenersPeakId": "10283",
+    "name": "Half Peak",
+    "coRank": 80,
+    "thirteenRank": 27,
+    "elevationFeet": 13866,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10253/13er-clinton-peak",
+    "fourteenersPeakId": "10253",
+    "name": "Clinton Peak",
+    "coRank": 81,
+    "thirteenRank": 28,
+    "elevationFeet": 13866,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10254/13er-dyer-mountain",
+    "fourteenersPeakId": "10254",
+    "name": "Dyer Mtn",
+    "coRank": 82,
+    "thirteenRank": 29,
+    "elevationFeet": 13861,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10840/13er-crystal-peak-a",
+    "fourteenersPeakId": "10840",
+    "name": "Crystal Peak",
+    "coRank": 83,
+    "thirteenRank": 30,
+    "elevationFeet": 13860,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10138/13er-mount-edwards",
+    "fourteenersPeakId": "10138",
+    "name": "Edwards, Mt",
+    "coRank": 84,
+    "thirteenRank": 31,
+    "elevationFeet": 13860,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10841/13er-atlantic-peak",
+    "fourteenersPeakId": "10841",
+    "name": "Atlantic Peak",
+    "coRank": 85,
+    "thirteenRank": 32,
+    "elevationFeet": 13856,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10612/13er-california-peak",
+    "fourteenersPeakId": "10612",
+    "name": "California Peak",
+    "coRank": 86,
+    "thirteenRank": 33,
+    "elevationFeet": 13854,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10703/13er-holy-cross-ridge",
+    "fourteenersPeakId": "10703",
+    "name": "Holy Cross Ridge",
+    "coRank": 87,
+    "thirteenRank": 34,
+    "elevationFeet": 13850,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10086/13er-hagerman-peak",
+    "fourteenersPeakId": "10086",
+    "name": "Hagerman Peak",
+    "coRank": 88,
+    "thirteenRank": 35,
+    "elevationFeet": 13848,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10702/13er-mount-oklahoma",
+    "fourteenersPeakId": "10702",
+    "name": "Oklahoma, Mt",
+    "coRank": 89,
+    "thirteenRank": 36,
+    "elevationFeet": 13843,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10285/unnamed-13er-13838",
+    "fourteenersPeakId": "10285",
+    "name": "UN 13,838",
+    "coRank": 90,
+    "thirteenRank": 37,
+    "elevationFeet": 13838,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10286/13er-jupiter-mountain",
+    "fourteenersPeakId": "10286",
+    "name": "Jupiter Mtn",
+    "coRank": 91,
+    "thirteenRank": 38,
+    "elevationFeet": 13838,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10284/13er-turret-peak-a",
+    "fourteenersPeakId": "10284",
+    "name": "Turret Peak",
+    "coRank": 92,
+    "thirteenRank": 39,
+    "elevationFeet": 13837,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10613/13er-huerfano-peak",
+    "fourteenersPeakId": "10613",
+    "name": "Huerfano Peak",
+    "coRank": 93,
+    "thirteenRank": 40,
+    "elevationFeet": 13837,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10287/13er-jagged-mountain",
+    "fourteenersPeakId": "10287",
+    "name": "Jagged Mtn",
+    "coRank": 94,
+    "thirteenRank": 41,
+    "elevationFeet": 13833,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10140/13er-mount-silverheels",
+    "fourteenersPeakId": "10140",
+    "name": "Silverheels, Mt",
+    "coRank": 95,
+    "thirteenRank": 42,
+    "elevationFeet": 13828,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10705/13er-lackawanna",
+    "fourteenersPeakId": "10705",
+    "name": "Lackawanna",
+    "coRank": 96,
+    "thirteenRank": 43,
+    "elevationFeet": 13826,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10288/13er-rio-grande-pyramid",
+    "fourteenersPeakId": "10288",
+    "name": "Rio Grande Pyramid",
+    "coRank": 97,
+    "thirteenRank": 44,
+    "elevationFeet": 13825,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10290/unnamed-13er-13820",
+    "fourteenersPeakId": "10290",
+    "name": "UN 13,820",
+    "coRank": 98,
+    "thirteenRank": 45,
+    "elevationFeet": 13820,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10295/13er-arrow-peak",
+    "fourteenersPeakId": "10295",
+    "name": "Arrow Peak",
+    "coRank": 99,
+    "thirteenRank": 46,
+    "elevationFeet": 13817,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10294/13er-trinity-peak",
+    "fourteenersPeakId": "10294",
+    "name": "Trinity Peak",
+    "coRank": 100,
+    "thirteenRank": 47,
+    "elevationFeet": 13816,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10292/13er-niagara-peak",
+    "fourteenersPeakId": "10292",
+    "name": "Niagara Peak",
+    "coRank": 101,
+    "thirteenRank": 48,
+    "elevationFeet": 13816,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10289/13er-teakettle-mountain",
+    "fourteenersPeakId": "10289",
+    "name": "Teakettle Mtn",
+    "coRank": 102,
+    "thirteenRank": 49,
+    "elevationFeet": 13815,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10293/13er-american-peak",
+    "fourteenersPeakId": "10293",
+    "name": "American Peak",
+    "coRank": 103,
+    "thirteenRank": 50,
+    "elevationFeet": 13814,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10291/13er-dallas-peak",
+    "fourteenersPeakId": "10291",
+    "name": "Dallas Peak",
+    "coRank": 104,
+    "thirteenRank": 51,
+    "elevationFeet": 13812,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10614/13er-obstruction-peak",
+    "fourteenersPeakId": "10614",
+    "name": "Obstruction Peak",
+    "coRank": 105,
+    "thirteenRank": 52,
+    "elevationFeet": 13812,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10296/13er-organ-mountain-a",
+    "fourteenersPeakId": "10296",
+    "name": "Organ Mtn",
+    "coRank": 106,
+    "thirteenRank": 53,
+    "elevationFeet": 13808,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10256/13er-mount-arkansas",
+    "fourteenersPeakId": "10256",
+    "name": "Arkansas Mt",
+    "coRank": 107,
+    "thirteenRank": 54,
+    "elevationFeet": 13804,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10087/13er-castleabra",
+    "fourteenersPeakId": "10087",
+    "name": "Castleabra",
+    "coRank": 108,
+    "thirteenRank": 55,
+    "elevationFeet": 13804,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10615/13er-rito-alto-peak",
+    "fourteenersPeakId": "10615",
+    "name": "Rito Alto Peak",
+    "coRank": 109,
+    "thirteenRank": 56,
+    "elevationFeet": 13801,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10297/unnamed-13er-13801",
+    "fourteenersPeakId": "10297",
+    "name": "UN 13,801",
+    "coRank": 110,
+    "thirteenRank": 57,
+    "elevationFeet": 13801,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10141/13er-square-top-mountain-a",
+    "fourteenersPeakId": "10141",
+    "name": "Square Top Mtn",
+    "coRank": 111,
+    "thirteenRank": 58,
+    "elevationFeet": 13799,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10300/13er-potosi-peak",
+    "fourteenersPeakId": "10300",
+    "name": "Potosi Peak",
+    "coRank": 112,
+    "thirteenRank": 59,
+    "elevationFeet": 13793,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10299/13er-animas-mountain",
+    "fourteenersPeakId": "10299",
+    "name": "Animas Mtn",
+    "coRank": 113,
+    "thirteenRank": 60,
+    "elevationFeet": 13789,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10706/13er-rinker-peak",
+    "fourteenersPeakId": "10706",
+    "name": "Rinker Peak",
+    "coRank": 114,
+    "thirteenRank": 61,
+    "elevationFeet": 13789,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10301/13er-golden-horn",
+    "fourteenersPeakId": "10301",
+    "name": "Golden Horn",
+    "coRank": 115,
+    "thirteenRank": 62,
+    "elevationFeet": 13789,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10257/13er-mosquito-peak",
+    "fourteenersPeakId": "10257",
+    "name": "Mosquito Peak",
+    "coRank": 116,
+    "thirteenRank": 63,
+    "elevationFeet": 13787,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10708/unnamed-13er-13786",
+    "fourteenersPeakId": "10708",
+    "name": "UN 13,786",
+    "coRank": 117,
+    "thirteenRank": 64,
+    "elevationFeet": 13786,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10709/13er-magdalene-mountain",
+    "fourteenersPeakId": "10709",
+    "name": "Magdalene Mtn",
+    "coRank": 118,
+    "thirteenRank": 65,
+    "elevationFeet": 13780,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10302/13er-us-grant-peak",
+    "fourteenersPeakId": "10302",
+    "name": "US Grant Peak",
+    "coRank": 119,
+    "thirteenRank": 66,
+    "elevationFeet": 13778,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10707/13er-garfield-peak-a",
+    "fourteenersPeakId": "10707",
+    "name": "Garfield Peak",
+    "coRank": 120,
+    "thirteenRank": 67,
+    "elevationFeet": 13778,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10303/13er-west-trinity",
+    "fourteenersPeakId": "10303",
+    "name": "West Trinity",
+    "coRank": 121,
+    "thirteenRank": 68,
+    "elevationFeet": 13765,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10710/13er-deer-mountain-a",
+    "fourteenersPeakId": "10710",
+    "name": "Deer Mtn",
+    "coRank": 122,
+    "thirteenRank": 69,
+    "elevationFeet": 13763,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10711/13er-bull-hill-a",
+    "fourteenersPeakId": "10711",
+    "name": "Bull Hill",
+    "coRank": 123,
+    "thirteenRank": 70,
+    "elevationFeet": 13758,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10259/13er-mount-sheridan",
+    "fourteenersPeakId": "10259",
+    "name": "Sheridan, Mt",
+    "coRank": 124,
+    "thirteenRank": 71,
+    "elevationFeet": 13757,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10305/13er-san-miguel-peak",
+    "fourteenersPeakId": "10305",
+    "name": "San Miguel Peak",
+    "coRank": 125,
+    "thirteenRank": 72,
+    "elevationFeet": 13756,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10311/13er-grizzly-peak-b",
+    "fourteenersPeakId": "10311",
+    "name": "Grizzly Peak",
+    "coRank": 126,
+    "thirteenRank": 73,
+    "elevationFeet": 13753,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10306/13er-storm-king-peak",
+    "fourteenersPeakId": "10306",
+    "name": "Storm King Peak",
+    "coRank": 127,
+    "thirteenRank": 74,
+    "elevationFeet": 13753,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10307/13er-east-trinity",
+    "fourteenersPeakId": "10307",
+    "name": "East Trinity",
+    "coRank": 128,
+    "thirteenRank": 75,
+    "elevationFeet": 13752,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10712/13er-mount-aetna",
+    "fourteenersPeakId": "10712",
+    "name": "Aetna, Mt",
+    "coRank": 129,
+    "thirteenRank": 76,
+    "elevationFeet": 13747,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10713/13er-sayres-benchmark",
+    "fourteenersPeakId": "10713",
+    "name": "Sayres BM",
+    "coRank": 130,
+    "thirteenRank": 77,
+    "elevationFeet": 13746,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10312/13er-pilot-knob-a",
+    "fourteenersPeakId": "10312",
+    "name": "Pilot Knob",
+    "coRank": 131,
+    "thirteenRank": 78,
+    "elevationFeet": 13746,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10143/13er-argentine-peak",
+    "fourteenersPeakId": "10143",
+    "name": "Argentine Peak",
+    "coRank": 132,
+    "thirteenRank": 79,
+    "elevationFeet": 13743,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10314/13er-animas-forks-mountain",
+    "fourteenersPeakId": "10314",
+    "name": "Animas Forks Mtn",
+    "coRank": 133,
+    "thirteenRank": 80,
+    "elevationFeet": 13740,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10313/13er-t-0",
+    "fourteenersPeakId": "10313",
+    "name": "T 0",
+    "coRank": 134,
+    "thirteenRank": 81,
+    "elevationFeet": 13739,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10714/unnamed-13er-13738",
+    "fourteenersPeakId": "10714",
+    "name": "UN 13,738",
+    "coRank": 135,
+    "thirteenRank": 82,
+    "elevationFeet": 13738,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10315/13er-pole-creek-mountain",
+    "fourteenersPeakId": "10315",
+    "name": "Pole Creek Mtn",
+    "coRank": 136,
+    "thirteenRank": 83,
+    "elevationFeet": 13722,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10717/13er-grizzly-mountain",
+    "fourteenersPeakId": "10717",
+    "name": "Grizzly Mtn",
+    "coRank": 137,
+    "thirteenRank": 84,
+    "elevationFeet": 13722,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10716/13er-twining-peak",
+    "fourteenersPeakId": "10716",
+    "name": "Twining Peak",
+    "coRank": 138,
+    "thirteenRank": 85,
+    "elevationFeet": 13721,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10616/13er-vermejo-peak",
+    "fourteenersPeakId": "10616",
+    "name": "Vermejo Peak",
+    "coRank": 139,
+    "thirteenRank": 86,
+    "elevationFeet": 13715,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10316/13er-silver-mountain-a",
+    "fourteenersPeakId": "10316",
+    "name": "Silver Mtn",
+    "coRank": 140,
+    "thirteenRank": 87,
+    "elevationFeet": 13713,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10319/13er-peak-six",
+    "fourteenersPeakId": "10319",
+    "name": "Six, Peak",
+    "coRank": 141,
+    "thirteenRank": 88,
+    "elevationFeet": 13712,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10715/unnamed-13er-13712",
+    "fourteenersPeakId": "10715",
+    "name": "UN 13,712",
+    "coRank": 142,
+    "thirteenRank": 89,
+    "elevationFeet": 13712,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10325/13er-monitor-peak",
+    "fourteenersPeakId": "10325",
+    "name": "Monitor Peak",
+    "coRank": 143,
+    "thirteenRank": 90,
+    "elevationFeet": 13707,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10144/13er-bald-mountain-a",
+    "fourteenersPeakId": "10144",
+    "name": "Bald Mtn",
+    "coRank": 144,
+    "thirteenRank": 91,
+    "elevationFeet": 13703,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10324/13er-baldy-alto",
+    "fourteenersPeakId": "10324",
+    "name": "Baldy Alto",
+    "coRank": 145,
+    "thirteenRank": 92,
+    "elevationFeet": 13703,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10331/unnamed-13er-13702",
+    "fourteenersPeakId": "10331",
+    "name": "UN 13,702",
+    "coRank": 146,
+    "thirteenRank": 93,
+    "elevationFeet": 13702,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10322/13er-grizzly-peak-c",
+    "fourteenersPeakId": "10322",
+    "name": "Grizzly Peak",
+    "coRank": 147,
+    "thirteenRank": 94,
+    "elevationFeet": 13700,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10326/13er-gilpin-peak",
+    "fourteenersPeakId": "10326",
+    "name": "Gilpin Peak",
+    "coRank": 148,
+    "thirteenRank": 95,
+    "elevationFeet": 13699,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10329/13er-every-mountain",
+    "fourteenersPeakId": "10329",
+    "name": "Every Mtn",
+    "coRank": 149,
+    "thirteenRank": 96,
+    "elevationFeet": 13698,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10842/13er-wheeler-mountain",
+    "fourteenersPeakId": "10842",
+    "name": "Wheeler Mtn",
+    "coRank": 150,
+    "thirteenRank": 97,
+    "elevationFeet": 13698,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10328/13er-rolling-mountain",
+    "fourteenersPeakId": "10328",
+    "name": "Rolling Mtn",
+    "coRank": 151,
+    "thirteenRank": 98,
+    "elevationFeet": 13697,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10330/13er-cooper-creek-peak",
+    "fourteenersPeakId": "10330",
+    "name": "Cooper Creek Peak",
+    "coRank": 152,
+    "thirteenRank": 99,
+    "elevationFeet": 13694,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10617/13er-colony-baldy",
+    "fourteenersPeakId": "10617",
+    "name": "Colony Baldy",
+    "coRank": 153,
+    "thirteenRank": 100,
+    "elevationFeet": 13692,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10332/13er-cirque-mountain",
+    "fourteenersPeakId": "10332",
+    "name": "Cirque Mtn",
+    "coRank": 154,
+    "thirteenRank": 101,
+    "elevationFeet": 13692,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10333/13er-mount-oso",
+    "fourteenersPeakId": "10333",
+    "name": "Oso, Mt",
+    "coRank": 155,
+    "thirteenRank": 102,
+    "elevationFeet": 13689,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10335/unnamed-13er-13684",
+    "fourteenersPeakId": "10335",
+    "name": "UN 13,684",
+    "coRank": 156,
+    "thirteenRank": 103,
+    "elevationFeet": 13684,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10264/13er-mount-tweto",
+    "fourteenersPeakId": "10264",
+    "name": "Tweto, Mt",
+    "coRank": 157,
+    "thirteenRank": 104,
+    "elevationFeet": 13683,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10334/13er-peak-seven",
+    "fourteenersPeakId": "10334",
+    "name": "Seven, Peak",
+    "coRank": 158,
+    "thirteenRank": 105,
+    "elevationFeet": 13682,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10336/13er-quarter-peak",
+    "fourteenersPeakId": "10336",
+    "name": "Quarter Peak",
+    "coRank": 159,
+    "thirteenRank": 106,
+    "elevationFeet": 13681,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10618/13er-purgatoire-peak",
+    "fourteenersPeakId": "10618",
+    "name": "Purgatoire Peak",
+    "coRank": 160,
+    "thirteenRank": 107,
+    "elevationFeet": 13679,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10718/13er-mount-jackson",
+    "fourteenersPeakId": "10718",
+    "name": "Jackson, Mt",
+    "coRank": 161,
+    "thirteenRank": 108,
+    "elevationFeet": 13675,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10723/13er-mount-mamma",
+    "fourteenersPeakId": "10723",
+    "name": "Mamma, Mt",
+    "coRank": 162,
+    "thirteenRank": 109,
+    "elevationFeet": 13672,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10323/13er-peak-fifteen",
+    "fourteenersPeakId": "10323",
+    "name": "Fifteen, Peak",
+    "coRank": 163,
+    "thirteenRank": 110,
+    "elevationFeet": 13671,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10338/13er-northwest-pole",
+    "fourteenersPeakId": "10338",
+    "name": "Northwest Pole",
+    "coRank": 164,
+    "thirteenRank": 111,
+    "elevationFeet": 13670,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10337/13er-lookout-peak",
+    "fourteenersPeakId": "10337",
+    "name": "Lookout Peak",
+    "coRank": 165,
+    "thirteenRank": 112,
+    "elevationFeet": 13669,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10341/13er-coxcomb-peak",
+    "fourteenersPeakId": "10341",
+    "name": "Coxcomb Peak",
+    "coRank": 166,
+    "thirteenRank": 113,
+    "elevationFeet": 13663,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10340/13er-carson-peak",
+    "fourteenersPeakId": "10340",
+    "name": "Carson Peak",
+    "coRank": 167,
+    "thirteenRank": 114,
+    "elevationFeet": 13662,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10720/13er-carbonate-mountain-a",
+    "fourteenersPeakId": "10720",
+    "name": "Carbonate Mtn",
+    "coRank": 168,
+    "thirteenRank": 115,
+    "elevationFeet": 13662,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10719/13er-mount-white",
+    "fourteenersPeakId": "10719",
+    "name": "White, Mt",
+    "coRank": 169,
+    "thirteenRank": 116,
+    "elevationFeet": 13657,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10875/unnamed-13er-13656",
+    "fourteenersPeakId": "10875",
+    "name": "UN 13,656",
+    "coRank": 170,
+    "thirteenRank": 117,
+    "elevationFeet": 13656,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10722/13er-taylor-mountain-a",
+    "fourteenersPeakId": "10722",
+    "name": "Taylor Mtn",
+    "coRank": 171,
+    "thirteenRank": 118,
+    "elevationFeet": 13655,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10342/13er-redcliff",
+    "fourteenersPeakId": "10342",
+    "name": "Redcliff",
+    "coRank": 172,
+    "thirteenRank": 119,
+    "elevationFeet": 13648,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10724/13er-mount-champion",
+    "fourteenersPeakId": "10724",
+    "name": "Champion, Mt",
+    "coRank": 173,
+    "thirteenRank": 120,
+    "elevationFeet": 13645,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10091/unnamed-13er-13642",
+    "fourteenersPeakId": "10091",
+    "name": "UN 13,642",
+    "coRank": 174,
+    "thirteenRank": 121,
+    "elevationFeet": 13642,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10145/13er-bard-peak",
+    "fourteenersPeakId": "10145",
+    "name": "Bard Peak",
+    "coRank": 175,
+    "thirteenRank": 122,
+    "elevationFeet": 13641,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10843/13er-peak-10",
+    "fourteenersPeakId": "10843",
+    "name": "Peak 10",
+    "coRank": 176,
+    "thirteenRank": 123,
+    "elevationFeet": 13641,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10725/13er-anderson-peak",
+    "fourteenersPeakId": "10725",
+    "name": "Anderson Peak",
+    "coRank": 177,
+    "thirteenRank": 124,
+    "elevationFeet": 13637,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10343/13er-mount-silex",
+    "fourteenersPeakId": "10343",
+    "name": "Silex, Mt",
+    "coRank": 178,
+    "thirteenRank": 125,
+    "elevationFeet": 13636,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10090/13er-electric-pass-peak",
+    "fourteenersPeakId": "10090",
+    "name": "Electric Pass Peak",
+    "coRank": 179,
+    "thirteenRank": 126,
+    "elevationFeet": 13632,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10344/13er-white-dome",
+    "fourteenersPeakId": "10344",
+    "name": "White Dome",
+    "coRank": 180,
+    "thirteenRank": 127,
+    "elevationFeet": 13628,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10727/unnamed-13er-13627",
+    "fourteenersPeakId": "10727",
+    "name": "UN 13,627",
+    "coRank": 181,
+    "thirteenRank": 128,
+    "elevationFeet": 13627,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10728/13er-mount-blaurock",
+    "fourteenersPeakId": "10728",
+    "name": "Blaurock, Mt",
+    "coRank": 182,
+    "thirteenRank": 129,
+    "elevationFeet": 13626,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10346/13er-the-guardian",
+    "fourteenersPeakId": "10346",
+    "name": "Guardian, The",
+    "coRank": 183,
+    "thirteenRank": 130,
+    "elevationFeet": 13624,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10622/13er-pico-aislado",
+    "fourteenersPeakId": "10622",
+    "name": "Pico Aislado",
+    "coRank": 184,
+    "thirteenRank": 131,
+    "elevationFeet": 13621,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10624/13er-electric-peak",
+    "fourteenersPeakId": "10624",
+    "name": "Electric Peak",
+    "coRank": 185,
+    "thirteenRank": 132,
+    "elevationFeet": 13618,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10730/13er-cyclone-mountain-a",
+    "fourteenersPeakId": "10730",
+    "name": "Cyclone Mtn",
+    "coRank": 186,
+    "thirteenRank": 133,
+    "elevationFeet": 13616,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10845/13er-north-star-mountain",
+    "fourteenersPeakId": "10845",
+    "name": "North Star Mtn",
+    "coRank": 187,
+    "thirteenRank": 134,
+    "elevationFeet": 13614,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10623/13er-tijeras-peak",
+    "fourteenersPeakId": "10623",
+    "name": "Tijeras Peak",
+    "coRank": 188,
+    "thirteenRank": 135,
+    "elevationFeet": 13612,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10146/13er-gray-wolf-mountain",
+    "fourteenersPeakId": "10146",
+    "name": "Gray Wolf Mtn",
+    "coRank": 189,
+    "thirteenRank": 136,
+    "elevationFeet": 13604,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10350/13er-peak-one",
+    "fourteenersPeakId": "10350",
+    "name": "One, Peak",
+    "coRank": 190,
+    "thirteenRank": 137,
+    "elevationFeet": 13599,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10625/13er-cottonwood-peak-a",
+    "fourteenersPeakId": "10625",
+    "name": "Cottonwood Peak",
+    "coRank": 191,
+    "thirteenRank": 138,
+    "elevationFeet": 13597,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10734/13er-west-apostle",
+    "fourteenersPeakId": "10734",
+    "name": "West Apostle",
+    "coRank": 192,
+    "thirteenRank": 139,
+    "elevationFeet": 13597,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10352/13er-mount-emma",
+    "fourteenersPeakId": "10352",
+    "name": "Emma, Mt",
+    "coRank": 193,
+    "thirteenRank": 140,
+    "elevationFeet": 13592,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10265/13er-mount-evans-b",
+    "fourteenersPeakId": "10265",
+    "name": "Evans, Mt",
+    "coRank": 194,
+    "thirteenRank": 141,
+    "elevationFeet": 13591,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10349/13er-matterhorn-peak",
+    "fourteenersPeakId": "10349",
+    "name": "Matterhorn Peak",
+    "coRank": 195,
+    "thirteenRank": 142,
+    "elevationFeet": 13590,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10351/unnamed-13er-13587",
+    "fourteenersPeakId": "10351",
+    "name": "UN 13,587",
+    "coRank": 196,
+    "thirteenRank": 143,
+    "elevationFeet": 13587,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10621/13er-west-spanish-peak",
+    "fourteenersPeakId": "10621",
+    "name": "West Spanish Peak",
+    "coRank": 197,
+    "thirteenRank": 144,
+    "elevationFeet": 13584,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10626/13er-twin-peaks-a-north",
+    "fourteenersPeakId": "10626",
+    "name": "Twin Peaks A North",
+    "coRank": 198,
+    "thirteenRank": 145,
+    "elevationFeet": 13584,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10150/13er-mount-parnassus",
+    "fourteenersPeakId": "10150",
+    "name": "Parnassus, Mt",
+    "coRank": 199,
+    "thirteenRank": 146,
+    "elevationFeet": 13580,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10149/13er-rosalie-peak",
+    "fourteenersPeakId": "10149",
+    "name": "Rosalie Peak",
+    "coRank": 200,
+    "thirteenRank": 147,
+    "elevationFeet": 13579,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10093/13er-clark-peak-a",
+    "fourteenersPeakId": "10093",
+    "name": "Clark Peak",
+    "coRank": 201,
+    "thirteenRank": 148,
+    "elevationFeet": 13579,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10633/13er-gibbs-peak-a",
+    "fourteenersPeakId": "10633",
+    "name": "Gibbs Peak",
+    "coRank": 202,
+    "thirteenRank": 149,
+    "elevationFeet": 13577,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10148/13er-chiefs-head-peak",
+    "fourteenersPeakId": "10148",
+    "name": "Chiefs Head Peak",
+    "coRank": 203,
+    "thirteenRank": 150,
+    "elevationFeet": 13577,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10628/unnamed-13er-13577",
+    "fourteenersPeakId": "10628",
+    "name": "UN 13,577",
+    "coRank": 204,
+    "thirteenRank": 151,
+    "elevationFeet": 13577,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10632/13er-fluted-peak",
+    "fourteenersPeakId": "10632",
+    "name": "Fluted Peak",
+    "coRank": 205,
+    "thirteenRank": 152,
+    "elevationFeet": 13576,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10629/13er-broken-hand-peak",
+    "fourteenersPeakId": "10629",
+    "name": "Broken Hand Peak",
+    "coRank": 206,
+    "thirteenRank": 153,
+    "elevationFeet": 13575,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10355/13er-greylock-mountain",
+    "fourteenersPeakId": "10355",
+    "name": "Greylock Mtn",
+    "coRank": 207,
+    "thirteenRank": 154,
+    "elevationFeet": 13575,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10365/unnamed-13er-13575",
+    "fourteenersPeakId": "10365",
+    "name": "UN 13,575 (near Wilson Peak)",
+    "coRank": 208,
+    "thirteenRank": 155,
+    "elevationFeet": 13575,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10353/unnamed-13er-13573",
+    "fourteenersPeakId": "10353",
+    "name": "UN 13,573",
+    "coRank": 209,
+    "thirteenRank": 156,
+    "elevationFeet": 13573,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10358/13er-gudy-peak",
+    "fourteenersPeakId": "10358",
+    "name": "Gudy Peak",
+    "coRank": 210,
+    "thirteenRank": 157,
+    "elevationFeet": 13572,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10630/unnamed-13er-13569",
+    "fourteenersPeakId": "10630",
+    "name": "UN 13,569",
+    "coRank": 211,
+    "thirteenRank": 158,
+    "elevationFeet": 13569,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10151/13er-hagues-peak",
+    "fourteenersPeakId": "10151",
+    "name": "Hagues Peak",
+    "coRank": 212,
+    "thirteenRank": 159,
+    "elevationFeet": 13565,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10359/13er-wasatch-mountain",
+    "fourteenersPeakId": "10359",
+    "name": "Wasatch Mtn",
+    "coRank": 213,
+    "thirteenRank": 160,
+    "elevationFeet": 13560,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10152/13er-pettingell-peak",
+    "fourteenersPeakId": "10152",
+    "name": "Pettingell Peak",
+    "coRank": 214,
+    "thirteenRank": 161,
+    "elevationFeet": 13559,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10095/unnamed-13er-13559",
+    "fourteenersPeakId": "10095",
+    "name": "UN 13,559",
+    "coRank": 215,
+    "thirteenRank": 162,
+    "elevationFeet": 13559,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10631/unnamed-13er-13557",
+    "fourteenersPeakId": "10631",
+    "name": "UN 13,557",
+    "coRank": 216,
+    "thirteenRank": 163,
+    "elevationFeet": 13557,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10218/13er-mount-powell-a",
+    "fourteenersPeakId": "10218",
+    "name": "Powell, Mt",
+    "coRank": 217,
+    "thirteenRank": 164,
+    "elevationFeet": 13556,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10735/unnamed-13er-13556",
+    "fourteenersPeakId": "10735",
+    "name": "UN 13,556",
+    "coRank": 218,
+    "thirteenRank": 165,
+    "elevationFeet": 13556,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10360/13er-mccauley-peak",
+    "fourteenersPeakId": "10360",
+    "name": "McCauley Peak",
+    "coRank": 219,
+    "thirteenRank": 166,
+    "elevationFeet": 13555,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10363/13er-whitecross-mountain",
+    "fourteenersPeakId": "10363",
+    "name": "Whitecross Mtn",
+    "coRank": 220,
+    "thirteenRank": 167,
+    "elevationFeet": 13553,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10097/unnamed-13er-13552",
+    "fourteenersPeakId": "10097",
+    "name": "UN 13,552",
+    "coRank": 221,
+    "thirteenRank": 168,
+    "elevationFeet": 13552,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10634/unnamed-13er-13552",
+    "fourteenersPeakId": "10634",
+    "name": "UN 13,552",
+    "coRank": 222,
+    "thirteenRank": 169,
+    "elevationFeet": 13552,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10368/unnamed-13er-13549",
+    "fourteenersPeakId": "10368",
+    "name": "UN 13,549",
+    "coRank": 223,
+    "thirteenRank": 170,
+    "elevationFeet": 13549,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10361/13er-tower-mountain",
+    "fourteenersPeakId": "10361",
+    "name": "Tower Mtn",
+    "coRank": 224,
+    "thirteenRank": 171,
+    "elevationFeet": 13545,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10370/13er-v-3",
+    "fourteenersPeakId": "10370",
+    "name": "V 3",
+    "coRank": 225,
+    "thirteenRank": 172,
+    "elevationFeet": 13545,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10736/13er-emma-burr-mountain",
+    "fourteenersPeakId": "10736",
+    "name": "Emma Burr Mtn",
+    "coRank": 226,
+    "thirteenRank": 173,
+    "elevationFeet": 13544,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10364/unnamed-13er-13544",
+    "fourteenersPeakId": "10364",
+    "name": "UN 13,544 (near Whitecross Mountain)",
+    "coRank": 227,
+    "thirteenRank": 174,
+    "elevationFeet": 13544,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10737/13er-k-49",
+    "fourteenersPeakId": "10737",
+    "name": "K 49",
+    "coRank": 228,
+    "thirteenRank": 175,
+    "elevationFeet": 13543,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10635/unnamed-13er-13543",
+    "fourteenersPeakId": "10635",
+    "name": "UN 13,543 (near \"Obstruction Peak\")",
+    "coRank": 229,
+    "thirteenRank": 176,
+    "elevationFeet": 13543,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10627/unnamed-13er-13543",
+    "fourteenersPeakId": "10627",
+    "name": "UN 13,543 (near Mt. Adams)",
+    "coRank": 230,
+    "thirteenRank": 177,
+    "elevationFeet": 13543,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10371/13er-cataract-peak",
+    "fourteenersPeakId": "10371",
+    "name": "Cataract Peak",
+    "coRank": 231,
+    "thirteenRank": 178,
+    "elevationFeet": 13541,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10743/unnamed-13er-13541",
+    "fourteenersPeakId": "10743",
+    "name": "UN 13,541",
+    "coRank": 232,
+    "thirteenRank": 179,
+    "elevationFeet": 13541,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10367/13er-v-4",
+    "fourteenersPeakId": "10367",
+    "name": "V 4",
+    "coRank": 233,
+    "thirteenRank": 180,
+    "elevationFeet": 13541,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10738/13er-ervin-peak",
+    "fourteenersPeakId": "10738",
+    "name": "Ervin Peak",
+    "coRank": 234,
+    "thirteenRank": 181,
+    "elevationFeet": 13538,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10153/13er-epaulie",
+    "fourteenersPeakId": "10153",
+    "name": "Epaulie",
+    "coRank": 235,
+    "thirteenRank": 182,
+    "elevationFeet": 13537,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10098/13er-treasure-mountain-a",
+    "fourteenersPeakId": "10098",
+    "name": "Treasure Mtn",
+    "coRank": 236,
+    "thirteenRank": 183,
+    "elevationFeet": 13535,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10369/13er-leviathan-peak",
+    "fourteenersPeakId": "10369",
+    "name": "Leviathan Peak",
+    "coRank": 237,
+    "thirteenRank": 184,
+    "elevationFeet": 13534,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10100/13er-keefe-peak",
+    "fourteenersPeakId": "10100",
+    "name": "Keefe Peak",
+    "coRank": 238,
+    "thirteenRank": 185,
+    "elevationFeet": 13532,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10739/13er-boulder-mountain",
+    "fourteenersPeakId": "10739",
+    "name": "Boulder Mtn",
+    "coRank": 239,
+    "thirteenRank": 186,
+    "elevationFeet": 13530,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10366/13er-peak-eleven",
+    "fourteenersPeakId": "10366",
+    "name": "Eleven, Peak",
+    "coRank": 240,
+    "thirteenRank": 187,
+    "elevationFeet": 13530,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10099/13er-star-peak-a",
+    "fourteenersPeakId": "10099",
+    "name": "Star Peak",
+    "coRank": 241,
+    "thirteenRank": 188,
+    "elevationFeet": 13527,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10096/13er-white-rock-mountain",
+    "fourteenersPeakId": "10096",
+    "name": "White Rock Mtn",
+    "coRank": 242,
+    "thirteenRank": 189,
+    "elevationFeet": 13523,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10639/13er-trinchera-peak",
+    "fourteenersPeakId": "10639",
+    "name": "Trinchera Peak",
+    "coRank": 243,
+    "thirteenRank": 190,
+    "elevationFeet": 13522,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10641/13er-silver-peak",
+    "fourteenersPeakId": "10641",
+    "name": "Silver Peak",
+    "coRank": 244,
+    "thirteenRank": 191,
+    "elevationFeet": 13517,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10375/13er-telluride-peak",
+    "fourteenersPeakId": "10375",
+    "name": "Telluride Peak",
+    "coRank": 245,
+    "thirteenRank": 192,
+    "elevationFeet": 13514,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10374/13er-bridal-peak",
+    "fourteenersPeakId": "10374",
+    "name": "Bridal Peak",
+    "coRank": 246,
+    "thirteenRank": 193,
+    "elevationFeet": 13514,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10156/13er-north-arapaho-peak",
+    "fourteenersPeakId": "10156",
+    "name": "North Arapaho Peak",
+    "coRank": 247,
+    "thirteenRank": 194,
+    "elevationFeet": 13513,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10155/13er-ypsilon-mountain",
+    "fourteenersPeakId": "10155",
+    "name": "Ypsilon Mtn",
+    "coRank": 248,
+    "thirteenRank": 195,
+    "elevationFeet": 13513,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10741/unnamed-13er-13513",
+    "fourteenersPeakId": "10741",
+    "name": "UN 13,513",
+    "coRank": 249,
+    "thirteenRank": 196,
+    "elevationFeet": 13513,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10742/13er-petroleum-peak",
+    "fourteenersPeakId": "10742",
+    "name": "Petroleum Peak",
+    "coRank": 250,
+    "thirteenRank": 197,
+    "elevationFeet": 13512,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10157/13er-fairchild-mountain",
+    "fourteenersPeakId": "10157",
+    "name": "Fairchild Mtn",
+    "coRank": 251,
+    "thirteenRank": 198,
+    "elevationFeet": 13509,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10379/13er-fowler-peak",
+    "fourteenersPeakId": "10379",
+    "name": "Fowler Peak",
+    "coRank": 252,
+    "thirteenRank": 199,
+    "elevationFeet": 13507,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10101/13er-hunter-peak",
+    "fourteenersPeakId": "10101",
+    "name": "Hunter Peak",
+    "coRank": 253,
+    "thirteenRank": 200,
+    "elevationFeet": 13506,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10372/unnamed-13er-13505",
+    "fourteenersPeakId": "10372",
+    "name": "UN 13,505 (near Baldy Cinco)",
+    "coRank": 254,
+    "thirteenRank": 201,
+    "elevationFeet": 13505,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10642/13er-eureka-mountain-a",
+    "fourteenersPeakId": "10642",
+    "name": "Eureka Mtn",
+    "coRank": 255,
+    "thirteenRank": 202,
+    "elevationFeet": 13505,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10645/13er-mount-marcy",
+    "fourteenersPeakId": "10645",
+    "name": "Marcy, Mt",
+    "coRank": 256,
+    "thirteenRank": 203,
+    "elevationFeet": 13504,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10380/13er-mears-peak",
+    "fourteenersPeakId": "10380",
+    "name": "Mears Peak",
+    "coRank": 257,
+    "thirteenRank": 204,
+    "elevationFeet": 13503,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10382/13er-graystone-peak",
+    "fourteenersPeakId": "10382",
+    "name": "Graystone Peak",
+    "coRank": 258,
+    "thirteenRank": 205,
+    "elevationFeet": 13503,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10381/13er-whitehouse-mountain-a",
+    "fourteenersPeakId": "10381",
+    "name": "Whitehouse Mtn",
+    "coRank": 259,
+    "thirteenRank": 206,
+    "elevationFeet": 13500,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10745/13er-chipeta-mountain",
+    "fourteenersPeakId": "10745",
+    "name": "Chipeta Mtn",
+    "coRank": 260,
+    "thirteenRank": 207,
+    "elevationFeet": 13495,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10383/13er-storm-peak-a",
+    "fourteenersPeakId": "10383",
+    "name": "Storm Peak",
+    "coRank": 261,
+    "thirteenRank": 208,
+    "elevationFeet": 13495,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10637/13er-peak-of-the-clouds",
+    "fourteenersPeakId": "10637",
+    "name": "Peak of the Clouds",
+    "coRank": 262,
+    "thirteenRank": 209,
+    "elevationFeet": 13495,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10644/13er-cotton-king-peak",
+    "fourteenersPeakId": "10644",
+    "name": "Cotton King Peak",
+    "coRank": 263,
+    "thirteenRank": 210,
+    "elevationFeet": 13494,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10384/13er-three-needles",
+    "fourteenersPeakId": "10384",
+    "name": "Three Needles",
+    "coRank": 264,
+    "thirteenRank": 211,
+    "elevationFeet": 13494,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10412/13er-peak-ten",
+    "fourteenersPeakId": "10412",
+    "name": "Ten, Peak",
+    "coRank": 265,
+    "thirteenRank": 212,
+    "elevationFeet": 13494,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10646/13er-cuatro-peak",
+    "fourteenersPeakId": "10646",
+    "name": "Cuatro Peak",
+    "coRank": 266,
+    "thirteenRank": 213,
+    "elevationFeet": 13492,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10158/13er-pagoda-mountain",
+    "fourteenersPeakId": "10158",
+    "name": "Pagoda Mtn",
+    "coRank": 267,
+    "thirteenRank": 214,
+    "elevationFeet": 13488,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10385/13er-canby-mountain",
+    "fourteenersPeakId": "10385",
+    "name": "Canby Mtn",
+    "coRank": 268,
+    "thirteenRank": 215,
+    "elevationFeet": 13487,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10386/13er-peak-three",
+    "fourteenersPeakId": "10386",
+    "name": "Three, Peak",
+    "coRank": 269,
+    "thirteenRank": 216,
+    "elevationFeet": 13487,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10746/unnamed-13er-13486",
+    "fourteenersPeakId": "10746",
+    "name": "UN 13,486",
+    "coRank": 270,
+    "thirteenRank": 217,
+    "elevationFeet": 13486,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10387/13er-t-10",
+    "fourteenersPeakId": "10387",
+    "name": "T 10",
+    "coRank": 271,
+    "thirteenRank": 218,
+    "elevationFeet": 13484,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10393/13er-mount-ridgway",
+    "fourteenersPeakId": "10393",
+    "name": "Ridgway, Mt",
+    "coRank": 272,
+    "thirteenRank": 219,
+    "elevationFeet": 13481,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10389/13er-v-10",
+    "fourteenersPeakId": "10389",
+    "name": "V 10",
+    "coRank": 273,
+    "thirteenRank": 220,
+    "elevationFeet": 13480,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10395/13er-san-joaquin-ridge",
+    "fourteenersPeakId": "10395",
+    "name": "San Joaquin Ridge",
+    "coRank": 274,
+    "thirteenRank": 221,
+    "elevationFeet": 13480,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10390/13er-la-junta-peak",
+    "fourteenersPeakId": "10390",
+    "name": "La Junta Peak",
+    "coRank": 275,
+    "thirteenRank": 222,
+    "elevationFeet": 13475,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10388/13er-peak-two",
+    "fourteenersPeakId": "10388",
+    "name": "Two, Peak",
+    "coRank": 276,
+    "thirteenRank": 223,
+    "elevationFeet": 13475,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10392/13er-silver-mountain-b",
+    "fourteenersPeakId": "10392",
+    "name": "Silver Mtn",
+    "coRank": 277,
+    "thirteenRank": 224,
+    "elevationFeet": 13473,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10648/13er-alamosito",
+    "fourteenersPeakId": "10648",
+    "name": "Alamosito",
+    "coRank": 278,
+    "thirteenRank": 225,
+    "elevationFeet": 13471,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10748/unnamed-13er-13471",
+    "fourteenersPeakId": "10748",
+    "name": "UN 13,471",
+    "coRank": 279,
+    "thirteenRank": 226,
+    "elevationFeet": 13471,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10102/13er-treasury-mountain",
+    "fourteenersPeakId": "10102",
+    "name": "Treasury Mtn",
+    "coRank": 280,
+    "thirteenRank": 227,
+    "elevationFeet": 13469,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10397/13er-ute-ridge",
+    "fourteenersPeakId": "10397",
+    "name": "Ute Ridge",
+    "coRank": 281,
+    "thirteenRank": 228,
+    "elevationFeet": 13466,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10749/13er-quail-mountain",
+    "fourteenersPeakId": "10749",
+    "name": "Quail Mtn",
+    "coRank": 282,
+    "thirteenRank": 229,
+    "elevationFeet": 13465,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10398/13er-hanson-peak",
+    "fourteenersPeakId": "10398",
+    "name": "Hanson Peak",
+    "coRank": 283,
+    "thirteenRank": 230,
+    "elevationFeet": 13462,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10399/13er-campbell-creek-peak",
+    "fourteenersPeakId": "10399",
+    "name": "Campbell Creek Peak",
+    "coRank": 284,
+    "thirteenRank": 231,
+    "elevationFeet": 13461,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10747/13er-pear-peak",
+    "fourteenersPeakId": "10747",
+    "name": "Pear Peak",
+    "coRank": 285,
+    "thirteenRank": 232,
+    "elevationFeet": 13459,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10750/unnamed-13er-13457",
+    "fourteenersPeakId": "10750",
+    "name": "UN 13,457 (near Middle Mountain)",
+    "coRank": 286,
+    "thirteenRank": 233,
+    "elevationFeet": 13457,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10103/13er-sleeping-sexton",
+    "fourteenersPeakId": "10103",
+    "name": "Sleeping Sexton",
+    "coRank": 287,
+    "thirteenRank": 234,
+    "elevationFeet": 13457,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10400/13er-kendall-peak",
+    "fourteenersPeakId": "10400",
+    "name": "Kendall Peak",
+    "coRank": 288,
+    "thirteenRank": 235,
+    "elevationFeet": 13455,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10403/13er-s-6",
+    "fourteenersPeakId": "10403",
+    "name": "S 6",
+    "coRank": 289,
+    "thirteenRank": 236,
+    "elevationFeet": 13455,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10649/13er-horn-peak",
+    "fourteenersPeakId": "10649",
+    "name": "Horn Peak",
+    "coRank": 290,
+    "thirteenRank": 237,
+    "elevationFeet": 13454,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10401/13er-tundra-top",
+    "fourteenersPeakId": "10401",
+    "name": "Tundra Top",
+    "coRank": 291,
+    "thirteenRank": 238,
+    "elevationFeet": 13453,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10159/13er-apache-peak",
+    "fourteenersPeakId": "10159",
+    "name": "Apache Peak",
+    "coRank": 292,
+    "thirteenRank": 239,
+    "elevationFeet": 13450,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10753/unnamed-13er-13443",
+    "fourteenersPeakId": "10753",
+    "name": "UN 13,443",
+    "coRank": 293,
+    "thirteenRank": 240,
+    "elevationFeet": 13443,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10406/13er-twin-sisters-east",
+    "fourteenersPeakId": "10406",
+    "name": "Twin Sisters East",
+    "coRank": 294,
+    "thirteenRank": 241,
+    "elevationFeet": 13441,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10405/13er-mountaineer-peak",
+    "fourteenersPeakId": "10405",
+    "name": "Mountaineer Peak",
+    "coRank": 295,
+    "thirteenRank": 242,
+    "elevationFeet": 13441,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10754/13er-jenkins-mountain",
+    "fourteenersPeakId": "10754",
+    "name": "Jenkins Mtn",
+    "coRank": 296,
+    "thirteenRank": 243,
+    "elevationFeet": 13440,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10410/13er-vallecito-mountain",
+    "fourteenersPeakId": "10410",
+    "name": "Vallecito Mtn",
+    "coRank": 297,
+    "thirteenRank": 244,
+    "elevationFeet": 13440,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10751/unnamed-13er-13440",
+    "fourteenersPeakId": "10751",
+    "name": "UN 13,440 (near La Plata Peak)",
+    "coRank": 298,
+    "thirteenRank": 245,
+    "elevationFeet": 13440,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10104/13er-taylor-peak-a",
+    "fourteenersPeakId": "10104",
+    "name": "Taylor Peak",
+    "coRank": 299,
+    "thirteenRank": 246,
+    "elevationFeet": 13438,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10404/13er-t-5",
+    "fourteenersPeakId": "10404",
+    "name": "T 5",
+    "coRank": 300,
+    "thirteenRank": 247,
+    "elevationFeet": 13437,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10752/13er-mascot-peak",
+    "fourteenersPeakId": "10752",
+    "name": "Mascot Peak",
+    "coRank": 301,
+    "thirteenRank": 248,
+    "elevationFeet": 13437,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10407/13er-sundog",
+    "fourteenersPeakId": "10407",
+    "name": "Sundog",
+    "coRank": 302,
+    "thirteenRank": 249,
+    "elevationFeet": 13437,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10650/13er-spread-eagle-peak",
+    "fourteenersPeakId": "10650",
+    "name": "Spread Eagle Peak",
+    "coRank": 303,
+    "thirteenRank": 250,
+    "elevationFeet": 13436,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10160/13er-grizzly-peak-d",
+    "fourteenersPeakId": "10160",
+    "name": "Grizzly Peak",
+    "coRank": 304,
+    "thirteenRank": 251,
+    "elevationFeet": 13435,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10105/13er-siberia-peak",
+    "fourteenersPeakId": "10105",
+    "name": "Siberia Peak",
+    "coRank": 305,
+    "thirteenRank": 252,
+    "elevationFeet": 13425,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10106/13er-hilliard-peak",
+    "fourteenersPeakId": "10106",
+    "name": "Hilliard Peak",
+    "coRank": 306,
+    "thirteenRank": 253,
+    "elevationFeet": 13422,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10415/13er-mount-soso",
+    "fourteenersPeakId": "10415",
+    "name": "SoSo, Mt",
+    "coRank": 307,
+    "thirteenRank": 254,
+    "elevationFeet": 13421,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10428/13er-south-lookout-peak",
+    "fourteenersPeakId": "10428",
+    "name": "South Lookout Peak",
+    "coRank": 308,
+    "thirteenRank": 255,
+    "elevationFeet": 13420,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10161/13er-mummy-mountain",
+    "fourteenersPeakId": "10161",
+    "name": "Mummy Mtn",
+    "coRank": 309,
+    "thirteenRank": 256,
+    "elevationFeet": 13420,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10219/13er-eagles-nest-a",
+    "fourteenersPeakId": "10219",
+    "name": "Eagles Nest",
+    "coRank": 310,
+    "thirteenRank": 257,
+    "elevationFeet": 13419,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10163/13er-navajo-peak-a",
+    "fourteenersPeakId": "10163",
+    "name": "Navajo Peak",
+    "coRank": 311,
+    "thirteenRank": 258,
+    "elevationFeet": 13419,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10417/13er-heisshorn",
+    "fourteenersPeakId": "10417",
+    "name": "Heisshorn",
+    "coRank": 312,
+    "thirteenRank": 259,
+    "elevationFeet": 13418,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10416/13er-little-giant-peak",
+    "fourteenersPeakId": "10416",
+    "name": "Little Giant Peak",
+    "coRank": 313,
+    "thirteenRank": 260,
+    "elevationFeet": 13417,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10418/13er-peak-four",
+    "fourteenersPeakId": "10418",
+    "name": "Four, Peak",
+    "coRank": 314,
+    "thirteenRank": 261,
+    "elevationFeet": 13415,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10164/13er-mount-wilcox",
+    "fourteenersPeakId": "10164",
+    "name": "Wilcox, Mt",
+    "coRank": 315,
+    "thirteenRank": 262,
+    "elevationFeet": 13414,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10107/13er-white-benchmark",
+    "fourteenersPeakId": "10107",
+    "name": "White BM",
+    "coRank": 316,
+    "thirteenRank": 263,
+    "elevationFeet": 13411,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10421/unnamed-13er-13408",
+    "fourteenersPeakId": "10421",
+    "name": "UN 13,408",
+    "coRank": 317,
+    "thirteenRank": 264,
+    "elevationFeet": 13408,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10109/13er-triangle-peak",
+    "fourteenersPeakId": "10109",
+    "name": "Triangle Peak",
+    "coRank": 318,
+    "thirteenRank": 265,
+    "elevationFeet": 13405,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10424/13er-bent-peak",
+    "fourteenersPeakId": "10424",
+    "name": "Bent Peak",
+    "coRank": 319,
+    "thirteenRank": 266,
+    "elevationFeet": 13405,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10420/13er-peak-nine",
+    "fourteenersPeakId": "10420",
+    "name": "Nine, Peak",
+    "coRank": 320,
+    "thirteenRank": 267,
+    "elevationFeet": 13404,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10651/13er-cleveland-peak",
+    "fourteenersPeakId": "10651",
+    "name": "Cleveland Peak",
+    "coRank": 321,
+    "thirteenRank": 268,
+    "elevationFeet": 13404,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10411/unnamed-13er-13403",
+    "fourteenersPeakId": "10411",
+    "name": "UN 13,403",
+    "coRank": 322,
+    "thirteenRank": 269,
+    "elevationFeet": 13403,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10757/13er-gold-dust-peak",
+    "fourteenersPeakId": "10757",
+    "name": "Gold Dust Peak",
+    "coRank": 323,
+    "thirteenRank": 270,
+    "elevationFeet": 13398,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10652/13er-mariquita-peak",
+    "fourteenersPeakId": "10652",
+    "name": "Mariquita Peak",
+    "coRank": 324,
+    "thirteenRank": 271,
+    "elevationFeet": 13398,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10654/unnamed-13er-13392",
+    "fourteenersPeakId": "10654",
+    "name": "UN 13,392",
+    "coRank": 325,
+    "thirteenRank": 272,
+    "elevationFeet": 13392,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10657/13er-de-anza-peak-a",
+    "fourteenersPeakId": "10657",
+    "name": "De Anza Peak",
+    "coRank": 326,
+    "thirteenRank": 273,
+    "elevationFeet": 13391,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10755/13er-prize-benchmark",
+    "fourteenersPeakId": "10755",
+    "name": "Prize BM",
+    "coRank": 327,
+    "thirteenRank": 274,
+    "elevationFeet": 13391,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10426/13er-chicago-peak",
+    "fourteenersPeakId": "10426",
+    "name": "Chicago Peak",
+    "coRank": 328,
+    "thirteenRank": 275,
+    "elevationFeet": 13391,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10756/13er-williams-mountain",
+    "fourteenersPeakId": "10756",
+    "name": "Williams Mtn",
+    "coRank": 329,
+    "thirteenRank": 276,
+    "elevationFeet": 13390,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10427/13er-baldy-cinco",
+    "fourteenersPeakId": "10427",
+    "name": "Baldy Cinco",
+    "coRank": 330,
+    "thirteenRank": 277,
+    "elevationFeet": 13389,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10110/13er-italian-mountain",
+    "fourteenersPeakId": "10110",
+    "name": "Italian Mtn",
+    "coRank": 331,
+    "thirteenRank": 278,
+    "elevationFeet": 13385,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10759/unnamed-13er-13385",
+    "fourteenersPeakId": "10759",
+    "name": "UN 13,385",
+    "coRank": 332,
+    "thirteenRank": 279,
+    "elevationFeet": 13385,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10656/13er-lakes-peak",
+    "fourteenersPeakId": "10656",
+    "name": "Lakes Peak",
+    "coRank": 333,
+    "thirteenRank": 280,
+    "elevationFeet": 13384,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10431/13er-twin-sisters-west",
+    "fourteenersPeakId": "10431",
+    "name": "Twin Sisters West",
+    "coRank": 334,
+    "thirteenRank": 281,
+    "elevationFeet": 13382,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10430/unnamed-13er-13382",
+    "fourteenersPeakId": "10430",
+    "name": "UN 13,382",
+    "coRank": 335,
+    "thirteenRank": 282,
+    "elevationFeet": 13382,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10111/13er-buckskin-benchmark",
+    "fourteenersPeakId": "10111",
+    "name": "Buckskin BM",
+    "coRank": 336,
+    "thirteenRank": 283,
+    "elevationFeet": 13381,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10758/13er-geissler-mountain-east",
+    "fourteenersPeakId": "10758",
+    "name": "Geissler Mtn East",
+    "coRank": 337,
+    "thirteenRank": 284,
+    "elevationFeet": 13381,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10432/13er-dome-mountain-a",
+    "fourteenersPeakId": "10432",
+    "name": "Dome Mtn",
+    "coRank": 338,
+    "thirteenRank": 285,
+    "elevationFeet": 13379,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10112/13er-pearl-mountain",
+    "fourteenersPeakId": "10112",
+    "name": "Pearl Mtn",
+    "coRank": 339,
+    "thirteenRank": 286,
+    "elevationFeet": 13379,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10108/13er-precarious-peak",
+    "fourteenersPeakId": "10108",
+    "name": "Precarious Peak",
+    "coRank": 340,
+    "thirteenRank": 287,
+    "elevationFeet": 13378,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10433/13er-sultan-mountain",
+    "fourteenersPeakId": "10433",
+    "name": "Sultan Mtn",
+    "coRank": 341,
+    "thirteenRank": 288,
+    "elevationFeet": 13375,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10760/13er-monumental-peak",
+    "fourteenersPeakId": "10760",
+    "name": "Monumental Peak",
+    "coRank": 342,
+    "thirteenRank": 289,
+    "elevationFeet": 13375,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10168/13er-mount-guyot",
+    "fourteenersPeakId": "10168",
+    "name": "Guyot, Mt",
+    "coRank": 343,
+    "thirteenRank": 290,
+    "elevationFeet": 13372,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10170/13er-engelmann-peak",
+    "fourteenersPeakId": "10170",
+    "name": "Engelmann Peak",
+    "coRank": 344,
+    "thirteenRank": 291,
+    "elevationFeet": 13370,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10166/13er-parry-peak-a",
+    "fourteenersPeakId": "10166",
+    "name": "Parry Peak",
+    "coRank": 345,
+    "thirteenRank": 292,
+    "elevationFeet": 13367,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10655/13er-music-mountain",
+    "fourteenersPeakId": "10655",
+    "name": "Music Mtn",
+    "coRank": 346,
+    "thirteenRank": 293,
+    "elevationFeet": 13365,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10171/13er-hoosier-ridge",
+    "fourteenersPeakId": "10171",
+    "name": "Hoosier Ridge",
+    "coRank": 347,
+    "thirteenRank": 294,
+    "elevationFeet": 13362,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10220/13er-mount-silverthorne",
+    "fourteenersPeakId": "10220",
+    "name": "Silverthorne, Mt",
+    "coRank": 348,
+    "thirteenRank": 295,
+    "elevationFeet": 13361,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10660/13er-mount-owen-a",
+    "fourteenersPeakId": "10660",
+    "name": "Owen, Mt",
+    "coRank": 349,
+    "thirteenRank": 296,
+    "elevationFeet": 13361,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10167/13er-rogers-peak",
+    "fourteenersPeakId": "10167",
+    "name": "Rogers Peak",
+    "coRank": 350,
+    "thirteenRank": 297,
+    "elevationFeet": 13361,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10434/13er-t-7",
+    "fourteenersPeakId": "10434",
+    "name": "T 7",
+    "coRank": 351,
+    "thirteenRank": 298,
+    "elevationFeet": 13360,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10439/13er-kendall-mountain",
+    "fourteenersPeakId": "10439",
+    "name": "Kendall Mtn",
+    "coRank": 353,
+    "thirteenRank": 300,
+    "elevationFeet": 13353,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10761/13er-finnegan-peak",
+    "fourteenersPeakId": "10761",
+    "name": "Finnegan Peak",
+    "coRank": 353,
+    "thirteenRank": 300,
+    "elevationFeet": 13352,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10435/unnamed-13er-13351",
+    "fourteenersPeakId": "10435",
+    "name": "UN 13,351",
+    "coRank": 354,
+    "thirteenRank": 301,
+    "elevationFeet": 13351,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10762/13er-tincup-peak",
+    "fourteenersPeakId": "10762",
+    "name": "Tincup Peak",
+    "coRank": 355,
+    "thirteenRank": 302,
+    "elevationFeet": 13351,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10436/13er-beattie-peak",
+    "fourteenersPeakId": "10436",
+    "name": "Beattie Peak",
+    "coRank": 356,
+    "thirteenRank": 303,
+    "elevationFeet": 13351,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10437/unnamed-13er-13350",
+    "fourteenersPeakId": "10437",
+    "name": "UN 13,350 (near Uncompahgre Peak)",
+    "coRank": 357,
+    "thirteenRank": 304,
+    "elevationFeet": 13350,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10114/unnamed-13er-13350",
+    "fourteenersPeakId": "10114",
+    "name": "UN 13,350",
+    "coRank": 358,
+    "thirteenRank": 305,
+    "elevationFeet": 13350,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10438/unnamed-13er-13350",
+    "fourteenersPeakId": "10438",
+    "name": "UN 13,350 (near Irving Peak)",
+    "coRank": 359,
+    "thirteenRank": 306,
+    "elevationFeet": 13350,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10269/13er-bartlett-mountain",
+    "fourteenersPeakId": "10269",
+    "name": "Bartlett Mtn",
+    "coRank": 360,
+    "thirteenRank": 307,
+    "elevationFeet": 13348,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10659/13er-mount-herard",
+    "fourteenersPeakId": "10659",
+    "name": "Herard, Mt",
+    "coRank": 361,
+    "thirteenRank": 308,
+    "elevationFeet": 13347,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10441/13er-brown-mountain-a",
+    "fourteenersPeakId": "10441",
+    "name": "Brown Mtn",
+    "coRank": 362,
+    "thirteenRank": 309,
+    "elevationFeet": 13347,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10442/13er-coney-benchmark",
+    "fourteenersPeakId": "10442",
+    "name": "Coney BM",
+    "coRank": 363,
+    "thirteenRank": 310,
+    "elevationFeet": 13339,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10443/13er-proposal-peak",
+    "fourteenersPeakId": "10443",
+    "name": "Proposal Peak",
+    "coRank": 364,
+    "thirteenRank": 311,
+    "elevationFeet": 13339,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10661/13er-mount-maxwell",
+    "fourteenersPeakId": "10661",
+    "name": "Maxwell, Mt",
+    "coRank": 365,
+    "thirteenRank": 312,
+    "elevationFeet": 13337,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10764/13er-lake-fork-peak",
+    "fourteenersPeakId": "10764",
+    "name": "Lake Fork Peak",
+    "coRank": 366,
+    "thirteenRank": 313,
+    "elevationFeet": 13333,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10662/13er-venable-peak",
+    "fourteenersPeakId": "10662",
+    "name": "Venable Peak",
+    "coRank": 367,
+    "thirteenRank": 314,
+    "elevationFeet": 13333,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10765/unnamed-13er-13332",
+    "fourteenersPeakId": "10765",
+    "name": "UN 13,332",
+    "coRank": 368,
+    "thirteenRank": 315,
+    "elevationFeet": 13332,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10271/13er-west-buffalo-peak",
+    "fourteenersPeakId": "10271",
+    "name": "West Buffalo Peak",
+    "coRank": 369,
+    "thirteenRank": 316,
+    "elevationFeet": 13330,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10174/13er-mchenrys-peak",
+    "fourteenersPeakId": "10174",
+    "name": "McHenrys Peak",
+    "coRank": 370,
+    "thirteenRank": 317,
+    "elevationFeet": 13330,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10446/13er-sunshine-mountain-a",
+    "fourteenersPeakId": "10446",
+    "name": "Sunshine Mtn",
+    "coRank": 371,
+    "thirteenRank": 318,
+    "elevationFeet": 13329,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10447/13er-trico-peak",
+    "fourteenersPeakId": "10447",
+    "name": "Trico Peak",
+    "coRank": 372,
+    "thirteenRank": 319,
+    "elevationFeet": 13329,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10767/13er-booby-prize",
+    "fourteenersPeakId": "10767",
+    "name": "Booby Prize",
+    "coRank": 373,
+    "thirteenRank": 320,
+    "elevationFeet": 13326,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10117/13er-mount-daly-a",
+    "fourteenersPeakId": "10117",
+    "name": "Daly, Mt",
+    "coRank": 374,
+    "thirteenRank": 321,
+    "elevationFeet": 13323,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10453/unnamed-13er-13323",
+    "fourteenersPeakId": "10453",
+    "name": "UN 13,323",
+    "coRank": 375,
+    "thirteenRank": 322,
+    "elevationFeet": 13323,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10663/13er-de-anza-peak-b",
+    "fourteenersPeakId": "10663",
+    "name": "De Anza Peak",
+    "coRank": 376,
+    "thirteenRank": 323,
+    "elevationFeet": 13322,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10766/13er-williams-mountain-south-a",
+    "fourteenersPeakId": "10766",
+    "name": "Williams Mtn South",
+    "coRank": 377,
+    "thirteenRank": 324,
+    "elevationFeet": 13321,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10176/13er-mount-alice",
+    "fourteenersPeakId": "10176",
+    "name": "Alice, Mt",
+    "coRank": 378,
+    "thirteenRank": 325,
+    "elevationFeet": 13319,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10455/13er-v-2",
+    "fourteenersPeakId": "10455",
+    "name": "V 2",
+    "coRank": 379,
+    "thirteenRank": 326,
+    "elevationFeet": 13319,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10465/13er-el-punto",
+    "fourteenersPeakId": "10465",
+    "name": "El Punto",
+    "coRank": 380,
+    "thirteenRank": 327,
+    "elevationFeet": 13319,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10457/unnamed-13er-13318",
+    "fourteenersPeakId": "10457",
+    "name": "UN 13,318",
+    "coRank": 381,
+    "thirteenRank": 328,
+    "elevationFeet": 13318,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10113/13er-malemute-peak",
+    "fourteenersPeakId": "10113",
+    "name": "Malemute Peak",
+    "coRank": 382,
+    "thirteenRank": 329,
+    "elevationFeet": 13318,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10451/13er-ct-peak",
+    "fourteenersPeakId": "10451",
+    "name": "C.T. Peak",
+    "coRank": 383,
+    "thirteenRank": 330,
+    "elevationFeet": 13317,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10116/13er-oyster-peak",
+    "fourteenersPeakId": "10116",
+    "name": "Oyster Peak",
+    "coRank": 384,
+    "thirteenRank": 331,
+    "elevationFeet": 13316,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10449/13er-t-8",
+    "fourteenersPeakId": "10449",
+    "name": "T 8",
+    "coRank": 385,
+    "thirteenRank": 332,
+    "elevationFeet": 13315,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10177/13er-mount-warren",
+    "fourteenersPeakId": "10177",
+    "name": "Warren, Mt",
+    "coRank": 386,
+    "thirteenRank": 333,
+    "elevationFeet": 13314,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10445/13er-east-storm",
+    "fourteenersPeakId": "10445",
+    "name": "East Storm",
+    "coRank": 387,
+    "thirteenRank": 334,
+    "elevationFeet": 13313,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10463/unnamed-13er-13313",
+    "fourteenersPeakId": "10463",
+    "name": "UN 13,313 (near Wetterhorn Peak)",
+    "coRank": 388,
+    "thirteenRank": 335,
+    "elevationFeet": 13313,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10452/13er-aztec-mountain",
+    "fourteenersPeakId": "10452",
+    "name": "Aztec Mtn",
+    "coRank": 389,
+    "thirteenRank": 336,
+    "elevationFeet": 13311,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10770/13er-tellurium-peak",
+    "fourteenersPeakId": "10770",
+    "name": "Tellurium Peak",
+    "coRank": 390,
+    "thirteenRank": 337,
+    "elevationFeet": 13311,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10658/13er-hermit-peak-a",
+    "fourteenersPeakId": "10658",
+    "name": "Hermit Peak",
+    "coRank": 391,
+    "thirteenRank": 338,
+    "elevationFeet": 13311,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10450/13er-baldy-no-es-cinco",
+    "fourteenersPeakId": "10450",
+    "name": "Baldy no es Cinco",
+    "coRank": 392,
+    "thirteenRank": 339,
+    "elevationFeet": 13310,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10778/13er-grizzly-peak-e",
+    "fourteenersPeakId": "10778",
+    "name": "Grizzly Peak",
+    "coRank": 393,
+    "thirteenRank": 340,
+    "elevationFeet": 13309,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10461/unnamed-13er-13308",
+    "fourteenersPeakId": "10461",
+    "name": "UN 13,308 (near San Luis Peak)",
+    "coRank": 394,
+    "thirteenRank": 341,
+    "elevationFeet": 13308,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10768/13er-geissler-mountain-west",
+    "fourteenersPeakId": "10768",
+    "name": "Geissler Mtn West",
+    "coRank": 395,
+    "thirteenRank": 342,
+    "elevationFeet": 13308,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10464/13er-galena-mountain-a",
+    "fourteenersPeakId": "10464",
+    "name": "Galena Mtn",
+    "coRank": 396,
+    "thirteenRank": 343,
+    "elevationFeet": 13307,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10222/13er-peak-g",
+    "fourteenersPeakId": "10222",
+    "name": "Pk G",
+    "coRank": 397,
+    "thirteenRank": 344,
+    "elevationFeet": 13306,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10460/13er-middle-peak",
+    "fourteenersPeakId": "10460",
+    "name": "Middle Peak",
+    "coRank": 398,
+    "thirteenRank": 345,
+    "elevationFeet": 13305,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10773/unnamed-13er-13305",
+    "fourteenersPeakId": "10773",
+    "name": "UN 13,305",
+    "coRank": 399,
+    "thirteenRank": 346,
+    "elevationFeet": 13305,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10459/13er-summit-peak",
+    "fourteenersPeakId": "10459",
+    "name": "Summit Peak",
+    "coRank": 400,
+    "thirteenRank": 347,
+    "elevationFeet": 13304,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10469/13er-sheep-mountain-a",
+    "fourteenersPeakId": "10469",
+    "name": "Sheep Mtn",
+    "coRank": 401,
+    "thirteenRank": 348,
+    "elevationFeet": 13304,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10272/13er-east-buffalo-peak",
+    "fourteenersPeakId": "10272",
+    "name": "East Buffalo Peak",
+    "coRank": 402,
+    "thirteenRank": 349,
+    "elevationFeet": 13303,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10466/unnamed-13er-13302",
+    "fourteenersPeakId": "10466",
+    "name": "UN 13,302 (near Beattie Peak)",
+    "coRank": 403,
+    "thirteenRank": 350,
+    "elevationFeet": 13302,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10776/13er-truro-peak",
+    "fourteenersPeakId": "10776",
+    "name": "Truro Peak",
+    "coRank": 404,
+    "thirteenRank": 351,
+    "elevationFeet": 13298,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10468/13er-electric-peak-b",
+    "fourteenersPeakId": "10468",
+    "name": "Electric Peak",
+    "coRank": 405,
+    "thirteenRank": 352,
+    "elevationFeet": 13297,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10179/13er-the-citadel",
+    "fourteenersPeakId": "10179",
+    "name": "Citadel, The",
+    "coRank": 406,
+    "thirteenRank": 353,
+    "elevationFeet": 13295,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10769/unnamed-13er-13291",
+    "fourteenersPeakId": "10769",
+    "name": "UN 13,291 (near Deer Mountain)",
+    "coRank": 407,
+    "thirteenRank": 354,
+    "elevationFeet": 13291,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10472/13er-peak-five",
+    "fourteenersPeakId": "10472",
+    "name": "Five, Peak",
+    "coRank": 408,
+    "thirteenRank": 355,
+    "elevationFeet": 13291,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10473/13er-fools-pyramid",
+    "fourteenersPeakId": "10473",
+    "name": "Fools Pyramid",
+    "coRank": 409,
+    "thirteenRank": 356,
+    "elevationFeet": 13290,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10470/13er-dolores-peak",
+    "fourteenersPeakId": "10470",
+    "name": "Dolores Peak",
+    "coRank": 410,
+    "thirteenRank": 357,
+    "elevationFeet": 13289,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10458/13er-p-2",
+    "fourteenersPeakId": "10458",
+    "name": "P 2",
+    "coRank": 411,
+    "thirteenRank": 358,
+    "elevationFeet": 13288,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10779/13er-whitney-peak",
+    "fourteenersPeakId": "10779",
+    "name": "Whitney Peak",
+    "coRank": 412,
+    "thirteenRank": 359,
+    "elevationFeet": 13286,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10471/13er-bonita-peak",
+    "fourteenersPeakId": "10471",
+    "name": "Bonita Peak",
+    "coRank": 413,
+    "thirteenRank": 360,
+    "elevationFeet": 13286,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10777/13er-tabor-peak",
+    "fourteenersPeakId": "10777",
+    "name": "Tabor Peak",
+    "coRank": 414,
+    "thirteenRank": 361,
+    "elevationFeet": 13282,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10475/13er-seigal-mountain",
+    "fourteenersPeakId": "10475",
+    "name": "Seigal Mtn",
+    "coRank": 415,
+    "thirteenRank": 362,
+    "elevationFeet": 13281,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10462/13er-p-3",
+    "fourteenersPeakId": "10462",
+    "name": "P 3",
+    "coRank": 416,
+    "thirteenRank": 363,
+    "elevationFeet": 13279,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10181/13er-ruby-mountain-a",
+    "fourteenersPeakId": "10181",
+    "name": "Ruby Mtn",
+    "coRank": 417,
+    "thirteenRank": 364,
+    "elevationFeet": 13278,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10664/13er-comanche-peak-a",
+    "fourteenersPeakId": "10664",
+    "name": "Comanche Peak",
+    "coRank": 418,
+    "thirteenRank": 365,
+    "elevationFeet": 13277,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10775/13er-wayah-peak",
+    "fourteenersPeakId": "10775",
+    "name": "Wayah Peak",
+    "coRank": 419,
+    "thirteenRank": 366,
+    "elevationFeet": 13277,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10480/13er-darley-mountain",
+    "fourteenersPeakId": "10480",
+    "name": "Darley Mtn",
+    "coRank": 420,
+    "thirteenRank": 367,
+    "elevationFeet": 13275,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10479/unnamed-13er-13274",
+    "fourteenersPeakId": "10479",
+    "name": "UN 13,274",
+    "coRank": 421,
+    "thirteenRank": 368,
+    "elevationFeet": 13274,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10784/13er-henry-mountain",
+    "fourteenersPeakId": "10784",
+    "name": "Henry Mtn",
+    "coRank": 422,
+    "thirteenRank": 369,
+    "elevationFeet": 13272,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10178/13er-james-peak",
+    "fourteenersPeakId": "10178",
+    "name": "James Peak",
+    "coRank": 423,
+    "thirteenRank": 370,
+    "elevationFeet": 13272,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10666/13er-marble-mountain-a",
+    "fourteenersPeakId": "10666",
+    "name": "Marble Mtn",
+    "coRank": 424,
+    "thirteenRank": 371,
+    "elevationFeet": 13272,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10476/13er-wildhorse-peak",
+    "fourteenersPeakId": "10476",
+    "name": "Wildhorse Peak",
+    "coRank": 425,
+    "thirteenRank": 372,
+    "elevationFeet": 13271,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10477/13er-knife-point",
+    "fourteenersPeakId": "10477",
+    "name": "Knife Point",
+    "coRank": 426,
+    "thirteenRank": 373,
+    "elevationFeet": 13270,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10782/13er-antora-peak",
+    "fourteenersPeakId": "10782",
+    "name": "Antora Peak",
+    "coRank": 427,
+    "thirteenRank": 374,
+    "elevationFeet": 13269,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10485/13er-s-8",
+    "fourteenersPeakId": "10485",
+    "name": "S 8",
+    "coRank": 428,
+    "thirteenRank": 375,
+    "elevationFeet": 13268,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10478/13er-the-heisspitz",
+    "fourteenersPeakId": "10478",
+    "name": "Heisspitz, The",
+    "coRank": 429,
+    "thirteenRank": 376,
+    "elevationFeet": 13268,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10183/13er-geneva-peak",
+    "fourteenersPeakId": "10183",
+    "name": "Geneva Peak",
+    "coRank": 430,
+    "thirteenRank": 377,
+    "elevationFeet": 13266,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10665/13er-crestolita",
+    "fourteenersPeakId": "10665",
+    "name": "Crestolita",
+    "coRank": 431,
+    "thirteenRank": 378,
+    "elevationFeet": 13264,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10118/13er-golden-tops",
+    "fourteenersPeakId": "10118",
+    "name": "Golden Tops",
+    "coRank": 432,
+    "thirteenRank": 379,
+    "elevationFeet": 13262,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10783/13er-sheep-rock-mountain",
+    "fourteenersPeakId": "10783",
+    "name": "Sheep Rock Mtn",
+    "coRank": 433,
+    "thirteenRank": 380,
+    "elevationFeet": 13261,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10786/unnamed-13er-13258",
+    "fourteenersPeakId": "10786",
+    "name": "UN 13,258",
+    "coRank": 434,
+    "thirteenRank": 381,
+    "elevationFeet": 13258,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10481/unnamed-13er-13256",
+    "fourteenersPeakId": "10481",
+    "name": "UN 13,256",
+    "coRank": 435,
+    "thirteenRank": 382,
+    "elevationFeet": 13256,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10487/13er-s-4",
+    "fourteenersPeakId": "10487",
+    "name": "S 4",
+    "coRank": 436,
+    "thirteenRank": 383,
+    "elevationFeet": 13256,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10119/unnamed-13er-13255",
+    "fourteenersPeakId": "10119",
+    "name": "UN 13,255",
+    "coRank": 437,
+    "thirteenRank": 384,
+    "elevationFeet": 13255,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10484/13er-broken-hill",
+    "fourteenersPeakId": "10484",
+    "name": "Broken Hill",
+    "coRank": 438,
+    "thirteenRank": 385,
+    "elevationFeet": 13254,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10788/unnamed-13er-13253",
+    "fourteenersPeakId": "10788",
+    "name": "UN 13,253",
+    "coRank": 439,
+    "thirteenRank": 386,
+    "elevationFeet": 13253,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10491/13er-peak-eight",
+    "fourteenersPeakId": "10491",
+    "name": "Eight, Peak",
+    "coRank": 440,
+    "thirteenRank": 387,
+    "elevationFeet": 13252,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10790/unnamed-13er-13251",
+    "fourteenersPeakId": "10790",
+    "name": "UN 13,251",
+    "coRank": 441,
+    "thirteenRank": 388,
+    "elevationFeet": 13251,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10120/13er-belleview-mountain-a",
+    "fourteenersPeakId": "10120",
+    "name": "Belleview Mtn",
+    "coRank": 442,
+    "thirteenRank": 389,
+    "elevationFeet": 13248,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10667/13er-spring-mountain",
+    "fourteenersPeakId": "10667",
+    "name": "Spring Mtn",
+    "coRank": 443,
+    "thirteenRank": 390,
+    "elevationFeet": 13248,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10488/13er-fortress-peak",
+    "fourteenersPeakId": "10488",
+    "name": "Fortress Peak",
+    "coRank": 444,
+    "thirteenRank": 391,
+    "elevationFeet": 13246,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10189/13er-hagar-mountain",
+    "fourteenersPeakId": "10189",
+    "name": "Hagar Mtn",
+    "coRank": 445,
+    "thirteenRank": 392,
+    "elevationFeet": 13246,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10482/13er-v-9",
+    "fourteenersPeakId": "10482",
+    "name": "V 9",
+    "coRank": 446,
+    "thirteenRank": 393,
+    "elevationFeet": 13244,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10121/13er-cassi-peak",
+    "fourteenersPeakId": "10121",
+    "name": "Cassi Peak",
+    "coRank": 447,
+    "thirteenRank": 394,
+    "elevationFeet": 13242,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10495/13er-weminuche-peak",
+    "fourteenersPeakId": "10495",
+    "name": "Weminuche Peak",
+    "coRank": 448,
+    "thirteenRank": 395,
+    "elevationFeet": 13240,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10224/13er-peak-q",
+    "fourteenersPeakId": "10224",
+    "name": "Pk Q",
+    "coRank": 449,
+    "thirteenRank": 396,
+    "elevationFeet": 13239,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10186/13er-mount-sniktau",
+    "fourteenersPeakId": "10186",
+    "name": "Sniktau, Mt",
+    "coRank": 450,
+    "thirteenRank": 397,
+    "elevationFeet": 13239,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10792/unnamed-13er-13239",
+    "fourteenersPeakId": "10792",
+    "name": "UN 13,239",
+    "coRank": 451,
+    "thirteenRank": 398,
+    "elevationFeet": 13239,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10489/13er-hesperus-mountain",
+    "fourteenersPeakId": "10489",
+    "name": "Hesperus Mtn",
+    "coRank": 452,
+    "thirteenRank": 399,
+    "elevationFeet": 13238,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10791/13er-turner-peak",
+    "fourteenersPeakId": "10791",
+    "name": "Turner Peak",
+    "coRank": 453,
+    "thirteenRank": 400,
+    "elevationFeet": 13238,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10187/13er-red-mountain-c",
+    "fourteenersPeakId": "10187",
+    "name": "Red Mtn",
+    "coRank": 454,
+    "thirteenRank": 401,
+    "elevationFeet": 13238,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10498/13er-lavender-peak",
+    "fourteenersPeakId": "10498",
+    "name": "Lavender Peak",
+    "coRank": 455,
+    "thirteenRank": 402,
+    "elevationFeet": 13237,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10228/13er-peak-l",
+    "fourteenersPeakId": "10228",
+    "name": "Pk L",
+    "coRank": 456,
+    "thirteenRank": 403,
+    "elevationFeet": 13235,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10497/13er-s-7",
+    "fourteenersPeakId": "10497",
+    "name": "S 7",
+    "coRank": 457,
+    "thirteenRank": 404,
+    "elevationFeet": 13234,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10490/unnamed-13er-13232",
+    "fourteenersPeakId": "10490",
+    "name": "UN 13,232",
+    "coRank": 458,
+    "thirteenRank": 405,
+    "elevationFeet": 13232,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10492/unnamed-13er-13229",
+    "fourteenersPeakId": "10492",
+    "name": "UN 13,229 (near Peters Peak)",
+    "coRank": 459,
+    "thirteenRank": 406,
+    "elevationFeet": 13229,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10226/13er-peak-c",
+    "fourteenersPeakId": "10226",
+    "name": "Pk C",
+    "coRank": 460,
+    "thirteenRank": 407,
+    "elevationFeet": 13228,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10496/13er-greenhalgh-mountain",
+    "fourteenersPeakId": "10496",
+    "name": "Greenhalgh Mtn",
+    "coRank": 461,
+    "thirteenRank": 408,
+    "elevationFeet": 13228,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10223/13er-peak-z",
+    "fourteenersPeakId": "10223",
+    "name": "Pk Z",
+    "coRank": 462,
+    "thirteenRank": 409,
+    "elevationFeet": 13227,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10668/unnamed-13er-13226",
+    "fourteenersPeakId": "10668",
+    "name": "UN 13,226",
+    "coRank": 463,
+    "thirteenRank": 410,
+    "elevationFeet": 13226,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10503/13er-engineer-mountain-a",
+    "fourteenersPeakId": "10503",
+    "name": "Engineer Mtn",
+    "coRank": 464,
+    "thirteenRank": 411,
+    "elevationFeet": 13225,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10796/13er-fairview-peak-a",
+    "fourteenersPeakId": "10796",
+    "name": "Fairview Peak",
+    "coRank": 465,
+    "thirteenRank": 412,
+    "elevationFeet": 13224,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10191/13er-hassell-peak",
+    "fourteenersPeakId": "10191",
+    "name": "Hassell Peak",
+    "coRank": 466,
+    "thirteenRank": 413,
+    "elevationFeet": 13223,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10125/unnamed-13er-13223",
+    "fourteenersPeakId": "10125",
+    "name": "UN 13,223",
+    "coRank": 467,
+    "thirteenRank": 414,
+    "elevationFeet": 13223,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10794/13er-ellingwood-ridge",
+    "fourteenersPeakId": "10794",
+    "name": "Ellingwood Ridge",
+    "coRank": 468,
+    "thirteenRank": 415,
+    "elevationFeet": 13222,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10797/unnamed-13er-13221",
+    "fourteenersPeakId": "10797",
+    "name": "UN 13,221",
+    "coRank": 469,
+    "thirteenRank": 416,
+    "elevationFeet": 13221,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10801/unnamed-13er-13220",
+    "fourteenersPeakId": "10801",
+    "name": "UN 13,220",
+    "coRank": 470,
+    "thirteenRank": 417,
+    "elevationFeet": 13220,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10493/unnamed-13er-13220",
+    "fourteenersPeakId": "10493",
+    "name": "UN 13,220 (near \"El Punto\")",
+    "coRank": 471,
+    "thirteenRank": 418,
+    "elevationFeet": 13220,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10671/13er-leaning-south-peak",
+    "fourteenersPeakId": "10671",
+    "name": "Leaning South Peak",
+    "coRank": 472,
+    "thirteenRank": 419,
+    "elevationFeet": 13218,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10798/13er-homestake-peak",
+    "fourteenersPeakId": "10798",
+    "name": "Homestake Peak",
+    "coRank": 473,
+    "thirteenRank": 420,
+    "elevationFeet": 13217,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10188/13er-mount-audubon",
+    "fourteenersPeakId": "10188",
+    "name": "Audubon, Mt",
+    "coRank": 474,
+    "thirteenRank": 421,
+    "elevationFeet": 13217,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10502/13er-irving-peak",
+    "fourteenersPeakId": "10502",
+    "name": "Irving Peak",
+    "coRank": 475,
+    "thirteenRank": 422,
+    "elevationFeet": 13216,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10670/13er-eagle-peak-a",
+    "fourteenersPeakId": "10670",
+    "name": "Eagle Peak",
+    "coRank": 476,
+    "thirteenRank": 423,
+    "elevationFeet": 13215,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10507/unnamed-13er-13215",
+    "fourteenersPeakId": "10507",
+    "name": "UN 13,215",
+    "coRank": 477,
+    "thirteenRank": 424,
+    "elevationFeet": 13215,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10795/13er-jones-mountain-b",
+    "fourteenersPeakId": "10795",
+    "name": "Jones Mtn",
+    "coRank": 478,
+    "thirteenRank": 425,
+    "elevationFeet": 13214,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10122/unnamed-13er-13214",
+    "fourteenersPeakId": "10122",
+    "name": "UN 13,214",
+    "coRank": 479,
+    "thirteenRank": 426,
+    "elevationFeet": 13214,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10124/13er-teocalli-mountain",
+    "fourteenersPeakId": "10124",
+    "name": "Teocalli Mtn",
+    "coRank": 480,
+    "thirteenRank": 427,
+    "elevationFeet": 13213,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10229/13er-jacque-peak",
+    "fourteenersPeakId": "10229",
+    "name": "Jacque Peak",
+    "coRank": 481,
+    "thirteenRank": 428,
+    "elevationFeet": 13212,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10799/13er-gladstone-ridge",
+    "fourteenersPeakId": "10799",
+    "name": "Gladstone Ridge",
+    "coRank": 482,
+    "thirteenRank": 429,
+    "elevationFeet": 13212,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10506/13er-hayden-mountain-south",
+    "fourteenersPeakId": "10506",
+    "name": "Hayden Mtn South",
+    "coRank": 483,
+    "thirteenRank": 430,
+    "elevationFeet": 13211,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10508/13er-mount-nebo",
+    "fourteenersPeakId": "10508",
+    "name": "Nebo, Mt",
+    "coRank": 484,
+    "thirteenRank": 431,
+    "elevationFeet": 13209,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10510/13er-tuttle-mountain",
+    "fourteenersPeakId": "10510",
+    "name": "Tuttle Mtn",
+    "coRank": 485,
+    "thirteenRank": 432,
+    "elevationFeet": 13208,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10511/unnamed-13er-13207",
+    "fourteenersPeakId": "10511",
+    "name": "UN 13,207",
+    "coRank": 486,
+    "thirteenRank": 433,
+    "elevationFeet": 13207,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10846/13er-peak-9",
+    "fourteenersPeakId": "10846",
+    "name": "Peak 9",
+    "coRank": 487,
+    "thirteenRank": 434,
+    "elevationFeet": 13207,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10509/13er-bennett-peak",
+    "fourteenersPeakId": "10509",
+    "name": "Bennett Peak",
+    "coRank": 488,
+    "thirteenRank": 435,
+    "elevationFeet": 13206,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10802/13er-mountain-boy-peak",
+    "fourteenersPeakId": "10802",
+    "name": "Mountain Boy Peak",
+    "coRank": 489,
+    "thirteenRank": 436,
+    "elevationFeet": 13204,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10800/unnamed-13er-13204",
+    "fourteenersPeakId": "10800",
+    "name": "UN 13,204",
+    "coRank": 490,
+    "thirteenRank": 437,
+    "elevationFeet": 13204,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10231/13er-mount-valhalla",
+    "fourteenersPeakId": "10231",
+    "name": "Valhalla, Mt",
+    "coRank": 491,
+    "thirteenRank": 438,
+    "elevationFeet": 13202,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10273/13er-london-mountain",
+    "fourteenersPeakId": "10273",
+    "name": "London Mtn",
+    "coRank": 492,
+    "thirteenRank": 439,
+    "elevationFeet": 13199,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10193/13er-powell-peak",
+    "fourteenersPeakId": "10193",
+    "name": "Powell Peak",
+    "coRank": 493,
+    "thirteenRank": 440,
+    "elevationFeet": 13195,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10230/13er-red-peak-b",
+    "fourteenersPeakId": "10230",
+    "name": "Red Peak",
+    "coRank": 494,
+    "thirteenRank": 441,
+    "elevationFeet": 13186,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10198/13er-copeland-mountain",
+    "fourteenersPeakId": "10198",
+    "name": "Copeland Mtn",
+    "coRank": 495,
+    "thirteenRank": 442,
+    "elevationFeet": 13183,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10196/13er-santa-fe-peak",
+    "fourteenersPeakId": "10196",
+    "name": "Santa Fe Peak",
+    "coRank": 496,
+    "thirteenRank": 443,
+    "elevationFeet": 13181,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10527/unnamed-13er-13179",
+    "fourteenersPeakId": "10527",
+    "name": "UN 13,179",
+    "coRank": 497,
+    "thirteenRank": 444,
+    "elevationFeet": 13179,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10522/13er-conejos-peak",
+    "fourteenersPeakId": "10522",
+    "name": "Conejos Peak",
+    "coRank": 498,
+    "thirteenRank": 445,
+    "elevationFeet": 13176,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10672/13er-beaubien-peak",
+    "fourteenersPeakId": "10672",
+    "name": "Beaubien Peak",
+    "coRank": 499,
+    "thirteenRank": 446,
+    "elevationFeet": 13176,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10803/13er-fancy-peak",
+    "fourteenersPeakId": "10803",
+    "name": "Fancy Peak",
+    "coRank": 500,
+    "thirteenRank": 447,
+    "elevationFeet": 13176,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10126/unnamed-13er-13173",
+    "fourteenersPeakId": "10126",
+    "name": "UN 13,173",
+    "coRank": 501,
+    "thirteenRank": 448,
+    "elevationFeet": 13173,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10514/13er-mount-valois",
+    "fourteenersPeakId": "10514",
+    "name": "Valois, Mt",
+    "coRank": 502,
+    "thirteenRank": 449,
+    "elevationFeet": 13173,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10199/13er-kelso-mountain",
+    "fourteenersPeakId": "10199",
+    "name": "Kelso Mtn",
+    "coRank": 503,
+    "thirteenRank": 450,
+    "elevationFeet": 13172,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10526/13er-stony-pass-peak",
+    "fourteenersPeakId": "10526",
+    "name": "Stony Pass Peak",
+    "coRank": 504,
+    "thirteenRank": 451,
+    "elevationFeet": 13172,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10523/unnamed-13er-13171",
+    "fourteenersPeakId": "10523",
+    "name": "UN 13,171",
+    "coRank": 505,
+    "thirteenRank": 452,
+    "elevationFeet": 13171,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10524/13er-sheep-mountain-c",
+    "fourteenersPeakId": "10524",
+    "name": "Sheep Mtn",
+    "coRank": 506,
+    "thirteenRank": 453,
+    "elevationFeet": 13170,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10517/unnamed-13er-13170",
+    "fourteenersPeakId": "10517",
+    "name": "UN 13,170",
+    "coRank": 507,
+    "thirteenRank": 454,
+    "elevationFeet": 13170,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10546/13er-s-9",
+    "fourteenersPeakId": "10546",
+    "name": "S 9",
+    "coRank": 508,
+    "thirteenRank": 455,
+    "elevationFeet": 13169,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10528/unnamed-13er-13168",
+    "fourteenersPeakId": "10528",
+    "name": "UN 13,168",
+    "coRank": 509,
+    "thirteenRank": 456,
+    "elevationFeet": 13168,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10518/13er-grand-turk",
+    "fourteenersPeakId": "10518",
+    "name": "Grand Turk",
+    "coRank": 510,
+    "thirteenRank": 457,
+    "elevationFeet": 13167,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10534/unnamed-13er-13166",
+    "fourteenersPeakId": "10534",
+    "name": "UN 13,166",
+    "coRank": 511,
+    "thirteenRank": 458,
+    "elevationFeet": 13166,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10525/13er-amherst-mountain",
+    "fourteenersPeakId": "10525",
+    "name": "Amherst Mtn",
+    "coRank": 512,
+    "thirteenRank": 459,
+    "elevationFeet": 13164,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10533/13er-v-5",
+    "fourteenersPeakId": "10533",
+    "name": "V 5",
+    "coRank": 513,
+    "thirteenRank": 460,
+    "elevationFeet": 13164,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10201/13er-arikaree-peak",
+    "fourteenersPeakId": "10201",
+    "name": "Arikaree Peak",
+    "coRank": 514,
+    "thirteenRank": 461,
+    "elevationFeet": 13164,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10804/13er-pomeroy-mountain-a",
+    "fourteenersPeakId": "10804",
+    "name": "Pomeroy Mtn",
+    "coRank": 515,
+    "thirteenRank": 462,
+    "elevationFeet": 13164,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10552/unnamed-13er-13164",
+    "fourteenersPeakId": "10552",
+    "name": "UN 13,164",
+    "coRank": 516,
+    "thirteenRank": 463,
+    "elevationFeet": 13164,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10530/13er-twilight-peak",
+    "fourteenersPeakId": "10530",
+    "name": "Twilight Peak",
+    "coRank": 517,
+    "thirteenRank": 464,
+    "elevationFeet": 13162,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10516/13er-babcock-peak",
+    "fourteenersPeakId": "10516",
+    "name": "Babcock Peak",
+    "coRank": 518,
+    "thirteenRank": 465,
+    "elevationFeet": 13161,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10674/unnamed-13er-13159",
+    "fourteenersPeakId": "10674",
+    "name": "UN 13,159",
+    "coRank": 519,
+    "thirteenRank": 466,
+    "elevationFeet": 13159,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10536/13er-montezuma-peak",
+    "fourteenersPeakId": "10536",
+    "name": "Montezuma Peak",
+    "coRank": 520,
+    "thirteenRank": 467,
+    "elevationFeet": 13158,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10200/13er-taylor-peak-b",
+    "fourteenersPeakId": "10200",
+    "name": "Taylor Peak",
+    "coRank": 521,
+    "thirteenRank": 468,
+    "elevationFeet": 13157,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10537/13er-south-river-peak",
+    "fourteenersPeakId": "10537",
+    "name": "South River Peak",
+    "coRank": 522,
+    "thirteenRank": 469,
+    "elevationFeet": 13156,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10531/unnamed-13er-13155",
+    "fourteenersPeakId": "10531",
+    "name": "UN 13,155",
+    "coRank": 523,
+    "thirteenRank": 470,
+    "elevationFeet": 13155,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10205/13er-ogalalla-peak",
+    "fourteenersPeakId": "10205",
+    "name": "Ogalalla Peak",
+    "coRank": 524,
+    "thirteenRank": 471,
+    "elevationFeet": 13154,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10675/13er-little-horn-peak",
+    "fourteenersPeakId": "10675",
+    "name": "Little Horn Peak",
+    "coRank": 525,
+    "thirteenRank": 472,
+    "elevationFeet": 13154,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10808/13er-west-virginia",
+    "fourteenersPeakId": "10808",
+    "name": "West Virginia",
+    "coRank": 526,
+    "thirteenRank": 473,
+    "elevationFeet": 13152,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10805/unnamed-13er-13150",
+    "fourteenersPeakId": "10805",
+    "name": "UN 13,150",
+    "coRank": 527,
+    "thirteenRank": 474,
+    "elevationFeet": 13150,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10809/13er-west-truro",
+    "fourteenersPeakId": "10809",
+    "name": "West Truro",
+    "coRank": 528,
+    "thirteenRank": 475,
+    "elevationFeet": 13149,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10673/13er-medano-peak",
+    "fourteenersPeakId": "10673",
+    "name": "Medano Peak",
+    "coRank": 529,
+    "thirteenRank": 476,
+    "elevationFeet": 13146,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10529/unnamed-13er-13145",
+    "fourteenersPeakId": "10529",
+    "name": "UN 13,145",
+    "coRank": 530,
+    "thirteenRank": 477,
+    "elevationFeet": 13145,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10807/unnamed-13er-13145",
+    "fourteenersPeakId": "10807",
+    "name": "UN 13,145",
+    "coRank": 531,
+    "thirteenRank": 478,
+    "elevationFeet": 13145,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10538/13er-jackass-point",
+    "fourteenersPeakId": "10538",
+    "name": "Jackass Point",
+    "coRank": 532,
+    "thirteenRank": 479,
+    "elevationFeet": 13145,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10128/13er-willoughby-mountain",
+    "fourteenersPeakId": "10128",
+    "name": "Willoughby Mtn",
+    "coRank": 533,
+    "thirteenRank": 480,
+    "elevationFeet": 13144,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10129/unnamed-13er-13144",
+    "fourteenersPeakId": "10129",
+    "name": "UN 13,144",
+    "coRank": 534,
+    "thirteenRank": 481,
+    "elevationFeet": 13144,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10545/13er-hunchback-mountain",
+    "fourteenersPeakId": "10545",
+    "name": "Hunchback Mtn",
+    "coRank": 535,
+    "thirteenRank": 482,
+    "elevationFeet": 13143,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10539/13er-precipice-peak",
+    "fourteenersPeakId": "10539",
+    "name": "Precipice Peak",
+    "coRank": 536,
+    "thirteenRank": 483,
+    "elevationFeet": 13141,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10547/unnamed-13er-13140",
+    "fourteenersPeakId": "10547",
+    "name": "UN 13,140",
+    "coRank": 537,
+    "thirteenRank": 484,
+    "elevationFeet": 13140,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10815/unnamed-13er-13139",
+    "fourteenersPeakId": "10815",
+    "name": "UN 13,139",
+    "coRank": 538,
+    "thirteenRank": 485,
+    "elevationFeet": 13139,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10551/13er-peters-peak",
+    "fourteenersPeakId": "10551",
+    "name": "Peters Peak",
+    "coRank": 539,
+    "thirteenRank": 486,
+    "elevationFeet": 13138,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10810/13er-savage-peak",
+    "fourteenersPeakId": "10810",
+    "name": "Savage Peak",
+    "coRank": 540,
+    "thirteenRank": 487,
+    "elevationFeet": 13135,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10549/13er-boskoff-peak",
+    "fourteenersPeakId": "10549",
+    "name": "Boskoff Peak",
+    "coRank": 541,
+    "thirteenRank": 488,
+    "elevationFeet": 13134,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10544/13er-hayden-mountain-north",
+    "fourteenersPeakId": "10544",
+    "name": "Hayden Mtn North",
+    "coRank": 542,
+    "thirteenRank": 489,
+    "elevationFeet": 13131,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10207/13er-mount-eva",
+    "fourteenersPeakId": "10207",
+    "name": "Eva, Mt",
+    "coRank": 543,
+    "thirteenRank": 490,
+    "elevationFeet": 13131,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10812/13er-pika-peak",
+    "fourteenersPeakId": "10812",
+    "name": "Pika Peak",
+    "coRank": 544,
+    "thirteenRank": 491,
+    "elevationFeet": 13130,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10679/unnamed-13er-13130",
+    "fourteenersPeakId": "10679",
+    "name": "UN 13,130",
+    "coRank": 545,
+    "thirteenRank": 492,
+    "elevationFeet": 13130,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10202/13er-mount-flora",
+    "fourteenersPeakId": "10202",
+    "name": "Flora, Mt",
+    "coRank": 546,
+    "thirteenRank": 493,
+    "elevationFeet": 13129,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10182/13er-kiowa-peak",
+    "fourteenersPeakId": "10182",
+    "name": "Kiowa Peak",
+    "coRank": 547,
+    "thirteenRank": 494,
+    "elevationFeet": 13126,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10209/13er-cupid",
+    "fourteenersPeakId": "10209",
+    "name": "Cupid",
+    "coRank": 548,
+    "thirteenRank": 495,
+    "elevationFeet": 13126,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10813/13er-fitzpatrick-peak",
+    "fourteenersPeakId": "10813",
+    "name": "Fitzpatrick Peak",
+    "coRank": 549,
+    "thirteenRank": 496,
+    "elevationFeet": 13122,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10818/13er-mount-kreutzer",
+    "fourteenersPeakId": "10818",
+    "name": "Kreutzer, Mt",
+    "coRank": 550,
+    "thirteenRank": 497,
+    "elevationFeet": 13122,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10556/unnamed-13er-13121",
+    "fourteenersPeakId": "10556",
+    "name": "UN 13,121",
+    "coRank": 551,
+    "thirteenRank": 498,
+    "elevationFeet": 13121,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10676/13er-francisco-peak",
+    "fourteenersPeakId": "10676",
+    "name": "Francisco Peak",
+    "coRank": 552,
+    "thirteenRank": 499,
+    "elevationFeet": 13120,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10562/13er-baldy-lejos",
+    "fourteenersPeakId": "10562",
+    "name": "Baldy Lejos",
+    "coRank": 553,
+    "thirteenRank": 500,
+    "elevationFeet": 13118,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10557/unnamed-13er-13117",
+    "fourteenersPeakId": "10557",
+    "name": "UN 13,117",
+    "coRank": 554,
+    "thirteenRank": 501,
+    "elevationFeet": 13117,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10555/13er-cow-benchmark",
+    "fourteenersPeakId": "10555",
+    "name": "Cow BM",
+    "coRank": 555,
+    "thirteenRank": 502,
+    "elevationFeet": 13116,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10554/unnamed-13er-13115",
+    "fourteenersPeakId": "10554",
+    "name": "UN 13,115",
+    "coRank": 556,
+    "thirteenRank": 503,
+    "elevationFeet": 13115,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10208/13er-isolation-peak",
+    "fourteenersPeakId": "10208",
+    "name": "Isolation Peak",
+    "coRank": 557,
+    "thirteenRank": 504,
+    "elevationFeet": 13114,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10680/13er-bushnell-peak",
+    "fourteenersPeakId": "10680",
+    "name": "Bushnell Peak",
+    "coRank": 558,
+    "thirteenRank": 505,
+    "elevationFeet": 13112,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10553/13er-lizard-head",
+    "fourteenersPeakId": "10553",
+    "name": "Lizard Head",
+    "coRank": 559,
+    "thirteenRank": 506,
+    "elevationFeet": 13112,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10814/13er-hancock-peak",
+    "fourteenersPeakId": "10814",
+    "name": "Hancock Peak",
+    "coRank": 560,
+    "thirteenRank": 507,
+    "elevationFeet": 13111,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10559/unnamed-13er-13110",
+    "fourteenersPeakId": "10559",
+    "name": "UN 13,110",
+    "coRank": 561,
+    "thirteenRank": 508,
+    "elevationFeet": 13110,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10235/13er-peak-n",
+    "fourteenersPeakId": "10235",
+    "name": "Pk N",
+    "coRank": 562,
+    "thirteenRank": 509,
+    "elevationFeet": 13110,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10567/unnamed-13er-13108",
+    "fourteenersPeakId": "10567",
+    "name": "UN 13,108",
+    "coRank": 563,
+    "thirteenRank": 510,
+    "elevationFeet": 13108,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10817/13er-middle-mountain-a",
+    "fourteenersPeakId": "10817",
+    "name": "Middle Mtn",
+    "coRank": 564,
+    "thirteenRank": 511,
+    "elevationFeet": 13108,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10563/13er-corbett-ridge",
+    "fourteenersPeakId": "10563",
+    "name": "Corbett Ridge",
+    "coRank": 565,
+    "thirteenRank": 512,
+    "elevationFeet": 13107,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10560/13er-peak-twenty-two",
+    "fourteenersPeakId": "10560",
+    "name": "Pk Twenty Two",
+    "coRank": 566,
+    "thirteenRank": 513,
+    "elevationFeet": 13107,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10561/unnamed-13er-13102",
+    "fourteenersPeakId": "10561",
+    "name": "UN 13,102",
+    "coRank": 567,
+    "thirteenRank": 514,
+    "elevationFeet": 13102,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10819/unnamed-13er-13102",
+    "fourteenersPeakId": "10819",
+    "name": "UN 13,102",
+    "coRank": 568,
+    "thirteenRank": 515,
+    "elevationFeet": 13102,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10565/13er-tomboy-peak",
+    "fourteenersPeakId": "10565",
+    "name": "Tomboy Peak",
+    "coRank": 569,
+    "thirteenRank": 516,
+    "elevationFeet": 13101,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10241/13er-peak-x",
+    "fourteenersPeakId": "10241",
+    "name": "Pk X",
+    "coRank": 570,
+    "thirteenRank": 517,
+    "elevationFeet": 13094,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10210/13er-paiute-peak",
+    "fourteenersPeakId": "10210",
+    "name": "Paiute Peak",
+    "coRank": 571,
+    "thirteenRank": 518,
+    "elevationFeet": 13094,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10820/13er-virginia-peak",
+    "fourteenersPeakId": "10820",
+    "name": "Virginia Peak",
+    "coRank": 572,
+    "thirteenRank": 519,
+    "elevationFeet": 13094,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10566/unnamed-13er-13094",
+    "fourteenersPeakId": "10566",
+    "name": "UN 13,094",
+    "coRank": 573,
+    "thirteenRank": 520,
+    "elevationFeet": 13094,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10822/unnamed-13er-13093",
+    "fourteenersPeakId": "10822",
+    "name": "UN 13,093",
+    "coRank": 574,
+    "thirteenRank": 521,
+    "elevationFeet": 13093,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10570/13er-snowdon-peak",
+    "fourteenersPeakId": "10570",
+    "name": "Snowdon Peak",
+    "coRank": 575,
+    "thirteenRank": 522,
+    "elevationFeet": 13090,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10821/13er-ribbed-peak",
+    "fourteenersPeakId": "10821",
+    "name": "Ribbed Peak",
+    "coRank": 576,
+    "thirteenRank": 523,
+    "elevationFeet": 13089,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10574/13er-mount-garfield-b",
+    "fourteenersPeakId": "10574",
+    "name": "Garfield, Mt",
+    "coRank": 577,
+    "thirteenRank": 524,
+    "elevationFeet": 13087,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10239/13er-mount-solitude",
+    "fourteenersPeakId": "10239",
+    "name": "Solitude, Mt",
+    "coRank": 578,
+    "thirteenRank": 525,
+    "elevationFeet": 13085,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10242/13er-north-traverse-peak",
+    "fourteenersPeakId": "10242",
+    "name": "North Traverse Peak",
+    "coRank": 579,
+    "thirteenRank": 526,
+    "elevationFeet": 13085,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10573/13er-north-twilight-peak",
+    "fourteenersPeakId": "10573",
+    "name": "North Twilight Peak",
+    "coRank": 580,
+    "thirteenRank": 527,
+    "elevationFeet": 13084,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10211/13er-boreas-mountain",
+    "fourteenersPeakId": "10211",
+    "name": "Boreas Mtn",
+    "coRank": 581,
+    "thirteenRank": 528,
+    "elevationFeet": 13083,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10683/13er-huerfanito",
+    "fourteenersPeakId": "10683",
+    "name": "Huerfanito",
+    "coRank": 582,
+    "thirteenRank": 529,
+    "elevationFeet": 13083,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10825/unnamed-13er-13082",
+    "fourteenersPeakId": "10825",
+    "name": "UN 13,082",
+    "coRank": 583,
+    "thirteenRank": 530,
+    "elevationFeet": 13082,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10212/13er-whale-peak",
+    "fourteenersPeakId": "10212",
+    "name": "Whale Peak",
+    "coRank": 584,
+    "thirteenRank": 531,
+    "elevationFeet": 13080,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10240/13er-keller-mountain",
+    "fourteenersPeakId": "10240",
+    "name": "Keller Mtn",
+    "coRank": 585,
+    "thirteenRank": 532,
+    "elevationFeet": 13080,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10824/13er-west-tellurium",
+    "fourteenersPeakId": "10824",
+    "name": "West Tellurium",
+    "coRank": 586,
+    "thirteenRank": 533,
+    "elevationFeet": 13078,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10572/unnamed-13er-13078",
+    "fourteenersPeakId": "10572",
+    "name": "UN 13,078",
+    "coRank": 587,
+    "thirteenRank": 534,
+    "elevationFeet": 13078,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10575/13er-blackwall-mountain",
+    "fourteenersPeakId": "10575",
+    "name": "Blackwall Mtn",
+    "coRank": 588,
+    "thirteenRank": 535,
+    "elevationFeet": 13077,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10577/unnamed-13er-13076",
+    "fourteenersPeakId": "10577",
+    "name": "UN 13,076",
+    "coRank": 589,
+    "thirteenRank": 536,
+    "elevationFeet": 13076,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10576/13er-sheep-mountain-d",
+    "fourteenersPeakId": "10576",
+    "name": "Sheep Mtn",
+    "coRank": 590,
+    "thirteenRank": 537,
+    "elevationFeet": 13073,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10578/13er-kendall-no-2-benchmark",
+    "fourteenersPeakId": "10578",
+    "name": "Kendall No 2 BM",
+    "coRank": 591,
+    "thirteenRank": 538,
+    "elevationFeet": 13073,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10816/unnamed-13er-13071",
+    "fourteenersPeakId": "10816",
+    "name": "UN 13,071",
+    "coRank": 592,
+    "thirteenRank": 539,
+    "elevationFeet": 13071,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10131/unnamed-13er-13067",
+    "fourteenersPeakId": "10131",
+    "name": "UN 13,067",
+    "coRank": 593,
+    "thirteenRank": 540,
+    "elevationFeet": 13067,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10685/13er-mas-alto-peak",
+    "fourteenersPeakId": "10685",
+    "name": "Mas Alto Peak",
+    "coRank": 594,
+    "thirteenRank": 541,
+    "elevationFeet": 13065,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10132/13er-mount-owen-b",
+    "fourteenersPeakId": "10132",
+    "name": "Owen, Mt",
+    "coRank": 595,
+    "thirteenRank": 542,
+    "elevationFeet": 13064,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10829/13er-chalk-rock-mountain",
+    "fourteenersPeakId": "10829",
+    "name": "Chalk Rock Mtn",
+    "coRank": 596,
+    "thirteenRank": 543,
+    "elevationFeet": 13064,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10130/13er-fravert-peak",
+    "fourteenersPeakId": "10130",
+    "name": "Fravert Peak",
+    "coRank": 597,
+    "thirteenRank": 544,
+    "elevationFeet": 13063,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10247/13er-grand-traverse-peak",
+    "fourteenersPeakId": "10247",
+    "name": "Grand Traverse Peak",
+    "coRank": 598,
+    "thirteenRank": 545,
+    "elevationFeet": 13063,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10684/13er-hunts-peak",
+    "fourteenersPeakId": "10684",
+    "name": "Hunts Peak",
+    "coRank": 599,
+    "thirteenRank": 546,
+    "elevationFeet": 13061,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10579/13er-west-needle-mountain",
+    "fourteenersPeakId": "10579",
+    "name": "West Needle Mtn",
+    "coRank": 600,
+    "thirteenRank": 547,
+    "elevationFeet": 13060,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10587/13er-n-2",
+    "fourteenersPeakId": "10587",
+    "name": "N 2",
+    "coRank": 601,
+    "thirteenRank": 548,
+    "elevationFeet": 13060,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10584/13er-houghton-mountain",
+    "fourteenersPeakId": "10584",
+    "name": "Houghton Mtn",
+    "coRank": 602,
+    "thirteenRank": 549,
+    "elevationFeet": 13059,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10686/13er-alto-peak",
+    "fourteenersPeakId": "10686",
+    "name": "Alto Peak",
+    "coRank": 603,
+    "thirteenRank": 550,
+    "elevationFeet": 13059,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10246/13er-west-partner-peak",
+    "fourteenersPeakId": "10246",
+    "name": "West Partner Peak",
+    "coRank": 604,
+    "thirteenRank": 551,
+    "elevationFeet": 13058,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10244/13er-east-partner-peak",
+    "fourteenersPeakId": "10244",
+    "name": "East Partner Peak",
+    "coRank": 605,
+    "thirteenRank": 552,
+    "elevationFeet": 13057,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10687/13er-pyramid-mountain",
+    "fourteenersPeakId": "10687",
+    "name": "Pyramid Mtn",
+    "coRank": 606,
+    "thirteenRank": 553,
+    "elevationFeet": 13054,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10133/unnamed-13er-13048",
+    "fourteenersPeakId": "10133",
+    "name": "UN 13,048",
+    "coRank": 607,
+    "thirteenRank": 554,
+    "elevationFeet": 13048,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10688/13er-dead-man-peak",
+    "fourteenersPeakId": "10688",
+    "name": "Dead Man Peak",
+    "coRank": 608,
+    "thirteenRank": 555,
+    "elevationFeet": 13048,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10585/unnamed-13er-13048",
+    "fourteenersPeakId": "10585",
+    "name": "UN 13,048",
+    "coRank": 609,
+    "thirteenRank": 556,
+    "elevationFeet": 13048,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10588/13er-v-7",
+    "fourteenersPeakId": "10588",
+    "name": "V 7",
+    "coRank": 610,
+    "thirteenRank": 557,
+    "elevationFeet": 13043,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10134/13er-west-elk-peak",
+    "fourteenersPeakId": "10134",
+    "name": "West Elk Peak",
+    "coRank": 611,
+    "thirteenRank": 558,
+    "elevationFeet": 13040,
+    "range": "Elk"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10592/13er-organ-mountain-b",
+    "fourteenersPeakId": "10592",
+    "name": "Organ Mtn",
+    "coRank": 612,
+    "thirteenRank": 559,
+    "elevationFeet": 13040,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10248/13er-snow-peak",
+    "fourteenersPeakId": "10248",
+    "name": "Snow Peak",
+    "coRank": 613,
+    "thirteenRank": 560,
+    "elevationFeet": 13039,
+    "range": "Gore"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10832/unnamed-13er-13039",
+    "fourteenersPeakId": "10832",
+    "name": "UN 13,039",
+    "coRank": 614,
+    "thirteenRank": 561,
+    "elevationFeet": 13039,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10830/unnamed-13er-13038",
+    "fourteenersPeakId": "10830",
+    "name": "UN 13,038",
+    "coRank": 615,
+    "thirteenRank": 562,
+    "elevationFeet": 13038,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10215/13er-old-baldy",
+    "fourteenersPeakId": "10215",
+    "name": "Old Baldy",
+    "coRank": 616,
+    "thirteenRank": 563,
+    "elevationFeet": 13034,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10833/unnamed-13er-13033",
+    "fourteenersPeakId": "10833",
+    "name": "UN 13,033",
+    "coRank": 617,
+    "thirteenRank": 564,
+    "elevationFeet": 13033,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10689/13er-menos-alto-peak",
+    "fourteenersPeakId": "10689",
+    "name": "Menos Alto Peak",
+    "coRank": 618,
+    "thirteenRank": 565,
+    "elevationFeet": 13031,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10591/unnamed-13er-13030",
+    "fourteenersPeakId": "10591",
+    "name": "UN 13,030",
+    "coRank": 619,
+    "thirteenRank": 566,
+    "elevationFeet": 13030,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10594/13er-the-unicorn",
+    "fourteenersPeakId": "10594",
+    "name": "Unicorn, The",
+    "coRank": 620,
+    "thirteenRank": 567,
+    "elevationFeet": 13030,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10690/unnamed-13er-13028",
+    "fourteenersPeakId": "10690",
+    "name": "UN 13,028",
+    "coRank": 621,
+    "thirteenRank": 568,
+    "elevationFeet": 13028,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10602/unnamed-13er-13026",
+    "fourteenersPeakId": "10602",
+    "name": "UN 13,026",
+    "coRank": 622,
+    "thirteenRank": 569,
+    "elevationFeet": 13026,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10595/13er-the-corpse-s10",
+    "fourteenersPeakId": "10595",
+    "name": "The Corpse",
+    "coRank": 623,
+    "thirteenRank": 570,
+    "elevationFeet": 13025,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10600/unnamed-13er-13022",
+    "fourteenersPeakId": "10600",
+    "name": "UN 13,022",
+    "coRank": 624,
+    "thirteenRank": 571,
+    "elevationFeet": 13022,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10603/13er-chief-mountain-a",
+    "fourteenersPeakId": "10603",
+    "name": "Chief Mtn",
+    "coRank": 625,
+    "thirteenRank": 572,
+    "elevationFeet": 13019,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10601/unnamed-13er-13015",
+    "fourteenersPeakId": "10601",
+    "name": "UN 13,015",
+    "coRank": 626,
+    "thirteenRank": 573,
+    "elevationFeet": 13015,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10835/unnamed-13er-13014",
+    "fourteenersPeakId": "10835",
+    "name": "UN 13,014",
+    "coRank": 627,
+    "thirteenRank": 574,
+    "elevationFeet": 13014,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10275/13er-pennsylvania-mountain",
+    "fourteenersPeakId": "10275",
+    "name": "Pennsylvania Mtn",
+    "coRank": 628,
+    "thirteenRank": 575,
+    "elevationFeet": 13013,
+    "range": "Mosquito"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10691/13er-twin-sisters-north",
+    "fourteenersPeakId": "10691",
+    "name": "Twin Sisters North",
+    "coRank": 629,
+    "thirteenRank": 576,
+    "elevationFeet": 13009,
+    "range": "Sangre de Cristo"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10836/unnamed-13er-13006",
+    "fourteenersPeakId": "10836",
+    "name": "UN 13,006",
+    "coRank": 630,
+    "thirteenRank": 577,
+    "elevationFeet": 13006,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10869/13er-overlook-point-nearaztec",
+    "fourteenersPeakId": "10869",
+    "name": "Overlook Point",
+    "coRank": 631,
+    "thirteenRank": 578,
+    "elevationFeet": 13005,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10870/13er-peak-8-tenmile",
+    "fourteenersPeakId": "10870",
+    "name": "Peak 8",
+    "coRank": 632,
+    "thirteenRank": 579,
+    "elevationFeet": 13005,
+    "range": "Tenmile"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10217/13er-golden-bear-peak",
+    "fourteenersPeakId": "10217",
+    "name": "Golden Bear Peak",
+    "coRank": 633,
+    "thirteenRank": 580,
+    "elevationFeet": 13005,
+    "range": "Front"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10871/unnamed-13er-13003",
+    "fourteenersPeakId": "10871",
+    "name": "UN 13,003",
+    "coRank": 634,
+    "thirteenRank": 581,
+    "elevationFeet": 13003,
+    "range": "San Juan"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10872/unnamed-13er-13002",
+    "fourteenersPeakId": "10872",
+    "name": "UN 13,002",
+    "coRank": 635,
+    "thirteenRank": 582,
+    "elevationFeet": 13002,
+    "range": "Sawatch"
+  },
+  {
+    "externalId": "https://www.14ers.com/peaks/10874/13er-peak-r-nearq",
+    "fourteenersPeakId": "10874",
+    "name": "Pk R",
+    "coRank": 636,
+    "thirteenRank": 583,
+    "elevationFeet": 13000,
+    "range": "Gore"
+  }
+]

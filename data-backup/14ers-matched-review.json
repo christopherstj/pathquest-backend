@@ -1,0 +1,882 @@
+[
+  {
+    "external": {
+      "name": "Sunlight Spire",
+      "lat": 37.62535,
+      "lng": -107.59332,
+      "elevation": 4265.9808,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10083/13er-sunlight-spire",
+      "sourceUrl": "https://www.14ers.com/peaks/10083/13er-sunlight-spire"
+    },
+    "externalId": "https://www.14ers.com/peaks/10083/13er-sunlight-spire",
+    "peakId": "358923608",
+    "peakName": "Sunlight Peak",
+    "distanceMeters": 312.85985612,
+    "score": 0.6197376882486667,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.4312173656135,
+    "secondBestPeakId": "358923760",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Prow, The",
+      "lat": 37.97848,
+      "lng": -105.60342,
+      "elevation": 4265.3712000000005,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10609/13er-the-prow",
+      "sourceUrl": "https://www.14ers.com/peaks/10609/13er-the-prow"
+    },
+    "externalId": "https://www.14ers.com/peaks/10609/13er-the-prow",
+    "peakId": "358931322",
+    "peakName": "Challenger Point",
+    "distanceMeters": 348.69463563,
+    "score": 0.44769580465549996,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.44769580465549996,
+    "secondBestPeakId": "358931322",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Northwest Lindsey",
+      "lat": 37.58525,
+      "lng": -105.4472,
+      "elevation": 4263.5424,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10082/northwest-lindsey",
+      "sourceUrl": "https://www.14ers.com/peaks/10082/northwest-lindsey"
+    },
+    "externalId": "https://www.14ers.com/peaks/10082/northwest-lindsey",
+    "peakId": "358928220",
+    "peakName": "Mount Lindsey",
+    "distanceMeters": 250.34760187,
+    "score": 0.6291145263861666,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.16977011003699966,
+    "secondBestPeakId": "358928217",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Kitty Kat Carson",
+      "lat": 37.97829,
+      "lng": -105.59685,
+      "elevation": 4258.9704,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10608/13er-kitty-kat-carson",
+      "sourceUrl": "https://www.14ers.com/peaks/10608/13er-kitty-kat-carson"
+    },
+    "externalId": "https://www.14ers.com/peaks/10608/13er-kitty-kat-carson",
+    "peakId": "358945056",
+    "peakName": "Kit Carson Mountain",
+    "distanceMeters": 523.04483134,
+    "score": 0.509770475299,
+    "nameSimilarity": 0.2,
+    "secondBestScore": 0.4811462823245,
+    "secondBestPeakId": "358946679",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Thunder Pyramid",
+      "lat": 39.06267,
+      "lng": -106.95173,
+      "elevation": 4250.1312,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10085/13er-thunder-pyramid",
+      "sourceUrl": "https://www.14ers.com/peaks/10085/13er-thunder-pyramid"
+    },
+    "externalId": "https://www.14ers.com/peaks/10085/13er-thunder-pyramid",
+    "peakId": "358915242",
+    "peakName": "Pyramid Peak",
+    "distanceMeters": 1009.82931739,
+    "score": 0.5151922690581667,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Holy Cross Ridge",
+      "lat": 39.45896,
+      "lng": -106.48588,
+      "elevation": 4221.4800000000005,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10703/13er-holy-cross-ridge",
+      "sourceUrl": "https://www.14ers.com/peaks/10703/13er-holy-cross-ridge"
+    },
+    "externalId": "https://www.14ers.com/peaks/10703/13er-holy-cross-ridge",
+    "peakId": "358914307",
+    "peakName": "Mount of the Holy Cross",
+    "distanceMeters": 945.64849175,
+    "score": 0.5248193929041667,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "East Trinity",
+      "lat": 37.68418,
+      "lng": -107.57722,
+      "elevation": 4191.6096,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10307/13er-east-trinity",
+      "sourceUrl": "https://www.14ers.com/peaks/10307/13er-east-trinity"
+    },
+    "externalId": "https://www.14ers.com/peaks/10294/13er-trinity-peak",
+    "peakId": "pq015b80f9",
+    "peakName": "Trinity Peaks - East Peak",
+    "distanceMeters": 375.64257709,
+    "score": 0.8436536134365,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.6619356268806666,
+    "secondBestPeakId": "358923553",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "US Grant Peak",
+      "lat": 37.8245,
+      "lng": -107.80727,
+      "elevation": 4199.5344000000005,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10302/13er-us-grant-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10302/13er-us-grant-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10302/13er-us-grant-peak",
+    "peakId": "358923174",
+    "peakName": "Ulysses S Grant Peak",
+    "distanceMeters": 5.72995767,
+    "score": 0.7491405063495,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.2261936878909991,
+    "secondBestPeakId": "358923143",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Trinity Peak",
+      "lat": 37.68476,
+      "lng": -107.5814,
+      "elevation": 4211.1168,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10294/13er-trinity-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10294/13er-trinity-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10307/13er-east-trinity",
+    "peakId": "358923553",
+    "peakName": "Trinity Peaks",
+    "distanceMeters": 361.53920112,
+    "score": 0.6124357864986667,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.6124357864986667,
+    "secondBestPeakId": "358923553",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "South Windom",
+      "lat": 37.61772,
+      "lng": -107.59186,
+      "elevation": 4191.6096,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10310/13er-south-windom",
+      "sourceUrl": "https://www.14ers.com/peaks/10310/13er-south-windom"
+    },
+    "externalId": "https://www.14ers.com/peaks/10310/13er-south-windom",
+    "peakId": "358923760",
+    "peakName": "Windom Peak",
+    "distanceMeters": 403.13866688,
+    "score": 0.5359019999679998,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.415110438398,
+    "secondBestPeakId": "358923766",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "West Eolus",
+      "lat": 37.62103,
+      "lng": -107.62766,
+      "elevation": 4185.8184,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10309/13er-west-eolus",
+      "sourceUrl": "https://www.14ers.com/peaks/10309/13er-west-eolus"
+    },
+    "externalId": "https://www.14ers.com/peaks/10309/13er-west-eolus",
+    "peakId": "358923756",
+    "peakName": "Mount Eolus",
+    "distanceMeters": 443.84964223,
+    "score": 0.5228870869988331,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.4557606321653334,
+    "secondBestPeakId": "358944025",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Mamma, Mt",
+      "lat": 38.66936,
+      "lng": -106.31783,
+      "elevation": 4167.2256,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10723/13er-mount-mamma",
+      "sourceUrl": "https://www.14ers.com/peaks/10723/13er-mount-mamma"
+    },
+    "externalId": "https://www.14ers.com/peaks/10723/13er-mount-mamma",
+    "peakId": "358925019",
+    "peakName": "Mount Mamma",
+    "distanceMeters": 596.61804898,
+    "score": 0.910507292653,
+    "nameSimilarity": 1,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Fifteen, Peak",
+      "lat": 37.6287,
+      "lng": -107.6359,
+      "elevation": 4166.9208,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10323/13er-peak-fifteen",
+      "sourceUrl": "https://www.14ers.com/peaks/10323/13er-peak-fifteen"
+    },
+    "externalId": "https://www.14ers.com/peaks/10323/13er-peak-fifteen",
+    "peakId": "358923445",
+    "peakName": "Needle Mountains Peak Fifteen",
+    "distanceMeters": 13.28745463,
+    "score": 0.7480068818054999,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.6114966544566667,
+    "secondBestPeakId": "358923469",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Electric Pass Peak",
+      "lat": 39.04737,
+      "lng": -106.85322,
+      "elevation": 4155.033600000001,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10090/13er-electric-pass-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10090/13er-electric-pass-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10090/13er-electric-pass-peak",
+    "peakId": "4613472117",
+    "peakName": "South Hayden",
+    "distanceMeters": 612.66341042,
+    "score": 0.408100488437,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.408100488437,
+    "secondBestPeakId": "4613472117",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Jones Peak",
+      "lat": 38.63139,
+      "lng": -106.22515,
+      "elevation": 4148.0232000000005,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10729/13er-jones-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10729/13er-jones-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10729/13er-jones-peak",
+    "peakId": "358925127",
+    "peakName": "Jones Peak",
+    "distanceMeters": 246.75010761,
+    "score": 0.9629874838585,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.040768489460667495,
+    "secondBestPeakId": "1910294333",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Eleven, Peak",
+      "lat": 37.62851,
+      "lng": -107.60588,
+      "elevation": 4123.944,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10366/13er-peak-eleven",
+      "sourceUrl": "https://www.14ers.com/peaks/10366/13er-peak-eleven"
+    },
+    "externalId": "https://www.14ers.com/peaks/10366/13er-peak-eleven",
+    "peakId": "358923523",
+    "peakName": "Needle Mountains Peak Eleven",
+    "distanceMeters": 18.53131717,
+    "score": 0.7472203024244999,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.4033292046896661,
+    "secondBestPeakId": "358923600",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Silver Mtn",
+      "lat": 37.87699,
+      "lng": -107.83125,
+      "elevation": 4106.5704000000005,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10392/13er-silver-mountain-b",
+      "sourceUrl": "https://www.14ers.com/peaks/10392/13er-silver-mountain-b"
+    },
+    "externalId": "https://www.14ers.com/peaks/10392/13er-silver-mountain-b",
+    "peakId": "358943997",
+    "peakName": "Silver Mountain",
+    "distanceMeters": 535.13333192,
+    "score": 0.766969466878666,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.3632512518314993,
+    "secondBestPeakId": "358922885",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Sixteen, Peak",
+      "lat": 37.62865,
+      "lng": -107.63346,
+      "elevation": 4089.1968,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10378/13er-peak-sixteen",
+      "sourceUrl": "https://www.14ers.com/peaks/10378/13er-peak-sixteen"
+    },
+    "externalId": "https://www.14ers.com/peaks/10378/13er-peak-sixteen",
+    "peakId": "358923453",
+    "peakName": "Needle Mountains Peak Sixteen",
+    "distanceMeters": 472.44547395,
+    "score": 0.8291331789075,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.5299483508526666,
+    "secondBestPeakId": "358923445",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Four, Peak",
+      "lat": 37.65969,
+      "lng": -107.6076,
+      "elevation": 4088.8920000000003,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10418/13er-peak-four",
+      "sourceUrl": "https://www.14ers.com/peaks/10418/13er-peak-four"
+    },
+    "externalId": "https://www.14ers.com/peaks/10418/13er-peak-four",
+    "peakId": "358923492",
+    "peakName": "Needle Mountains Peak Four",
+    "distanceMeters": 23.88741798,
+    "score": 0.7464168873029999,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.445551356982,
+    "secondBestPeakId": "358923495",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Gold Dust Peak",
+      "lat": 39.47904,
+      "lng": -106.59448,
+      "elevation": 4083.7104000000004,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10757/13er-gold-dust-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10757/13er-gold-dust-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10757/13er-gold-dust-peak",
+    "peakId": "358914273",
+    "peakName": "Gold Dust Peak",
+    "distanceMeters": 163.75727052,
+    "score": 0.975436409422,
+    "nameSimilarity": 1,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Buckskin BM",
+      "lat": 39.1135,
+      "lng": -106.99079,
+      "elevation": 4078.5288,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10111/13er-buckskin-benchmark",
+      "sourceUrl": "https://www.14ers.com/peaks/10111/13er-buckskin-benchmark"
+    },
+    "externalId": "https://www.14ers.com/peaks/10111/13er-buckskin-benchmark",
+    "peakId": "11492893447",
+    "peakName": "Buckskin Benchmark",
+    "distanceMeters": 16.0264086,
+    "score": 0.6642627053766668,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Bartlett Mtn",
+      "lat": 39.37694,
+      "lng": -106.15937,
+      "elevation": 4068.4704,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10269/13er-bartlett-mountain",
+      "sourceUrl": "https://www.14ers.com/peaks/10269/13er-bartlett-mountain"
+    },
+    "externalId": "https://www.14ers.com/peaks/10269/13er-bartlett-mountain",
+    "peakId": "358914432",
+    "peakName": "Bartlett Mountain",
+    "distanceMeters": 196.343619,
+    "score": 0.97054845715,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.5824674617363331,
+    "secondBestPeakId": "358914424",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Twin Peaks",
+      "lat": 39.04239,
+      "lng": -106.42545,
+      "elevation": 4066.3368,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10763/13er-twin-peaks-b",
+      "sourceUrl": "https://www.14ers.com/peaks/10763/13er-twin-peaks-b"
+    },
+    "externalId": "https://www.14ers.com/peaks/10763/13er-twin-peaks-b",
+    "peakId": "358915495",
+    "peakName": "Twin Peaks",
+    "distanceMeters": 182.01932341,
+    "score": 0.8935813681551666,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.17471446372616706,
+    "secondBestPeakId": "358931319",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Coney BM",
+      "lat": 37.86023,
+      "lng": -107.34683,
+      "elevation": 4065.7272000000003,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10442/13er-coney-benchmark",
+      "sourceUrl": "https://www.14ers.com/peaks/10442/13er-coney-benchmark"
+    },
+    "externalId": "https://www.14ers.com/peaks/10442/13er-coney-benchmark",
+    "peakId": "3868248855",
+    "peakName": "Coney Point",
+    "distanceMeters": 11.29896823,
+    "score": 0.6649718214321667,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Five, Peak",
+      "lat": 37.65681,
+      "lng": -107.59623,
+      "elevation": 4051.0968000000003,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10472/13er-peak-five",
+      "sourceUrl": "https://www.14ers.com/peaks/10472/13er-peak-five"
+    },
+    "externalId": "https://www.14ers.com/peaks/10472/13er-peak-five",
+    "peakId": "358923495",
+    "peakName": "Needle Mountains Peak Five",
+    "distanceMeters": 28.01233104,
+    "score": 0.7457981503439999,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.44226555025799996,
+    "secondBestPeakId": "358923492",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Eight, Peak",
+      "lat": 37.67108,
+      "lng": -107.56701,
+      "elevation": 4039.2096,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10491/13er-peak-eight",
+      "sourceUrl": "https://www.14ers.com/peaks/10491/13er-peak-eight"
+    },
+    "externalId": "https://www.14ers.com/peaks/10491/13er-peak-eight",
+    "peakId": "358923507",
+    "peakName": "Needle Mountains Peak Eight",
+    "distanceMeters": 45.48401943,
+    "score": 0.7431773970855,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.5093263248945,
+    "secondBestPeakId": "358923513",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "California Mtn",
+      "lat": 37.91551,
+      "lng": -107.60648,
+      "elevation": 4037.076,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10499/13er-california-mountain-a",
+      "sourceUrl": "https://www.14ers.com/peaks/10499/13er-california-mountain-a"
+    },
+    "externalId": "https://www.14ers.com/peaks/10499/13er-california-mountain-a",
+    "peakId": "358923002",
+    "peakName": "California Mountain",
+    "distanceMeters": 379.4417182,
+    "score": 0.94308374227,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.3447770452606663,
+    "secondBestPeakId": "358923006",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "S 7",
+      "lat": 38.00793,
+      "lng": -107.88063,
+      "elevation": 4033.7232000000004,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10497/13er-s-7",
+      "sourceUrl": "https://www.14ers.com/peaks/10497/13er-s-7"
+    },
+    "externalId": "https://www.14ers.com/peaks/10497/13er-s-7",
+    "peakId": "pq6002cd17",
+    "peakName": "S 7",
+    "distanceMeters": 21.75081301,
+    "score": 0.4967373780485,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.41763486679783285,
+    "secondBestPeakId": "358943078",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Macomber Peak",
+      "lat": 37.84752,
+      "lng": -107.62195,
+      "elevation": 4030.6752,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10494/13er-macomber-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10494/13er-macomber-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10494/13er-macomber-peak",
+    "peakId": "358923256",
+    "peakName": "Macomber Peak",
+    "distanceMeters": 281.61882226,
+    "score": 0.8621902433276666,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.27247030892366675,
+    "secondBestPeakId": "358923248",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "King Solomon Mtn",
+      "lat": 37.80158,
+      "lng": -107.59292,
+      "elevation": 4022.1408,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10500/13er-king-solomon-mountain",
+      "sourceUrl": "https://www.14ers.com/peaks/10500/13er-king-solomon-mountain"
+    },
+    "externalId": "https://www.14ers.com/peaks/10500/13er-king-solomon-mountain",
+    "peakId": "358923265",
+    "peakName": "King Solomon Mountain",
+    "distanceMeters": 693.53490749,
+    "score": 0.8959697638765001,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.37098456431700044,
+    "secondBestPeakId": "358923278",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Grand Turk",
+      "lat": 37.77641,
+      "lng": -107.69584,
+      "elevation": 4013.3016000000002,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10518/13er-grand-turk",
+      "sourceUrl": "https://www.14ers.com/peaks/10518/13er-grand-turk"
+    },
+    "externalId": "https://www.14ers.com/peaks/10518/13er-grand-turk",
+    "peakId": "358923244",
+    "peakName": "Grand Turk",
+    "distanceMeters": 230.40220808,
+    "score": 0.965439668788,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.38616901699766637,
+    "secondBestPeakId": "358953161",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Babcock Peak",
+      "lat": 37.42851,
+      "lng": -108.07678,
+      "elevation": 4011.4728,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10516/13er-babcock-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10516/13er-babcock-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10516/13er-babcock-peak",
+    "peakId": "358913681",
+    "peakName": "Babcock Peak",
+    "distanceMeters": 250.08396244,
+    "score": 0.962487405634,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.5302208440011666,
+    "secondBestPeakId": "358913686",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Emerson Mtn",
+      "lat": 37.55715,
+      "lng": -107.56053,
+      "elevation": 4007.2056000000002,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10542/13er-emerson-mountain",
+      "sourceUrl": "https://www.14ers.com/peaks/10542/13er-emerson-mountain"
+    },
+    "externalId": "https://www.14ers.com/peaks/10542/13er-emerson-mountain",
+    "peakId": "358923833",
+    "peakName": "Emerson Mountain",
+    "distanceMeters": 400.24527946,
+    "score": 0.9399632080810001,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.5404587189546666,
+    "secondBestPeakId": "358923837",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Flora, Mt",
+      "lat": 39.8049,
+      "lng": -105.73616,
+      "elevation": 4001.7192,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10202/13er-mount-flora",
+      "sourceUrl": "https://www.14ers.com/peaks/10202/13er-mount-flora"
+    },
+    "externalId": "https://www.14ers.com/peaks/10202/13er-mount-flora",
+    "peakId": "358916916",
+    "peakName": "Mount Flora",
+    "distanceMeters": 320.55476192,
+    "score": 0.9519167857119999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.2801251532051666,
+    "secondBestPeakId": "358916906",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Kreutzer, Mt",
+      "lat": 38.7569,
+      "lng": -106.41555,
+      "elevation": 3999.5856000000003,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10818/13er-mount-kreutzer",
+      "sourceUrl": "https://www.14ers.com/peaks/10818/13er-mount-kreutzer"
+    },
+    "externalId": "https://www.14ers.com/peaks/10818/13er-mount-kreutzer",
+    "peakId": "358924768",
+    "peakName": "Mount Kreutzer",
+    "distanceMeters": 489.72249728,
+    "score": 0.8164274920746661,
+    "nameSimilarity": 1,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "UN 13,094",
+      "lat": 37.99263,
+      "lng": -107.53414,
+      "elevation": 3991.0512000000003,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10566/unnamed-13er-13094",
+      "sourceUrl": "https://www.14ers.com/peaks/10566/unnamed-13er-13094"
+    },
+    "externalId": "https://www.14ers.com/peaks/10566/unnamed-13er-13094",
+    "peakId": "358922955",
+    "peakName": "Dolly Varden Mountain",
+    "distanceMeters": 765.30943591,
+    "score": 0.3851353179468329,
+    "nameSimilarity": 0,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "North Traverse Peak",
+      "lat": 39.67103,
+      "lng": -106.23921,
+      "elevation": 3988.308,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10242/13er-north-traverse-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10242/13er-north-traverse-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10242/13er-north-traverse-peak",
+    "peakId": "13136740195",
+    "peakName": "North Traverse",
+    "distanceMeters": 2.13276991,
+    "score": 0.8330134178468334,
+    "nameSimilarity": 0.6666666666666666,
+    "secondBestScore": 0.4668054105415,
+    "secondBestPeakId": "13136740194",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Winfield Peak",
+      "lat": 38.97592,
+      "lng": -106.48153,
+      "elevation": 3988.308,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10823/13er-winfield-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10823/13er-winfield-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10823/13er-winfield-peak",
+    "peakId": "358924777",
+    "peakName": "Winfield Peak",
+    "distanceMeters": 1435.06125721,
+    "score": 0.5847408114185,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.48728649448716665,
+    "secondBestPeakId": "358924780",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Saint Sophia Ridge",
+      "lat": 37.96824,
+      "lng": -107.78442,
+      "elevation": 3982.212,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10582/13er-saint-sophia-ridge",
+      "sourceUrl": "https://www.14ers.com/peaks/10582/13er-saint-sophia-ridge"
+    },
+    "externalId": "https://www.14ers.com/peaks/10582/13er-saint-sophia-ridge",
+    "peakId": "358922859",
+    "peakName": "Greenback Mountain",
+    "distanceMeters": 937.83612621,
+    "score": 0.35932458106849996,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.34805416145483337,
+    "secondBestPeakId": "358922867",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Grand Traverse Peak",
+      "lat": 39.66221,
+      "lng": -106.23449,
+      "elevation": 3981.6024,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10247/13er-grand-traverse-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10247/13er-grand-traverse-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10247/13er-grand-traverse-peak",
+    "peakId": "13136740194",
+    "peakName": "Grand Traverse",
+    "distanceMeters": 5.13333237,
+    "score": 0.8325633334778333,
+    "nameSimilarity": 0.6666666666666666,
+    "secondBestScore": 0.46623707166550005,
+    "secondBestPeakId": "13136740195",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Devils Playground Peak",
+      "lat": 38.86423,
+      "lng": -105.07081,
+      "elevation": 3980.0784000000003,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10213/13er-devils-playground-peak",
+      "sourceUrl": "https://www.14ers.com/peaks/10213/13er-devils-playground-peak"
+    },
+    "externalId": "https://www.14ers.com/peaks/10213/13er-devils-playground-peak",
+    "peakId": "8900186521",
+    "peakName": "Devil's Playground",
+    "distanceMeters": 4.356083,
+    "score": 0.8326799208833333,
+    "nameSimilarity": 0.6666666666666666,
+    "secondBestScore": 0.2572691486575005,
+    "secondBestPeakId": "8900178856",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Ruffner Mtn",
+      "lat": 38.00539,
+      "lng": -107.88624,
+      "elevation": 3972.1536,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10606/13er-ruffner-mountain",
+      "sourceUrl": "https://www.14ers.com/peaks/10606/13er-ruffner-mountain"
+    },
+    "externalId": "https://www.14ers.com/peaks/10606/13er-ruffner-mountain",
+    "peakId": "358943078",
+    "peakName": "Ruffner Mountain",
+    "distanceMeters": 356.16849853,
+    "score": 0.9465747252204999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.3976151322313337,
+    "secondBestPeakId": "pq6002cd17",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Cuba BM",
+      "lat": 37.84146,
+      "lng": -107.52217,
+      "elevation": 3971.2392,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10599/13er-cuba-benchmark",
+      "sourceUrl": "https://www.14ers.com/peaks/10599/13er-cuba-benchmark"
+    },
+    "externalId": "https://www.14ers.com/peaks/10599/13er-cuba-benchmark",
+    "peakId": "3869480274",
+    "peakName": "Cuba Point",
+    "distanceMeters": 2.2792227,
+    "score": 0.6663247832616668,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "The Corpse",
+      "lat": 38.02704,
+      "lng": -107.90625,
+      "elevation": 3970.02,
+      "externalSource": "14ers",
+      "externalId": "https://www.14ers.com/peaks/10595/13er-the-corpse-s10",
+      "sourceUrl": "https://www.14ers.com/peaks/10595/13er-the-corpse-s10"
+    },
+    "externalId": "https://www.14ers.com/peaks/10595/13er-the-corpse-s10",
+    "peakId": "pq84992c9c",
+    "peakName": "Peak 13025",
+    "distanceMeters": 15.93150069,
+    "score": 0.4976102748965,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.427519735676,
+    "secondBestPeakId": "358924279",
+    "approved": true
+  }
+]

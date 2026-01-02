@@ -7,7 +7,7 @@
  *   3. Review and insert: Run with REVIEW_FILE env var
  * 
  * Environment variables:
- *   - PEAKBAGGER_LIST_ID: Peakbagger list ID to scrape (e.g., "5061" for CO 13ers)
+ *   - PEAKBAGGER_LIST_ID: Peakbagger list ID to scrape (e.g., "21364" for CO 13ers (All), "5061" for CO ranked 13ers)
  *   - PEAKS_JSON_FILE: Path to JSON file with peak data
  *   - REVIEW_FILE: Path to exported review JSON file
  *   - CHALLENGE_ID: Override challenge ID (optional)
@@ -118,7 +118,7 @@ const importChallenge = async (): Promise<void> => {
         // Show help and list existing challenges
         console.log(`\nNo input specified. Available options:`);
         console.log(`\n1. Scrape from Peakbagger:`);
-        console.log(`   PEAKBAGGER_LIST_ID=5061 npm run dev:once`);
+        console.log(`   PEAKBAGGER_LIST_ID=21364 npm run dev:once`);
         console.log(`\n2. Load from JSON file:`);
         console.log(`   PEAKS_JSON_FILE=peaks.json npm run dev:once`);
         console.log(`\n3. Import from reviewed file:`);

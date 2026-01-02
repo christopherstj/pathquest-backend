@@ -1,0 +1,922 @@
+[
+  {
+    "external": {
+      "name": "UN 13973",
+      "lat": 37.97963611111111,
+      "lng": -105.59650555555555,
+      "elevation": 4262.9328000000005,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13970--kitty-kat-carson",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13970--kitty-kat-carson"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13970--kitty-kat-carson",
+    "peakId": "358945056",
+    "peakName": "Kit Carson Mountain",
+    "distanceMeters": 531.04739161,
+    "score": 0.4138532912585004,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.4138532912585004,
+    "secondBestPeakId": "358945056",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Mount Buckskin",
+      "lat": 39.31886666666667,
+      "lng": -106.14715833333334,
+      "elevation": 4226.052000000001,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/mount-buckskin",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/mount-buckskin"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/mount-buckskin",
+    "peakId": "358914718",
+    "peakName": "Mount Buckskin",
+    "distanceMeters": 401.85645122,
+    "score": 0.9397215323170001,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.46426440294533255,
+    "secondBestPeakId": "10778708485",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Jones Mountain (A)",
+      "lat": 37.88927777777778,
+      "lng": -107.52643611111111,
+      "elevation": 3560.0640000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/jones-mountain-2",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/jones-mountain-2"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/jones-mountain-2",
+    "peakId": "358923032",
+    "peakName": "Jones Mountain",
+    "distanceMeters": 799.40945984,
+    "score": 0.6800885810239999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.2596820868226667,
+    "secondBestPeakId": "358923040",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "East Trinity",
+      "lat": 37.68415833333333,
+      "lng": -107.57725555555555,
+      "elevation": 3584.4480000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/east-trinity",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/east-trinity"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/trinity-peak",
+    "peakId": "pq015b80f9",
+    "peakName": "Trinity Peaks - East Peak",
+    "distanceMeters": 364.76492738,
+    "score": 0.645285260893,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.4662766475326666,
+    "secondBestPeakId": "358923553",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "American Peak",
+      "lat": 37.89649444444444,
+      "lng": -107.51244722222222,
+      "elevation": 3560.0640000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/american-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/american-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/american-peak",
+    "peakId": "358948212",
+    "peakName": "American Peak",
+    "distanceMeters": 338.07752565,
+    "score": 0.7492883711525,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.17238099948016664,
+    "secondBestPeakId": "358923027",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Trinity Peak",
+      "lat": 37.68498888888889,
+      "lng": -107.58121944444444,
+      "elevation": 3584.4480000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/trinity-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/trinity-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/east-trinity",
+    "peakId": "358923553",
+    "peakName": "Trinity Peaks",
+    "distanceMeters": 359.11295025,
+    "score": 0.41279972412916666,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.41279972412916666,
+    "secondBestPeakId": "358923553",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Thirteen",
+      "lat": 37.64053611111111,
+      "lng": -107.6249861111111,
+      "elevation": 3543.3,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-thirteen",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-thirteen"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-thirteen",
+    "peakId": "358923526",
+    "peakName": "Needle Mountains Peak Thirteen",
+    "distanceMeters": 18.04228476,
+    "score": 0.697293657286,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.4167788938306667,
+    "secondBestPeakId": "358923584",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Six",
+      "lat": 37.66034166666667,
+      "lng": -107.58517499999999,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-six",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-six"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-six",
+    "peakId": "358923499",
+    "peakName": "Needle Mountains Peak Six",
+    "distanceMeters": 1.36797826,
+    "score": 0.699794803261,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.2789611135276666,
+    "secondBestPeakId": "358923611",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Seven",
+      "lat": 37.667716666666664,
+      "lng": -107.57376388888889,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-seven",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-seven"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-seven",
+    "peakId": "358923504",
+    "peakName": "Needle Mountains Peak Seven",
+    "distanceMeters": 9.52467428,
+    "score": 0.698571298858,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.29962059308800004,
+    "secondBestPeakId": "358923507",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Fifteen",
+      "lat": 37.62878055555556,
+      "lng": -107.63591944444445,
+      "elevation": 4175.76,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-fifteen",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-fifteen"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-fifteen",
+    "peakId": "358923445",
+    "peakName": "Needle Mountains Peak Fifteen",
+    "distanceMeters": 15.29159466,
+    "score": 0.7477062608009999,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.6112343142786667,
+    "secondBestPeakId": "358923469",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "The Guardian",
+      "lat": 37.66354166666667,
+      "lng": -107.54804166666666,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/the-guardian",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/the-guardian"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/the-guardian",
+    "peakId": "358923621",
+    "peakName": "The Guardian",
+    "distanceMeters": 681.37000859,
+    "score": 0.6977944987115,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.186483450147,
+    "secondBestPeakId": "358923560",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Jones Peak",
+      "lat": 38.631233333333334,
+      "lng": -106.22518333333333,
+      "elevation": 3313.1760000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/jones-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/jones-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/jones-peak",
+    "peakId": "358925127",
+    "peakName": "Jones Peak",
+    "distanceMeters": 256.37398676,
+    "score": 0.761543901986,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.02706255374850002,
+    "secondBestPeakId": "1910294333",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak One",
+      "lat": 37.69752222222222,
+      "lng": -107.55735555555555,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-one",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-one"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-one",
+    "peakId": "358923479",
+    "peakName": "Needle Mountains Peak One",
+    "distanceMeters": 6.76546277,
+    "score": 0.6989851805845,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.136731344212,
+    "secondBestPeakId": "358923488",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Twin Peaks, North",
+      "lat": 37.59001111111111,
+      "lng": -105.51903055555556,
+      "elevation": 3596.6400000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/twin-peaks-north--twin-peaks--a",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/twin-peaks-north--twin-peaks--a"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/twin-peaks-north--twin-peaks--a",
+    "peakId": "358928208",
+    "peakName": "Twin Peaks",
+    "distanceMeters": 6.23570728,
+    "score": 0.699064643908,
+    "nameSimilarity": 0.8,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Chiefs Head Peak",
+      "lat": 40.265163888888885,
+      "lng": -105.64051666666667,
+      "elevation": 3218.688,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/chiefs-head-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/chiefs-head-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/chiefs-head-peak",
+    "peakId": "358945298",
+    "peakName": "Chiefs Head Peak",
+    "distanceMeters": 1722.21476239,
+    "score": 0.5416677856415,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.2079377370935,
+    "secondBestPeakId": "358912114",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "\"Epaulie\"",
+      "lat": 39.566750000000006,
+      "lng": -105.62282777777777,
+      "elevation": 4126.0776000000005,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/epaulet-mountain--epaulie",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/epaulet-mountain--epaulie"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/epaulet-mountain--epaulie",
+    "peakId": "358919187",
+    "peakName": "Epaulet Mountain",
+    "distanceMeters": 889.63842824,
+    "score": 0.36655423576400004,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.22681286004350001,
+    "secondBestPeakId": "358919214",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Eleven",
+      "lat": 37.628680555555555,
+      "lng": -107.6059361111111,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-eleven",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-eleven"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-eleven",
+    "peakId": "358923523",
+    "peakName": "Needle Mountains Peak Eleven",
+    "distanceMeters": 1.22081417,
+    "score": 0.5498168778745,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.32986458625066667,
+    "secondBestPeakId": "358923608",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Storm Peak",
+      "lat": 37.85933055555556,
+      "lng": -107.63896944444446,
+      "elevation": 2926.08,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/storm-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/storm-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/storm-peak",
+    "peakId": "358923219",
+    "peakName": "Storm Peak",
+    "distanceMeters": 759.4895932,
+    "score": 0.6860765610199999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.08314048931549999,
+    "secondBestPeakId": "358923248",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Pagoda Mountain",
+      "lat": 40.24848333333333,
+      "lng": -105.64046111111112,
+      "elevation": 3218.688,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/pagoda-mountain",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/pagoda-mountain"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/pagoda-mountain",
+    "peakId": "358943143",
+    "peakName": "Pagoda Mountain",
+    "distanceMeters": 1197.68632139,
+    "score": 0.6203470517915,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.2746456588245,
+    "secondBestPeakId": "358945298",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Three",
+      "lat": 37.69615555555555,
+      "lng": -107.57726666666666,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-three",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-three"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-three",
+    "peakId": "358923488",
+    "peakName": "Needle Mountains Peak Three",
+    "distanceMeters": 10.67657513,
+    "score": 0.6983985137305,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.201786651325,
+    "secondBestPeakId": "pq015b80f9",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Two",
+      "lat": 37.70833888888889,
+      "lng": -107.57588888888888,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-two",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-two"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-two",
+    "peakId": "358923485",
+    "peakName": "Needle Mountains Peak Two",
+    "distanceMeters": 16.79027346,
+    "score": 0.697481458981,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.19767026710150004,
+    "secondBestPeakId": "358923488",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Silver Mountain",
+      "lat": 37.877072222222225,
+      "lng": -107.83145277777777,
+      "elevation": 3489.96,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/silver-mountain---silver-mountain-b",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/silver-mountain---silver-mountain-b"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/silver-mountain---silver-mountain-b",
+    "peakId": "358943997",
+    "peakName": "Silver Mountain",
+    "distanceMeters": 526.34343261,
+    "score": 0.7210484851085,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.18734184776850002,
+    "secondBestPeakId": "358922885",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Twin Sisters East",
+      "lat": 37.77169166666667,
+      "lng": -107.78583055555555,
+      "elevation": 3261.36,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/twin-sisters-east",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/twin-sisters-east"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/twin-sisters-east",
+    "peakId": "358923206",
+    "peakName": "Twin Sisters",
+    "distanceMeters": 13.83702944,
+    "score": 0.697924445584,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.444003959569,
+    "secondBestPeakId": "pqa9fa4321",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Eagles Nest",
+      "lat": 39.774202777777774,
+      "lng": -106.35122222222222,
+      "elevation": 2827.02,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/eagles-nest",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/eagles-nest"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/eagles-nest",
+    "peakId": "358910301",
+    "peakName": "Eagles Nest",
+    "distanceMeters": 191.1788391,
+    "score": 0.771323174135,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.03100874244299998,
+    "secondBestPeakId": "11169212995",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Four",
+      "lat": 37.65994166666667,
+      "lng": -107.60766944444444,
+      "elevation": 3291.84,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-four",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-four"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-four",
+    "peakId": "358923492",
+    "peakName": "Needle Mountains Peak Four",
+    "distanceMeters": 16.01319349,
+    "score": 0.5475980209764999,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.243414769084,
+    "secondBestPeakId": "358923495",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "South Arapaho Peak",
+      "lat": 40.026830555555556,
+      "lng": -105.65058888888889,
+      "elevation": 0,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/south-arapaho-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/south-arapaho-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/south-arapaho-peak",
+    "peakId": "358912905",
+    "peakName": "South Arapaho Peak",
+    "distanceMeters": 801.64362476,
+    "score": 0.7797534562859999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.6440182315219999,
+    "secondBestPeakId": "358912845",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Nine",
+      "lat": 37.669799999999995,
+      "lng": -107.56008888888888,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-nine",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-nine"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-nine",
+    "peakId": "358923513",
+    "peakName": "Needle Mountains Peak Nine",
+    "distanceMeters": 24.93973782,
+    "score": 0.6962590393270001,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.31294851123199996,
+    "secondBestPeakId": "358923557",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Twin Peaks, South",
+      "lat": 39.042405555555554,
+      "lng": -106.42555833333334,
+      "elevation": 0,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/twin-peaks",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/twin-peaks"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/twin-peaks",
+    "peakId": "358915495",
+    "peakName": "Twin Peaks",
+    "distanceMeters": 191.53044826,
+    "score": 0.7046037660943333,
+    "nameSimilarity": 0.6666666666666666,
+    "secondBestScore": 0.1904460413845,
+    "secondBestPeakId": "358931319",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Coney Benchmark",
+      "lat": 37.860350000000004,
+      "lng": -107.34672222222221,
+      "elevation": 762,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/coney-benchmark",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/coney-benchmark"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/coney-benchmark",
+    "peakId": "3868248855",
+    "peakName": "Coney Point",
+    "distanceMeters": 5.36325739,
+    "score": 0.46586217805816665,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "\"Proposal Peak\"",
+      "lat": 37.88265277777778,
+      "lng": -107.62421944444444,
+      "elevation": 4062.9840000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un-13330--proposal-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un-13330--proposal-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un-13330--proposal-peak",
+    "peakId": "358923015",
+    "peakName": "Emery Peak",
+    "distanceMeters": 684.74647093,
+    "score": 0.5639546960271666,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.42558109911816666,
+    "secondBestPeakId": "358923010",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Mount Warren",
+      "lat": 39.61549166666667,
+      "lng": -105.61758611111111,
+      "elevation": 4024.884,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/mount-warren",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/mount-warren"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/mount-warren",
+    "peakId": "358919204",
+    "peakName": "Mount Warren",
+    "distanceMeters": 1853.47627646,
+    "score": 0.7219785585310001,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.4989346324895,
+    "secondBestPeakId": "358919217",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Geissler Mountain, West",
+      "lat": 39.14498888888889,
+      "lng": -106.583075,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/geissler-mountain-west",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/geissler-mountain-west"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/geissler-mountain-west",
+    "peakId": "358914883",
+    "peakName": "Geissler Mountain",
+    "distanceMeters": 9.80920292,
+    "score": 0.698528619562,
+    "nameSimilarity": 0.8,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Sheep Mountain",
+      "lat": 37.78489722222222,
+      "lng": -107.504075,
+      "elevation": 4051.4016,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/sheep-mountain--sheep-mountain-a",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/sheep-mountain--sheep-mountain-a"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/sheep-mountain--sheep-mountain-a",
+    "peakId": "358923309",
+    "peakName": "Sheep Mountain",
+    "distanceMeters": 1199.52113674,
+    "score": 0.8200718294889999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.6660287629401667,
+    "secondBestPeakId": "358923313",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Truro Peak",
+      "lat": 39.04592777777778,
+      "lng": -106.63981944444446,
+      "elevation": 4048.3536000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/truro-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/truro-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/truro-peak",
+    "peakId": "358915393",
+    "peakName": "Truro Peak",
+    "distanceMeters": 689.93840219,
+    "score": 0.8965092396715,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.32775853947233285,
+    "secondBestPeakId": "358915386",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Five",
+      "lat": 37.656930555555554,
+      "lng": -107.59642777777778,
+      "elevation": 4048.6584000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-five",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-five"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-five",
+    "peakId": "358923495",
+    "peakName": "Needle Mountains Peak Five",
+    "distanceMeters": 8.3758742,
+    "score": 0.7487436188700001,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.44539014255450005,
+    "secondBestPeakId": "358923492",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Darley Mountain",
+      "lat": 37.98275277777778,
+      "lng": -107.58808333333333,
+      "elevation": 4041.648,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13260--darley-mountain",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13260--darley-mountain"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13260--darley-mountain",
+    "peakId": "358932613",
+    "peakName": "Darley Mountain",
+    "distanceMeters": 150.66081551,
+    "score": 0.9774008776734999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.45965039718966666,
+    "secondBestPeakId": "358922951",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "\"Crestolita\"",
+      "lat": 37.95491944444445,
+      "lng": -105.57552222222222,
+      "elevation": 3352.8,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13270--crestolita",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13270--crestolita"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13270--crestolita",
+    "peakId": "4551585279",
+    "peakName": "Crestolita Peak",
+    "distanceMeters": 3.06468383,
+    "score": 0.6995402974255001,
+    "nameSimilarity": 0.8,
+    "secondBestScore": 0.18043713558299998,
+    "secondBestPeakId": "358928037",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Eight",
+      "lat": 37.67111666666666,
+      "lng": -107.56752222222222,
+      "elevation": 3688.0800000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-eight",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-eight"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-eight",
+    "peakId": "358923507",
+    "peakName": "Needle Mountains Peak Eight",
+    "distanceMeters": 2.59718297,
+    "score": 0.5496104225545,
+    "nameSimilarity": 0.5,
+    "secondBestScore": 0.30256671906849997,
+    "secondBestPeakId": "358923513",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "S 7",
+      "lat": 38.008180555555555,
+      "lng": -107.87969722222222,
+      "elevation": 4029.456,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/s-7",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/s-7"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/s-7",
+    "peakId": "pq6002cd17",
+    "peakName": "S 7",
+    "distanceMeters": 73.12602712,
+    "score": 0.489031095932,
+    "nameSimilarity": 0,
+    "secondBestScore": 0.41036311732583314,
+    "secondBestPeakId": "358943078",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "\"West Virginia Peak\"",
+      "lat": 38.962761111111114,
+      "lng": -106.49697222222223,
+      "elevation": 3316.224,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13140--a--west-virginia-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13140--a--west-virginia-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13140--a--west-virginia-peak",
+    "peakId": "358924777",
+    "peakName": "Winfield Peak",
+    "distanceMeters": 1422.85429347,
+    "score": 0.4115718559795,
+    "nameSimilarity": 0.25,
+    "secondBestScore": 0.4115718559795,
+    "secondBestPeakId": "358924777",
+    "approved": false
+  },
+  {
+    "external": {
+      "name": "Mount Flora",
+      "lat": 39.804966666666665,
+      "lng": -105.73574722222223,
+      "elevation": 4001.7192,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/mount-flora",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/mount-flora"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/mount-flora",
+    "peakId": "358916916",
+    "peakName": "Mount Flora",
+    "distanceMeters": 305.57408266,
+    "score": 0.9541638876009999,
+    "nameSimilarity": 1,
+    "secondBestScore": 0.28408598624366665,
+    "secondBestPeakId": "358916906",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Mount Kreutzer",
+      "lat": 38.756702777777775,
+      "lng": -106.41555555555556,
+      "elevation": 3999.5856000000003,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/mount-kreutzer",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/mount-kreutzer"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/mount-kreutzer",
+    "peakId": "358924768",
+    "peakName": "Mount Kreutzer",
+    "distanceMeters": 510.5018342,
+    "score": 0.8133105915366662,
+    "nameSimilarity": 1,
+    "secondBestScore": null,
+    "secondBestPeakId": null,
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "Peak Twelve",
+      "lat": 37.632558333333336,
+      "lng": -107.6188111111111,
+      "elevation": 4005.072,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/peak-twelve",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/peak-twelve"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/peak-twelve",
+    "peakId": "358923453",
+    "peakName": "Needle Mountains Peak Sixteen",
+    "distanceMeters": 916.84914774,
+    "score": 0.462472627839,
+    "nameSimilarity": 0.2,
+    "secondBestScore": 0.38625521855783324,
+    "secondBestPeakId": "358923584",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "\"North Traverse Peak\"",
+      "lat": 39.671013888888886,
+      "lng": -106.23935277777778,
+      "elevation": 3294.8880000000004,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13079--north-traverse-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13079--north-traverse-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13079--north-traverse-peak",
+    "peakId": "13136740195",
+    "peakName": "North Traverse",
+    "distanceMeters": 14.3629849,
+    "score": 0.6311788855983334,
+    "nameSimilarity": 0.6666666666666666,
+    "secondBestScore": 0.26634194417,
+    "secondBestPeakId": "13136740194",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "\"Grand Traverse Peak\"",
+      "lat": 39.66217222222222,
+      "lng": -106.23437777777778,
+      "elevation": 3981.6024,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13041--b--grand-traverse-peak",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13041--b--grand-traverse-peak"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13041--b--grand-traverse-peak",
+    "peakId": "13136740194",
+    "peakName": "Grand Traverse",
+    "distanceMeters": 14.95068327,
+    "score": 0.8310907308428332,
+    "nameSimilarity": 0.6666666666666666,
+    "secondBestScore": 0.4651016167585,
+    "secondBestPeakId": "13136740195",
+    "approved": true
+  },
+  {
+    "external": {
+      "name": "UN 13025",
+      "lat": 38.027027777777775,
+      "lng": -107.90625555555556,
+      "elevation": 3752.3928,
+      "externalSource": "climb13ers",
+      "externalId": "https://www.climb13ers.com/colorado-13ers/un13020--s-10",
+      "sourceUrl": "https://www.climb13ers.com/colorado-13ers/un13020--s-10"
+    },
+    "externalId": "https://www.climb13ers.com/colorado-13ers/un13020--s-10",
+    "peakId": "pq84992c9c",
+    "peakName": "Peak 13025",
+    "distanceMeters": 14.50179314,
+    "score": 0.4644913976956666,
+    "nameSimilarity": 0.3333333333333333,
+    "secondBestScore": 0.2619546962469999,
+    "secondBestPeakId": "358924284",
+    "approved": true
+  }
+]

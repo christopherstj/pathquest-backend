@@ -466,7 +466,8 @@ DRY_RUN=false REVIEW_FILE=review-5120.json npm run dev:once
 
 **Predefined Peakbagger Lists**:
 - `5120` - Adirondack 46ers
-- `5061` - Colorado Ranked 13ers
+- `21364` - Colorado 13ers (All: ranked + unranked) — recommended seed list for peak ingestion
+- `5061` - Colorado Ranked 13ers (legacy / ranked-only list)
 - `5071` - Colorado Soft 13ers
 - `5012` - Washington Bulger List
 - `5001` - Cascade Volcanoes
@@ -531,3 +532,134 @@ PathQuest can tag US peaks with public land / protected area metadata by importi
 - `PADUS_OGR_SELECT`: comma-separated list of columns to import (reduces width)
 - `PADUS_OGR_GT`: transaction group size for `ogr2ogr` (default `65536`)
 
+---
+
+### Peak External IDs + Peakbagger Peak Ingest (Seed List)
+
+To support multiple upstream sources per peak (OSM, Peakbagger, GNIS, Wikidata, etc.), PathQuest uses a junction table.
+
+**Table**: `peak_external_ids`
+- **PK**: `(peak_id, source)` (one external ID per source per peak)
+- **Unique**: `(source, external_id)` (an external ID can’t map to multiple peaks)
+
+**Peaks provenance/snapping columns**
+- `peaks.source_origin` — `osm | peakbagger | manual | unknown`
+- `peaks.seed_coords` — original seed coordinate for snapping (geometry Point)
+- `peaks.snapped_coords`, `snapped_distance_m`, `snapped_dem_source`, `coords_snapped_at`, `needs_review`
+
+**psql schema + backfills** (recommended to run explicitly via psql)
+- `pathquest-backend/data-backup/sql/001_peaks_provenance_and_external_ids.sql`
+- `pathquest-backend/data-backup/sql/002_backfill_peaks_provenance.sql`
+- `pathquest-backend/data-backup/sql/003_backfill_peak_external_ids.sql`
+
+Run example:
+```bash
+psql -h 127.0.0.1 -p 5432 -U local-user -d operations -v ON_ERROR_STOP=1 -f pathquest-backend/data-backup/sql/001_peaks_provenance_and_external_ids.sql
+```
+
+**Peakbagger list ingestion (Colorado 13ers seed list: 21364)**
+- Script: `pathquest-backend/data-backup/src/importPeakbaggerPeaks.ts`
+- Entry: `pathquest-backend/data-backup/src/index.ts` via `TASK=import-peakbagger-peaks`
+
+Usage:
+```bash
+# Dry-run: scrape + 1:1 match outputs (matched-high / matched-review / unmatched)
+TASK=import-peakbagger-peaks PEAKBAGGER_LIST_ID=21364 DRY_RUN=true npm run dev:once
+
+# Apply: link matched-high + insert unmatched (new peaks use UUID ids)
+TASK=import-peakbagger-peaks PEAKBAGGER_LIST_ID=21364 DRY_RUN=false npm run dev:once
+```
+
+Outputs:
+- `pb-<listId>-matched-high.json`
+- `pb-<listId>-matched-review.json`
+- `pb-<listId>-unmatched.json`
+- `pb-<listId>-skipped-already-linked.json`
+
+**Climb13ers ingestion (fallback when Peakbagger is Cloudflare-blocked)**
+- Script: `pathquest-backend/data-backup/src/importClimb13ersPeaks.ts`
+- Entry: `pathquest-backend/data-backup/src/index.ts` via `TASK=import-climb13ers-peaks`
+
+Usage:
+```bash
+# You must provide a list page URL that contains many peak links
+TASK=import-climb13ers-peaks CLIMB13ERS_LIST_URL="https://www.climb13ers.com/..." DRY_RUN=true npm run dev:once
+
+# Limit for testing
+TASK=import-climb13ers-peaks CLIMB13ERS_LIST_URL="https://www.climb13ers.com/..." CLIMB13ERS_MAX_PEAKS=25 DRY_RUN=true npm run dev:once
+
+# Apply: link matched-high + insert unmatched (new peaks use UUID ids)
+TASK=import-climb13ers-peaks CLIMB13ERS_LIST_URL="https://www.climb13ers.com/..." DRY_RUN=false npm run dev:once
+```
+
+Notes:
+- The scraper detects Cloudflare “challenge” HTML and fails fast (instead of silently parsing bad pages).
+- External IDs are stored as `peak_external_ids(source='climb13ers', external_id='<peak page url>')`.
+
+---
+
+**14ers.com ingestion (preferred for Colorado 13ers when coordinates matter)**
+
+14ers.com provides **high-quality decimal Lat/Lon** on each peak page (and often LiDAR-adjusted elevations), which makes it a better seed source than Climb13ers when you plan to run snap-to-highest.
+
+- Script: `pathquest-backend/data-backup/src/import14ersPeaks.ts`
+- Scraper: `pathquest-backend/data-backup/src/scrape14ers.ts`
+- Entry: `pathquest-backend/data-backup/src/index.ts` via `TASK=import-14ers-peaks`
+
+Usage:
+```bash
+# Dry-run: scrape + 1:1 match outputs (matched-high / matched-review / unmatched)
+TASK=import-14ers-peaks DRY_RUN=true npm run dev:once
+
+# Limit for testing
+TASK=import-14ers-peaks FOURTEENERS_MAX_PEAKS=25 DRY_RUN=true npm run dev:once
+
+# Apply: link matched-high + approved reviews + insert unmatched (new peaks use UUID ids)
+TASK=import-14ers-peaks DRY_RUN=false npm run dev:once
+```
+
+Notes:
+- The 13ers list page includes **ranked + unranked** and may include additional peaks; expect **hundreds** of rows (e.g. ~800+ depending on site filters/data).
+- External IDs are stored as `peak_external_ids(source='14ers', external_id='<peak page url>')`.
+- By default, the ingest updates the peak's **primary location** (`peaks.location_coords` + `peaks.location_geom` where present) to the 14ers Lat/Lon. To disable: `SET_PRIMARY_FROM_14ERS=false`.
+- If you want the 14ers coordinates to also become the snap seed coords, set `SET_SEED_FROM_14ERS=true` during ingest.
+- The scraper also captures list metadata (when present) into `peaks-14ers.json` for later challenge creation:
+  - `peakId` (14ers internal numeric id from the URL)
+  - `coRank` and `thirteenRank` (ranked peaks have these; unranked may be blank)
+  - `range` and `elevationFeet`
+
+---
+
+### Snap-to-highest (3DEP) for US peaks (VM-friendly)
+PathQuest supports refining peak coordinates by snapping seed coordinates to the highest DEM cell within a radius.
+
+**Implementation**
+- Node orchestrator: `pathquest-backend/data-backup/src/snapPeaksToHighest3dep.ts`
+- Python helper (raster sampling): `pathquest-backend/data-backup/python/snap_to_highest.py`
+- VM setup notes: `pathquest-backend/data-backup/docs/dem-setup-vm.md` (includes 3DEP 10m baseline + optional LiDAR DEM notes)
+
+**Run**
+```bash
+TASK=snap-peaks-3dep DEM_VRT_PATH=/path/to/co_3dep.vrt npm run dev:once
+```
+
+**Key env vars**
+- `DEM_VRT_PATH` (required)
+- `PYTHON_BIN` (default `python3`)
+- `SNAP_STATE` (default `CO`)
+- `SNAP_ELEVATION_MIN_M` (default `3962`)
+- `SNAP_BATCH_SIZE` (default `500`)
+- `SNAP_ACCEPT_MAX_DISTANCE_M` (default `300`)
+- `SNAP_RADIUS_OSM_M` (default `250`)
+- `SNAP_RADIUS_PEAKBAGGER_M` (default `150`)
+
+**Public lands correctness after snapping**
+- When a peak is accepted (primary location updated), the snap script resets public-lands state:
+  - sets `peaks.public_lands_checked = FALSE` (if column exists)
+  - deletes existing `peaks_public_lands` rows for that peak
+  - so the next `enrichPeaksWithPublicLands` run re-computes land membership.
+
+Post-snap convenience task:
+```bash
+TASK=post-snap-enrichment npm run dev:once
+```

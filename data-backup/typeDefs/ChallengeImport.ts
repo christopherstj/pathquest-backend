@@ -9,6 +9,14 @@ export interface ExternalPeak {
     rank?: number;
     peakId?: string; // Peakbagger peak ID for re-fetching
     county?: string; // County/Second Level Region from Peakbagger
+    externalSource?: string; // e.g. 'peakbagger', 'climb13ers'
+    externalId?: string; // source-specific identifier (e.g. URL, slug, numeric id)
+    sourceUrl?: string; // canonical URL for provenance
+    // Optional source-specific fields (used by 14ers.com / other sources)
+    coRank?: number; // Colorado rank (if provided by source)
+    thirteenRank?: number; // 13er rank (if provided by source)
+    range?: string; // Range name (if provided by source)
+    elevationFeet?: number; // Original feet value from source (if provided)
 }
 
 export interface ChallengeDefinition {
@@ -53,6 +61,12 @@ export interface PeakbaggerListConfig {
 // Well-known Peakbagger list IDs
 export const PEAKBAGGER_LISTS: Record<string, PeakbaggerListConfig> = {
     CO_13ERS: {
+        listId: "21364",
+        name: "Colorado 13ers (All)",
+        region: "Colorado",
+        description: "Colorado 13ers list including ranked and unranked peaks (used as the seed list; ranked filtering can be applied later for challenges)."
+    },
+    CO_13ERS_RANKED: {
         listId: "5061",
         name: "Colorado Ranked 13ers",
         region: "Colorado",
