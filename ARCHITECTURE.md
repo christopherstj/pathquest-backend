@@ -652,6 +652,9 @@ TASK=snap-peaks-3dep DEM_VRT_PATH=/path/to/co_3dep.vrt npm run dev:once
 - `SNAP_ACCEPT_MAX_DISTANCE_M` (default `300`)
 - `SNAP_RADIUS_OSM_M` (default `250`)
 - `SNAP_RADIUS_PEAKBAGGER_M` (default `150`)
+- `SNAP_DRY_RUN=true` — run the snap calculation and print results **without writing to the DB**
+- `SNAP_PEAK_IDS` — comma-separated list of `peaks.id` to snap (stops after one batch)
+- `SNAP_PEAK_NAME_ILIKE` — target peaks by name using SQL `ILIKE` (e.g. `'%Elbert%'`) (stops after one batch)
 
 **Public lands correctness after snapping**
 - When a peak is accepted (primary location updated), the snap script resets public-lands state:

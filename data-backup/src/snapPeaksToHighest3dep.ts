@@ -122,6 +122,13 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const batchSize = Number.parseInt(process.env.SNAP_BATCH_SIZE ?? "500", 10);
     const maxBatches = process.env.SNAP_MAX_BATCHES ? Number.parseInt(process.env.SNAP_MAX_BATCHES, 10) : undefined;
     const acceptMaxDistance = Number.parseFloat(process.env.SNAP_ACCEPT_MAX_DISTANCE_M ?? "300");
+    const dryRun = process.env.SNAP_DRY_RUN === "true";
+
+    const peakIdsFilter = (process.env.SNAP_PEAK_IDS ?? "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+    const peakNameLike = (process.env.SNAP_PEAK_NAME_ILIKE ?? "").trim();
 
     const radiusOsm = Number.parseFloat(process.env.SNAP_RADIUS_OSM_M ?? "250");
     const radiusPeakbagger = Number.parseFloat(process.env.SNAP_RADIUS_PEAKBAGGER_M ?? "150");
@@ -139,6 +146,13 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log(`Batch size: ${batchSize}`);
     console.log(`Accept max distance (m): ${acceptMaxDistance}`);
     console.log(`DEM: ${demPath}`);
+    console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
+    if (peakIdsFilter.length > 0) {
+        console.log(`Peak ID filter: ${peakIdsFilter.length} ids`);
+    }
+    if (peakNameLike) {
+        console.log(`Peak name filter (ILIKE): ${peakNameLike}`);
+    }
     if (hasPublicLandsChecked && hasPeaksPublicLands) {
         console.log(`Public lands reset-on-accept: ENABLED`);
     } else {
@@ -153,6 +167,38 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             break;
         }
 
+        const whereParts: string[] = [];
+        const params: any[] = [];
+        params.push(state);
+        whereParts.push(`p.state = $${params.length}`);
+
+        params.push(elevationMin);
+        whereParts.push(`
+              (
+                    (p.elevation IS NOT NULL AND p.elevation >= $${params.length})
+                 OR EXISTS (
+                    SELECT 1
+                    FROM peak_external_ids pei
+                    WHERE pei.peak_id = p.id
+                      AND pei.source = 'peakbagger'
+                 )
+              )
+        `);
+
+        whereParts.push(`(p.coords_snapped_at IS NULL)`);
+
+        if (peakIdsFilter.length > 0) {
+            params.push(peakIdsFilter);
+            whereParts.push(`p.id = ANY($${params.length}::varchar[])`);
+        }
+        if (peakNameLike) {
+            params.push(peakNameLike);
+            whereParts.push(`p.name ILIKE $${params.length}`);
+        }
+
+        params.push(batchSize);
+        const limitParam = `$${params.length}`;
+
         const { rows } = await pool.query<PeakSeedRow>(
             `
             SELECT
@@ -161,20 +207,10 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 ST_X(${seedExpr}) AS lon,
                 p.source_origin
             FROM peaks p
-            WHERE p.state = $1
-              AND (
-                    (p.elevation IS NOT NULL AND p.elevation >= $2)
-                 OR EXISTS (
-                    SELECT 1
-                    FROM peak_external_ids pei
-                    WHERE pei.peak_id = p.id
-                      AND pei.source = 'peakbagger'
-                 )
-              )
-              AND (p.coords_snapped_at IS NULL)
-            LIMIT $3
+            WHERE ${whereParts.join("\n              AND ")}
+            LIMIT ${limitParam}
         `,
-            [state, elevationMin, batchSize]
+            params
         );
 
         if (rows.length === 0) {
@@ -203,18 +239,23 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             const r = byId.get(row.id);
             if (!r || r.error) {
                 errors += 1;
-                await pool.query(
-                    `
-                    UPDATE peaks
-                    SET snapped_coords = NULL,
-                        snapped_distance_m = NULL,
-                        snapped_dem_source = $1,
-                        coords_snapped_at = NOW(),
-                        needs_review = TRUE
-                    WHERE id = $2
-                `,
-                    ["usgs_3dep_10m", row.id]
+                console.log(
+                    `  ${row.id}: ERROR ${r?.error ?? "unknown"}`
                 );
+                if (!dryRun) {
+                    await pool.query(
+                        `
+                        UPDATE peaks
+                        SET snapped_coords = NULL,
+                            snapped_distance_m = NULL,
+                            snapped_dem_source = $1,
+                            coords_snapped_at = NOW(),
+                            needs_review = TRUE
+                        WHERE id = $2
+                    `,
+                        ["usgs_3dep_10m", row.id]
+                    );
+                }
                 continue;
             }
 
@@ -223,6 +264,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
             if (shouldAccept) {
                 accepted += 1;
+                console.log(
+                    `  ${row.id}: ACCEPT dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(1)}m`
+                );
                 const snappedPointGeom = "ST_SetSRID(ST_MakePoint($1, $2), 4326)";
                 const setLocationGeomSql = includeLocationGeom
                     ? `, location_geom = ${snappedPointGeom}`
@@ -231,50 +275,62 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     hasPublicLandsChecked && hasPeaksPublicLands
                         ? `, public_lands_checked = FALSE`
                         : "";
-                await pool.query(
-                    `
-                    UPDATE peaks
-                    SET snapped_coords = ${snappedPointGeom},
-                        snapped_distance_m = $3,
-                        snapped_dem_source = $4,
-                        coords_snapped_at = NOW(),
-                        needs_review = FALSE,
-                        location_coords = (${snappedPointGeom})::geography
-                        ${setLocationGeomSql},
-                        elevation = $5,
-                        elevation_source = 'usgs_3dep'
-                        ${resetPublicLandsSql}
-                    WHERE id = $6
-                `,
-                    [r.snapped_lon, r.snapped_lat, dist, "usgs_3dep_10m", r.elevation_m ?? null, row.id]
-                );
-
-                if (hasPeaksPublicLands) {
+                if (!dryRun) {
                     await pool.query(
-                        `DELETE FROM peaks_public_lands WHERE peak_id = $1`,
-                        [row.id]
+                        `
+                        UPDATE peaks
+                        SET snapped_coords = ${snappedPointGeom},
+                            snapped_distance_m = $3,
+                            snapped_dem_source = $4,
+                            coords_snapped_at = NOW(),
+                            needs_review = FALSE,
+                            location_coords = (${snappedPointGeom})::geography
+                            ${setLocationGeomSql},
+                            elevation = $5,
+                            elevation_source = 'usgs_3dep'
+                            ${resetPublicLandsSql}
+                        WHERE id = $6
+                    `,
+                        [r.snapped_lon, r.snapped_lat, dist, "usgs_3dep_10m", r.elevation_m ?? null, row.id]
                     );
+
+                    if (hasPeaksPublicLands) {
+                        await pool.query(
+                            `DELETE FROM peaks_public_lands WHERE peak_id = $1`,
+                            [row.id]
+                        );
+                    }
                 }
             } else {
                 review += 1;
-                await pool.query(
-                    `
-                    UPDATE peaks
-                    SET snapped_coords = ST_SetSRID(ST_MakePoint($1, $2), 4326),
-                        snapped_distance_m = $3,
-                        snapped_dem_source = $4,
-                        coords_snapped_at = NOW(),
-                        needs_review = TRUE
-                    WHERE id = $5
-                `,
-                    [r.snapped_lon, r.snapped_lat, dist, "usgs_3dep_10m", row.id]
+                console.log(
+                    `  ${row.id}: REVIEW dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(1)}m`
                 );
+                if (!dryRun) {
+                    await pool.query(
+                        `
+                        UPDATE peaks
+                        SET snapped_coords = ST_SetSRID(ST_MakePoint($1, $2), 4326),
+                            snapped_distance_m = $3,
+                            snapped_dem_source = $4,
+                            coords_snapped_at = NOW(),
+                            needs_review = TRUE
+                        WHERE id = $5
+                    `,
+                        [r.snapped_lon, r.snapped_lat, dist, "usgs_3dep_10m", row.id]
+                    );
+                }
             }
         }
 
         console.log(
             `Batch ${batch} results: accepted=${accepted} review=${review} errors=${errors}`
         );
+
+        if (peakIdsFilter.length > 0 || peakNameLike) {
+            console.log("Targeted run complete; stopping after one batch.");
+            break;
+        }
     }
 }
 
