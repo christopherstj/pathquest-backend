@@ -656,6 +656,9 @@ TASK=snap-peaks-3dep DEM_VRT_PATH=/path/to/co_3dep.vrt npm run dev:once
 - `SNAP_PEAK_IDS` — comma-separated list of `peaks.id` to snap (stops after one batch)
 - `SNAP_PEAK_NAME_ILIKE` — target peaks by name using SQL `ILIKE` (e.g. `'%Elbert%'`) (stops after one batch)
 
+**Logging**
+- The snap task prints the **seed/original coordinates** and the **snapped coordinates** for each processed peak (plus snapped distance and DEM elevation) to support quick validation before writing updates.
+
 **Public lands correctness after snapping**
 - When a peak is accepted (primary location updated), the snap script resets public-lands state:
   - sets `peaks.public_lands_checked = FALSE` (if column exists)

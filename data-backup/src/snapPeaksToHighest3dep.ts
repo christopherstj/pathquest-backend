@@ -240,7 +240,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             if (!r || r.error) {
                 errors += 1;
                 console.log(
-                    `  ${row.id}: ERROR ${r?.error ?? "unknown"}`
+                    `  ${row.id}: ERROR ${r?.error ?? "unknown"} seed=(${row.lat.toFixed(
+                        6
+                    )}, ${row.lon.toFixed(6)})`
                 );
                 if (!dryRun) {
                     await pool.query(
@@ -265,7 +267,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             if (shouldAccept) {
                 accepted += 1;
                 console.log(
-                    `  ${row.id}: ACCEPT dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(1)}m`
+                    `  ${row.id}: ACCEPT dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(
+                        1
+                    )}m seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${(
+                        r.snapped_lat ?? NaN
+                    ).toFixed(6)}, ${(r.snapped_lon ?? NaN).toFixed(6)})`
                 );
                 const snappedPointGeom = "ST_SetSRID(ST_MakePoint($1, $2), 4326)";
                 const setLocationGeomSql = includeLocationGeom
@@ -304,7 +310,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             } else {
                 review += 1;
                 console.log(
-                    `  ${row.id}: REVIEW dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(1)}m`
+                    `  ${row.id}: REVIEW dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(
+                        1
+                    )}m seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${(
+                        r.snapped_lat ?? NaN
+                    ).toFixed(6)}, ${(r.snapped_lon ?? NaN).toFixed(6)})`
                 );
                 if (!dryRun) {
                     await pool.query(
