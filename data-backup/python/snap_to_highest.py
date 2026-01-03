@@ -2,7 +2,7 @@ import argparse
 import json
 import math
 import sys
-from typing import Any, Dict, Iterable, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 import rasterio
@@ -19,7 +19,7 @@ def haversine_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return 2.0 * r * math.asin(math.sqrt(a))
 
 
-def deg_window_from_radius(lat: float, radius_m: float) -> (float, float):
+def deg_window_from_radius(lat: float, radius_m: float) -> Tuple[float, float]:
     # Approx conversions; good enough for <= few km windows.
     deg_lat = radius_m / 111320.0
     deg_lon = radius_m / (111320.0 * max(0.1, math.cos(math.radians(lat))))
@@ -34,14 +34,21 @@ def iter_jsonl(f) -> Iterable[Dict[str, Any]]:
         yield json.loads(line)
 
 
-def snap_one(
+def snap_one_top_k(
     ds: rasterio.io.DatasetReader,
     lon: float,
     lat: float,
     radius_m: float,
+    top_k: int,
+    min_separation_m: float,
     to_wgs84: Optional[Transformer],
     from_wgs84: Optional[Transformer],
-) -> Optional[Dict[str, Any]]:
+) -> List[Dict[str, Any]]:
+    """
+    Find the top K highest points within radius_m of (lat, lon), 
+    where each candidate is at least min_separation_m away from all higher candidates.
+    Returns a list of candidates sorted by elevation (highest first).
+    """
     if ds.crs is None:
         raise RuntimeError("DEM dataset has no CRS")
 
@@ -71,50 +78,97 @@ def snap_one(
     col1 = min(ds.width - 1, max(col_min, col_max))
 
     if row1 <= row0 or col1 <= col0:
-        return None
+        return []
 
     window = rasterio.windows.Window.from_slices((row0, row1 + 1), (col0, col1 + 1))
     arr = ds.read(1, window=window, masked=True)
     if arr.size == 0:
-        return None
+        return []
 
     if np.ma.is_masked(arr):
         if arr.mask.all():
-            return None
+            return []
 
-    # Find max elevation value
-    max_val = float(arr.max())
-    # Find first occurrence of max
-    flat_idx = int(arr.argmax())
-    r_off, c_off = np.unravel_index(flat_idx, arr.shape)
-    r = int(row0 + r_off)
-    c = int(col0 + c_off)
-
-    x, y = ds.xy(r, c)
-    if ds.crs.is_geographic:
-        snapped_lon = float(x)
-        snapped_lat = float(y)
+    # Get all valid cell values with their indices
+    if np.ma.is_masked(arr):
+        valid_mask = ~arr.mask
     else:
-        if to_wgs84 is None:
-            raise RuntimeError("Missing to_wgs84 transformer for projected dataset")
-        snapped_lon, snapped_lat = to_wgs84.transform(x, y)
-        snapped_lon = float(snapped_lon)
-        snapped_lat = float(snapped_lat)
+        valid_mask = np.ones(arr.shape, dtype=bool)
+    
+    # Flatten and get sorted indices by elevation (descending)
+    flat_arr = arr.ravel()
+    flat_valid = valid_mask.ravel()
+    
+    # Get indices of valid cells sorted by elevation descending
+    valid_indices = np.where(flat_valid)[0]
+    if len(valid_indices) == 0:
+        return []
+    
+    sorted_order = np.argsort(-flat_arr[valid_indices])  # descending
+    sorted_indices = valid_indices[sorted_order]
+    
+    candidates: List[Dict[str, Any]] = []
+    
+    for flat_idx in sorted_indices:
+        if len(candidates) >= top_k:
+            break
+            
+        r_off, c_off = np.unravel_index(flat_idx, arr.shape)
+        r = int(row0 + r_off)
+        c = int(col0 + c_off)
+        
+        x, y = ds.xy(r, c)
+        if ds.crs.is_geographic:
+            cand_lon = float(x)
+            cand_lat = float(y)
+        else:
+            if to_wgs84 is None:
+                raise RuntimeError("Missing to_wgs84 transformer for projected dataset")
+            cand_lon, cand_lat = to_wgs84.transform(x, y)
+            cand_lon = float(cand_lon)
+            cand_lat = float(cand_lat)
+        
+        elev = float(flat_arr[flat_idx])
+        dist_from_seed = haversine_m(lat, lon, cand_lat, cand_lon)
+        
+        # Check if this candidate is far enough from all existing candidates
+        too_close = False
+        for existing in candidates:
+            sep = haversine_m(cand_lat, cand_lon, existing["snapped_lat"], existing["snapped_lon"])
+            if sep < min_separation_m:
+                too_close = True
+                break
+        
+        if not too_close:
+            candidates.append({
+                "snapped_lat": cand_lat,
+                "snapped_lon": cand_lon,
+                "elevation_m": elev,
+                "snapped_distance_m": dist_from_seed,
+            })
+    
+    return candidates
 
-    dist_m = haversine_m(lat, lon, snapped_lat, snapped_lon)
 
-    return {
-        "snapped_lat": snapped_lat,
-        "snapped_lon": snapped_lon,
-        "elevation_m": max_val,
-        "snapped_distance_m": dist_m,
-    }
+# Legacy single-result function for backwards compatibility
+def snap_one(
+    ds: rasterio.io.DatasetReader,
+    lon: float,
+    lat: float,
+    radius_m: float,
+    to_wgs84: Optional[Transformer],
+    from_wgs84: Optional[Transformer],
+) -> Optional[Dict[str, Any]]:
+    candidates = snap_one_top_k(ds, lon, lat, radius_m, 1, 0.0, to_wgs84, from_wgs84)
+    return candidates[0] if candidates else None
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dem", required=True, help="Path to DEM GeoTIFF/COG or VRT")
     parser.add_argument("--default-radius-m", type=float, default=250.0)
+    parser.add_argument("--default-top-k", type=int, default=1, help="Number of candidates to return per peak")
+    parser.add_argument("--default-min-separation-m", type=float, default=30.0, help="Min distance between candidates")
     args = parser.parse_args()
 
     with rasterio.open(args.dem) as ds:
@@ -131,13 +185,24 @@ def main() -> int:
                 lat = float(rec["lat"])
                 lon = float(rec["lon"])
                 radius_m = float(rec.get("radius_m", args.default_radius_m))
+                top_k = int(rec.get("top_k", args.default_top_k))
+                min_separation_m = float(rec.get("min_separation_m", args.default_min_separation_m))
 
-                out = snap_one(ds, lon=lon, lat=lat, radius_m=radius_m, to_wgs84=to_wgs84, from_wgs84=from_wgs84)
-                if out is None:
+                candidates = snap_one_top_k(
+                    ds, lon=lon, lat=lat, radius_m=radius_m,
+                    top_k=top_k, min_separation_m=min_separation_m,
+                    to_wgs84=to_wgs84, from_wgs84=from_wgs84
+                )
+                
+                if not candidates:
                     sys.stdout.write(json.dumps({"peak_id": peak_id, "error": "no_data"}) + "\n")
                     continue
 
-                out["peak_id"] = peak_id
+                # Return all candidates in a list
+                out = {
+                    "peak_id": peak_id,
+                    "candidates": candidates,
+                }
                 sys.stdout.write(json.dumps(out) + "\n")
             except Exception as e:
                 sys.stdout.write(json.dumps({"peak_id": rec.get("peak_id"), "error": str(e)}) + "\n")
@@ -147,5 +212,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-

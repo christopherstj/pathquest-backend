@@ -23,6 +23,7 @@ import importPublicLands from "./importPublicLands";
 import enrichPeaksWithPublicLands from "./enrichPeaksWithPublicLands";
 import fixInvalidGeometries from "./fixInvalidGeometries";
 import snapPeaksToHighest3dep from "./snapPeaksToHighest3dep";
+import computeSummitZones from "./computeSummitZones";
 
 const main = async () => {
     const task = process.env.TASK;
@@ -53,6 +54,9 @@ const main = async () => {
                 await enrichGeocodingPostGIS();
                 await enrichPeaksWithPublicLands();
                 return;
+            case "compute-summit-zones":
+                await computeSummitZones();
+                return;
             default:
                 console.log(`Unknown TASK: ${task}`);
                 console.log(`Known TASK values:`);
@@ -64,6 +68,7 @@ const main = async () => {
                 console.log(`  - create-14ers-challenges`);
                 console.log(`  - snap-peaks-3dep`);
                 console.log(`  - post-snap-enrichment`);
+                console.log(`  - compute-summit-zones`);
                 return;
         }
     }

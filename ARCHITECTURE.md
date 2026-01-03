@@ -656,8 +656,21 @@ TASK=snap-peaks-3dep DEM_VRT_PATH=/path/to/co_3dep.vrt npm run dev:once
 - `SNAP_PEAK_IDS` — comma-separated list of `peaks.id` to snap (stops after one batch)
 - `SNAP_PEAK_NAME_ILIKE` — target peaks by name using SQL `ILIKE` (e.g. `'%Elbert%'`) (stops after one batch)
 
+**Collision avoidance env vars** (prevent two peaks from snapping to the same DEM cell)
+- `SNAP_TOP_K` (default `5`) — number of candidate high-points to return per peak
+- `SNAP_CANDIDATE_SEPARATION_M` (default `30`) — minimum distance between candidates within a peak's search radius
+- `SNAP_COLLISION_RADIUS_M` (default `50`) — if a candidate is within this distance of an already-claimed coord, skip to next candidate
+
+**How collision avoidance works**
+1. Peaks are processed **in descending elevation order** (highest peaks get first dibs)
+2. Python returns **top K candidates** per peak (highest points with min separation between them)
+3. Node picks the **first candidate** that doesn't collide with any already-claimed coordinate
+4. If all candidates collide, the peak is flagged for **REVIEW** with the collision noted
+5. Already-snapped peaks from previous runs are pre-loaded into the claimed set
+
 **Logging**
 - The snap task prints the **seed/original coordinates** and the **snapped coordinates** for each processed peak (plus snapped distance and DEM elevation) to support quick validation before writing updates.
+- Collisions are logged with the ID of the peak that claimed the coordinate.
 
 **Public lands correctness after snapping**
 - When a peak is accepted (primary location updated), the snap script resets public-lands state:
@@ -669,3 +682,69 @@ Post-snap convenience task:
 ```bash
 TASK=post-snap-enrichment npm run dev:once
 ```
+
+---
+
+### Summit Zone Polygons (for flat-topped peaks)
+
+PathQuest can compute "summit zone" polygons that represent all DEM area within a configurable vertical threshold of the true summit elevation. This naturally adapts to peak topography: flat summits like Longs Peak get larger zones, while knife-edge summits like Capitol Peak get tiny zones.
+
+**Use case**: More accurate summit detection for flat-topped peaks, where the standard point-based detection may miss hikers who reach the plateau but not the exact highest cell.
+
+**Implementation**
+- Python extractor: `pathquest-backend/data-backup/python/extract_summit_zone.py`
+- Node orchestrator: `pathquest-backend/data-backup/src/computeSummitZones.ts`
+- Entry: `pathquest-backend/data-backup/src/index.ts` via `TASK=compute-summit-zones`
+
+**Schema** (run before write mode):
+```bash
+psql -h 127.0.0.1 -p 5432 -U local-user -d operations -f pathquest-backend/data-backup/sql/004_summit_zone_columns.sql
+```
+
+Adds columns:
+- `peaks.summit_zone_geom` — PostGIS geometry (Polygon/MultiPolygon)
+- `peaks.summit_zone_threshold_m` — vertical threshold used (e.g., 5m)
+- `peaks.summit_zone_computed_at` — timestamp
+
+**Run (dry-run by default)**
+```bash
+# Test on a single peak
+TASK=compute-summit-zones DEM_VRT_PATH=$HOME/dem/co/co_3dep_1m.vrt ZONE_PEAK_NAME_ILIKE="%Longs%" npm run dev:once
+
+# Process CO peaks (dry-run)
+TASK=compute-summit-zones DEM_VRT_PATH=$HOME/dem/co/co_3dep_1m.vrt ZONE_STATES=CO npm run dev:once
+
+# Write to DB
+TASK=compute-summit-zones DEM_VRT_PATH=$HOME/dem/co/co_3dep_1m.vrt ZONE_STATES=CO ZONE_DRY_RUN=false npm run dev:once
+```
+
+**Key env vars**
+- `DEM_VRT_PATH` (required) — path to DEM VRT/GeoTIFF
+- `ZONE_THRESHOLD_M` (default `5`) — vertical meters below summit to include in zone
+- `ZONE_RADIUS_M` (default `250`) — search radius around peak coordinate
+- `ZONE_STATES` (default `CO,NH,CA`) — comma-separated list of states to process
+- `ZONE_BATCH_SIZE` (default `100`) — peaks per batch
+- `ZONE_DRY_RUN` (default `true`) — print results without writing to DB
+- `ZONE_PEAK_NAME_ILIKE` — target specific peaks by name (SQL ILIKE)
+- `ZONE_PEAK_IDS` — target specific peaks by ID
+
+**Dry-run output example**
+```
+  Longs Peak (14255 ft)
+    Zone area: 2,847 sq m
+    Vertices: 142
+    Max elevation: 14259 ft (DEM)
+    Threshold: 5m
+    Classification: large / flat summit
+
+  Capitol Peak (14130 ft)
+    Zone area: 23 sq m
+    Vertices: 12
+    Max elevation: 14137 ft (DEM)
+    Threshold: 5m
+    Classification: knife-edge / point summit
+```
+
+**Requirements**
+- Peaks must have been snapped (`coords_snapped_at IS NOT NULL`) to ensure DEM coverage
+- Python `shapely` package (added to `python/requirements.txt`)

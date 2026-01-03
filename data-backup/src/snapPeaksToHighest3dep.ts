@@ -7,18 +7,40 @@ import getCloudSqlConnection from "./getCloudSqlConnection";
 
 type PeakSeedRow = {
     id: string;
+    name: string;
     lat: number;
     lon: number;
+    elevation: number | null;
     source_origin: string | null;
+};
+
+type SnapCandidate = {
+    snapped_lat: number;
+    snapped_lon: number;
+    elevation_m: number;
+    snapped_distance_m: number;
 };
 
 type SnapResult = {
     peak_id: string;
-    snapped_lat?: number;
-    snapped_lon?: number;
-    elevation_m?: number;
-    snapped_distance_m?: number;
+    candidates?: SnapCandidate[];
     error?: string;
+};
+
+type ClaimedCoord = {
+    lat: number;
+    lon: number;
+    peakId: string;
+};
+
+const haversineM = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const r = 6371000.0;
+    const phi1 = (lat1 * Math.PI) / 180;
+    const phi2 = (lat2 * Math.PI) / 180;
+    const dphi = ((lat2 - lat1) * Math.PI) / 180;
+    const dl = ((lon2 - lon1) * Math.PI) / 180;
+    const a = Math.sin(dphi / 2) ** 2 + Math.cos(phi1) * Math.cos(phi2) * Math.sin(dl / 2) ** 2;
+    return 2 * r * Math.asin(Math.sqrt(a));
 };
 
 const hasColumn = async (pool: Pool, table: string, column: string): Promise<boolean> => {
@@ -56,7 +78,7 @@ const runPythonSnap = async (
     pythonBin: string,
     scriptPath: string,
     demPath: string,
-    inputs: { peak_id: string; lat: number; lon: number; radius_m: number }[]
+    inputs: { peak_id: string; lat: number; lon: number; radius_m: number; top_k: number; min_separation_m: number }[]
 ): Promise<SnapResult[]> => {
     return await new Promise((resolve, reject) => {
         const child = spawn(pythonBin, [scriptPath, "--dem", demPath], {
@@ -106,6 +128,36 @@ const runPythonSnap = async (
     });
 };
 
+const findFirstUnclaimedCandidate = (
+    candidates: SnapCandidate[],
+    claimed: ClaimedCoord[],
+    collisionRadiusM: number
+): { candidate: SnapCandidate; collidedWith: string | null } | null => {
+    for (const cand of candidates) {
+        let collision: string | null = null;
+        for (const cl of claimed) {
+            const dist = haversineM(cand.snapped_lat, cand.snapped_lon, cl.lat, cl.lon);
+            if (dist < collisionRadiusM) {
+                collision = cl.peakId;
+                break;
+            }
+        }
+        if (!collision) {
+            return { candidate: cand, collidedWith: null };
+        }
+    }
+    // All candidates collided; return the first one anyway but mark the collision
+    if (candidates.length > 0) {
+        for (const cl of claimed) {
+            const dist = haversineM(candidates[0].snapped_lat, candidates[0].snapped_lon, cl.lat, cl.lon);
+            if (dist < collisionRadiusM) {
+                return { candidate: candidates[0], collidedWith: cl.peakId };
+            }
+        }
+    }
+    return null;
+};
+
 export default async function snapPeaksToHighest3dep(): Promise<void> {
     const pool = await getCloudSqlConnection();
 
@@ -123,6 +175,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const maxBatches = process.env.SNAP_MAX_BATCHES ? Number.parseInt(process.env.SNAP_MAX_BATCHES, 10) : undefined;
     const acceptMaxDistance = Number.parseFloat(process.env.SNAP_ACCEPT_MAX_DISTANCE_M ?? "300");
     const dryRun = process.env.SNAP_DRY_RUN === "true";
+
+    // Collision avoidance params
+    const topK = Number.parseInt(process.env.SNAP_TOP_K ?? "5", 10);
+    const candidateSeparationM = Number.parseFloat(process.env.SNAP_CANDIDATE_SEPARATION_M ?? "30");
+    const collisionRadiusM = Number.parseFloat(process.env.SNAP_COLLISION_RADIUS_M ?? "50");
 
     const peakIdsFilter = (process.env.SNAP_PEAK_IDS ?? "")
         .split(",")
@@ -147,6 +204,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log(`Accept max distance (m): ${acceptMaxDistance}`);
     console.log(`DEM: ${demPath}`);
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
+    console.log(`Top K candidates: ${topK}`);
+    console.log(`Candidate separation (m): ${candidateSeparationM}`);
+    console.log(`Collision radius (m): ${collisionRadiusM}`);
     if (peakIdsFilter.length > 0) {
         console.log(`Peak ID filter: ${peakIdsFilter.length} ids`);
     }
@@ -158,6 +218,26 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     } else {
         console.log(`Public lands reset-on-accept: DISABLED (missing public_lands_checked and/or peaks_public_lands)`);
     }
+
+    // Track claimed coordinates globally (across all batches)
+    const claimedCoords: ClaimedCoord[] = [];
+
+    // First, load any already-snapped peaks' coordinates into claimed set
+    console.log("\nLoading already-snapped peaks to avoid collisions...");
+    const { rows: alreadySnapped } = await pool.query<{ id: string; lat: number; lon: number }>(
+        `
+        SELECT p.id, ST_Y(p.location_geom) AS lat, ST_X(p.location_geom) AS lon
+        FROM peaks p
+        WHERE p.state = $1
+          AND p.coords_snapped_at IS NOT NULL
+          AND p.location_geom IS NOT NULL
+    `,
+        [state]
+    );
+    for (const row of alreadySnapped) {
+        claimedCoords.push({ lat: row.lat, lon: row.lon, peakId: row.id });
+    }
+    console.log(`Loaded ${claimedCoords.length} already-snapped peaks.`);
 
     let batch = 0;
     while (true) {
@@ -199,15 +279,19 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         params.push(batchSize);
         const limitParam = `$${params.length}`;
 
+        // ORDER BY elevation DESC so highest peaks get first dibs on coordinates
         const { rows } = await pool.query<PeakSeedRow>(
             `
             SELECT
                 p.id,
+                p.name,
                 ST_Y(${seedExpr}) AS lat,
                 ST_X(${seedExpr}) AS lon,
+                p.elevation,
                 p.source_origin
             FROM peaks p
             WHERE ${whereParts.join("\n              AND ")}
+            ORDER BY p.elevation DESC NULLS LAST
             LIMIT ${limitParam}
         `,
             params
@@ -223,9 +307,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             lat: r.lat,
             lon: r.lon,
             radius_m: r.source_origin === "peakbagger" ? radiusPeakbagger : radiusOsm,
+            top_k: topK,
+            min_separation_m: candidateSeparationM,
         }));
 
-        console.log(`\nBatch ${batch}: snapping ${inputs.length} peaks...`);
+        console.log(`\nBatch ${batch}: snapping ${inputs.length} peaks (highest first)...`);
         const results = await runPythonSnap(pythonBin, pythonScript, demPath, inputs);
 
         const byId = new Map<string, SnapResult>();
@@ -234,15 +320,15 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         let accepted = 0;
         let review = 0;
         let errors = 0;
+        let collisions = 0;
 
+        // Process in same order (highest elevation first)
         for (const row of rows) {
             const r = byId.get(row.id);
             if (!r || r.error) {
                 errors += 1;
                 console.log(
-                    `  ${row.id}: ERROR ${r?.error ?? "unknown"} seed=(${row.lat.toFixed(
-                        6
-                    )}, ${row.lon.toFixed(6)})`
+                    `  ${row.id} (${row.name}): ERROR ${r?.error ?? "unknown"} seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
                 );
                 if (!dryRun) {
                     await pool.query(
@@ -261,18 +347,60 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 continue;
             }
 
-            const dist = r.snapped_distance_m ?? Number.POSITIVE_INFINITY;
-            const shouldAccept = dist <= acceptMaxDistance;
+            const candidates = r.candidates ?? [];
+            if (candidates.length === 0) {
+                errors += 1;
+                console.log(
+                    `  ${row.id} (${row.name}): ERROR no_candidates seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
+                );
+                if (!dryRun) {
+                    await pool.query(
+                        `
+                        UPDATE peaks
+                        SET snapped_coords = NULL,
+                            snapped_distance_m = NULL,
+                            snapped_dem_source = $1,
+                            coords_snapped_at = NOW(),
+                            needs_review = TRUE
+                        WHERE id = $2
+                    `,
+                        ["usgs_3dep_10m", row.id]
+                    );
+                }
+                continue;
+            }
+
+            // Find first unclaimed candidate
+            const result = findFirstUnclaimedCandidate(candidates, claimedCoords, collisionRadiusM);
+            if (!result) {
+                errors += 1;
+                console.log(
+                    `  ${row.id} (${row.name}): ERROR all_candidates_invalid seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
+                );
+                continue;
+            }
+
+            const chosen = result.candidate;
+            const dist = chosen.snapped_distance_m;
+            const shouldAccept = dist <= acceptMaxDistance && !result.collidedWith;
+
+            if (result.collidedWith) {
+                collisions += 1;
+                console.log(
+                    `  ${row.id} (${row.name}): COLLISION with ${result.collidedWith}, using fallback candidate`
+                );
+            }
 
             if (shouldAccept) {
                 accepted += 1;
                 console.log(
-                    `  ${row.id}: ACCEPT dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(
-                        1
-                    )}m seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${(
-                        r.snapped_lat ?? NaN
-                    ).toFixed(6)}, ${(r.snapped_lon ?? NaN).toFixed(6)})`
+                    `  ${row.id} (${row.name}): ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m ` +
+                    `seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
                 );
+
+                // Mark as claimed
+                claimedCoords.push({ lat: chosen.snapped_lat, lon: chosen.snapped_lon, peakId: row.id });
+
                 const snappedPointGeom = "ST_SetSRID(ST_MakePoint($1, $2), 4326)";
                 const setLocationGeomSql = includeLocationGeom
                     ? `, location_geom = ${snappedPointGeom}`
@@ -297,7 +425,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                             ${resetPublicLandsSql}
                         WHERE id = $6
                     `,
-                        [r.snapped_lon, r.snapped_lat, dist, "usgs_3dep_10m", r.elevation_m ?? null, row.id]
+                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", chosen.elevation_m, row.id]
                     );
 
                     if (hasPeaksPublicLands) {
@@ -309,13 +437,17 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 }
             } else {
                 review += 1;
+                const reason = result.collidedWith
+                    ? `collision with ${result.collidedWith}`
+                    : `dist ${dist.toFixed(1)}m > ${acceptMaxDistance}m`;
                 console.log(
-                    `  ${row.id}: REVIEW dist=${dist.toFixed(1)}m elev=${(r.elevation_m ?? NaN).toFixed(
-                        1
-                    )}m seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${(
-                        r.snapped_lat ?? NaN
-                    ).toFixed(6)}, ${(r.snapped_lon ?? NaN).toFixed(6)})`
+                    `  ${row.id} (${row.name}): REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m ` +
+                    `seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
                 );
+
+                // Still mark as claimed so lower peaks don't steal it
+                claimedCoords.push({ lat: chosen.snapped_lat, lon: chosen.snapped_lon, peakId: row.id });
+
                 if (!dryRun) {
                     await pool.query(
                         `
@@ -327,14 +459,14 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                             needs_review = TRUE
                         WHERE id = $5
                     `,
-                        [r.snapped_lon, r.snapped_lat, dist, "usgs_3dep_10m", row.id]
+                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", row.id]
                     );
                 }
             }
         }
 
         console.log(
-            `Batch ${batch} results: accepted=${accepted} review=${review} errors=${errors}`
+            `Batch ${batch} results: accepted=${accepted} review=${review} errors=${errors} collisions=${collisions}`
         );
 
         if (peakIdsFilter.length > 0 || peakNameLike) {
@@ -342,6 +474,6 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             break;
         }
     }
+
+    console.log(`\nTotal claimed coordinates: ${claimedCoords.length}`);
 }
-
-
