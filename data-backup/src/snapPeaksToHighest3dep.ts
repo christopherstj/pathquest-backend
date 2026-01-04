@@ -128,30 +128,57 @@ const runPythonSnap = async (
     });
 };
 
+type CollisionResult = {
+    candidate: SnapCandidate;
+    collidedWith: string | null;
+    collisionDistM: number | null;
+    candidatesSkipped: number;
+    skippedCollisions: { peakId: string; distM: number }[];
+};
+
 const findFirstUnclaimedCandidate = (
     candidates: SnapCandidate[],
     claimed: ClaimedCoord[],
     collisionRadiusM: number
-): { candidate: SnapCandidate; collidedWith: string | null } | null => {
-    for (const cand of candidates) {
-        let collision: string | null = null;
+): CollisionResult | null => {
+    const skippedCollisions: { peakId: string; distM: number }[] = [];
+    
+    for (let i = 0; i < candidates.length; i++) {
+        const cand = candidates[i];
+        let collision: { peakId: string; distM: number } | null = null;
+        
         for (const cl of claimed) {
             const dist = haversineM(cand.snapped_lat, cand.snapped_lon, cl.lat, cl.lon);
             if (dist < collisionRadiusM) {
-                collision = cl.peakId;
+                collision = { peakId: cl.peakId, distM: dist };
                 break;
             }
         }
+        
         if (!collision) {
-            return { candidate: cand, collidedWith: null };
+            return { 
+                candidate: cand, 
+                collidedWith: null, 
+                collisionDistM: null,
+                candidatesSkipped: i,
+                skippedCollisions 
+            };
         }
+        skippedCollisions.push(collision);
     }
+    
     // All candidates collided; return the first one anyway but mark the collision
     if (candidates.length > 0) {
         for (const cl of claimed) {
             const dist = haversineM(candidates[0].snapped_lat, candidates[0].snapped_lon, cl.lat, cl.lon);
             if (dist < collisionRadiusM) {
-                return { candidate: candidates[0], collidedWith: cl.peakId };
+                return { 
+                    candidate: candidates[0], 
+                    collidedWith: cl.peakId, 
+                    collisionDistM: dist,
+                    candidatesSkipped: candidates.length - 1,
+                    skippedCollisions: skippedCollisions.slice(1)
+                };
             }
         }
     }
@@ -248,6 +275,58 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     }
     console.log(`Loaded ${claimedCoords.length} already-snapped peaks.`);
 
+    // Get total count of peaks to process for progress reporting
+    const countWhereParts: string[] = [];
+    const countParams: any[] = [];
+    countParams.push(country);
+    countWhereParts.push(`p.country = $${countParams.length}`);
+    countParams.push(state);
+    countWhereParts.push(`p.state = $${countParams.length}`);
+    countParams.push(elevationMin);
+    countWhereParts.push(`
+          (
+                (p.elevation IS NOT NULL AND p.elevation >= $${countParams.length})
+             OR EXISTS (
+                SELECT 1
+                FROM peak_external_ids pei
+                WHERE pei.peak_id = p.id
+                  AND pei.source = 'peakbagger'
+             )
+             OR EXISTS (
+                SELECT 1
+                FROM peak_external_ids pei
+                WHERE pei.peak_id = p.id
+                  AND pei.source = '14ers'
+             )
+          )
+    `);
+    countWhereParts.push(`(p.coords_snapped_at IS NULL)`);
+    
+    if (peakIdsFilter.length > 0) {
+        countParams.push(peakIdsFilter);
+        countWhereParts.push(`p.id = ANY($${countParams.length}::varchar[])`);
+    }
+    if (peakNameLike) {
+        countParams.push(peakNameLike);
+        countWhereParts.push(`p.name ILIKE $${countParams.length}`);
+    }
+
+    const { rows: countRows } = await pool.query<{ count: string }>(
+        `SELECT COUNT(*) as count FROM peaks p WHERE ${countWhereParts.join("\n              AND ")}`,
+        countParams
+    );
+    const totalToProcess = parseInt(countRows[0]?.count ?? "0", 10);
+    console.log(`\n📊 Peaks to process: ${totalToProcess}`);
+
+    // Global counters for final summary
+    let totalAccepted = 0;
+    let totalReview = 0;
+    let totalErrors = 0;
+    let totalCollisions = 0;
+    let totalFallbackUsed = 0;
+    let totalProcessed = 0;
+    const startTime = Date.now();
+
     let batch = 0;
     while (true) {
         batch += 1;
@@ -323,13 +402,27 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             require_local_max: requireLocalMax,
         }));
 
-        console.log(`\nBatch ${batch}: snapping ${inputs.length} peaks (highest first)...`);
+        const progressPct = totalToProcess > 0 
+            ? ((totalProcessed / totalToProcess) * 100).toFixed(1)
+            : "0.0";
+        const elapsedSec = (Date.now() - startTime) / 1000;
+        const peaksPerSec = totalProcessed > 0 ? totalProcessed / elapsedSec : 0;
+        const remaining = totalToProcess - totalProcessed;
+        const etaSec = peaksPerSec > 0 ? remaining / peaksPerSec : 0;
+        const etaStr = etaSec > 60 
+            ? `${Math.floor(etaSec / 60)}m ${Math.floor(etaSec % 60)}s`
+            : `${Math.floor(etaSec)}s`;
+        
+        console.log(`\n${"═".repeat(60)}`);
+        console.log(`Batch ${batch}: snapping ${inputs.length} peaks (highest first)`);
+        console.log(`Progress: ${totalProcessed}/${totalToProcess} (${progressPct}%) | ETA: ${totalProcessed > 0 ? etaStr : "calculating..."}`);
         const results = await runPythonSnap(pythonBin, pythonScript, demPath, inputs);
 
         const byId = new Map<string, SnapResult>();
         for (const r of results) byId.set(r.peak_id, r);
 
         // Try fallback DEM for peaks that got errors (no_data, no_local_max)
+        const usedFallbackDem = new Set<string>();
         if (demPathFallback) {
             const failedPeaks = inputs.filter((inp) => {
                 const r = byId.get(inp.peak_id);
@@ -342,8 +435,10 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     // Only use fallback if it succeeded
                     if (!fr.error && fr.candidates && fr.candidates.length > 0) {
                         byId.set(fr.peak_id, fr);
+                        usedFallbackDem.add(fr.peak_id);
                     }
                 }
+                console.log(`  Fallback succeeded for ${usedFallbackDem.size}/${failedPeaks.length} peaks`);
             }
         }
 
@@ -351,14 +446,21 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         let review = 0;
         let errors = 0;
         let collisions = 0;
+        let fallbackDemUsed = 0;
 
         // Process in same order (highest elevation first)
         for (const row of rows) {
             const r = byId.get(row.id);
+            const usedFallback = usedFallbackDem.has(row.id);
+            const fallbackTag = usedFallback ? " [FALLBACK DEM]" : "";
+            
             if (!r || r.error) {
                 errors += 1;
                 console.log(
-                    `  ${row.id} (${row.name}): ERROR ${r?.error ?? "unknown"} seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
+                    `  ❌ ${row.name}: ERROR ${r?.error ?? "unknown"}${fallbackTag}`
+                );
+                console.log(
+                    `     seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) elev=${row.elevation?.toFixed(0) ?? "?"}m`
                 );
                 // Don't set coords_snapped_at on errors so the peak can be re-processed later
                 continue;
@@ -368,18 +470,26 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             if (candidates.length === 0) {
                 errors += 1;
                 console.log(
-                    `  ${row.id} (${row.name}): ERROR no_candidates seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
+                    `  ❌ ${row.name}: ERROR no_candidates${fallbackTag}`
+                );
+                console.log(
+                    `     seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) elev=${row.elevation?.toFixed(0) ?? "?"}m`
                 );
                 // Don't set coords_snapped_at on errors so the peak can be re-processed later
                 continue;
             }
+
+            if (usedFallback) fallbackDemUsed += 1;
 
             // Find first unclaimed candidate
             const result = findFirstUnclaimedCandidate(candidates, claimedCoords, collisionRadiusM);
             if (!result) {
                 errors += 1;
                 console.log(
-                    `  ${row.id} (${row.name}): ERROR all_candidates_invalid seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
+                    `  ❌ ${row.name}: ERROR all_candidates_invalid (${candidates.length} candidates all collided)${fallbackTag}`
+                );
+                console.log(
+                    `     seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) elev=${row.elevation?.toFixed(0) ?? "?"}m`
                 );
                 continue;
             }
@@ -388,18 +498,31 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             const dist = chosen.snapped_distance_m;
             const shouldAccept = dist <= acceptMaxDistance && !result.collidedWith;
 
+            // Log collision details
+            if (result.candidatesSkipped > 0) {
+                collisions += result.candidatesSkipped;
+                console.log(
+                    `  ⚠️  ${row.name}: skipped ${result.candidatesSkipped} candidate(s) due to collisions:`
+                );
+                for (const skip of result.skippedCollisions) {
+                    console.log(`     → collision with ${skip.peakId} (${skip.distM.toFixed(1)}m apart)`);
+                }
+            }
+            
             if (result.collidedWith) {
                 collisions += 1;
                 console.log(
-                    `  ${row.id} (${row.name}): COLLISION with ${result.collidedWith}, using fallback candidate`
+                    `  ⚠️  ${row.name}: ALL candidates collided! Best option collides with ${result.collidedWith} (${result.collisionDistM?.toFixed(1)}m apart)`
                 );
             }
 
             if (shouldAccept) {
                 accepted += 1;
                 console.log(
-                    `  ${row.id} (${row.name}): ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m ` +
-                    `seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
+                    `  ✅ ${row.name}: ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m${fallbackTag}`
+                );
+                console.log(
+                    `     seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
                 );
 
                 // Mark as claimed
@@ -442,11 +565,13 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             } else {
                 review += 1;
                 const reason = result.collidedWith
-                    ? `collision with ${result.collidedWith}`
-                    : `dist ${dist.toFixed(1)}m > ${acceptMaxDistance}m`;
+                    ? `collision with ${result.collidedWith} (${result.collisionDistM?.toFixed(1)}m apart)`
+                    : `dist ${dist.toFixed(1)}m > max ${acceptMaxDistance}m`;
                 console.log(
-                    `  ${row.id} (${row.name}): REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m ` +
-                    `seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) -> snapped=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
+                    `  🔍 ${row.name}: REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m${fallbackTag}`
+                );
+                console.log(
+                    `     seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
                 );
 
                 // Still mark as claimed so lower peaks don't steal it
@@ -469,9 +594,25 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             }
         }
 
+        // Update global counters
+        totalProcessed += rows.length;
+        totalAccepted += accepted;
+        totalReview += review;
+        totalErrors += errors;
+        totalCollisions += collisions;
+        totalFallbackUsed += fallbackDemUsed;
+
+        console.log(`\n${"─".repeat(60)}`);
         console.log(
-            `Batch ${batch} results: accepted=${accepted} review=${review} errors=${errors} collisions=${collisions}`
+            `Batch ${batch} summary: ✅ accepted=${accepted} | 🔍 review=${review} | ❌ errors=${errors}`
         );
+        if (collisions > 0) {
+            console.log(`  Collisions encountered: ${collisions}`);
+        }
+        if (fallbackDemUsed > 0) {
+            console.log(`  Used fallback DEM: ${fallbackDemUsed}`);
+        }
+        console.log(`  Total claimed coords: ${claimedCoords.length}`);
 
         if (peakIdsFilter.length > 0 || peakNameLike) {
             console.log("Targeted run complete; stopping after one batch.");
@@ -479,5 +620,28 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         }
     }
 
+    // Final summary
+    const totalElapsedSec = (Date.now() - startTime) / 1000;
+    const totalElapsedStr = totalElapsedSec >= 60 
+        ? `${Math.floor(totalElapsedSec / 60)}m ${Math.floor(totalElapsedSec % 60)}s`
+        : `${totalElapsedSec.toFixed(1)}s`;
+    const finalPeaksPerSec = totalProcessed > 0 ? (totalProcessed / totalElapsedSec).toFixed(2) : "0";
+
+    console.log(`\n${"═".repeat(80)}`);
+    console.log("SNAP-TO-HIGHEST COMPLETE");
+    console.log(`${"═".repeat(80)}`);
+    console.log(`Total peaks processed: ${totalProcessed} in ${totalElapsedStr} (${finalPeaksPerSec} peaks/sec)`);
+    console.log(`  ✅ Accepted (auto-updated): ${totalAccepted}`);
+    console.log(`  🔍 Review (needs manual check): ${totalReview}`);
+    console.log(`  ❌ Errors (not snapped): ${totalErrors}`);
+    if (totalCollisions > 0) {
+        console.log(`  ⚠️  Collision events: ${totalCollisions}`);
+    }
+    if (totalFallbackUsed > 0) {
+        console.log(`  📍 Used fallback DEM: ${totalFallbackUsed}`);
+    }
     console.log(`\nTotal claimed coordinates: ${claimedCoords.length}`);
+    if (dryRun) {
+        console.log(`\n⚠️  DRY RUN - no changes were written to the database`);
+    }
 }
