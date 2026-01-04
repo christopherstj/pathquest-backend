@@ -327,6 +327,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     let totalProcessed = 0;
     const startTime = Date.now();
 
+    // Track processed peaks in memory for dry runs (since DB isn't updated)
+    const processedPeakIds = new Set<string>();
+
     let batch = 0;
     while (true) {
         batch += 1;
@@ -356,6 +359,12 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         `);
 
         whereParts.push(`(p.coords_snapped_at IS NULL)`);
+
+        // In dry run mode, exclude peaks we've already processed in this session
+        if (dryRun && processedPeakIds.size > 0) {
+            params.push(Array.from(processedPeakIds));
+            whereParts.push(`p.id != ALL($${params.length}::varchar[])`);
+        }
 
         if (peakIdsFilter.length > 0) {
             params.push(peakIdsFilter);
@@ -601,6 +610,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         totalErrors += errors;
         totalCollisions += collisions;
         totalFallbackUsed += fallbackDemUsed;
+
+        // Track processed peaks for dry run mode
+        for (const row of rows) {
+            processedPeakIds.add(row.id);
+        }
 
         console.log(`\n${"─".repeat(60)}`);
         console.log(

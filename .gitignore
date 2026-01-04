@@ -144,3 +144,5 @@ certs
 peaks*.geojson
 
 geodata
+
+env-local.txt
