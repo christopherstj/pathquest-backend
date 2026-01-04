@@ -123,6 +123,7 @@ export default async function computeSummitZones(): Promise<void> {
     const maxBatches = process.env.ZONE_MAX_BATCHES ? Number.parseInt(process.env.ZONE_MAX_BATCHES, 10) : undefined;
     const dryRun = process.env.ZONE_DRY_RUN !== "false";
 
+    const country = process.env.ZONE_COUNTRY ?? "US";
     const states = (process.env.ZONE_STATES ?? "CO,NH,CA")
         .split(",")
         .map((s) => s.trim())
@@ -144,6 +145,7 @@ export default async function computeSummitZones(): Promise<void> {
     console.log(`Threshold (vertical m): ${thresholdM}`);
     console.log(`Search radius (m): ${radiusM}`);
     console.log(`Batch size: ${batchSize}`);
+    console.log(`Country: ${country}`);
     console.log(`States: ${states.join(", ")}`);
     console.log(`DEM: ${demPath}`);
     if (demPathFallback) {
@@ -174,6 +176,10 @@ export default async function computeSummitZones(): Promise<void> {
 
         const whereParts: string[] = [];
         const params: any[] = [];
+
+        // Filter by country
+        params.push(country);
+        whereParts.push(`p.country = $${params.length}`);
 
         // Filter by states
         if (states.length > 0) {
@@ -310,7 +316,8 @@ export default async function computeSummitZones(): Promise<void> {
                     `
                     UPDATE peaks
                     SET summit_zone_geom = ST_GeomFromText($1, 4326),
-                        summit_zone_threshold_m = $2
+                        summit_zone_threshold_m = $2,
+                        summit_zone_computed_at = NOW()
                     WHERE id = $3
                 `,
                     [r.zone_wkt, r.threshold_m ?? thresholdM, row.id]
