@@ -112,6 +112,7 @@ export default async function computeSummitZones(): Promise<void> {
     if (!demPath) {
         throw new Error("DEM_VRT_PATH is required (path to DEM VRT/GeoTIFF)");
     }
+    const demPathFallback = process.env.DEM_VRT_PATH_FALLBACK ?? "";
 
     const pythonBin = process.env.PYTHON_BIN ?? "python3";
     const pythonScript = process.env.ZONE_PY_SCRIPT ?? "python/extract_summit_zone.py";
@@ -145,6 +146,9 @@ export default async function computeSummitZones(): Promise<void> {
     console.log(`Batch size: ${batchSize}`);
     console.log(`States: ${states.join(", ")}`);
     console.log(`DEM: ${demPath}`);
+    if (demPathFallback) {
+        console.log(`DEM fallback: ${demPathFallback}`);
+    }
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
     if (peakNameLike) {
         console.log(`Peak name filter (ILIKE): ${peakNameLike}`);
@@ -239,6 +243,30 @@ export default async function computeSummitZones(): Promise<void> {
 
         const byId = new Map<string, ZoneResult>();
         for (const r of results) byId.set(r.peak_id, r);
+
+        // Try fallback DEM for peaks that got no_data
+        if (demPathFallback) {
+            const noDataPeaks = rows.filter((row) => {
+                const r = byId.get(row.id);
+                return r?.error === "no_data";
+            });
+            if (noDataPeaks.length > 0) {
+                console.log(`\n  Trying fallback DEM for ${noDataPeaks.length} peaks with no_data...`);
+                const fallbackInputs = noDataPeaks.map((r) => ({
+                    peak_id: r.id,
+                    lat: r.lat,
+                    lon: r.lon,
+                    radius_m: radiusM,
+                    threshold_m: thresholdM,
+                }));
+                const fallbackResults = await runPythonZoneExtractor(pythonBin, pythonScript, demPathFallback, fallbackInputs);
+                for (const fr of fallbackResults) {
+                    if (!fr.error) {
+                        byId.set(fr.peak_id, fr);
+                    }
+                }
+            }
+        }
 
         for (const row of rows) {
             totalProcessed += 1;

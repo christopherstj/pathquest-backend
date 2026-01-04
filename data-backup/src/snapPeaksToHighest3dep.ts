@@ -78,7 +78,7 @@ const runPythonSnap = async (
     pythonBin: string,
     scriptPath: string,
     demPath: string,
-    inputs: { peak_id: string; lat: number; lon: number; radius_m: number; top_k: number; min_separation_m: number }[]
+    inputs: { peak_id: string; lat: number; lon: number; radius_m: number; top_k: number; min_separation_m: number; require_local_max: boolean }[]
 ): Promise<SnapResult[]> => {
     return await new Promise((resolve, reject) => {
         const child = spawn(pythonBin, [scriptPath, "--dem", demPath], {
@@ -180,6 +180,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const topK = Number.parseInt(process.env.SNAP_TOP_K ?? "5", 10);
     const candidateSeparationM = Number.parseFloat(process.env.SNAP_CANDIDATE_SEPARATION_M ?? "30");
     const collisionRadiusM = Number.parseFloat(process.env.SNAP_COLLISION_RADIUS_M ?? "50");
+    const requireLocalMax = process.env.SNAP_REQUIRE_LOCAL_MAX !== "false"; // default true
 
     const peakIdsFilter = (process.env.SNAP_PEAK_IDS ?? "")
         .split(",")
@@ -207,6 +208,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log(`Top K candidates: ${topK}`);
     console.log(`Candidate separation (m): ${candidateSeparationM}`);
     console.log(`Collision radius (m): ${collisionRadiusM}`);
+    console.log(`Require local maximum: ${requireLocalMax ? "YES" : "NO"}`);
     if (peakIdsFilter.length > 0) {
         console.log(`Peak ID filter: ${peakIdsFilter.length} ids`);
     }
@@ -309,6 +311,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             radius_m: r.source_origin === "peakbagger" ? radiusPeakbagger : radiusOsm,
             top_k: topK,
             min_separation_m: candidateSeparationM,
+            require_local_max: requireLocalMax,
         }));
 
         console.log(`\nBatch ${batch}: snapping ${inputs.length} peaks (highest first)...`);

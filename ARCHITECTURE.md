@@ -660,6 +660,7 @@ TASK=snap-peaks-3dep DEM_VRT_PATH=/path/to/co_3dep.vrt npm run dev:once
 - `SNAP_TOP_K` (default `5`) — number of candidate high-points to return per peak
 - `SNAP_CANDIDATE_SEPARATION_M` (default `30`) — minimum distance between candidates within a peak's search radius
 - `SNAP_COLLISION_RADIUS_M` (default `50`) — if a candidate is within this distance of an already-claimed coord, skip to next candidate
+- `SNAP_REQUIRE_LOCAL_MAX` (default `true`) — only consider cells that are local maxima (higher than all 8 neighbors); prevents snapping to arbitrary points on ridges
 
 **How collision avoidance works**
 1. Peaks are processed **in descending elevation order** (highest peaks get first dibs)

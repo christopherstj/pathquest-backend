@@ -10,6 +10,7 @@ from rasterio import features
 from pyproj import Transformer
 from shapely.geometry import shape, mapping
 from shapely.ops import unary_union
+from scipy import ndimage
 
 
 def deg_window_from_radius(lat: float, radius_m: float) -> Tuple[float, float]:
@@ -122,8 +123,10 @@ def extract_summit_zone(
         if arr.mask.all():
             return None
 
-    # Find max elevation
+    # Find max elevation and its location
     max_elev = float(arr.max())
+    flat_idx = int(arr.argmax())
+    max_row, max_col = np.unravel_index(flat_idx, arr.shape)
     
     # Create binary mask: cells >= (max_elev - threshold_m)
     threshold_elev = max_elev - threshold_m
@@ -132,6 +135,14 @@ def extract_summit_zone(
     # Handle masked arrays
     if np.ma.is_masked(arr):
         zone_mask = np.where(arr.mask, 0, zone_mask)
+    
+    # Find connected components and keep only the one containing the summit
+    labeled_array, num_features = ndimage.label(zone_mask)
+    if num_features > 1:
+        # Find which label contains the max elevation cell
+        summit_label = labeled_array[max_row, max_col]
+        # Keep only that component
+        zone_mask = (labeled_array == summit_label).astype(np.uint8)
     
     # Get the transform for this window
     window_transform = ds.window_transform(window)

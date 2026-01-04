@@ -34,6 +34,30 @@ def iter_jsonl(f) -> Iterable[Dict[str, Any]]:
         yield json.loads(line)
 
 
+def is_local_maximum(arr: np.ndarray, row: int, col: int) -> bool:
+    """
+    Check if a cell is a local maximum (higher than all 8 neighbors).
+    Cells on the edge of the array are not considered local maxima.
+    """
+    if row <= 0 or row >= arr.shape[0] - 1 or col <= 0 or col >= arr.shape[1] - 1:
+        return False
+    
+    center_val = arr[row, col]
+    
+    # Check all 8 neighbors
+    for dr in [-1, 0, 1]:
+        for dc in [-1, 0, 1]:
+            if dr == 0 and dc == 0:
+                continue
+            neighbor_val = arr[row + dr, col + dc]
+            # If neighbor is higher or equal, not a local max
+            # (use >= to ensure only true peaks, not plateaus)
+            if neighbor_val >= center_val:
+                return False
+    
+    return True
+
+
 def snap_one_top_k(
     ds: rasterio.io.DatasetReader,
     lon: float,
@@ -43,10 +67,12 @@ def snap_one_top_k(
     min_separation_m: float,
     to_wgs84: Optional[Transformer],
     from_wgs84: Optional[Transformer],
+    require_local_max: bool = True,
 ) -> List[Dict[str, Any]]:
     """
     Find the top K highest points within radius_m of (lat, lon), 
     where each candidate is at least min_separation_m away from all higher candidates.
+    If require_local_max is True, only considers cells that are local maxima (higher than all 8 neighbors).
     Returns a list of candidates sorted by elevation (highest first).
     """
     if ds.crs is None:
@@ -114,6 +140,11 @@ def snap_one_top_k(
             break
             
         r_off, c_off = np.unravel_index(flat_idx, arr.shape)
+        
+        # Skip if not a local maximum (only actual peaks, not ridge points)
+        if require_local_max and not is_local_maximum(arr, r_off, c_off):
+            continue
+        
         r = int(row0 + r_off)
         c = int(col0 + c_off)
         
@@ -158,8 +189,9 @@ def snap_one(
     radius_m: float,
     to_wgs84: Optional[Transformer],
     from_wgs84: Optional[Transformer],
+    require_local_max: bool = True,
 ) -> Optional[Dict[str, Any]]:
-    candidates = snap_one_top_k(ds, lon, lat, radius_m, 1, 0.0, to_wgs84, from_wgs84)
+    candidates = snap_one_top_k(ds, lon, lat, radius_m, 1, 0.0, to_wgs84, from_wgs84, require_local_max)
     return candidates[0] if candidates else None
 
 
@@ -169,7 +201,10 @@ def main() -> int:
     parser.add_argument("--default-radius-m", type=float, default=250.0)
     parser.add_argument("--default-top-k", type=int, default=1, help="Number of candidates to return per peak")
     parser.add_argument("--default-min-separation-m", type=float, default=30.0, help="Min distance between candidates")
+    parser.add_argument("--no-require-local-max", action="store_true", help="Disable local maximum requirement (allow any high point)")
     args = parser.parse_args()
+    
+    default_require_local_max = not args.no_require_local_max
 
     with rasterio.open(args.dem) as ds:
         to_wgs84 = None
@@ -187,15 +222,17 @@ def main() -> int:
                 radius_m = float(rec.get("radius_m", args.default_radius_m))
                 top_k = int(rec.get("top_k", args.default_top_k))
                 min_separation_m = float(rec.get("min_separation_m", args.default_min_separation_m))
+                require_local_max = rec.get("require_local_max", default_require_local_max)
 
                 candidates = snap_one_top_k(
                     ds, lon=lon, lat=lat, radius_m=radius_m,
                     top_k=top_k, min_separation_m=min_separation_m,
-                    to_wgs84=to_wgs84, from_wgs84=from_wgs84
+                    to_wgs84=to_wgs84, from_wgs84=from_wgs84,
+                    require_local_max=require_local_max
                 )
                 
                 if not candidates:
-                    sys.stdout.write(json.dumps({"peak_id": peak_id, "error": "no_data"}) + "\n")
+                    sys.stdout.write(json.dumps({"peak_id": peak_id, "error": "no_local_max"}) + "\n")
                     continue
 
                 # Return all candidates in a list
