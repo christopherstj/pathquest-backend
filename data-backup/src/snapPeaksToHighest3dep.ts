@@ -408,10 +408,27 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             break;
         }
 
-        const inputs = rows.map((r) => ({
+        // Filter out rows with null coordinates
+        const validRows = rows.filter((r) => r.lat != null && r.lon != null);
+        const skippedRows = rows.length - validRows.length;
+        if (skippedRows > 0) {
+            console.log(`  ⚠️  Skipping ${skippedRows} peak(s) with null coordinates`);
+            for (const r of rows) {
+                if (r.lat == null || r.lon == null) {
+                    console.log(`     ${r.name} (${r.id}): missing coordinates`);
+                }
+            }
+        }
+
+        if (validRows.length === 0) {
+            console.log("No valid peaks in this batch (all have null coordinates).");
+            continue;
+        }
+
+        const inputs = validRows.map((r) => ({
             peak_id: r.id,
-            lat: r.lat,
-            lon: r.lon,
+            lat: r.lat!,
+            lon: r.lon!,
             radius_m: r.source_origin === "peakbagger" ? radiusPeakbagger : radiusOsm,
             top_k: topK,
             min_separation_m: candidateSeparationM,
@@ -460,12 +477,12 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
         let accepted = 0;
         let review = 0;
-        let errors = 0;
+        let errors = skippedRows; // Start with skipped rows (null coordinates)
         let collisions = 0;
         let fallbackDemUsed = 0;
 
-        // Process in same order (highest elevation first)
-        for (const row of rows) {
+        // Process in same order (highest elevation first) - only process valid rows
+        for (const row of validRows) {
             const r = byId.get(row.id);
             const usedFallback = usedFallbackDem.has(row.id);
             const fallbackTag = usedFallback ? " [FALLBACK DEM]" : "";
@@ -610,7 +627,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             }
         }
 
-        // Update global counters
+        // Update global counters (count all rows, including skipped ones)
         totalProcessed += rows.length;
         totalAccepted += accepted;
         totalReview += review;
