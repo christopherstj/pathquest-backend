@@ -26,6 +26,9 @@ type SnapCandidate = {
     snapped_lon: number;
     elevation_m: number;
     snapped_distance_m: number;
+    confidence: number;
+    radial_score: number;
+    neighborhood_score: number;
 };
 
 type SnapResult = {
@@ -223,6 +226,10 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const gaussianSigma = Number.parseFloat(process.env.SNAP_GAUSSIAN_SIGMA ?? "1.0"); // noise smoothing
     const preferNearest = process.env.SNAP_PREFER_NEAREST !== "false"; // default true
 
+    // Confidence thresholds
+    const confidenceAcceptMin = Number.parseFloat(process.env.SNAP_CONFIDENCE_ACCEPT_MIN ?? "0.75"); // auto-accept threshold
+    const confidenceRejectMax = Number.parseFloat(process.env.SNAP_CONFIDENCE_REJECT_MAX ?? "0.4"); // try next candidate threshold
+
     const peakIdsFilter = (process.env.SNAP_PEAK_IDS ?? "")
         .split(",")
         .map((s) => s.trim())
@@ -231,6 +238,8 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
     const radiusOsm = Number.parseFloat(process.env.SNAP_RADIUS_OSM_M ?? "250");
     const radiusPeakbagger = Number.parseFloat(process.env.SNAP_RADIUS_PEAKBAGGER_M ?? "150");
+    const radius14ers = Number.parseFloat(process.env.SNAP_RADIUS_14ERS_M ?? "0"); // 0 = skip 14ers peaks
+    const skip14ersPeaks = process.env.SNAP_SKIP_14ERS !== "false"; // default true - don't snap peaks from 14ers.com
 
     const includeLocationGeom = await hasColumn(pool, "peaks", "location_geom");
     const seedExpr = "COALESCE(seed_coords, " + (includeLocationGeom ? "location_geom" : "location_coords::geometry") + ")";
@@ -250,6 +259,8 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         console.log(`DEM fallback: ${demPathFallback}`);
     }
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
+    console.log(`Skip 14ers.com peaks: ${skip14ersPeaks ? "YES" : "NO"}`);
+    console.log(`Radius - OSM: ${radiusOsm}m, Peakbagger: ${radiusPeakbagger}m, 14ers: ${radius14ers}m`);
     console.log(`Top K candidates: ${topK}`);
     console.log(`Candidate separation (m): ${candidateSeparationM}`);
     console.log(`Collision radius (m): ${collisionRadiusM}`);
@@ -257,6 +268,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log(`Neighborhood size: ${neighborhoodSize}x${neighborhoodSize}`);
     console.log(`Gaussian sigma: ${gaussianSigma}${gaussianSigma > 0 ? "" : " (disabled)"}`);
     console.log(`Prefer nearest (among similar elevations): ${preferNearest ? "YES" : "NO"}`);
+    console.log(`Confidence thresholds: accept >= ${confidenceAcceptMin}, reject < ${confidenceRejectMax}`);
     if (peakIdsFilter.length > 0) {
         console.log(`Peak ID filter: ${peakIdsFilter.length} ids`);
     }
@@ -433,11 +445,36 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             continue;
         }
 
-        const inputs = validRows.map((r) => ({
+        // Skip 14ers peaks if configured (they already have excellent coords)
+        const rowsToProcess = skip14ersPeaks
+            ? validRows.filter((r) => r.source_origin !== "14ers")
+            : validRows;
+
+        if (rowsToProcess.length === 0 && validRows.length > 0) {
+            console.log(`  All ${validRows.length} peaks in this batch are from 14ers.com (skipped)`);
+            // Mark them as processed in dry run tracking
+            for (const r of validRows) {
+                processedPeakIds.add(r.id);
+            }
+            continue;
+        }
+
+        if (rowsToProcess.length < validRows.length) {
+            console.log(`  Skipping ${validRows.length - rowsToProcess.length} peaks from 14ers.com`);
+        }
+
+        // Determine radius based on source: 14ers (tight) > peakbagger (medium) > osm (wide)
+        const getRadius = (r: PeakSeedRow): number => {
+            if (r.source_origin === "14ers") return radius14ers;
+            if (r.source_origin === "peakbagger") return radiusPeakbagger;
+            return radiusOsm;
+        };
+
+        const inputs = rowsToProcess.map((r) => ({
             peak_id: r.id,
             lat: r.lat!,
             lon: r.lon!,
-            radius_m: r.source_origin === "peakbagger" ? radiusPeakbagger : radiusOsm,
+            radius_m: getRadius(r),
             top_k: topK,
             min_separation_m: candidateSeparationM,
             require_local_max: requireLocalMax,
@@ -540,7 +577,14 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
             const chosen = result.candidate;
             const dist = chosen.snapped_distance_m;
-            const shouldAccept = dist <= acceptMaxDistance && !result.collidedWith;
+            const confidence = chosen.confidence ?? 1.0;
+            const radialScore = chosen.radial_score ?? 1.0;
+            const neighborhoodScore = chosen.neighborhood_score ?? 1.0;
+            
+            // Accept if: within distance, no collision, AND good confidence
+            const shouldAccept = dist <= acceptMaxDistance && 
+                                 !result.collidedWith && 
+                                 confidence >= confidenceAcceptMin;
 
             // Log collision details
             if (result.candidatesSkipped > 0) {
@@ -560,10 +604,13 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 );
             }
 
+            // Format confidence info
+            const confStr = `conf=${(confidence * 100).toFixed(0)}% (radial=${(radialScore * 100).toFixed(0)}%, nbhd=${(neighborhoodScore * 100).toFixed(0)}%)`;
+
             if (shouldAccept) {
                 accepted += 1;
                 console.log(
-                    `  ✅ ${row.name}: ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m${fallbackTag}`
+                    `  ✅ ${row.name}: ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m ${confStr}${fallbackTag}`
                 );
                 console.log(
                     `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
@@ -608,11 +655,21 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 }
             } else {
                 review += 1;
-                const reason = result.collidedWith
-                    ? `collision with ${result.collidedWith} (${result.collisionDistM?.toFixed(1)}m apart)`
-                    : `dist ${dist.toFixed(1)}m > max ${acceptMaxDistance}m`;
+                // Determine review reason(s)
+                const reasons: string[] = [];
+                if (result.collidedWith) {
+                    reasons.push(`collision with ${result.collidedWith}`);
+                }
+                if (dist > acceptMaxDistance) {
+                    reasons.push(`dist ${dist.toFixed(1)}m > max ${acceptMaxDistance}m`);
+                }
+                if (confidence < confidenceAcceptMin) {
+                    reasons.push(`low confidence ${(confidence * 100).toFixed(0)}% < ${(confidenceAcceptMin * 100).toFixed(0)}%`);
+                }
+                const reason = reasons.length > 0 ? reasons.join(", ") : "unknown";
+                
                 console.log(
-                    `  🔍 ${row.name}: REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m${fallbackTag}`
+                    `  🔍 ${row.name}: REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m ${confStr}${fallbackTag}`
                 );
                 console.log(
                     `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
