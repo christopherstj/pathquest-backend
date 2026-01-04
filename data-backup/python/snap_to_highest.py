@@ -7,6 +7,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 import numpy as np
 import rasterio
 from pyproj import Transformer
+from scipy.ndimage import maximum_filter, gaussian_filter
 
 
 def haversine_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -34,28 +35,51 @@ def iter_jsonl(f) -> Iterable[Dict[str, Any]]:
         yield json.loads(line)
 
 
-def is_local_maximum(arr: np.ndarray, row: int, col: int) -> bool:
+def find_local_maxima_scipy(
+    arr: np.ndarray,
+    valid_mask: np.ndarray,
+    neighborhood_size: int = 5,
+    gaussian_sigma: float = 0.0,
+) -> np.ndarray:
     """
-    Check if a cell is a local maximum (higher than all 8 neighbors).
-    Cells on the edge of the array are not considered local maxima.
+    Find local maxima using scipy's maximum_filter.
+    
+    Args:
+        arr: 2D elevation array
+        valid_mask: Boolean mask of valid (non-nodata) cells
+        neighborhood_size: Size of neighborhood for local max detection (5 = 5x5)
+        gaussian_sigma: If > 0, apply Gaussian smoothing first to reduce noise
+    
+    Returns:
+        Boolean mask where True = local maximum
     """
-    if row <= 0 or row >= arr.shape[0] - 1 or col <= 0 or col >= arr.shape[1] - 1:
-        return False
+    # Work with a copy to avoid modifying original
+    work_arr = arr.copy()
     
-    center_val = arr[row, col]
+    # Handle masked arrays
+    if np.ma.is_masked(work_arr):
+        work_arr = work_arr.filled(np.nan)
     
-    # Check all 8 neighbors
-    for dr in [-1, 0, 1]:
-        for dc in [-1, 0, 1]:
-            if dr == 0 and dc == 0:
-                continue
-            neighbor_val = arr[row + dr, col + dc]
-            # If neighbor is higher or equal, not a local max
-            # (use >= to ensure only true peaks, not plateaus)
-            if neighbor_val >= center_val:
-                return False
+    # Replace invalid cells with -inf so they can't be maxima
+    work_arr[~valid_mask] = -np.inf
     
-    return True
+    # Optional Gaussian smoothing to reduce noise
+    if gaussian_sigma > 0:
+        # Only smooth valid areas - preserve edges
+        smoothed = gaussian_filter(np.where(valid_mask, work_arr, 0), sigma=gaussian_sigma)
+        # Normalize by the smoothed mask to handle edges properly
+        mask_smoothed = gaussian_filter(valid_mask.astype(float), sigma=gaussian_sigma)
+        mask_smoothed = np.maximum(mask_smoothed, 1e-10)  # Avoid division by zero
+        work_arr = np.where(valid_mask, smoothed / mask_smoothed, -np.inf)
+    
+    # Find local maxima using scipy's maximum_filter
+    # A cell is a local max if it equals the maximum in its neighborhood
+    local_max_vals = maximum_filter(work_arr, size=neighborhood_size, mode='constant', cval=-np.inf)
+    
+    # Local maxima are cells that equal the neighborhood maximum AND are valid
+    is_local_max = (work_arr == local_max_vals) & valid_mask & (work_arr > -np.inf)
+    
+    return is_local_max
 
 
 def snap_one_top_k(
@@ -68,12 +92,30 @@ def snap_one_top_k(
     to_wgs84: Optional[Transformer],
     from_wgs84: Optional[Transformer],
     require_local_max: bool = True,
+    neighborhood_size: int = 5,
+    gaussian_sigma: float = 0.0,
+    prefer_nearest: bool = True,
 ) -> List[Dict[str, Any]]:
     """
     Find the top K highest points within radius_m of (lat, lon), 
     where each candidate is at least min_separation_m away from all higher candidates.
-    If require_local_max is True, only considers cells that are local maxima (higher than all 8 neighbors).
-    Returns a list of candidates sorted by elevation (highest first).
+    
+    Uses scipy's maximum_filter for robust local maximum detection.
+    
+    Args:
+        ds: Rasterio dataset
+        lon, lat: Seed coordinates
+        radius_m: Search radius in meters
+        top_k: Number of candidates to return
+        min_separation_m: Minimum distance between candidates
+        to_wgs84, from_wgs84: Coordinate transformers
+        require_local_max: If True, only consider local maxima
+        neighborhood_size: Size of neighborhood for local max (e.g., 5 = 5x5 window)
+        gaussian_sigma: Gaussian smoothing sigma (0 = no smoothing)
+        prefer_nearest: If True, among candidates with similar elevation, prefer nearest to seed
+        
+    Returns:
+        List of candidate dicts sorted by elevation (highest first), then by distance if prefer_nearest
     """
     if ds.crs is None:
         raise RuntimeError("DEM dataset has no CRS")
@@ -115,36 +157,27 @@ def snap_one_top_k(
         if arr.mask.all():
             return []
 
-    # Get all valid cell values with their indices
+    # Build valid mask
     if np.ma.is_masked(arr):
         valid_mask = ~arr.mask
     else:
         valid_mask = np.ones(arr.shape, dtype=bool)
     
-    # Flatten and get sorted indices by elevation (descending)
-    flat_arr = arr.ravel()
-    flat_valid = valid_mask.ravel()
+    # Find local maxima using scipy
+    if require_local_max:
+        local_max_mask = find_local_maxima_scipy(arr, valid_mask, neighborhood_size, gaussian_sigma)
+        candidate_mask = local_max_mask
+    else:
+        candidate_mask = valid_mask
     
-    # Get indices of valid cells sorted by elevation descending
-    valid_indices = np.where(flat_valid)[0]
-    if len(valid_indices) == 0:
+    # Get candidate indices
+    candidate_indices = np.where(candidate_mask)
+    if len(candidate_indices[0]) == 0:
         return []
     
-    sorted_order = np.argsort(-flat_arr[valid_indices])  # descending
-    sorted_indices = valid_indices[sorted_order]
-    
-    candidates: List[Dict[str, Any]] = []
-    
-    for flat_idx in sorted_indices:
-        if len(candidates) >= top_k:
-            break
-            
-        r_off, c_off = np.unravel_index(flat_idx, arr.shape)
-        
-        # Skip if not a local maximum (only actual peaks, not ridge points)
-        if require_local_max and not is_local_maximum(arr, r_off, c_off):
-            continue
-        
+    # Get elevations and distances for all candidates
+    candidates_data = []
+    for r_off, c_off in zip(candidate_indices[0], candidate_indices[1]):
         r = int(row0 + r_off)
         c = int(col0 + c_off)
         
@@ -159,26 +192,49 @@ def snap_one_top_k(
             cand_lon = float(cand_lon)
             cand_lat = float(cand_lat)
         
-        elev = float(flat_arr[flat_idx])
+        elev = float(arr[r_off, c_off])
         dist_from_seed = haversine_m(lat, lon, cand_lat, cand_lon)
         
-        # Check if this candidate is far enough from all existing candidates
+        candidates_data.append({
+            "snapped_lat": cand_lat,
+            "snapped_lon": cand_lon,
+            "elevation_m": elev,
+            "snapped_distance_m": dist_from_seed,
+        })
+    
+    # Sort candidates:
+    # Primary: elevation descending
+    # Secondary (if prefer_nearest): distance ascending (for candidates within 2m elevation)
+    if prefer_nearest:
+        # Group by elevation bins (within 2m = same bin), then sort by distance within bin
+        def sort_key(c):
+            # Negative elevation for descending, distance for ascending within similar elevations
+            elev_bin = -int(c["elevation_m"] / 2.0)  # 2m bins
+            return (elev_bin, c["snapped_distance_m"])
+        candidates_data.sort(key=sort_key)
+    else:
+        candidates_data.sort(key=lambda c: -c["elevation_m"])
+    
+    # Select top K with minimum separation
+    selected: List[Dict[str, Any]] = []
+    
+    for cand in candidates_data:
+        if len(selected) >= top_k:
+            break
+        
+        # Check separation from already selected candidates
         too_close = False
-        for existing in candidates:
-            sep = haversine_m(cand_lat, cand_lon, existing["snapped_lat"], existing["snapped_lon"])
+        for existing in selected:
+            sep = haversine_m(cand["snapped_lat"], cand["snapped_lon"], 
+                            existing["snapped_lat"], existing["snapped_lon"])
             if sep < min_separation_m:
                 too_close = True
                 break
         
         if not too_close:
-            candidates.append({
-                "snapped_lat": cand_lat,
-                "snapped_lon": cand_lon,
-                "elevation_m": elev,
-                "snapped_distance_m": dist_from_seed,
-            })
+            selected.append(cand)
     
-    return candidates
+    return selected
 
 
 # Legacy single-result function for backwards compatibility
@@ -201,10 +257,14 @@ def main() -> int:
     parser.add_argument("--default-radius-m", type=float, default=250.0)
     parser.add_argument("--default-top-k", type=int, default=1, help="Number of candidates to return per peak")
     parser.add_argument("--default-min-separation-m", type=float, default=30.0, help="Min distance between candidates")
-    parser.add_argument("--no-require-local-max", action="store_true", help="Disable local maximum requirement (allow any high point)")
+    parser.add_argument("--no-require-local-max", action="store_true", help="Disable local maximum requirement")
+    parser.add_argument("--neighborhood-size", type=int, default=5, help="Neighborhood size for local max (e.g., 5 = 5x5)")
+    parser.add_argument("--gaussian-sigma", type=float, default=1.0, help="Gaussian smoothing sigma (0 = disabled)")
+    parser.add_argument("--no-prefer-nearest", action="store_true", help="Disable preferring nearest candidate among similar elevations")
     args = parser.parse_args()
     
     default_require_local_max = not args.no_require_local_max
+    default_prefer_nearest = not args.no_prefer_nearest
 
     with rasterio.open(args.dem) as ds:
         to_wgs84 = None
@@ -223,12 +283,18 @@ def main() -> int:
                 top_k = int(rec.get("top_k", args.default_top_k))
                 min_separation_m = float(rec.get("min_separation_m", args.default_min_separation_m))
                 require_local_max = rec.get("require_local_max", default_require_local_max)
+                neighborhood_size = int(rec.get("neighborhood_size", args.neighborhood_size))
+                gaussian_sigma = float(rec.get("gaussian_sigma", args.gaussian_sigma))
+                prefer_nearest = rec.get("prefer_nearest", default_prefer_nearest)
 
                 candidates = snap_one_top_k(
                     ds, lon=lon, lat=lat, radius_m=radius_m,
                     top_k=top_k, min_separation_m=min_separation_m,
                     to_wgs84=to_wgs84, from_wgs84=from_wgs84,
-                    require_local_max=require_local_max
+                    require_local_max=require_local_max,
+                    neighborhood_size=neighborhood_size,
+                    gaussian_sigma=gaussian_sigma,
+                    prefer_nearest=prefer_nearest,
                 )
                 
                 if not candidates:

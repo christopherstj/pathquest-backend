@@ -218,6 +218,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const collisionRadiusM = Number.parseFloat(process.env.SNAP_COLLISION_RADIUS_M ?? "50");
     const requireLocalMax = process.env.SNAP_REQUIRE_LOCAL_MAX !== "false"; // default true
 
+    // Peak detection params (scipy-based)
+    const neighborhoodSize = Number.parseInt(process.env.SNAP_NEIGHBORHOOD_SIZE ?? "5", 10); // 5x5 window
+    const gaussianSigma = Number.parseFloat(process.env.SNAP_GAUSSIAN_SIGMA ?? "1.0"); // noise smoothing
+    const preferNearest = process.env.SNAP_PREFER_NEAREST !== "false"; // default true
+
     const peakIdsFilter = (process.env.SNAP_PEAK_IDS ?? "")
         .split(",")
         .map((s) => s.trim())
@@ -249,6 +254,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log(`Candidate separation (m): ${candidateSeparationM}`);
     console.log(`Collision radius (m): ${collisionRadiusM}`);
     console.log(`Require local maximum: ${requireLocalMax ? "YES" : "NO"}`);
+    console.log(`Neighborhood size: ${neighborhoodSize}x${neighborhoodSize}`);
+    console.log(`Gaussian sigma: ${gaussianSigma}${gaussianSigma > 0 ? "" : " (disabled)"}`);
+    console.log(`Prefer nearest (among similar elevations): ${preferNearest ? "YES" : "NO"}`);
     if (peakIdsFilter.length > 0) {
         console.log(`Peak ID filter: ${peakIdsFilter.length} ids`);
     }
@@ -433,6 +441,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             top_k: topK,
             min_separation_m: candidateSeparationM,
             require_local_max: requireLocalMax,
+            neighborhood_size: neighborhoodSize,
+            gaussian_sigma: gaussianSigma,
+            prefer_nearest: preferNearest,
         }));
 
         const progressPct = totalToProcess > 0 
