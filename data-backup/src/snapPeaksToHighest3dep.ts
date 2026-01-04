@@ -360,20 +360,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 console.log(
                     `  ${row.id} (${row.name}): ERROR ${r?.error ?? "unknown"} seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
                 );
-                if (!dryRun) {
-                    await pool.query(
-                        `
-                        UPDATE peaks
-                        SET snapped_coords = NULL,
-                            snapped_distance_m = NULL,
-                            snapped_dem_source = $1,
-                            coords_snapped_at = NOW(),
-                            needs_review = TRUE
-                        WHERE id = $2
-                    `,
-                        ["usgs_3dep_10m", row.id]
-                    );
-                }
+                // Don't set coords_snapped_at on errors so the peak can be re-processed later
                 continue;
             }
 
@@ -383,20 +370,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 console.log(
                     `  ${row.id} (${row.name}): ERROR no_candidates seed=(${row.lat.toFixed(6)}, ${row.lon.toFixed(6)})`
                 );
-                if (!dryRun) {
-                    await pool.query(
-                        `
-                        UPDATE peaks
-                        SET snapped_coords = NULL,
-                            snapped_distance_m = NULL,
-                            snapped_dem_source = $1,
-                            coords_snapped_at = NOW(),
-                            needs_review = TRUE
-                        WHERE id = $2
-                    `,
-                        ["usgs_3dep_10m", row.id]
-                    );
-                }
+                // Don't set coords_snapped_at on errors so the peak can be re-processed later
                 continue;
             }
 
