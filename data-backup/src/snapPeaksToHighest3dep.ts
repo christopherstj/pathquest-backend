@@ -165,11 +165,13 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     if (!demPath) {
         throw new Error("DEM_VRT_PATH is required (path to Colorado 3DEP VRT/GeoTIFF)");
     }
+    const demPathFallback = process.env.DEM_VRT_PATH_FALLBACK ?? "";
 
     const pythonBin = process.env.PYTHON_BIN ?? "python3";
     const pythonScript = process.env.SNAP_PY_SCRIPT ?? "python/snap_to_highest.py";
 
     const state = process.env.SNAP_STATE ?? "CO";
+    const country = process.env.SNAP_COUNTRY ?? "US";
     const elevationMin = Number.parseFloat(process.env.SNAP_ELEVATION_MIN_M ?? "3962"); // ~13,000 ft
     const batchSize = Number.parseInt(process.env.SNAP_BATCH_SIZE ?? "500", 10);
     const maxBatches = process.env.SNAP_MAX_BATCHES ? Number.parseInt(process.env.SNAP_MAX_BATCHES, 10) : undefined;
@@ -199,11 +201,15 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log("\n" + "═".repeat(80));
     console.log("SNAP-TO-HIGHEST (3DEP) - Node orchestrator + Python rasterio");
     console.log("═".repeat(80));
+    console.log(`Country: ${country}`);
     console.log(`State: ${state}`);
     console.log(`Elevation min (m): ${elevationMin}`);
     console.log(`Batch size: ${batchSize}`);
     console.log(`Accept max distance (m): ${acceptMaxDistance}`);
     console.log(`DEM: ${demPath}`);
+    if (demPathFallback) {
+        console.log(`DEM fallback: ${demPathFallback}`);
+    }
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
     console.log(`Top K candidates: ${topK}`);
     console.log(`Candidate separation (m): ${candidateSeparationM}`);
@@ -230,11 +236,12 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         `
         SELECT p.id, ST_Y(p.location_geom) AS lat, ST_X(p.location_geom) AS lon
         FROM peaks p
-        WHERE p.state = $1
+        WHERE p.country = $1
+          AND p.state = $2
           AND p.coords_snapped_at IS NOT NULL
           AND p.location_geom IS NOT NULL
     `,
-        [state]
+        [country, state]
     );
     for (const row of alreadySnapped) {
         claimedCoords.push({ lat: row.lat, lon: row.lon, peakId: row.id });
@@ -251,6 +258,8 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
         const whereParts: string[] = [];
         const params: any[] = [];
+        params.push(country);
+        whereParts.push(`p.country = $${params.length}`);
         params.push(state);
         whereParts.push(`p.state = $${params.length}`);
 
@@ -319,6 +328,24 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
         const byId = new Map<string, SnapResult>();
         for (const r of results) byId.set(r.peak_id, r);
+
+        // Try fallback DEM for peaks that got errors (no_data, no_local_max)
+        if (demPathFallback) {
+            const failedPeaks = inputs.filter((inp) => {
+                const r = byId.get(inp.peak_id);
+                return r?.error === "no_data" || r?.error === "no_local_max";
+            });
+            if (failedPeaks.length > 0) {
+                console.log(`  Trying fallback DEM for ${failedPeaks.length} peaks with errors...`);
+                const fallbackResults = await runPythonSnap(pythonBin, pythonScript, demPathFallback, failedPeaks);
+                for (const fr of fallbackResults) {
+                    // Only use fallback if it succeeded
+                    if (!fr.error && fr.candidates && fr.candidates.length > 0) {
+                        byId.set(fr.peak_id, fr);
+                    }
+                }
+            }
+        }
 
         let accepted = 0;
         let review = 0;
