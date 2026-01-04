@@ -8,10 +8,17 @@ import getCloudSqlConnection from "./getCloudSqlConnection";
 type PeakSeedRow = {
     id: string;
     name: string;
-    lat: number;
-    lon: number;
+    lat: number | null;
+    lon: number | null;
     elevation: number | null;
     source_origin: string | null;
+};
+
+// Helper to safely format numbers (handles null, undefined, strings, etc.)
+const safeToFixed = (val: any, decimals: number): string => {
+    if (val == null) return "?";
+    const num = typeof val === "number" ? val : Number.parseFloat(String(val));
+    return Number.isNaN(num) ? "?" : num.toFixed(decimals);
 };
 
 type SnapCandidate = {
@@ -469,7 +476,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     `  ❌ ${row.name}: ERROR ${r?.error ?? "unknown"}${fallbackTag}`
                 );
                 console.log(
-                    `     seed=(${row.lat?.toFixed(6) ?? "?"}, ${row.lon?.toFixed(6) ?? "?"}) elev=${row.elevation?.toFixed(0) ?? "?"}m`
+                    `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) elev=${safeToFixed(row.elevation, 0)}m`
                 );
                 // Don't set coords_snapped_at on errors so the peak can be re-processed later
                 continue;
@@ -482,7 +489,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     `  ❌ ${row.name}: ERROR no_candidates${fallbackTag}`
                 );
                 console.log(
-                    `     seed=(${row.lat?.toFixed(6) ?? "?"}, ${row.lon?.toFixed(6) ?? "?"}) elev=${row.elevation?.toFixed(0) ?? "?"}m`
+                    `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) elev=${safeToFixed(row.elevation, 0)}m`
                 );
                 // Don't set coords_snapped_at on errors so the peak can be re-processed later
                 continue;
@@ -498,7 +505,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     `  ❌ ${row.name}: ERROR all_candidates_invalid (${candidates.length} candidates all collided)${fallbackTag}`
                 );
                 console.log(
-                    `     seed=(${row.lat?.toFixed(6) ?? "?"}, ${row.lon?.toFixed(6) ?? "?"}) elev=${row.elevation?.toFixed(0) ?? "?"}m`
+                    `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) elev=${safeToFixed(row.elevation, 0)}m`
                 );
                 continue;
             }
@@ -531,7 +538,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     `  ✅ ${row.name}: ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m${fallbackTag}`
                 );
                 console.log(
-                    `     seed=(${row.lat?.toFixed(6) ?? "?"}, ${row.lon?.toFixed(6) ?? "?"}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
+                    `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
                 );
 
                 // Mark as claimed
@@ -580,7 +587,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                     `  🔍 ${row.name}: REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m${fallbackTag}`
                 );
                 console.log(
-                    `     seed=(${row.lat?.toFixed(6) ?? "?"}, ${row.lon?.toFixed(6) ?? "?"}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
+                    `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
                 );
 
                 // Still mark as claimed so lower peaks don't steal it
