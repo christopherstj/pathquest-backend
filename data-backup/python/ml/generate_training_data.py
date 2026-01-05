@@ -106,11 +106,215 @@ def generate_negative_sample(
     return lat + dlat, lon + dlon
 
 
+def find_secondary_peaks(
+    dem_path: str,
+    lat: float,
+    lon: float,
+    radius_m: float = 150.0,
+    min_prominence_m: float = 5.0,
+) -> List[Tuple[float, float, float]]:
+    """
+    Find secondary peaks (local maxima) near the true summit.
+    
+    These are "hard negatives" - points that look like summits but aren't
+    the highest point. Critical for training ridge/dual-peak detection.
+    
+    Returns list of (lat, lon, elevation) for secondary peaks.
+    """
+    import rasterio
+    from rasterio.windows import from_bounds
+    from scipy.ndimage import maximum_filter
+    from pyproj import Transformer
+    
+    with rasterio.open(dem_path) as ds:
+        crs = ds.crs
+        to_native = None
+        from_native = None
+        
+        if crs and not crs.is_geographic:
+            to_native = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+            from_native = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        
+        # Get bounding box
+        lat_per_m = 1.0 / 111320.0
+        lon_per_m = 1.0 / (111320.0 * math.cos(math.radians(lat)))
+        dlat = radius_m * lat_per_m
+        dlon = radius_m * lon_per_m
+        
+        min_lon, min_lat = lon - dlon, lat - dlat
+        max_lon, max_lat = lon + dlon, lat + dlat
+        
+        if to_native:
+            min_x, min_y = to_native.transform(min_lon, min_lat)
+            max_x, max_y = to_native.transform(max_lon, max_lat)
+        else:
+            min_x, min_y = min_lon, min_lat
+            max_x, max_y = max_lon, max_lat
+        
+        try:
+            window = from_bounds(min_x, min_y, max_x, max_y, ds.transform)
+            window = window.intersection(rasterio.windows.Window(0, 0, ds.width, ds.height))
+        except Exception:
+            return []
+        
+        if window.width < 5 or window.height < 5:
+            return []
+        
+        arr = ds.read(1, window=window, masked=True)
+        if arr.count() == 0:
+            return []
+        
+        win_transform = ds.window_transform(window)
+        
+        # Find local maxima (5x5 window)
+        local_max = maximum_filter(arr.filled(-np.inf), size=5)
+        is_local_max = (arr.data == local_max) & (~arr.mask)
+        
+        # Get the true summit elevation (should be the max)
+        true_summit_elev = float(arr.max())
+        
+        # Find secondary peaks (local max but not the global max)
+        secondary = []
+        rows, cols = np.where(is_local_max)
+        
+        for r, c in zip(rows, cols):
+            elev = float(arr[r, c])
+            
+            # Skip if this IS the true summit
+            if abs(elev - true_summit_elev) < 0.5:
+                continue
+            
+            # Skip if too low (not a significant secondary peak)
+            if true_summit_elev - elev > 50:  # More than 50m lower
+                continue
+            
+            # Must have some prominence (not just noise)
+            if true_summit_elev - elev < min_prominence_m:
+                continue
+            
+            # Convert to geographic coords
+            x, y = win_transform * (c + 0.5, r + 0.5)
+            if from_native:
+                sec_lon, sec_lat = from_native.transform(x, y)
+            else:
+                sec_lon, sec_lat = x, y
+            
+            secondary.append((sec_lat, sec_lon, elev))
+        
+        return secondary
+
+
+def find_ridge_points(
+    dem_path: str,
+    summit_lat: float,
+    summit_lon: float,
+    radius_m: float = 100.0,
+    num_points: int = 4,
+) -> List[Tuple[float, float]]:
+    """
+    Find points along ridges leading to the summit.
+    
+    These are "hard negatives" - high points that drop in only 2 directions
+    (along ridge axis) but are flat or rising in the other 2 (perpendicular).
+    
+    Returns list of (lat, lon) for ridge points.
+    """
+    import rasterio
+    from rasterio.windows import from_bounds
+    from scipy.ndimage import sobel
+    from pyproj import Transformer
+    
+    with rasterio.open(dem_path) as ds:
+        crs = ds.crs
+        to_native = None
+        from_native = None
+        
+        if crs and not crs.is_geographic:
+            to_native = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+            from_native = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+        
+        lat_per_m = 1.0 / 111320.0
+        lon_per_m = 1.0 / (111320.0 * math.cos(math.radians(summit_lat)))
+        dlat = radius_m * lat_per_m
+        dlon = radius_m * lon_per_m
+        
+        min_lon, min_lat = summit_lon - dlon, summit_lat - dlat
+        max_lon, max_lat = summit_lon + dlon, summit_lat + dlat
+        
+        if to_native:
+            min_x, min_y = to_native.transform(min_lon, min_lat)
+            max_x, max_y = to_native.transform(max_lon, max_lat)
+        else:
+            min_x, min_y = min_lon, min_lat
+            max_x, max_y = max_lon, max_lat
+        
+        try:
+            window = from_bounds(min_x, min_y, max_x, max_y, ds.transform)
+            window = window.intersection(rasterio.windows.Window(0, 0, ds.width, ds.height))
+        except Exception:
+            return []
+        
+        if window.width < 5 or window.height < 5:
+            return []
+        
+        arr = ds.read(1, window=window, masked=True)
+        if arr.count() == 0:
+            return []
+        
+        win_transform = ds.window_transform(window)
+        filled = arr.filled(np.nan)
+        
+        # Compute gradients
+        grad_x = sobel(filled, axis=1, mode='constant', cval=np.nan)
+        grad_y = sobel(filled, axis=0, mode='constant', cval=np.nan)
+        
+        # Ridge points have high gradient magnitude but in only one direction
+        # (i.e., |grad_x| >> |grad_y| or vice versa)
+        grad_mag = np.sqrt(grad_x**2 + grad_y**2)
+        
+        # Find points with high gradient asymmetry (ridge-like)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            asymmetry = np.abs(np.abs(grad_x) - np.abs(grad_y)) / (grad_mag + 1e-6)
+        
+        # Also need to be relatively high elevation
+        elev_threshold = float(arr.max()) - 30  # Within 30m of summit
+        
+        candidates = []
+        for r in range(2, arr.shape[0] - 2):
+            for c in range(2, arr.shape[1] - 2):
+                if arr.mask[r, c]:
+                    continue
+                if arr[r, c] < elev_threshold:
+                    continue
+                if asymmetry[r, c] < 0.5:  # Not ridge-like enough
+                    continue
+                if np.isnan(asymmetry[r, c]):
+                    continue
+                
+                x, y = win_transform * (c + 0.5, r + 0.5)
+                if from_native:
+                    pt_lon, pt_lat = from_native.transform(x, y)
+                else:
+                    pt_lon, pt_lat = x, y
+                
+                # Don't include points too close to summit
+                dist = math.sqrt((pt_lat - summit_lat)**2 + (pt_lon - summit_lon)**2) * 111320
+                if dist < 20:
+                    continue
+                
+                candidates.append((pt_lat, pt_lon, float(asymmetry[r, c])))
+        
+        # Sort by asymmetry (most ridge-like first) and take top N
+        candidates.sort(key=lambda x: -x[2])
+        return [(c[0], c[1]) for c in candidates[:num_points]]
+
+
 def generate_training_data(
     peaks: List[Dict[str, Any]],
     dem_path: str,
     negatives_per_positive: int = 4,
     feature_radius_m: float = 50.0,
+    include_hard_negatives: bool = True,
     verbose: bool = True,
 ) -> pd.DataFrame:
     """
@@ -118,11 +322,17 @@ def generate_training_data(
     
     For each verified peak (positive), generates multiple negative samples
     and extracts features for all points.
+    
+    If include_hard_negatives=True, also adds:
+    - Secondary peaks (nearby local maxima that aren't the true summit)
+    - Ridge points (high points with asymmetric gradients)
     """
     rows = []
     feature_names = get_feature_names()
     
     total_peaks = len(peaks)
+    total_secondary = 0
+    total_ridge = 0
     
     for i, peak in enumerate(peaks):
         peak_id = peak["id"]
@@ -157,12 +367,64 @@ def generate_training_data(
             pos_row[fname] = pos_features[fname]
         rows.append(pos_row)
         
-        # === Negative samples (random points away from summit) ===
+        # === Hard negatives: Secondary peaks ===
+        if include_hard_negatives:
+            try:
+                secondary_peaks = find_secondary_peaks(dem_path, lat, lon, radius_m=150.0)
+                for sec_lat, sec_lon, sec_elev in secondary_peaks[:2]:  # Max 2 per peak
+                    sec_features = extract_features(
+                        dem_path, sec_lat, sec_lon, feature_radius_m, seed_lat, seed_lon
+                    )
+                    if "error" not in sec_features:
+                        sec_row = {
+                            "peak_id": peak_id,
+                            "peak_name": peak_name,
+                            "sample_type": "secondary_peak",
+                            "lat": sec_lat,
+                            "lon": sec_lon,
+                            "label": 0,
+                        }
+                        for fname in feature_names:
+                            sec_row[fname] = sec_features[fname]
+                        rows.append(sec_row)
+                        total_secondary += 1
+            except Exception as e:
+                if verbose:
+                    print(f"  WARNING: Error finding secondary peaks: {e}")
+        
+        # === Hard negatives: Ridge points ===
+        if include_hard_negatives:
+            try:
+                ridge_points = find_ridge_points(dem_path, lat, lon, radius_m=100.0, num_points=2)
+                for ridge_lat, ridge_lon in ridge_points:
+                    ridge_features = extract_features(
+                        dem_path, ridge_lat, ridge_lon, feature_radius_m, seed_lat, seed_lon
+                    )
+                    if "error" not in ridge_features:
+                        ridge_row = {
+                            "peak_id": peak_id,
+                            "peak_name": peak_name,
+                            "sample_type": "ridge",
+                            "lat": ridge_lat,
+                            "lon": ridge_lon,
+                            "label": 0,
+                        }
+                        for fname in feature_names:
+                            ridge_row[fname] = ridge_features[fname]
+                        rows.append(ridge_row)
+                        total_ridge += 1
+            except Exception as e:
+                if verbose:
+                    print(f"  WARNING: Error finding ridge points: {e}")
+        
+        # === Random negatives (easier cases) ===
         neg_count = 0
         attempts = 0
-        max_attempts = negatives_per_positive * 3
+        # Reduce random negatives if we have hard negatives
+        random_negatives_target = negatives_per_positive - 2 if include_hard_negatives else negatives_per_positive
+        max_attempts = random_negatives_target * 3
         
-        while neg_count < negatives_per_positive and attempts < max_attempts:
+        while neg_count < random_negatives_target and attempts < max_attempts:
             attempts += 1
             
             neg_lat, neg_lon = generate_negative_sample(lat, lon)
@@ -181,7 +443,7 @@ def generate_training_data(
             neg_row = {
                 "peak_id": peak_id,
                 "peak_name": peak_name,
-                "sample_type": "negative",
+                "sample_type": "random",
                 "lat": neg_lat,
                 "lon": neg_lon,
                 "label": 0,
@@ -191,8 +453,13 @@ def generate_training_data(
             rows.append(neg_row)
             neg_count += 1
         
-        if verbose and neg_count < negatives_per_positive:
-            print(f"  WARNING: Only generated {neg_count}/{negatives_per_positive} negatives")
+        if verbose and neg_count < random_negatives_target:
+            print(f"  WARNING: Only generated {neg_count}/{random_negatives_target} random negatives")
+    
+    if verbose and include_hard_negatives:
+        print(f"\nHard negatives added:")
+        print(f"  Secondary peaks: {total_secondary}")
+        print(f"  Ridge points: {total_ridge}")
     
     df = pd.DataFrame(rows)
     return df
@@ -212,6 +479,8 @@ def main():
                         help="Radius (m) for feature extraction (default: 50)")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     parser.add_argument("--quiet", action="store_true", help="Suppress verbose output")
+    parser.add_argument("--no-hard-negatives", action="store_true", 
+                        help="Disable hard negatives (secondary peaks, ridge points)")
     
     args = parser.parse_args()
     
@@ -255,6 +524,8 @@ def main():
         sys.exit(1)
     
     # Generate training data
+    include_hard_negatives = not args.no_hard_negatives
+    print(f"Hard negatives (secondary peaks, ridges): {'YES' if include_hard_negatives else 'NO'}")
     print("Generating training data...")
     print("-" * 60)
     
@@ -263,6 +534,7 @@ def main():
         args.dem_path,
         negatives_per_positive=args.negatives_per_positive,
         feature_radius_m=args.feature_radius,
+        include_hard_negatives=include_hard_negatives,
         verbose=not args.quiet,
     )
     
@@ -279,6 +551,14 @@ def main():
     print(f"Total samples: {len(df)}")
     print(f"  - Positive (summits): {(df['label'] == 1).sum()}")
     print(f"  - Negative (non-summits): {(df['label'] == 0).sum()}")
+    
+    # Breakdown by sample type
+    if 'sample_type' in df.columns:
+        print("\nSample type breakdown:")
+        for stype in df['sample_type'].unique():
+            count = (df['sample_type'] == stype).sum()
+            print(f"  - {stype}: {count}")
+    
     print()
     print(f"Features: {len(get_feature_names())}")
     for fname in get_feature_names():
