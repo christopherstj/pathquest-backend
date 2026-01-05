@@ -407,12 +407,12 @@ const main = async () => {
         paramIndex++;
     }
 
-    query += ` ORDER BY id ASC`;
+    // NOTE: ORDER BY is added per-query below, not here (for pagination to work)
 
     // For specific activity IDs, we can load them all (limited set)
     // Otherwise, use cursor-based pagination to avoid OOM
     if (activityIdsToProcess && activityIdsToProcess.length > 0) {
-        const { rows: allActivities } = await pool.query<ActivityRow>(query, queryParams);
+        const { rows: allActivities } = await pool.query<ActivityRow>(query + ` ORDER BY id ASC`, queryParams);
         console.log(`Found ${allActivities.length} activities to process\n`);
         
         let totalProcessed = 0;
@@ -525,7 +525,8 @@ const main = async () => {
             paginatedParams.push(lastId);
         }
         
-        paginatedQuery += ` LIMIT $${paginatedParams.length + 1}`;
+        // Add ORDER BY after WHERE conditions, then LIMIT
+        paginatedQuery += ` ORDER BY id ASC LIMIT $${paginatedParams.length + 1}`;
         paginatedParams.push(BATCH_SIZE);
 
         console.log(`\n[${getTimestamp()}] 📦 Fetching batch ${batchNum}/${estimatedBatches}...`);
