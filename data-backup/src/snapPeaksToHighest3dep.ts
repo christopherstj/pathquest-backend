@@ -387,8 +387,8 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
         whereParts.push(`(p.coords_snapped_at IS NULL)`);
 
-        // In dry run mode, exclude peaks we've already processed in this session
-        if (dryRun && processedPeakIds.size > 0) {
+        // Exclude peaks we've already processed in this session (prevents re-fetching failed peaks)
+        if (processedPeakIds.size > 0) {
             params.push(Array.from(processedPeakIds));
             whereParts.push(`p.id != ALL($${params.length}::varchar[])`);
         }
