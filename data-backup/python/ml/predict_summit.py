@@ -67,7 +67,7 @@ def generate_candidate_grid(
 
 
 def find_top_elevation_candidates(
-    dem_path: str,
+    dem_path_or_ds,
     lat: float,
     lon: float,
     radius_m: float,
@@ -81,8 +81,19 @@ def find_top_elevation_candidates(
     Returns list of (lat, lon, elevation) sorted by elevation descending.
     
     Uses min_separation_m to avoid returning many cells from same flat area.
+    
+    Args:
+        dem_path_or_ds: Path to DEM file OR an already-open rasterio dataset
     """
-    with rasterio.open(dem_path) as ds:
+    # Support both path (string) and already-open dataset
+    if isinstance(dem_path_or_ds, str):
+        ds = rasterio.open(dem_path_or_ds)
+        should_close = True
+    else:
+        ds = dem_path_or_ds
+        should_close = False
+    
+    try:
         crs = ds.crs
         to_native = None
         from_native = None
@@ -159,18 +170,21 @@ def find_top_elevation_candidates(
                 candidates.append((cand_lat, cand_lon, elev))
         
         return candidates
+    finally:
+        if should_close:
+            ds.close()
 
 
 # Keep old function name as alias for compatibility
 def find_local_maxima(
-    dem_path: str,
+    dem_path_or_ds,
     lat: float,
     lon: float,
     radius_m: float,
     include_global_max: bool = True,
 ) -> List[Tuple[float, float, float]]:
     """Alias for find_top_elevation_candidates for compatibility."""
-    return find_top_elevation_candidates(dem_path, lat, lon, radius_m, top_n=15, min_separation_m=5.0)
+    return find_top_elevation_candidates(dem_path_or_ds, lat, lon, radius_m, top_n=15, min_separation_m=5.0)
 
 
 def predict_summit(
@@ -213,62 +227,64 @@ def predict_summit(
     if seed_lon is None:
         seed_lon = lon
     
-    # Find local maxima as candidates (more efficient than grid)
-    candidates = find_local_maxima(dem_path, lat, lon, radius_m)
-    
-    if not candidates:
-        # Fallback to grid search
-        grid_points = generate_candidate_grid(lat, lon, radius_m, step_m=10.0)
-        candidates = []
-        for cand_lat, cand_lon in grid_points:
-            features = extract_features(dem_path, cand_lat, cand_lon, feature_radius_m, seed_lat, seed_lon)
-            if "error" not in features:
-                candidates.append((cand_lat, cand_lon, features.get("elevation", 0)))
-    
-    if not candidates:
-        return {"error": "no_candidates"}
-    
-    # OPTIMIZATION: Only score top N candidates by elevation
-    # The true summit is almost always among the highest points
-    total_candidates_found = len(candidates)
-    if len(candidates) > max_candidates_to_score:
-        # candidates are already sorted by elevation descending from find_local_maxima
-        candidates = candidates[:max_candidates_to_score]
-    
-    # Extract features for all candidates
-    feature_names = get_feature_names()
-    scored_candidates = []
-    
-    for cand_lat, cand_lon, cand_elev in candidates:
-        features = extract_features(dem_path, cand_lat, cand_lon, feature_radius_m, seed_lat, seed_lon)
+    # OPTIMIZATION: Open DEM once and reuse for all operations
+    with rasterio.open(dem_path) as ds:
+        # Find local maxima as candidates (more efficient than grid)
+        candidates = find_top_elevation_candidates(ds, lat, lon, radius_m)
         
-        if "error" in features:
-            continue
+        if not candidates:
+            # Fallback to grid search
+            grid_points = generate_candidate_grid(lat, lon, radius_m, step_m=10.0)
+            candidates = []
+            for cand_lat, cand_lon in grid_points:
+                features = extract_features(ds, cand_lat, cand_lon, feature_radius_m, seed_lat, seed_lon)
+                if "error" not in features:
+                    candidates.append((cand_lat, cand_lon, features.get("elevation", 0)))
         
-        # Get feature vector
-        feature_vec = features_to_vector(features)
-        if feature_vec is None:
-            continue
+        if not candidates:
+            return {"error": "no_candidates"}
         
-        # Handle NaN/Inf
-        feature_vec = [0.0 if (np.isnan(v) or np.isinf(v)) else v for v in feature_vec]
+        # OPTIMIZATION: Only score top N candidates by elevation
+        # The true summit is almost always among the highest points
+        total_candidates_found = len(candidates)
+        if len(candidates) > max_candidates_to_score:
+            # candidates are already sorted by elevation descending from find_top_elevation_candidates
+            candidates = candidates[:max_candidates_to_score]
         
-        # Predict probability
-        try:
-            proba = model.predict_proba([feature_vec])[0][1]  # Probability of class 1 (summit)
-        except Exception:
-            proba = 0.0
+        # Extract features for all candidates (reusing the same open dataset)
+        feature_names = get_feature_names()
+        scored_candidates = []
         
-        dist_from_seed = haversine_m(seed_lat, seed_lon, cand_lat, cand_lon)
-        
-        scored_candidates.append({
-            "lat": cand_lat,
-            "lon": cand_lon,
-            "elevation_m": features.get("elevation", cand_elev),
-            "ml_probability": float(proba),
-            "distance_from_seed_m": dist_from_seed,
-            "features": {name: features[name] for name in feature_names},
-        })
+        for cand_lat, cand_lon, cand_elev in candidates:
+            features = extract_features(ds, cand_lat, cand_lon, feature_radius_m, seed_lat, seed_lon)
+            
+            if "error" in features:
+                continue
+            
+            # Get feature vector
+            feature_vec = features_to_vector(features)
+            if feature_vec is None:
+                continue
+            
+            # Handle NaN/Inf
+            feature_vec = [0.0 if (np.isnan(v) or np.isinf(v)) else v for v in feature_vec]
+            
+            # Predict probability
+            try:
+                proba = model.predict_proba([feature_vec])[0][1]  # Probability of class 1 (summit)
+            except Exception:
+                proba = 0.0
+            
+            dist_from_seed = haversine_m(seed_lat, seed_lon, cand_lat, cand_lon)
+            
+            scored_candidates.append({
+                "lat": cand_lat,
+                "lon": cand_lon,
+                "elevation_m": features.get("elevation", cand_elev),
+                "ml_probability": float(proba),
+                "distance_from_seed_m": dist_from_seed,
+                "features": {name: features[name] for name in feature_names},
+            })
     
     if not scored_candidates:
         return {"error": "no_valid_candidates"}

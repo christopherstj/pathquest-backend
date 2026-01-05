@@ -117,7 +117,7 @@ def compute_curvature(arr: np.ma.MaskedArray, row: int, col: int, cell_size_m: f
 
 
 def extract_features(
-    dem_path: str,
+    dem_path_or_ds,
     lat: float,
     lon: float,
     radius_m: float = 50.0,
@@ -128,7 +128,7 @@ def extract_features(
     Extract topographic features from DEM around a point.
     
     Args:
-        dem_path: Path to DEM file (GeoTIFF or VRT)
+        dem_path_or_ds: Path to DEM file OR an already-open rasterio dataset
         lat, lon: Coordinates of point to extract features for
         radius_m: Radius around point to analyze (default 50m)
         seed_lat, seed_lon: Original seed coordinates (for dist_to_seed feature)
@@ -136,129 +136,152 @@ def extract_features(
     Returns:
         Dictionary of features
     """
-    with rasterio.open(dem_path) as ds:
-        # Check if we need coordinate transformation
-        crs = ds.crs
-        to_native = None
-        from_native = None
-        
-        if crs and not crs.is_geographic:
-            to_native = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
-            from_native = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
-        
-        # Get bounding box
-        min_lon, min_lat, max_lon, max_lat = deg_window_from_radius(lat, lon, radius_m)
-        
-        # Transform to native CRS if needed
-        if to_native:
-            min_x, min_y = to_native.transform(min_lon, min_lat)
-            max_x, max_y = to_native.transform(max_lon, max_lat)
-            center_x, center_y = to_native.transform(lon, lat)
-        else:
-            min_x, min_y = min_lon, min_lat
-            max_x, max_y = max_lon, max_lat
-            center_x, center_y = lon, lat
-        
-        # Create window
-        try:
-            window = from_bounds(min_x, min_y, max_x, max_y, ds.transform)
-        except Exception:
-            return {"error": "window_error"}
-        
-        # Clip window to dataset bounds
-        window = window.intersection(rasterio.windows.Window(0, 0, ds.width, ds.height))
-        
-        if window.width < 3 or window.height < 3:
-            return {"error": "window_too_small"}
-        
-        # Read data
-        arr = ds.read(1, window=window, masked=True)
-        
-        if arr.count() == 0:
-            return {"error": "no_data"}
-        
-        # Get transform for this window
-        win_transform = ds.window_transform(window)
-        
-        # Find center point in array coordinates
-        inv_transform = ~win_transform
-        center_col, center_row = inv_transform * (center_x, center_y)
-        center_row, center_col = int(round(center_row)), int(round(center_col))
-        
-        # Clamp to array bounds
-        center_row = max(0, min(arr.shape[0] - 1, center_row))
-        center_col = max(0, min(arr.shape[1] - 1, center_col))
-        
-        center_elev = arr[center_row, center_col]
-        if np.ma.is_masked(center_elev):
-            return {"error": "center_masked"}
-        
-        center_elev = float(center_elev)
-        
-        # Estimate cell size in meters
-        if crs and not crs.is_geographic:
-            cell_size_m = abs(win_transform.a)  # Assume square cells
-        else:
-            # Geographic CRS - approximate meters
-            cell_size_m = abs(win_transform.a) * 111320 * math.cos(math.radians(lat))
-        
-        # === Feature Extraction ===
-        
-        # 1. Elevation percentile rank (1.0 = highest point)
-        valid_elevs = arr.compressed()
-        elev_rank = float(np.sum(valid_elevs <= center_elev)) / len(valid_elevs)
-        
-        # 2. Directional gradients (10 cells away, ~10-50m depending on resolution)
-        distance_cells = max(1, int(round(radius_m / 5 / cell_size_m)))  # ~1/5 of radius
-        gradients = compute_directional_gradients(arr, center_row, center_col, cell_size_m, distance_cells)
-        
-        # 3. Min gradient (for ridge vs peak detection)
-        min_gradient = min(gradients.values())
-        
-        # 4. Local relief
-        local_relief = float(valid_elevs.max() - valid_elevs.min())
-        
-        # 5. Percentage of cells lower than center
-        pct_lower = float(np.sum(valid_elevs < center_elev)) / len(valid_elevs)
-        
-        # 6. Curvature (Laplacian)
-        curvature = compute_curvature(arr, center_row, center_col, cell_size_m)
-        
-        # 7. Distance to seed (if provided)
-        if seed_lat is not None and seed_lon is not None:
-            dist_to_seed = haversine_m(lat, lon, seed_lat, seed_lon)
-        else:
-            dist_to_seed = 0.0
-        
-        # 8. Additional features
-        # Mean gradient (average drop in all directions)
-        mean_gradient = sum(gradients.values()) / len(gradients)
-        
-        # Gradient variance (how uniform is the drop?)
-        grad_values = list(gradients.values())
-        grad_variance = float(np.var(grad_values))
-        
-        return {
-            "lat": lat,
-            "lon": lon,
-            "elevation": center_elev,
-            "elev_rank": elev_rank,
-            "gradient_N": gradients["N"],
-            "gradient_S": gradients["S"],
-            "gradient_E": gradients["E"],
-            "gradient_W": gradients["W"],
-            "gradient_NE": gradients["NE"],
-            "gradient_SE": gradients["SE"],
-            "gradient_SW": gradients["SW"],
-            "gradient_NW": gradients["NW"],
-            "min_gradient": min_gradient,
-            "mean_gradient": mean_gradient,
-            "grad_variance": grad_variance,
-            "local_relief": local_relief,
-            "pct_lower": pct_lower,
-            "curvature": curvature,
-            "dist_to_seed": dist_to_seed,
-        }
+    # Support both path (string) and already-open dataset
+    if isinstance(dem_path_or_ds, str):
+        ds = rasterio.open(dem_path_or_ds)
+        should_close = True
+    else:
+        ds = dem_path_or_ds
+        should_close = False
+    
+    try:
+        return _extract_features_from_ds(ds, lat, lon, radius_m, seed_lat, seed_lon)
+    finally:
+        if should_close:
+            ds.close()
+
+
+def _extract_features_from_ds(
+    ds,
+    lat: float,
+    lon: float,
+    radius_m: float,
+    seed_lat: Optional[float],
+    seed_lon: Optional[float],
+) -> Dict[str, Any]:
+    """Internal: extract features from an already-open dataset."""
+    # Check if we need coordinate transformation
+    crs = ds.crs
+    to_native = None
+    from_native = None
+    
+    if crs and not crs.is_geographic:
+        to_native = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+        from_native = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
+    
+    # Get bounding box
+    min_lon, min_lat, max_lon, max_lat = deg_window_from_radius(lat, lon, radius_m)
+    
+    # Transform to native CRS if needed
+    if to_native:
+        min_x, min_y = to_native.transform(min_lon, min_lat)
+        max_x, max_y = to_native.transform(max_lon, max_lat)
+        center_x, center_y = to_native.transform(lon, lat)
+    else:
+        min_x, min_y = min_lon, min_lat
+        max_x, max_y = max_lon, max_lat
+        center_x, center_y = lon, lat
+    
+    # Create window
+    try:
+        window = from_bounds(min_x, min_y, max_x, max_y, ds.transform)
+    except Exception:
+        return {"error": "window_error"}
+    
+    # Clip window to dataset bounds
+    window = window.intersection(rasterio.windows.Window(0, 0, ds.width, ds.height))
+    
+    if window.width < 3 or window.height < 3:
+        return {"error": "window_too_small"}
+    
+    # Read data
+    arr = ds.read(1, window=window, masked=True)
+    
+    if arr.count() == 0:
+        return {"error": "no_data"}
+    
+    # Get transform for this window
+    win_transform = ds.window_transform(window)
+    
+    # Find center point in array coordinates
+    inv_transform = ~win_transform
+    center_col, center_row = inv_transform * (center_x, center_y)
+    center_row, center_col = int(round(center_row)), int(round(center_col))
+    
+    # Clamp to array bounds
+    center_row = max(0, min(arr.shape[0] - 1, center_row))
+    center_col = max(0, min(arr.shape[1] - 1, center_col))
+    
+    center_elev = arr[center_row, center_col]
+    if np.ma.is_masked(center_elev):
+        return {"error": "center_masked"}
+    
+    center_elev = float(center_elev)
+    
+    # Estimate cell size in meters
+    if crs and not crs.is_geographic:
+        cell_size_m = abs(win_transform.a)  # Assume square cells
+    else:
+        # Geographic CRS - approximate meters
+        cell_size_m = abs(win_transform.a) * 111320 * math.cos(math.radians(lat))
+    
+    # === Feature Extraction ===
+    
+    # 1. Elevation percentile rank (1.0 = highest point)
+    valid_elevs = arr.compressed()
+    elev_rank = float(np.sum(valid_elevs <= center_elev)) / len(valid_elevs)
+    
+    # 2. Directional gradients (10 cells away, ~10-50m depending on resolution)
+    distance_cells = max(1, int(round(radius_m / 5 / cell_size_m)))  # ~1/5 of radius
+    gradients = compute_directional_gradients(arr, center_row, center_col, cell_size_m, distance_cells)
+    
+    # 3. Min gradient (for ridge vs peak detection)
+    min_gradient = min(gradients.values())
+    
+    # 4. Local relief
+    local_relief = float(valid_elevs.max() - valid_elevs.min())
+    
+    # 5. Percentage of cells lower than center
+    pct_lower = float(np.sum(valid_elevs < center_elev)) / len(valid_elevs)
+    
+    # 6. Curvature (Laplacian)
+    curvature = compute_curvature(arr, center_row, center_col, cell_size_m)
+    
+    # 7. Distance to seed (if provided)
+    if seed_lat is not None and seed_lon is not None:
+        dist_to_seed = haversine_m(lat, lon, seed_lat, seed_lon)
+    else:
+        dist_to_seed = 0.0
+    
+    # 8. Additional features
+    # Mean gradient (average drop in all directions)
+    mean_gradient = sum(gradients.values()) / len(gradients)
+    
+    # Gradient variance (how uniform is the drop?)
+    grad_values = list(gradients.values())
+    grad_variance = float(np.var(grad_values))
+    
+    return {
+        "lat": lat,
+        "lon": lon,
+        "elevation": center_elev,
+        "elev_rank": elev_rank,
+        "gradient_N": gradients["N"],
+        "gradient_S": gradients["S"],
+        "gradient_E": gradients["E"],
+        "gradient_W": gradients["W"],
+        "gradient_NE": gradients["NE"],
+        "gradient_SE": gradients["SE"],
+        "gradient_SW": gradients["SW"],
+        "gradient_NW": gradients["NW"],
+        "min_gradient": min_gradient,
+        "mean_gradient": mean_gradient,
+        "grad_variance": grad_variance,
+        "local_relief": local_relief,
+        "pct_lower": pct_lower,
+        "curvature": curvature,
+        "dist_to_seed": dist_to_seed,
+    }
 
 
 def get_feature_names() -> list:
