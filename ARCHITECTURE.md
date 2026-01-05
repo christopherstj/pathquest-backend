@@ -684,6 +684,43 @@ Post-snap convenience task:
 TASK=post-snap-enrichment npm run dev:once
 ```
 
+**ML-based summit detection (optional)**
+
+PathQuest supports an optional ML-based snapping mode that uses a trained RandomForest classifier to identify the most likely summit point. This can provide better accuracy than the heuristic approach, especially for ambiguous terrain.
+
+**Training pipeline** (`python/ml/`):
+1. `generate_training_data.py` — extracts features from verified peaks (14ers + DEM-verified 13ers)
+2. `train_summit_model.py` — trains RandomForest with 5-fold cross-validation
+3. `predict_summit.py` — inference script called by Node orchestrator
+
+**Features extracted** (16 total):
+- `elev_rank` — percentile rank within search radius
+- `gradient_N/S/E/W/NE/SE/SW/NW` — elevation drop in 8 directions
+- `min_gradient`, `mean_gradient`, `grad_variance` — gradient statistics
+- `local_relief` — max - min elevation in patch
+- `pct_lower` — % of cells lower than candidate
+- `curvature` — 2nd derivative (positive = convex summit)
+- `dist_to_seed` — distance from original coordinates
+
+**Train the model** (on VM with DEM access):
+```bash
+# 1. Generate training data
+cd python/ml
+python generate_training_data.py --dem-path ~/dem/co/co_3dep_1m.vrt --output training_data.csv
+
+# 2. Train model
+python train_summit_model.py --input training_data.csv --output models/summit_model.joblib
+```
+
+**Use ML for snapping**:
+```bash
+export SNAP_USE_ML="true"
+export SUMMIT_MODEL_PATH="python/ml/models/summit_model.joblib"
+TASK=snap-peaks-3dep npm run dev:once
+```
+
+The ML model probability is used as the `confidence` score for acceptance decisions (same `SNAP_CONFIDENCE_ACCEPT_MIN` threshold applies).
+
 ---
 
 ### Summit Zone Polygons (for flat-topped peaks)

@@ -29,6 +29,7 @@ type SnapCandidate = {
     confidence: number;
     radial_score: number;
     neighborhood_score: number;
+    ml_probability?: number;  // Added for ML-based snapping
 };
 
 type SnapResult = {
@@ -138,6 +139,86 @@ const runPythonSnap = async (
     });
 };
 
+// ML-based snapping using trained model
+type MLSnapInput = {
+    peak_id: string;
+    lat: number;
+    lon: number;
+    radius_m: number;
+    seed_lat?: number;
+    seed_lon?: number;
+};
+
+type MLSnapResult = {
+    peak_id: string;
+    snapped_lat?: number;
+    snapped_lon?: number;
+    elevation_m?: number;
+    ml_probability?: number;
+    snapped_distance_m?: number;
+    candidates_evaluated?: number;
+    error?: string;
+};
+
+const runPythonMLSnap = async (
+    pythonBin: string,
+    scriptPath: string,
+    demPath: string,
+    modelPath: string,
+    inputs: MLSnapInput[]
+): Promise<MLSnapResult[]> => {
+    return await new Promise((resolve, reject) => {
+        const child = spawn(pythonBin, [
+            scriptPath,
+            "--dem-path", demPath,
+            "--model-path", modelPath,
+        ], {
+            stdio: ["pipe", "pipe", "pipe"],
+        });
+
+        const out: MLSnapResult[] = [];
+        let stderr = "";
+
+        child.stderr.setEncoding("utf-8");
+        child.stderr.on("data", (d) => {
+            stderr += String(d);
+        });
+
+        child.stdout.setEncoding("utf-8");
+        let buf = "";
+        child.stdout.on("data", (d) => {
+            buf += String(d);
+            while (true) {
+                const idx = buf.indexOf("\n");
+                if (idx === -1) break;
+                const line = buf.slice(0, idx).trim();
+                buf = buf.slice(idx + 1);
+                if (!line) continue;
+                try {
+                    out.push(JSON.parse(line) as MLSnapResult);
+                } catch (e) {
+                    out.push({ peak_id: "(unknown)", error: `bad_json: ${line}` });
+                }
+            }
+        });
+
+        child.on("error", (err) => reject(err));
+
+        child.on("close", (code) => {
+            if (code !== 0) {
+                reject(new Error(`Python ML script exited with code ${code}. stderr=${stderr}`));
+                return;
+            }
+            resolve(out);
+        });
+
+        for (const rec of inputs) {
+            child.stdin.write(JSON.stringify(rec) + "\n");
+        }
+        child.stdin.end();
+    });
+};
+
 type CollisionResult = {
     candidate: SnapCandidate;
     collidedWith: string | null;
@@ -206,6 +287,11 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
     const pythonBin = process.env.PYTHON_BIN ?? "python3";
     const pythonScript = process.env.SNAP_PY_SCRIPT ?? "python/snap_to_highest.py";
+    
+    // ML-based snapping (optional) - uses same confidence threshold as heuristic
+    const useMLSnapping = process.env.SNAP_USE_ML === "true";
+    const mlScript = process.env.SNAP_ML_SCRIPT ?? "python/ml/predict_summit.py";
+    const mlModelPath = process.env.SUMMIT_MODEL_PATH ?? "python/ml/models/summit_model.joblib";
 
     const state = process.env.SNAP_STATE ?? "CO";
     const country = process.env.SNAP_COUNTRY ?? "US";
@@ -259,6 +345,10 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         console.log(`DEM fallback: ${demPathFallback}`);
     }
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
+    console.log(`ML snapping: ${useMLSnapping ? "YES" : "NO (heuristic)"}`);
+    if (useMLSnapping) {
+        console.log(`ML model: ${mlModelPath}`);
+    }
     console.log(`Skip 14ers.com peaks: ${skip14ersPeaks ? "YES" : "NO"}`);
     console.log(`Radius - OSM: ${radiusOsm}m, Peakbagger: ${radiusPeakbagger}m, 14ers: ${radius14ers}m`);
     console.log(`Top K candidates: ${topK}`);
@@ -495,9 +585,48 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             : `${Math.floor(etaSec)}s`;
         
         console.log(`\n${"═".repeat(60)}`);
-        console.log(`Batch ${batch}: snapping ${inputs.length} peaks (highest first)`);
+        console.log(`Batch ${batch}: snapping ${inputs.length} peaks (highest first)${useMLSnapping ? " [ML]" : ""}`);
         console.log(`Progress: ${totalProcessed}/${totalToProcess} (${progressPct}%) | ETA: ${totalProcessed > 0 ? etaStr : "calculating..."}`);
-        const results = await runPythonSnap(pythonBin, pythonScript, demPath, inputs);
+        
+        // Choose between ML and heuristic snapping
+        let results: SnapResult[];
+        if (useMLSnapping) {
+            // ML-based snapping
+            const mlInputs: MLSnapInput[] = inputs.map((inp) => ({
+                peak_id: inp.peak_id,
+                lat: inp.lat,
+                lon: inp.lon,
+                radius_m: inp.radius_m,
+            }));
+            
+            const mlResults = await runPythonMLSnap(pythonBin, mlScript, demPath, mlModelPath, mlInputs);
+            
+            // Convert ML results to SnapResult format
+            results = mlResults.map((mr) => {
+                if (mr.error || mr.snapped_lat === undefined || mr.snapped_lon === undefined) {
+                    return { peak_id: mr.peak_id, error: mr.error ?? "ml_failed" };
+                }
+                
+                const candidate: SnapCandidate = {
+                    snapped_lat: mr.snapped_lat,
+                    snapped_lon: mr.snapped_lon,
+                    elevation_m: mr.elevation_m ?? 0,
+                    snapped_distance_m: mr.snapped_distance_m ?? 0,
+                    confidence: mr.ml_probability ?? 0,
+                    radial_score: mr.ml_probability ?? 0,
+                    neighborhood_score: mr.ml_probability ?? 0,
+                    ml_probability: mr.ml_probability,
+                };
+                
+                return {
+                    peak_id: mr.peak_id,
+                    candidates: [candidate],
+                };
+            });
+        } else {
+            // Heuristic snapping (existing behavior)
+            results = await runPythonSnap(pythonBin, pythonScript, demPath, inputs);
+        }
 
         const byId = new Map<string, SnapResult>();
         for (const r of results) byId.set(r.peak_id, r);
@@ -511,7 +640,38 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             });
             if (failedPeaks.length > 0) {
                 console.log(`  Trying fallback DEM for ${failedPeaks.length} peaks with errors...`);
-                const fallbackResults = await runPythonSnap(pythonBin, pythonScript, demPathFallback, failedPeaks);
+                
+                let fallbackResults: SnapResult[];
+                if (useMLSnapping) {
+                    const mlFallbackInputs: MLSnapInput[] = failedPeaks.map((inp) => ({
+                        peak_id: inp.peak_id,
+                        lat: inp.lat,
+                        lon: inp.lon,
+                        radius_m: inp.radius_m,
+                    }));
+                    const mlFallbackRes = await runPythonMLSnap(pythonBin, mlScript, demPathFallback, mlModelPath, mlFallbackInputs);
+                    fallbackResults = mlFallbackRes.map((mr) => {
+                        if (mr.error || mr.snapped_lat === undefined || mr.snapped_lon === undefined) {
+                            return { peak_id: mr.peak_id, error: mr.error ?? "ml_failed" };
+                        }
+                        return {
+                            peak_id: mr.peak_id,
+                            candidates: [{
+                                snapped_lat: mr.snapped_lat,
+                                snapped_lon: mr.snapped_lon,
+                                elevation_m: mr.elevation_m ?? 0,
+                                snapped_distance_m: mr.snapped_distance_m ?? 0,
+                                confidence: mr.ml_probability ?? 0,
+                                radial_score: mr.ml_probability ?? 0,
+                                neighborhood_score: mr.ml_probability ?? 0,
+                                ml_probability: mr.ml_probability,
+                            }],
+                        };
+                    });
+                } else {
+                    fallbackResults = await runPythonSnap(pythonBin, pythonScript, demPathFallback, failedPeaks);
+                }
+                
                 for (const fr of fallbackResults) {
                     // Only use fallback if it succeeded
                     if (!fr.error && fr.candidates && fr.candidates.length > 0) {
