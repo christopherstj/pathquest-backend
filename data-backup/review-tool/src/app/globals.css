@@ -1,0 +1,225 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --font-sans: var(--font-display), "Georgia", "Times New Roman", serif;
+    --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-2xl: calc(var(--radius) + 8px);
+}
+
+:root {
+    /* PathQuest Retro Topographic Palette */
+    --background: oklch(0.94 0.03 90); /* Aged parchment */
+    --foreground: oklch(0.26 0.06 70); /* Deep umber ink */
+
+    --card: oklch(0.93 0.02 95 / 0.92);
+    --card-foreground: oklch(0.25 0.05 70);
+
+    --popover: oklch(0.93 0.02 95 / 0.92);
+    --popover-foreground: oklch(0.25 0.05 70);
+
+    --primary: oklch(0.53 0.12 140); /* Forest green */
+    --primary-foreground: oklch(0.95 0.01 90);
+
+    --secondary: oklch(0.65 0.12 65); /* Rust/umber */
+    --secondary-foreground: oklch(0.2 0.05 60);
+
+    --muted: oklch(0.88 0.02 95);
+    --muted-foreground: oklch(0.45 0.05 70);
+
+    --accent: oklch(0.78 0.05 115); /* Moss highlight */
+    --accent-foreground: oklch(0.22 0.04 70);
+
+    --destructive: oklch(0.55 0.18 30);
+    --destructive-foreground: oklch(0.97 0.01 90);
+
+    --success: oklch(0.53 0.12 140);
+    --success-foreground: oklch(0.95 0.01 90);
+
+    --border: oklch(0.8 0.03 90 / 0.7);
+    --input: oklch(0.9 0.02 90);
+    --ring: oklch(0.53 0.12 140 / 0.5);
+
+    --radius: 0.625rem;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground font-sans antialiased;
+        background-image:
+            radial-gradient(circle at 10% 20%, rgba(0,0,0,0.04) 0, transparent 32%),
+            radial-gradient(circle at 80% 0%, rgba(0,0,0,0.035) 0, transparent 28%),
+            linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02)),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M0 80c40-30 80-30 120 0s80 30 120 0' fill='none' stroke='%23b9a484' stroke-width='0.6' opacity='0.35'/%3E%3C/svg%3E");
+        background-size: cover, cover, 100% 100%, 320px 320px;
+        background-attachment: fixed;
+    }
+}
+
+/* Glass morphism effect */
+.glass {
+    @apply backdrop-blur-md bg-card/70 border border-border shadow-lg;
+}
+
+/* Elevation badges with vintage colors */
+.badge-safe {
+    background: oklch(0.53 0.12 140 / 0.15);
+    color: oklch(0.43 0.12 140);
+    border: 1px solid oklch(0.53 0.12 140 / 0.3);
+}
+
+.badge-warning {
+    background: oklch(0.65 0.12 65 / 0.15);
+    color: oklch(0.45 0.12 65);
+    border: 1px solid oklch(0.65 0.12 65 / 0.3);
+}
+
+.badge-danger {
+    background: oklch(0.55 0.18 30 / 0.15);
+    color: oklch(0.45 0.18 30);
+    border: 1px solid oklch(0.55 0.18 30 / 0.3);
+}
+
+/* Map container styling */
+.map-container {
+    @apply relative overflow-hidden;
+    border: 2px solid oklch(0.7 0.04 90 / 0.5);
+    box-shadow:
+        inset 0 0 20px oklch(0 0 0 / 0.08),
+        0 4px 20px oklch(0 0 0 / 0.1);
+}
+
+/* Vintage button styles */
+.btn-accept {
+    background: linear-gradient(180deg, oklch(0.58 0.12 140) 0%, oklch(0.48 0.12 140) 100%);
+    box-shadow:
+        0 2px 4px oklch(0.53 0.12 140 / 0.3),
+        inset 0 1px 0 oklch(1 0 0 / 0.1);
+    text-shadow: 0 1px 1px oklch(0 0 0 / 0.2);
+}
+
+.btn-accept:hover {
+    background: linear-gradient(180deg, oklch(0.62 0.12 140) 0%, oklch(0.52 0.12 140) 100%);
+}
+
+.btn-reject {
+    background: linear-gradient(180deg, oklch(0.60 0.18 30) 0%, oklch(0.50 0.18 30) 100%);
+    box-shadow:
+        0 2px 4px oklch(0.55 0.18 30 / 0.3),
+        inset 0 1px 0 oklch(1 0 0 / 0.1);
+    text-shadow: 0 1px 1px oklch(0 0 0 / 0.2);
+}
+
+.btn-reject:hover {
+    background: linear-gradient(180deg, oklch(0.65 0.18 30) 0%, oklch(0.55 0.18 30) 100%);
+}
+
+/* Table row hover with vintage feel */
+.table-row-hover:hover {
+    background: oklch(0.78 0.05 115 / 0.15);
+}
+
+.table-row-selected {
+    background: oklch(0.78 0.05 115 / 0.25);
+    border-left: 3px solid oklch(0.53 0.12 140);
+}
+
+/* Coordinate display - monospace cartographic style */
+.coords-display {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    background: oklch(0 0 0 / 0.03);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid oklch(0 0 0 / 0.06);
+}
+
+/* Mapbox overrides */
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-bottom-left {
+    z-index: 10 !important;
+}
+
+.mapboxgl-popup-content {
+    background: oklch(0.93 0.02 95 / 0.95) !important;
+    backdrop-filter: blur(8px);
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 20px oklch(0 0 0 / 0.15) !important;
+    border: 1px solid oklch(0.8 0.03 90 / 0.5) !important;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+}
+
+.mapboxgl-popup-tip {
+    border-top-color: oklch(0.93 0.02 95 / 0.95) !important;
+}
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-subtle {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.4s ease-out forwards;
+}
+
+.animate-pulse-subtle {
+    animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* Staggered list animations */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }

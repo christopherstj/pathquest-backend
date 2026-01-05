@@ -295,6 +295,12 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         throw new Error("DEM_VRT_PATH is required (path to Colorado 3DEP VRT/GeoTIFF)");
     }
     const demPathFallback = process.env.DEM_VRT_PATH_FALLBACK ?? "";
+    
+    // Determine DEM source names from paths (for database storage)
+    const demSourcePrimary = process.env.DEM_SOURCE_NAME ?? 
+        (demPath.includes("1m") ? "usgs_3dep_1m" : demPath.includes("10m") ? "usgs_3dep_10m" : "usgs_3dep");
+    const demSourceFallback = process.env.DEM_SOURCE_NAME_FALLBACK ?? 
+        (demPathFallback.includes("10m") ? "usgs_3dep_10m" : demPathFallback.includes("1m") ? "usgs_3dep_1m" : "usgs_3dep");
 
     const pythonBin = process.env.PYTHON_BIN ?? "python3";
     const pythonScript = process.env.SNAP_PY_SCRIPT ?? "python/snap_to_highest.py";
@@ -367,9 +373,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log(`Elevation min (m): ${elevationMin}`);
     console.log(`Batch size: ${batchSize}`);
     console.log(`Accept max distance (m): ${acceptMaxDistance}`);
-    console.log(`DEM: ${demPath}`);
+    console.log(`DEM: ${demPath} (source: ${demSourcePrimary})`);
     if (demPathFallback) {
-        console.log(`DEM fallback: ${demPathFallback}`);
+        console.log(`DEM fallback: ${demPathFallback} (source: ${demSourceFallback})`);
     }
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
     if (forceReprocess) {
@@ -844,10 +850,13 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
             // Format confidence info
             const confStr = `conf=${(confidence * 100).toFixed(0)}% (radial=${(radialScore * 100).toFixed(0)}%, nbhd=${(neighborhoodScore * 100).toFixed(0)}%)`;
 
+            // Determine DEM source for logging
+            const demSource = usedFallback ? demSourceFallback : demSourcePrimary;
+
             if (shouldAccept) {
                 accepted += 1;
                 console.log(
-                    `  ✅ ${row.name}: ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m ${confStr}${fallbackTag}`
+                    `  ✅ ${row.name}: ACCEPT dist=${dist.toFixed(1)}m elev=${chosen.elevation_m.toFixed(1)}m ${confStr} [${demSource}]${fallbackTag}`
                 );
                 console.log(
                     `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
@@ -881,7 +890,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                             ${resetPublicLandsSql}
                         WHERE id = $7
                     `,
-                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", chosen.elevation_m, chosen.elevation_m, row.id]
+                        [chosen.snapped_lon, chosen.snapped_lat, dist, usedFallback ? demSourceFallback : demSourcePrimary, chosen.elevation_m, chosen.elevation_m, row.id]
                     );
 
                     if (hasPeaksPublicLands) {
@@ -907,7 +916,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                 const reason = reasons.length > 0 ? reasons.join(", ") : "unknown";
                 
                 console.log(
-                    `  🔍 ${row.name}: REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m ${confStr}${fallbackTag}`
+                    `  🔍 ${row.name}: REVIEW (${reason}) elev=${chosen.elevation_m.toFixed(1)}m ${confStr} [${demSource}]${fallbackTag}`
                 );
                 console.log(
                     `     seed=(${safeToFixed(row.lat, 6)}, ${safeToFixed(row.lon, 6)}) → snap=(${chosen.snapped_lat.toFixed(6)}, ${chosen.snapped_lon.toFixed(6)})`
@@ -928,7 +937,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                             needs_review = TRUE
                         WHERE id = $6
                     `,
-                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", chosen.elevation_m, row.id]
+                        [chosen.snapped_lon, chosen.snapped_lat, dist, usedFallback ? demSourceFallback : demSourcePrimary, chosen.elevation_m, row.id]
                     );
                 }
             }

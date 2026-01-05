@@ -1,0 +1,12 @@
+# Copy this to .env.local and fill in your values
+
+# Database connection (same as your data-backup env)
+PG_HOST=127.0.0.1
+PG_PORT=5432
+PG_USER=local-user
+PG_PASSWORD=your-password-here
+PG_DATABASE=operations
+
+# Mapbox token (get from https://account.mapbox.com/)
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.your-mapbox-token-here
+
