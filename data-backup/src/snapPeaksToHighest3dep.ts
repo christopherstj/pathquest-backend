@@ -236,7 +236,8 @@ type CollisionResult = {
 const findFirstUnclaimedCandidate = (
     candidates: SnapCandidate[],
     claimed: ClaimedCoord[],
-    collisionRadiusM: number
+    collisionRadiusM: number,
+    currentPeakId?: string  // Skip collision with self (for reprocessing)
 ): CollisionResult | null => {
     const skippedCollisions: { peakId: string; distM: number }[] = [];
     
@@ -245,6 +246,10 @@ const findFirstUnclaimedCandidate = (
         let collision: { peakId: string; distM: number } | null = null;
         
         for (const cl of claimed) {
+            // Skip self-collision when reprocessing
+            if (currentPeakId && cl.peakId === currentPeakId) {
+                continue;
+            }
             const dist = haversineM(cand.snapped_lat, cand.snapped_lon, cl.lat, cl.lon);
             if (dist < collisionRadiusM) {
                 collision = { peakId: cl.peakId, distM: dist };
@@ -737,8 +742,8 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
             if (usedFallback) fallbackDemUsed += 1;
 
-            // Find first unclaimed candidate
-            const result = findFirstUnclaimedCandidate(candidates, claimedCoords, collisionRadiusM);
+            // Find first unclaimed candidate (pass peakId to skip self-collision when reprocessing)
+            const result = findFirstUnclaimedCandidate(candidates, claimedCoords, collisionRadiusM, row.id);
             if (!result) {
                 errors += 1;
                 console.log(
