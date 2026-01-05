@@ -71,7 +71,7 @@ def find_top_elevation_candidates(
     lat: float,
     lon: float,
     radius_m: float,
-    top_n: int = 100,
+    top_n: int = 15,
     min_separation_m: float = 5.0,
 ) -> List[Tuple[float, float, float]]:
     """
@@ -170,7 +170,7 @@ def find_local_maxima(
     include_global_max: bool = True,
 ) -> List[Tuple[float, float, float]]:
     """Alias for find_top_elevation_candidates for compatibility."""
-    return find_top_elevation_candidates(dem_path, lat, lon, radius_m, top_n=100, min_separation_m=5.0)
+    return find_top_elevation_candidates(dem_path, lat, lon, radius_m, top_n=15, min_separation_m=5.0)
 
 
 def predict_summit(
