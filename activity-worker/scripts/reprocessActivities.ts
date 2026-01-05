@@ -462,11 +462,32 @@ const main = async () => {
     
     // First, get total count for progress reporting
     console.log(`\n[${getTimestamp()}] 🔍 Counting activities matching criteria...`);
-    const countQuery = query.replace(
-        /SELECT[\s\S]*?FROM activities/,
-        "SELECT COUNT(*) as count FROM activities"
-    );
-    const { rows: countRows } = await pool.query<{ count: string }>(countQuery, queryParams);
+    
+    // Build count query with same WHERE conditions (but without SELECT columns)
+    let countQuery = `SELECT COUNT(*) as count FROM activities WHERE coords IS NOT NULL`;
+    const countParams: any[] = [];
+    let countParamIndex = 1;
+    
+    if (START_FROM_ID) {
+        countQuery += ` AND id >= $${countParamIndex}`;
+        countParams.push(START_FROM_ID);
+        countParamIndex++;
+    }
+    
+    if (BBOX) {
+        const [minLon, minLat, maxLon, maxLat] = BBOX.split(",").map(Number);
+        countQuery += ` AND ST_Intersects(coords::geometry, ST_MakeEnvelope($${countParamIndex}, $${countParamIndex + 1}, $${countParamIndex + 2}, $${countParamIndex + 3}, 4326))`;
+        countParams.push(minLon, minLat, maxLon, maxLat);
+        countParamIndex += 4;
+    }
+    
+    if (STATE_FILTER && !BBOX) {
+        countQuery += ` AND EXISTS (SELECT 1 FROM peaks p WHERE p.state = $${countParamIndex} AND ST_DWithin(start_coords, p.location_coords, 100000))`;
+        countParams.push(STATE_FILTER);
+        countParamIndex++;
+    }
+    
+    const { rows: countRows } = await pool.query<{ count: string }>(countQuery, countParams);
     const totalCount = parseInt(countRows[0]?.count ?? "0", 10);
     
     const effectiveLimit = LIMIT ? Math.min(LIMIT, totalCount) : totalCount;
