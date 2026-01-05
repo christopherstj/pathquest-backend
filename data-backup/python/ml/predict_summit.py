@@ -187,6 +187,7 @@ def predict_summit(
     seed_lon: Optional[float] = None,
     top_k: int = 5,
     feature_radius_m: float = 50.0,
+    max_candidates_to_score: int = 15,  # Only score top N by elevation
 ) -> Dict[str, Any]:
     """
     Use ML model to find the best summit candidate.
@@ -197,8 +198,9 @@ def predict_summit(
         lat, lon: Seed coordinates
         radius_m: Search radius
         seed_lat, seed_lon: Original seed coords (for dist_to_seed feature)
-        top_k: Return top K candidates
+        top_k: Return top K candidates in output
         feature_radius_m: Radius for feature extraction
+        max_candidates_to_score: Only extract features for top N candidates by elevation
     
     Returns:
         Dictionary with best candidate and alternatives
@@ -229,6 +231,13 @@ def predict_summit(
     
     if not candidates:
         return {"error": "no_candidates"}
+    
+    # OPTIMIZATION: Only score top N candidates by elevation
+    # The true summit is almost always among the highest points
+    total_candidates_found = len(candidates)
+    if len(candidates) > max_candidates_to_score:
+        # candidates are already sorted by elevation descending from find_local_maxima
+        candidates = candidates[:max_candidates_to_score]
     
     # Extract features for all candidates
     feature_names = get_feature_names()
@@ -283,6 +292,7 @@ def predict_summit(
         "elevation_m": best["elevation_m"],
         "ml_probability": best["ml_probability"],
         "snapped_distance_m": best["distance_from_seed_m"],
+        "candidates_found": total_candidates_found,
         "candidates_evaluated": len(scored_candidates),
         "top_candidates": scored_candidates[:top_k],
         # Include info about highest-elevation candidate if different from ML best
@@ -312,6 +322,7 @@ def main():
     parser.add_argument("--model-path", required=True, help="Path to trained model (.joblib)")
     parser.add_argument("--feature-radius", type=float, default=50.0, help="Feature extraction radius (m)")
     parser.add_argument("--top-k", type=int, default=5, help="Number of top candidates to return")
+    parser.add_argument("--max-candidates", type=int, default=15, help="Max candidates to score (top N by elevation)")
     
     args = parser.parse_args()
     
@@ -336,6 +347,7 @@ def main():
                 seed_lon,
                 top_k=args.top_k,
                 feature_radius_m=args.feature_radius,
+                max_candidates_to_score=args.max_candidates,
             )
             result["peak_id"] = peak_id
         
