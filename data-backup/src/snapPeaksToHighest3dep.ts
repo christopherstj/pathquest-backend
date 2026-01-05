@@ -306,6 +306,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const maxBatches = process.env.SNAP_MAX_BATCHES ? Number.parseInt(process.env.SNAP_MAX_BATCHES, 10) : undefined;
     const acceptMaxDistance = Number.parseFloat(process.env.SNAP_ACCEPT_MAX_DISTANCE_M ?? "300");
     const dryRun = process.env.SNAP_DRY_RUN === "true";
+    const forceReprocess = process.env.SNAP_FORCE_REPROCESS === "true";
 
     // Collision avoidance params
     const topK = Number.parseInt(process.env.SNAP_TOP_K ?? "5", 10);
@@ -351,6 +352,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
         console.log(`DEM fallback: ${demPathFallback}`);
     }
     console.log(`Dry run (no DB writes): ${dryRun ? "YES" : "NO"}`);
+    if (forceReprocess) {
+        console.log(`Force reprocess: YES (ignoring coords_snapped_at)`);
+    }
     console.log(`ML snapping: ${useMLSnapping ? "YES" : "NO (heuristic)"}`);
     if (useMLSnapping) {
         console.log(`ML model: ${mlModelPath}`);
@@ -423,7 +427,10 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
              )
           )
     `);
-    countWhereParts.push(`(p.coords_snapped_at IS NULL)`);
+    // Allow forcing reprocess of already-snapped peaks (for testing)
+    if (!forceReprocess) {
+        countWhereParts.push(`(p.coords_snapped_at IS NULL)`);
+    }
     
     if (peakIdsFilter.length > 0) {
         countParams.push(peakIdsFilter);
@@ -481,7 +488,9 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
               )
         `);
 
-        whereParts.push(`(p.coords_snapped_at IS NULL)`);
+        if (!forceReprocess) {
+            whereParts.push(`(p.coords_snapped_at IS NULL)`);
+        }
 
         // Exclude peaks we've already processed in this session (prevents re-fetching failed peaks)
         if (processedPeakIds.size > 0) {
