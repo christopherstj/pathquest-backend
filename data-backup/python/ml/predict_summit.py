@@ -66,21 +66,23 @@ def generate_candidate_grid(
     return candidates
 
 
-def find_local_maxima(
+def find_top_elevation_candidates(
     dem_path: str,
     lat: float,
     lon: float,
     radius_m: float,
-    include_global_max: bool = True,
+    top_n: int = 100,
+    min_separation_m: float = 5.0,
 ) -> List[Tuple[float, float, float]]:
     """
-    Find local maxima (potential summit candidates) within radius.
+    Find top N highest elevation cells within radius.
     
-    Returns list of (lat, lon, elevation) for local maxima, sorted by elevation descending.
-    Always includes the global maximum within radius even if it's not a strict local max.
+    Much simpler and faster than local maxima detection.
+    Returns list of (lat, lon, elevation) sorted by elevation descending.
+    
+    Uses min_separation_m to avoid returning many cells from same flat area.
     """
     with rasterio.open(dem_path) as ds:
-        # Check CRS
         crs = ds.crs
         to_native = None
         from_native = None
@@ -95,11 +97,9 @@ def find_local_maxima(
         if to_native:
             min_x, min_y = to_native.transform(min_lon, min_lat)
             max_x, max_y = to_native.transform(max_lon, max_lat)
-            center_x, center_y = to_native.transform(lon, lat)
         else:
             min_x, min_y = min_lon, min_lat
             max_x, max_y = max_lon, max_lat
-            center_x, center_y = lon, lat
         
         try:
             window = from_bounds(min_x, min_y, max_x, max_y, ds.transform)
@@ -117,64 +117,60 @@ def find_local_maxima(
         
         win_transform = ds.window_transform(window)
         
-        # Find local maxima using scipy with different neighborhood sizes
-        from scipy.ndimage import maximum_filter
+        # Flatten and get indices sorted by elevation (descending)
+        flat = arr.flatten()
+        valid_indices = ~flat.mask if hasattr(flat, 'mask') else np.ones(len(flat), dtype=bool)
         
-        maxima = []
-        seen_coords = set()
+        # Get indices of valid cells sorted by elevation descending
+        valid_flat_indices = np.where(valid_indices)[0]
+        sorted_indices = valid_flat_indices[np.argsort(-flat[valid_flat_indices])]
         
-        # Try multiple neighborhood sizes to catch peaks at different scales
-        for size in [3, 5, 9]:
-            local_max = maximum_filter(arr.filled(-np.inf), size=size)
-            is_local_max = (arr.data == local_max) & (~arr.mask)
+        candidates = []
+        
+        for flat_idx in sorted_indices:
+            if len(candidates) >= top_n:
+                break
             
-            rows, cols = np.where(is_local_max)
+            # Convert flat index to row, col
+            r, c = np.unravel_index(flat_idx, arr.shape)
+            elev = float(arr[r, c])
             
-            for r, c in zip(rows, cols):
-                # Convert to geographic coords
-                x, y = win_transform * (c + 0.5, r + 0.5)
-                
-                if from_native:
-                    cand_lon, cand_lat = from_native.transform(x, y)
-                else:
-                    cand_lon, cand_lat = x, y
-                
-                # Check if within radius
-                dist = haversine_m(lat, lon, cand_lat, cand_lon)
-                if dist <= radius_m:
-                    # Dedupe by rounding coords
-                    coord_key = (round(cand_lat, 6), round(cand_lon, 6))
-                    if coord_key not in seen_coords:
-                        seen_coords.add(coord_key)
-                        elev = float(arr[r, c])
-                        maxima.append((cand_lat, cand_lon, elev))
+            # Convert to geographic coords
+            x, y = win_transform * (c + 0.5, r + 0.5)
+            
+            if from_native:
+                cand_lon, cand_lat = from_native.transform(x, y)
+            else:
+                cand_lon, cand_lat = x, y
+            
+            # Check if within radius
+            dist_from_center = haversine_m(lat, lon, cand_lat, cand_lon)
+            if dist_from_center > radius_m:
+                continue
+            
+            # Check separation from existing candidates
+            too_close = False
+            for existing_lat, existing_lon, _ in candidates:
+                if haversine_m(cand_lat, cand_lon, existing_lat, existing_lon) < min_separation_m:
+                    too_close = True
+                    break
+            
+            if not too_close:
+                candidates.append((cand_lat, cand_lon, elev))
         
-        # ALWAYS include the global maximum within radius
-        if include_global_max:
-            # Create distance mask
-            valid_mask = ~arr.mask
-            if valid_mask.any():
-                # Find global max
-                global_max_val = arr.max()
-                global_max_idx = np.unravel_index(arr.argmax(), arr.shape)
-                r, c = global_max_idx
-                
-                x, y = win_transform * (c + 0.5, r + 0.5)
-                if from_native:
-                    gmax_lon, gmax_lat = from_native.transform(x, y)
-                else:
-                    gmax_lon, gmax_lat = x, y
-                
-                dist = haversine_m(lat, lon, gmax_lat, gmax_lon)
-                if dist <= radius_m:
-                    coord_key = (round(gmax_lat, 6), round(gmax_lon, 6))
-                    if coord_key not in seen_coords:
-                        maxima.append((gmax_lat, gmax_lon, float(global_max_val)))
-        
-        # Sort by elevation descending
-        maxima.sort(key=lambda x: -x[2])
-        
-        return maxima
+        return candidates
+
+
+# Keep old function name as alias for compatibility
+def find_local_maxima(
+    dem_path: str,
+    lat: float,
+    lon: float,
+    radius_m: float,
+    include_global_max: bool = True,
+) -> List[Tuple[float, float, float]]:
+    """Alias for find_top_elevation_candidates for compatibility."""
+    return find_top_elevation_candidates(dem_path, lat, lon, radius_m, top_n=100, min_separation_m=5.0)
 
 
 def predict_summit(
