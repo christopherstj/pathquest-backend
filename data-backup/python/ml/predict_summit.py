@@ -227,64 +227,111 @@ def predict_summit(
     if seed_lon is None:
         seed_lon = lon
     
-    # OPTIMIZATION: Open DEM once and reuse for all operations
+    # =========================================================================
+    # CRITICAL OPTIMIZATION: Read DEM into memory ONCE
+    # =========================================================================
+    # We need a window that covers both:
+    #   - search_radius (for candidate finding)
+    #   - feature_radius (for feature extraction around candidates)
+    # So we read search_radius + feature_radius to cover all cases
+    total_radius = radius_m + feature_radius_m
+    
     with rasterio.open(dem_path) as ds:
-        # Find local maxima as candidates (more efficient than grid)
-        candidates = find_top_elevation_candidates(ds, lat, lon, radius_m)
+        crs = ds.crs
+        to_native = None
+        from_native = None
         
-        if not candidates:
-            # Fallback to grid search
-            grid_points = generate_candidate_grid(lat, lon, radius_m, step_m=10.0)
-            candidates = []
-            for cand_lat, cand_lon in grid_points:
-                features = extract_features(ds, cand_lat, cand_lon, feature_radius_m, seed_lat, seed_lon)
-                if "error" not in features:
-                    candidates.append((cand_lat, cand_lon, features.get("elevation", 0)))
+        if crs and not crs.is_geographic:
+            to_native = Transformer.from_crs("EPSG:4326", crs, always_xy=True)
+            from_native = Transformer.from_crs(crs, "EPSG:4326", always_xy=True)
         
-        if not candidates:
-            return {"error": "no_candidates"}
+        # Get bounding box for the full area we need
+        min_lon, min_lat, max_lon, max_lat = deg_window_from_radius(lat, lon, total_radius)
         
-        # OPTIMIZATION: Only score top N candidates by elevation
-        # The true summit is almost always among the highest points
-        total_candidates_found = len(candidates)
-        if len(candidates) > max_candidates_to_score:
-            # candidates are already sorted by elevation descending from find_top_elevation_candidates
-            candidates = candidates[:max_candidates_to_score]
+        if to_native:
+            min_x, min_y = to_native.transform(min_lon, min_lat)
+            max_x, max_y = to_native.transform(max_lon, max_lat)
+            center_x, center_y = to_native.transform(lon, lat)
+        else:
+            min_x, min_y = min_lon, min_lat
+            max_x, max_y = max_lon, max_lat
+            center_x, center_y = lon, lat
         
-        # Extract features for all candidates (reusing the same open dataset)
-        feature_names = get_feature_names()
-        scored_candidates = []
+        try:
+            window = from_bounds(min_x, min_y, max_x, max_y, ds.transform)
+            window = window.intersection(rasterio.windows.Window(0, 0, ds.width, ds.height))
+        except Exception:
+            return {"error": "window_error"}
         
-        for cand_lat, cand_lon, cand_elev in candidates:
-            features = extract_features(ds, cand_lat, cand_lon, feature_radius_m, seed_lat, seed_lon)
-            
-            if "error" in features:
-                continue
-            
-            # Get feature vector
-            feature_vec = features_to_vector(features)
-            if feature_vec is None:
-                continue
-            
-            # Handle NaN/Inf
-            feature_vec = [0.0 if (np.isnan(v) or np.isinf(v)) else v for v in feature_vec]
-            
-            # Predict probability
-            try:
-                proba = model.predict_proba([feature_vec])[0][1]  # Probability of class 1 (summit)
-            except Exception:
-                proba = 0.0
-            
-            dist_from_seed = haversine_m(seed_lat, seed_lon, cand_lat, cand_lon)
-            
-            scored_candidates.append({
-                "lat": cand_lat,
-                "lon": cand_lon,
-                "elevation_m": features.get("elevation", cand_elev),
-                "ml_probability": float(proba),
-                "distance_from_seed_m": dist_from_seed,
-                "features": {name: features[name] for name in feature_names},
-            })
+        if window.width < 3 or window.height < 3:
+            return {"error": "window_too_small"}
+        
+        # READ ONCE - this is the only disk I/O!
+        master_arr = ds.read(1, window=window, masked=True)
+        master_transform = ds.window_transform(window)
+        
+        if master_arr.count() == 0:
+            return {"error": "no_data"}
+        
+        # Get cell size for feature calculations
+        if crs and not crs.is_geographic:
+            cell_size_m = abs(master_transform.a)
+        else:
+            cell_size_m = abs(master_transform.a) * 111320 * math.cos(math.radians(lat))
+    
+    # =========================================================================
+    # From here on, ALL operations use the in-memory master_arr
+    # =========================================================================
+    
+    # Find top candidates from in-memory array
+    candidates = _find_candidates_from_array(
+        master_arr, master_transform, from_native,
+        lat, lon, radius_m, center_x, center_y,
+        top_n=max_candidates_to_score, min_separation_m=5.0
+    )
+    
+    if not candidates:
+        return {"error": "no_candidates"}
+    
+    total_candidates_found = len(candidates)
+    
+    # Extract features and score candidates - all from in-memory array
+    feature_names = get_feature_names()
+    scored_candidates = []
+    
+    for cand_lat, cand_lon, cand_elev in candidates:
+        # Extract features from in-memory array
+        features = _extract_features_from_array(
+            master_arr, master_transform, from_native, to_native,
+            cand_lat, cand_lon, feature_radius_m, cell_size_m,
+            seed_lat, seed_lon
+        )
+        
+        if features is None:
+            continue
+        
+        # Get feature vector
+        feature_vec = [features.get(name, 0.0) for name in feature_names]
+        
+        # Handle NaN/Inf
+        feature_vec = [0.0 if (np.isnan(v) or np.isinf(v)) else v for v in feature_vec]
+        
+        # Predict probability
+        try:
+            proba = model.predict_proba([feature_vec])[0][1]
+        except Exception:
+            proba = 0.0
+        
+        dist_from_seed = haversine_m(seed_lat, seed_lon, cand_lat, cand_lon)
+        
+        scored_candidates.append({
+            "lat": cand_lat,
+            "lon": cand_lon,
+            "elevation_m": cand_elev,
+            "ml_probability": float(proba),
+            "distance_from_seed_m": dist_from_seed,
+            "features": features,
+        })
     
     if not scored_candidates:
         return {"error": "no_valid_candidates"}
@@ -307,13 +354,200 @@ def predict_summit(
         "candidates_found": total_candidates_found,
         "candidates_evaluated": len(scored_candidates),
         "top_candidates": scored_candidates[:top_k],
-        # Include info about highest-elevation candidate if different from ML best
         "highest_elev_candidate": {
             "lat": highest_elev_candidate["lat"],
             "lon": highest_elev_candidate["lon"],
             "elevation_m": highest_elev_candidate["elevation_m"],
             "ml_probability": highest_elev_candidate["ml_probability"],
         } if highest_elev_candidate != best else None,
+    }
+
+
+def _find_candidates_from_array(
+    arr: np.ma.MaskedArray,
+    transform,
+    from_native,
+    center_lat: float,
+    center_lon: float,
+    radius_m: float,
+    center_x: float,
+    center_y: float,
+    top_n: int = 15,
+    min_separation_m: float = 5.0,
+) -> List[Tuple[float, float, float]]:
+    """Find top N highest elevation candidates from an in-memory array."""
+    
+    # Flatten and sort by elevation
+    flat = arr.flatten()
+    valid_indices = ~flat.mask if hasattr(flat, 'mask') else np.ones(len(flat), dtype=bool)
+    valid_flat_indices = np.where(valid_indices)[0]
+    
+    if len(valid_flat_indices) == 0:
+        return []
+    
+    sorted_indices = valid_flat_indices[np.argsort(-flat[valid_flat_indices])]
+    
+    candidates = []
+    
+    for flat_idx in sorted_indices:
+        if len(candidates) >= top_n:
+            break
+        
+        r, c = np.unravel_index(flat_idx, arr.shape)
+        elev = float(arr[r, c])
+        
+        # Convert to geographic coords
+        x, y = transform * (c + 0.5, r + 0.5)
+        
+        if from_native:
+            cand_lon, cand_lat = from_native.transform(x, y)
+        else:
+            cand_lon, cand_lat = x, y
+        
+        # Check if within search radius
+        dist_from_center = haversine_m(center_lat, center_lon, cand_lat, cand_lon)
+        if dist_from_center > radius_m:
+            continue
+        
+        # Check separation from existing candidates
+        too_close = False
+        for existing_lat, existing_lon, _ in candidates:
+            if haversine_m(cand_lat, cand_lon, existing_lat, existing_lon) < min_separation_m:
+                too_close = True
+                break
+        
+        if not too_close:
+            candidates.append((cand_lat, cand_lon, elev))
+    
+    return candidates
+
+
+def _extract_features_from_array(
+    master_arr: np.ma.MaskedArray,
+    master_transform,
+    from_native,
+    to_native,
+    lat: float,
+    lon: float,
+    radius_m: float,
+    cell_size_m: float,
+    seed_lat: float,
+    seed_lon: float,
+) -> Optional[Dict[str, float]]:
+    """Extract ML features from an in-memory array (no disk I/O)."""
+    
+    # Convert lat/lon to array coordinates
+    if to_native:
+        x, y = to_native.transform(lon, lat)
+    else:
+        x, y = lon, lat
+    
+    inv_transform = ~master_transform
+    col, row = inv_transform * (x, y)
+    center_row, center_col = int(round(row)), int(round(col))
+    
+    # Compute window size in cells
+    cells_radius = int(math.ceil(radius_m / cell_size_m))
+    
+    # Get bounds for this feature window within the master array
+    r_min = max(0, center_row - cells_radius)
+    r_max = min(master_arr.shape[0], center_row + cells_radius + 1)
+    c_min = max(0, center_col - cells_radius)
+    c_max = min(master_arr.shape[1], center_col + cells_radius + 1)
+    
+    if r_max - r_min < 3 or c_max - c_min < 3:
+        return None
+    
+    # Extract sub-array (this is just numpy slicing, instant)
+    arr = master_arr[r_min:r_max, c_min:c_max]
+    
+    # Adjust center position relative to sub-array
+    local_row = center_row - r_min
+    local_col = center_col - c_min
+    
+    # Clamp to bounds
+    local_row = max(0, min(arr.shape[0] - 1, local_row))
+    local_col = max(0, min(arr.shape[1] - 1, local_col))
+    
+    center_elev = arr[local_row, local_col]
+    if np.ma.is_masked(center_elev):
+        return None
+    
+    center_elev = float(center_elev)
+    valid_elevs = arr.compressed()
+    
+    if len(valid_elevs) == 0:
+        return None
+    
+    # === Compute features ===
+    
+    # 1. Elevation rank
+    elev_rank = float(np.sum(valid_elevs <= center_elev)) / len(valid_elevs)
+    
+    # 2. Directional gradients
+    distance_cells = max(1, int(round(radius_m / 5 / cell_size_m)))
+    gradients = {}
+    directions = {
+        "N": (-1, 0), "S": (1, 0), "E": (0, 1), "W": (0, -1),
+        "NE": (-1, 1), "SE": (1, 1), "SW": (1, -1), "NW": (-1, -1),
+    }
+    
+    for name, (dr, dc) in directions.items():
+        tr = local_row + dr * distance_cells
+        tc = local_col + dc * distance_cells
+        if 0 <= tr < arr.shape[0] and 0 <= tc < arr.shape[1]:
+            target_elev = arr[tr, tc]
+            if not np.ma.is_masked(target_elev):
+                gradients[name] = float(center_elev - target_elev)
+            else:
+                gradients[name] = 0.0
+        else:
+            gradients[name] = 0.0
+    
+    min_gradient = min(gradients.values())
+    mean_gradient = sum(gradients.values()) / len(gradients)
+    grad_variance = float(np.var(list(gradients.values())))
+    
+    # 3. Local relief
+    local_relief = float(valid_elevs.max() - valid_elevs.min())
+    
+    # 4. Percent lower
+    pct_lower = float(np.sum(valid_elevs < center_elev)) / len(valid_elevs)
+    
+    # 5. Curvature (Laplacian)
+    curvature = 0.0
+    if 1 <= local_row < arr.shape[0] - 1 and 1 <= local_col < arr.shape[1] - 1:
+        neighbors = [
+            arr[local_row - 1, local_col],
+            arr[local_row + 1, local_col],
+            arr[local_row, local_col - 1],
+            arr[local_row, local_col + 1],
+        ]
+        if not any(np.ma.is_masked(n) for n in neighbors):
+            laplacian = (sum(float(n) for n in neighbors) - 4 * center_elev) / (cell_size_m ** 2)
+            curvature = -laplacian  # Positive = convex summit
+    
+    # 6. Distance to seed
+    dist_to_seed = haversine_m(lat, lon, seed_lat, seed_lon)
+    
+    return {
+        "elevation": center_elev,
+        "elev_rank": elev_rank,
+        "gradient_N": gradients["N"],
+        "gradient_S": gradients["S"],
+        "gradient_E": gradients["E"],
+        "gradient_W": gradients["W"],
+        "gradient_NE": gradients["NE"],
+        "gradient_SE": gradients["SE"],
+        "gradient_SW": gradients["SW"],
+        "gradient_NW": gradients["NW"],
+        "min_gradient": min_gradient,
+        "mean_gradient": mean_gradient,
+        "grad_variance": grad_variance,
+        "local_relief": local_relief,
+        "pct_lower": pct_lower,
+        "curvature": curvature,
+        "dist_to_seed": dist_to_seed,
     }
 
 
