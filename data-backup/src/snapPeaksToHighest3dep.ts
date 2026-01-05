@@ -814,6 +814,7 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                         SET snapped_coords = ${snappedPointGeom},
                             snapped_distance_m = $3,
                             snapped_dem_source = $4,
+                            snapped_elevation_m = $5,
                             coords_snapped_at = NOW(),
                             needs_review = FALSE,
                             location_coords = (${snappedPointGeom})::geography
@@ -865,11 +866,12 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                         SET snapped_coords = ST_SetSRID(ST_MakePoint($1, $2), 4326),
                             snapped_distance_m = $3,
                             snapped_dem_source = $4,
+                            snapped_elevation_m = $5,
                             coords_snapped_at = NOW(),
                             needs_review = TRUE
-                        WHERE id = $5
+                        WHERE id = $6
                     `,
-                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", row.id]
+                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", chosen.elevation_m, row.id]
                     );
                 }
             }
