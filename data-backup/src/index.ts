@@ -50,6 +50,9 @@ const main = async () => {
             case "snap-peaks-3dep":
                 await snapPeaksToHighest3dep();
                 return;
+            case "enrich-geocoding-postgis":
+                await enrichGeocodingPostGIS();
+                return;
             case "post-snap-enrichment":
                 await enrichGeocodingPostGIS();
                 await enrichPeaksWithPublicLands();
@@ -60,15 +63,16 @@ const main = async () => {
             default:
                 console.log(`Unknown TASK: ${task}`);
                 console.log(`Known TASK values:`);
-                console.log(`  - enrich-peaks-public-lands`);
+                console.log(`  - enrich-geocoding-postgis    (geocode country/state/county)`);
+                console.log(`  - enrich-peaks-public-lands   (tag peaks with public land info)`);
+                console.log(`  - post-snap-enrichment        (geocoding + public lands)`);
+                console.log(`  - snap-peaks-3dep             (snap coords to DEM highest point)`);
+                console.log(`  - compute-summit-zones        (compute summit zone polygons)`);
                 console.log(`  - import-peakbagger-peaks`);
                 console.log(`  - import-climb13ers-peaks`);
                 console.log(`  - import-14ers-peaks`);
                 console.log(`  - export-14ers-ranked`);
                 console.log(`  - create-14ers-challenges`);
-                console.log(`  - snap-peaks-3dep`);
-                console.log(`  - post-snap-enrichment`);
-                console.log(`  - compute-summit-zones`);
                 return;
         }
     }

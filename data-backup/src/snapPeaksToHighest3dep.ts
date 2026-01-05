@@ -304,9 +304,18 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     const mlScript = process.env.SNAP_ML_SCRIPT ?? "python/ml/predict_summit.py";
     const mlModelPath = process.env.SUMMIT_MODEL_PATH ?? "python/ml/models/summit_model.joblib";
 
-    const state = process.env.SNAP_STATE ?? "CO";
-    const country = process.env.SNAP_COUNTRY ?? "US";
+    const state = process.env.SNAP_STATE ?? ""; // empty = no filter
+    const country = process.env.SNAP_COUNTRY ?? ""; // empty = no filter
+    const sourceOrigin = process.env.SNAP_SOURCE_ORIGIN ?? ""; // e.g., "14ers", "osm" - empty = no filter
+    const hasExternalSource = process.env.SNAP_HAS_EXTERNAL_SOURCE ?? ""; // e.g., "14ers" - filter peaks with this external ID source
     const elevationMin = Number.parseFloat(process.env.SNAP_ELEVATION_MIN_M ?? "3962"); // ~13,000 ft
+    
+    // Safety check: require at least one geographic or source filter
+    const peakIdsFromEnv = (process.env.SNAP_PEAK_IDS ?? "").trim();
+    const peakNameFromEnv = (process.env.SNAP_PEAK_NAME_ILIKE ?? "").trim();
+    if (!country && !state && !sourceOrigin && !hasExternalSource && !peakIdsFromEnv && !peakNameFromEnv) {
+        throw new Error("At least one filter required: SNAP_COUNTRY, SNAP_STATE, SNAP_SOURCE_ORIGIN, SNAP_HAS_EXTERNAL_SOURCE, SNAP_PEAK_IDS, or SNAP_PEAK_NAME_ILIKE");
+    }
     const batchSize = Number.parseInt(process.env.SNAP_BATCH_SIZE ?? "500", 10);
     const maxBatches = process.env.SNAP_MAX_BATCHES ? Number.parseInt(process.env.SNAP_MAX_BATCHES, 10) : undefined;
     const acceptMaxDistance = Number.parseFloat(process.env.SNAP_ACCEPT_MAX_DISTANCE_M ?? "300");
@@ -347,8 +356,14 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     console.log("\n" + "═".repeat(80));
     console.log("SNAP-TO-HIGHEST (3DEP) - Node orchestrator + Python rasterio");
     console.log("═".repeat(80));
-    console.log(`Country: ${country}`);
-    console.log(`State: ${state}`);
+    console.log(`Country: ${country || "(all)"}`);
+    console.log(`State: ${state || "(all)"}`);
+    if (sourceOrigin) {
+        console.log(`Source origin filter: ${sourceOrigin}`);
+    }
+    if (hasExternalSource) {
+        console.log(`Has external ID from: ${hasExternalSource}`);
+    }
     console.log(`Elevation min (m): ${elevationMin}`);
     console.log(`Batch size: ${batchSize}`);
     console.log(`Accept max distance (m): ${acceptMaxDistance}`);
@@ -391,16 +406,34 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
     // First, load any already-snapped peaks' coordinates into claimed set
     console.log("\nLoading already-snapped peaks to avoid collisions...");
+    const alreadySnappedWhere: string[] = [
+        "p.coords_snapped_at IS NOT NULL",
+        "p.location_geom IS NOT NULL",
+    ];
+    const alreadySnappedParams: any[] = [];
+    if (country) {
+        alreadySnappedParams.push(country);
+        alreadySnappedWhere.push(`p.country = $${alreadySnappedParams.length}`);
+    }
+    if (state) {
+        alreadySnappedParams.push(state);
+        alreadySnappedWhere.push(`p.state = $${alreadySnappedParams.length}`);
+    }
+    if (sourceOrigin) {
+        alreadySnappedParams.push(sourceOrigin);
+        alreadySnappedWhere.push(`p.source_origin = $${alreadySnappedParams.length}`);
+    }
+    if (hasExternalSource) {
+        alreadySnappedParams.push(hasExternalSource);
+        alreadySnappedWhere.push(`EXISTS (SELECT 1 FROM peak_external_ids pei WHERE pei.peak_id = p.id AND pei.source = $${alreadySnappedParams.length})`);
+    }
     const { rows: alreadySnapped } = await pool.query<{ id: string; lat: number; lon: number }>(
         `
         SELECT p.id, ST_Y(p.location_geom) AS lat, ST_X(p.location_geom) AS lon
         FROM peaks p
-        WHERE p.country = $1
-          AND p.state = $2
-          AND p.coords_snapped_at IS NOT NULL
-          AND p.location_geom IS NOT NULL
+        WHERE ${alreadySnappedWhere.join("\n          AND ")}
     `,
-        [country, state]
+        alreadySnappedParams
     );
     for (const row of alreadySnapped) {
         claimedCoords.push({ lat: row.lat, lon: row.lon, peakId: row.id });
@@ -410,10 +443,22 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
     // Get total count of peaks to process for progress reporting
     const countWhereParts: string[] = [];
     const countParams: any[] = [];
-    countParams.push(country);
-    countWhereParts.push(`p.country = $${countParams.length}`);
-    countParams.push(state);
-    countWhereParts.push(`p.state = $${countParams.length}`);
+    if (country) {
+        countParams.push(country);
+        countWhereParts.push(`p.country = $${countParams.length}`);
+    }
+    if (state) {
+        countParams.push(state);
+        countWhereParts.push(`p.state = $${countParams.length}`);
+    }
+    if (sourceOrigin) {
+        countParams.push(sourceOrigin);
+        countWhereParts.push(`p.source_origin = $${countParams.length}`);
+    }
+    if (hasExternalSource) {
+        countParams.push(hasExternalSource);
+        countWhereParts.push(`EXISTS (SELECT 1 FROM peak_external_ids pei WHERE pei.peak_id = p.id AND pei.source = $${countParams.length})`);
+    }
     countParams.push(elevationMin);
     countWhereParts.push(`
           (
@@ -475,10 +520,22 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
 
         const whereParts: string[] = [];
         const params: any[] = [];
-        params.push(country);
-        whereParts.push(`p.country = $${params.length}`);
-        params.push(state);
-        whereParts.push(`p.state = $${params.length}`);
+        if (country) {
+            params.push(country);
+            whereParts.push(`p.country = $${params.length}`);
+        }
+        if (state) {
+            params.push(state);
+            whereParts.push(`p.state = $${params.length}`);
+        }
+        if (sourceOrigin) {
+            params.push(sourceOrigin);
+            whereParts.push(`p.source_origin = $${params.length}`);
+        }
+        if (hasExternalSource) {
+            params.push(hasExternalSource);
+            whereParts.push(`EXISTS (SELECT 1 FROM peak_external_ids pei WHERE pei.peak_id = p.id AND pei.source = $${params.length})`);
+        }
 
         params.push(elevationMin);
         whereParts.push(`
