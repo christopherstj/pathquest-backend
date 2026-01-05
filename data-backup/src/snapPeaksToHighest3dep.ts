@@ -876,12 +876,12 @@ export default async function snapPeaksToHighest3dep(): Promise<void> {
                             needs_review = FALSE,
                             location_coords = (${snappedPointGeom})::geography
                             ${setLocationGeomSql},
-                            elevation = $5,
+                            elevation = $6,
                             elevation_source = 'usgs_3dep'
                             ${resetPublicLandsSql}
-                        WHERE id = $6
+                        WHERE id = $7
                     `,
-                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", chosen.elevation_m, row.id]
+                        [chosen.snapped_lon, chosen.snapped_lat, dist, "usgs_3dep_10m", chosen.elevation_m, chosen.elevation_m, row.id]
                     );
 
                     if (hasPeaksPublicLands) {
