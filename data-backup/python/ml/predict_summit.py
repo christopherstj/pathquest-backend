@@ -71,11 +71,13 @@ def find_local_maxima(
     lat: float,
     lon: float,
     radius_m: float,
+    include_global_max: bool = True,
 ) -> List[Tuple[float, float, float]]:
     """
     Find local maxima (potential summit candidates) within radius.
     
-    Returns list of (lat, lon, elevation) for local maxima.
+    Returns list of (lat, lon, elevation) for local maxima, sorted by elevation descending.
+    Always includes the global maximum within radius even if it's not a strict local max.
     """
     with rasterio.open(dem_path) as ds:
         # Check CRS
@@ -115,31 +117,62 @@ def find_local_maxima(
         
         win_transform = ds.window_transform(window)
         
-        # Find local maxima using scipy
+        # Find local maxima using scipy with different neighborhood sizes
         from scipy.ndimage import maximum_filter
         
-        # Use 5x5 neighborhood
-        local_max = maximum_filter(arr.filled(-np.inf), size=5)
-        is_local_max = (arr.data == local_max) & (~arr.mask)
-        
-        # Get coordinates of local maxima
         maxima = []
-        rows, cols = np.where(is_local_max)
+        seen_coords = set()
         
-        for r, c in zip(rows, cols):
-            # Convert to geographic coords
-            x, y = win_transform * (c + 0.5, r + 0.5)
+        # Try multiple neighborhood sizes to catch peaks at different scales
+        for size in [3, 5, 9]:
+            local_max = maximum_filter(arr.filled(-np.inf), size=size)
+            is_local_max = (arr.data == local_max) & (~arr.mask)
             
-            if from_native:
-                cand_lon, cand_lat = from_native.transform(x, y)
-            else:
-                cand_lon, cand_lat = x, y
+            rows, cols = np.where(is_local_max)
             
-            # Check if within radius
-            dist = haversine_m(lat, lon, cand_lat, cand_lon)
-            if dist <= radius_m:
-                elev = float(arr[r, c])
-                maxima.append((cand_lat, cand_lon, elev))
+            for r, c in zip(rows, cols):
+                # Convert to geographic coords
+                x, y = win_transform * (c + 0.5, r + 0.5)
+                
+                if from_native:
+                    cand_lon, cand_lat = from_native.transform(x, y)
+                else:
+                    cand_lon, cand_lat = x, y
+                
+                # Check if within radius
+                dist = haversine_m(lat, lon, cand_lat, cand_lon)
+                if dist <= radius_m:
+                    # Dedupe by rounding coords
+                    coord_key = (round(cand_lat, 6), round(cand_lon, 6))
+                    if coord_key not in seen_coords:
+                        seen_coords.add(coord_key)
+                        elev = float(arr[r, c])
+                        maxima.append((cand_lat, cand_lon, elev))
+        
+        # ALWAYS include the global maximum within radius
+        if include_global_max:
+            # Create distance mask
+            valid_mask = ~arr.mask
+            if valid_mask.any():
+                # Find global max
+                global_max_val = arr.max()
+                global_max_idx = np.unravel_index(arr.argmax(), arr.shape)
+                r, c = global_max_idx
+                
+                x, y = win_transform * (c + 0.5, r + 0.5)
+                if from_native:
+                    gmax_lon, gmax_lat = from_native.transform(x, y)
+                else:
+                    gmax_lon, gmax_lat = x, y
+                
+                dist = haversine_m(lat, lon, gmax_lat, gmax_lon)
+                if dist <= radius_m:
+                    coord_key = (round(gmax_lat, 6), round(gmax_lon, 6))
+                    if coord_key not in seen_coords:
+                        maxima.append((gmax_lat, gmax_lon, float(global_max_val)))
+        
+        # Sort by elevation descending
+        maxima.sort(key=lambda x: -x[2])
         
         return maxima
 
@@ -241,6 +274,9 @@ def predict_summit(
     # Select best candidate
     best = scored_candidates[0]
     
+    # Also find the highest-elevation candidate for comparison
+    highest_elev_candidate = max(scored_candidates, key=lambda c: c["elevation_m"])
+    
     return {
         "snapped_lat": best["lat"],
         "snapped_lon": best["lon"],
@@ -249,6 +285,13 @@ def predict_summit(
         "snapped_distance_m": best["distance_from_seed_m"],
         "candidates_evaluated": len(scored_candidates),
         "top_candidates": scored_candidates[:top_k],
+        # Include info about highest-elevation candidate if different from ML best
+        "highest_elev_candidate": {
+            "lat": highest_elev_candidate["lat"],
+            "lon": highest_elev_candidate["lon"],
+            "elevation_m": highest_elev_candidate["elevation_m"],
+            "ml_probability": highest_elev_candidate["ml_probability"],
+        } if highest_elev_candidate != best else None,
     }
 
 

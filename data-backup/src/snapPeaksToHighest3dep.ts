@@ -157,6 +157,12 @@ type MLSnapResult = {
     ml_probability?: number;
     snapped_distance_m?: number;
     candidates_evaluated?: number;
+    highest_elev_candidate?: {
+        lat: number;
+        lon: number;
+        elevation_m: number;
+        ml_probability: number;
+    } | null;
     error?: string;
 };
 
