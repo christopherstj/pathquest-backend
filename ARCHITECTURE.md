@@ -532,6 +532,13 @@ PathQuest can tag US peaks with public land / protected area metadata by importi
 - `PADUS_OGR_SELECT`: comma-separated list of columns to import (reduces width)
 - `PADUS_OGR_GT`: transaction group size for `ogr2ogr` (default `65536`)
 
+**Enrichment**:
+- Task: `TASK=enrich-peaks-public-lands`
+- Automatically processes peaks where `public_lands_checked = FALSE`
+- Creates entries in `peaks_public_lands` junction table (many-to-many: peaks can be in multiple overlapping areas)
+- Batch size controlled by `PUBLIC_LANDS_BATCH_SIZE` (default `10000`)
+- After snapping peaks, re-run enrichment to update public lands membership for moved coordinates
+
 ---
 
 ### Peak External IDs + Peakbagger Peak Ingest (Seed List)
@@ -673,6 +680,12 @@ TASK=snap-peaks-3dep DEM_VRT_PATH=/path/to/co_3dep.vrt npm run dev:once
 - The snap task prints the **seed/original coordinates** and the **snapped coordinates** for each processed peak (plus snapped distance and DEM elevation) to support quick validation before writing updates.
 - Collisions are logged with the ID of the peak that claimed the coordinate.
 
+**DEM source tracking**
+- The script automatically detects DEM source from path (`usgs_3dep_1m`, `usgs_3dep_10m`) or via `DEM_SOURCE_NAME` / `DEM_SOURCE_NAME_FALLBACK` env vars
+- `snapped_dem_source` column stores which DEM was used (`usgs_3dep_1m`, `usgs_3dep_10m`, or `manual` for custom picks)
+- Logging shows `[usgs_3dep_1m]` or `[usgs_3dep_10m]` tags for each processed peak
+- Fallback DEM is used when primary DEM returns `no_data` or `no_local_max` errors
+
 **Public lands correctness after snapping**
 - When a peak is accepted (primary location updated), the snap script resets public-lands state:
   - sets `peaks.public_lands_checked = FALSE` (if column exists)
@@ -786,3 +799,105 @@ TASK=compute-summit-zones DEM_VRT_PATH=$HOME/dem/co/co_3dep_1m.vrt ZONE_STATES=C
 **Requirements**
 - Peaks must have been snapped (`coords_snapped_at IS NOT NULL`) to ensure DEM coverage
 - Python `shapely` package (added to `python/requirements.txt`)
+
+---
+
+### Peak Review Tool (`data-backup/review-tool/`)
+
+PathQuest includes a Next.js-based review tool for manually vetting snapped peak coordinates and user-flagged peaks.
+
+**Purpose**: Review peaks that need manual verification:
+- Peaks flagged for review by the snapping algorithm (collisions, low confidence, large distance)
+- Peaks flagged by users via the main web app (`needs_review = true`)
+
+**Features**:
+- **3D Mapbox terrain visualization** with seed, snapped, and custom coordinate markers
+- **Handles both snapped and unflagged peaks** — unflagged peaks show only current location (no snapped coords)
+- **Custom coordinate picking** — click map to place custom marker, accept custom coordinates
+- **Peak deletion** — remove incorrect or duplicate peaks
+- **Accept/Reject workflow** — accept snapped coords, reject and revert, or skip
+- **Distance and elevation change display** — shows how far coords moved and elevation delta
+
+**Tech Stack**:
+- Next.js 16 (App Router)
+- Mapbox GL JS (3D terrain)
+- shadcn/ui components
+- Tailwind CSS
+- PostgreSQL (via `pg`)
+
+**Database Schema**:
+- Reads from `peaks` table: `id`, `name`, `elevation`, `seed_coords`, `snapped_coords`, `snapped_elevation_m`, `snapped_distance_m`, `snapped_dem_source`, `needs_review`, `country`, `state`
+- Updates: `location_coords`, `location_geom`, `elevation`, `snapped_coords`, `snapped_elevation_m`, `snapped_distance_m`, `snapped_dem_source`, `needs_review`, `coords_snapped_at`
+
+**API Routes** (`src/app/api/peaks/`):
+- `GET /review` — Paginated list of peaks needing review (query params: `limit`, `offset`)
+- `POST /update` — Accept or reject a peak (`{ peakId, action: 'accept' | 'reject' }`)
+- `POST /accept-custom` — Accept custom coordinates (`{ peakId, lat, lon }`)
+- `POST /delete` — Delete peak and cascade junction tables
+
+**Usage**:
+```bash
+cd pathquest-backend/data-backup/review-tool
+npm install
+npm run dev  # Development
+npm run build && npm start  # Production
+```
+
+**Environment Variables**:
+- `NEXT_PUBLIC_MAPBOX_TOKEN` — Mapbox access token (required)
+- `PG_USER`, `PG_PASSWORD`, `PG_DATABASE`, `PG_HOST`, `PG_PORT` — Database connection
+
+**Workflow**:
+1. Tool queries `peaks WHERE needs_review = TRUE`
+2. Displays list sorted by elevation (highest first)
+3. For each peak:
+   - Shows seed (red) and snapped (green) markers if snapped
+   - Shows only current location (amber) if not snapped
+   - User can accept, reject, pick custom coords, or delete
+4. Accepting updates primary location and clears `needs_review`
+5. Rejecting reverts to seed coords and clears `needs_review`
+6. Custom coords are stored as `snapped_coords` with `snapped_dem_source = 'manual'`
+
+---
+
+### Activity Reprocessing (`activity-worker/scripts/reprocessActivities.ts`)
+
+Script to reprocess activities with updated peak data (e.g., after adding new peaks or improving summit detection).
+
+**Features**:
+- **Cursor-based pagination** — processes activities in batches to avoid OOM
+- **Geographic filtering** — filter by bounding box or state
+- **Verbose progress logging** — ETA, rate, memory usage, per-batch summaries
+- **Concurrent processing** — configurable parallelism with weather API rate limiting
+
+**Usage**:
+```bash
+cd pathquest-backend/activity-worker
+npm run reprocess:activities
+```
+
+**Environment Variables**:
+- `BATCH_SIZE` (default `100`) — activities per batch
+- `CONCURRENCY` (default `10`) — parallel activities per batch
+- `LIMIT` — max activities to process (optional)
+- `REPROCESS_BBOX` — bounding box filter: `"min_lon,min_lat,max_lon,max_lat"` (e.g., `"-109.05,36.99,-102.04,41.00"` for Colorado)
+- `REPROCESS_STATE` — state filter (e.g., `"CO"`)
+- `WEATHER_DELAY_MS` (default `200`) — delay between weather API calls
+- `VERBOSE` (default `true`) — detailed per-activity logging
+
+**Example** (Colorado activities only):
+```bash
+BATCH_SIZE=50 CONCURRENCY=5 REPROCESS_BBOX="-109.05,36.99,-102.04,41.00" npm run reprocess:activities
+```
+
+**What it does**:
+1. Deletes existing `activities_peaks` entries for each activity
+2. Re-runs `processCoords()` with current peak database
+3. Fetches historical weather for detected summits
+4. Saves new summits with confidence scores
+
+**Progress Output**:
+- Startup banner with configuration
+- Per-batch progress with ETA and rate
+- Memory usage tracking
+- Final summary with totals and timing
