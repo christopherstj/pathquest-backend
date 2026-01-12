@@ -28,7 +28,7 @@ const processUpdateMessage = async (
         }
 
         if ("type" in event.updates && typeof event.updates.type === "string") {
-            await pool.query(`UPDATE Activity SET sport = $1 WHERE id = $2`, [
+            await pool.query(`UPDATE activities SET sport = $1 WHERE id = $2`, [
                 event.updates.type,
                 id,
             ]);
