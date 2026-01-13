@@ -11,6 +11,7 @@ import getStravaDescription from "./getStravaDescription";
 import setUsageData from "./setUsageData";
 import deleteActivity from "./deleteActivity";
 import getHistoricalWeatherByCoords from "./getHistoricalWeatherByCoords";
+import sendSummitNotifications from "./sendSummitNotifications";
 
 const getStravaActivity = async (id: number, userId: string) => {
     const accessToken = await getStravaAccessToken(userId);
@@ -143,6 +144,15 @@ const getStravaActivity = async (id: number, userId: string) => {
 
         if (peakDetails.length > 0) {
             await saveActivitySummits(peakDetails, id.toString(), isPublic, activity.utc_offset || 0);
+            
+            // Send push notifications for auto-detected summits (fire and forget)
+            // This is the right place - user didn't manually log these, system discovered them
+            sendSummitNotifications(userId, peakDetails.map(p => ({
+                peakId: p.peakId,
+                timestamp: p.timestamp,
+            }))).catch((err) => {
+                console.error("[getStravaActivity] Failed to send summit notifications:", err);
+            });
         }
 
         const description = await getStravaDescription(

@@ -135,6 +135,14 @@ PathQuest Backend consists of multiple serverless workers that process Strava we
     - Public/private status
 - `saveActivitySummits` - Saves detected peak summits
   - Inserts into `activities_peaks` table
+- `sendSummitNotifications` - Sends push notifications for auto-detected summits
+  - Queries `user_settings` to check if user has notifications enabled
+  - Queries `user_push_tokens` for user's registered device tokens
+  - Looks up peak names from database
+  - Sends to Expo Push API (`https://exp.host/--/api/v2/push/send`)
+  - Handles single or multiple summits (batched notification)
+  - Removes invalid tokens (DeviceNotRegistered) automatically
+  - **Only called for auto-detected summits** - not for manual summit logging
 - `detectSummits` - Core algorithm for detecting peak summits from coordinate data
   - Takes coordinate stream (points with lat/lng/time/altitude) and peak locations
   - Uses multi-factor confidence scoring system (not just distance threshold)
