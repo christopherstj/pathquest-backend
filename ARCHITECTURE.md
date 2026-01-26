@@ -899,10 +899,18 @@ BATCH_SIZE=50 CONCURRENCY=5 REPROCESS_BBOX="-109.05,36.99,-102.04,41.00" npm run
 ```
 
 **What it does**:
-1. Deletes existing `activities_peaks` entries for each activity
-2. Re-runs `processCoords()` with current peak database
-3. Fetches historical weather for detected summits
-4. Saves new summits with confidence scores
+1. **Backs up user data** (notes, ratings, tags, confirmation status) before reprocessing
+2. **Preserves summits** that are user-confirmed, denied, or have photos attached (ON DELETE CASCADE protection)
+3. Re-runs `processCoords()` with current peak database and updated thresholds
+4. Fetches historical weather for newly detected summits
+5. Saves new summits with confidence scores
+6. **Restores user data** to newly created summits that match previously existing peaks
+
+**Data Preservation** (Jan 2026):
+- User-confirmed summits are never deleted
+- Denied summits are never deleted (kept for audit)
+- Summits with photos are never deleted (photos would be orphaned via CASCADE)
+- Trip reports (notes, difficulty, experience_rating, condition_tags) are restored to re-detected summits
 
 **Progress Output**:
 - Startup banner with configuration
